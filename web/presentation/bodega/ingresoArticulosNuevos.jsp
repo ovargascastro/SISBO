@@ -154,7 +154,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" onclick="cerrarInfoArt()" >Cerrar</button></div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" onclick="CerrarInfoArt()" >Cerrar</button></div>
                 </div>
             </div>
         </div>
