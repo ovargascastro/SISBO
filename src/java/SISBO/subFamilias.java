@@ -27,9 +27,9 @@ public class subFamilias {
 
     @GET
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    public List<SboTbSubFamilia> getSubFamilias(@QueryParam("nombre") String nombre) throws ClassNotFoundException, SQLException {
+    public List<SboTbSubFamilia> getSubFamilias(@QueryParam("filtro") String filtro) throws ClassNotFoundException, SQLException {
 
-        List<SboTbSubFamilia> lista = Model.instance().listaSubFamilias();
+        List<SboTbSubFamilia> lista = Model.instance().listaSubFamilias(filtro);
         List<SboTbSubFamilia> lista2 = lista;
         return lista2;
 

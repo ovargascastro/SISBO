@@ -5,6 +5,7 @@
  */
 package data;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -64,11 +65,12 @@ public class catalogosDAO {
 
     }
 
-    public List<SboTbFamilia> listaFamilias() {
+    
+        public List<SboTbFamilia> listaFamilias (String filtro) {
         List<SboTbFamilia> resultado = new ArrayList<SboTbFamilia>();
         try {
-            String sql = "select * from Sbo_TB_Familia";
-            sql = String.format(sql);
+            String sql = "select * from Sbo_TB_Familia f where f.Fami_Desc like '%%%s%%'";
+            sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
                 resultado.add(familia(rs));
@@ -78,11 +80,11 @@ public class catalogosDAO {
         return resultado;
     }
 
-    public List<SboTbSubFamilia> listaSubFamilias() {
+    public List<SboTbSubFamilia> listaSubFamilias(String filtro) {
         List<SboTbSubFamilia> resultado = new ArrayList<SboTbSubFamilia>();
         try {
-            String sql = "select * from Sbo_TB_SubFamilia";
-            sql = String.format(sql);
+            String sql = "select * from Sbo_TB_SubFamilia s where s.SubFami_Desc like '%%%s%%'";
+            sql = String.format(sql,filtro);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
                 resultado.add(Subfamilia(rs));
@@ -92,12 +94,12 @@ public class catalogosDAO {
         return resultado;
     }
 
-    public List<SboTbCatArticulo> listaCatArticulos() {
+    public List<SboTbCatArticulo> listaCatArticulos(String filtro) {
         List<SboTbCatArticulo> resultado = new ArrayList<SboTbCatArticulo>();
         try {
             String sql = "select * from Sbo_Tb_CatArticulo a inner join Sbo_TB_SubFamilia s on a.Cat_SubF_FK = s.SubFami_Id_Pk"
-                    + " inner join Sbo_TB_Familia f on s.SubFami_CodF_Fk = f.Fami_Id_Pk";
-            sql = String.format(sql);
+                    + " inner join Sbo_TB_Familia f on s.SubFami_CodF_Fk = f.Fami_Id_Pk where a.Cat_Desc like '%%%s%%'";
+            sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
                 resultado.add(catArticulo(rs));
@@ -140,6 +142,15 @@ public class catalogosDAO {
         } else {
             throw new Exception("Bien no Existe");
         }
+    }
+
+    public void actualizarFamilia(SboTbFamilia objeto) throws Exception {
+        String query = "update Sbo_TB_Familia set Fami_Desc = ? where Fami_Id_Pk = ?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setString(1, objeto.getFamiDesc());
+        preparedStmt.setString(2, objeto.getFamiIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
     }
 
 }

@@ -13,12 +13,15 @@ function buscar() {
     switch (strUser) {
         case "1":
             buscarFamilias();
+            $("#filtro").val('');
             break;
         case "2":
             buscarSubFamilias();
+            $("#filtro").val('');
             break;
         case "3":
             buscarCatArticulos();
+            $("#filtro").val('');
             break;
 
     }
@@ -26,21 +29,21 @@ function buscar() {
 
 function buscarFamilias() {
     $.ajax({type: "GET",
-        url: "api/familias?nombre=" + $("#codigo").val(),
+        url: "api/familias?filtro=" + $("#filtro").val(),
         success: listaFam
     });
 }
 
 function buscarSubFamilias() {
     $.ajax({type: "GET",
-        url: "api/subfamilias?nombre=" + $("#codigo").val(),
+        url: "api/subfamilias?filtro=" + $("#filtro").val(),
         success: listaSubFam
     });
 }
 
 function buscarCatArticulos() {
     $.ajax({type: "GET",
-        url: "api/catArticulos?nombre=" + $("#codigo").val(),
+        url: "api/catArticulos?filtro=" + $("#filtro").val(),
         success: listaCatArt
     });
 
@@ -116,7 +119,7 @@ function concatenarBusqueda() {
 function selectFamilias() {
 
     $.ajax({type: "GET",
-        url: "api/familias?nombre=" + $("#codigo").val(),
+        url: "api/familias?filtro=" + $("#filtro").val(),
         success: function (data) {
             $.each(data, function (key, fam) {
                 $("#selectFamilias").append('<option value=' + fam.famiIdPk + '>' + fam.famiDesc + '</option>');
@@ -133,7 +136,7 @@ function selectFamilias() {
 function selectSubFamilias() {
 
     $.ajax({type: "GET",
-        url: "api/subfamilias?nombre=" + $("#codigo").val(),
+        url: "api/subfamilias?filtro=" + $("#filtro").val(),
         success: function (data) {
             $.each(data, function (key, subf) {
                 $("#selectSubFam").append('<option value=' + subf.subFamiIdPk + '>' + subf.subFamiDesc + '</option>');
@@ -143,5 +146,29 @@ function selectSubFamilias() {
             alert('error');
         }
     });
+
+}
+
+function actualizarFamilia() {
+
+    SboTbFamilia = {
+        famiIdPk: $("#codigoFamilia").val(),
+        famiDesc: $("#descripFamilia").val()
+    };
+    $.ajax({type: "PUT",
+        url: "api/familias",
+        data: JSON.stringify(SboTbFamilia),
+        contentType: "application/json",
+        success: afterUpdateFm,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+function afterUpdateFm(){
+    buscarFamilias();
+    $('#modalEditarFam').modal('hide');
 
 }

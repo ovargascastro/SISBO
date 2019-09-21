@@ -34,9 +34,9 @@ public class familias {
 
     @GET
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    public List<SboTbFamilia> getFamilias(@QueryParam("nombre") String nombre) throws ClassNotFoundException, SQLException {
+    public List<SboTbFamilia> getFamilias(@QueryParam("filtro") String filtro) throws ClassNotFoundException, SQLException {
 
-        List<SboTbFamilia> lista = Model.instance().listaFamilias();
+        List<SboTbFamilia> lista = Model.instance().listaFamilias(filtro);
         List<SboTbFamilia> lista2 = lista;
         return lista2;
 
@@ -54,14 +54,19 @@ public class familias {
         }
     }
 
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void update(SboTbFamilia familia) {
+        try {
+            Model.instance().actualizarFamilia(familia);
+        } catch (Exception ex) {
+            throw new NotFoundException();
+        }
+    }
+
     /**
      * PUT method for updating or creating an instance of GenericResource
      *
      * @param content representation for the resource
      */
-    @PUT
-    @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
-    }
-
 }

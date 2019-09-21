@@ -27,9 +27,9 @@ public class catArticulos {
 
     @GET
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    public List<SboTbCatArticulo> getCatArticulos(@QueryParam("nombre") String nombre) throws ClassNotFoundException, SQLException {
+    public List<SboTbCatArticulo> getCatArticulos(@QueryParam("filtro") String filtro) throws ClassNotFoundException, SQLException {
 
-        List<SboTbCatArticulo> lista = Model.instance().listaCatArticulos();
+        List<SboTbCatArticulo> lista = Model.instance().listaCatArticulos(filtro);
         return lista;
 
     }
