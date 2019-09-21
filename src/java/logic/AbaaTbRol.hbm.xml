@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-sep-2019 0:08:08 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="logic.AbaaTbRol" table="ABAA_TB_Rol" schema="dbo" catalog="ABAA" optimistic-lock="version">
+        <id name="rolIdPk" type="int">
+            <column name="Rol_Id_Pk" />
+            <generator class="assigned" />
+        </id>
+        <property name="rolDesc" type="string">
+            <column name="Rol_Desc" length="45" not-null="true" />
+        </property>
+        <set name="abaaTbPermisoses" table="ABAA_TB_RolxPermiso" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="RolxPer_Rol" not-null="true" />
+            </key>
+            <many-to-many entity-name="logic.AbaaTbPermisos">
+                <column name="RolxPer_Permiso" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="abaaTbUsuarios" table="ABAA_TB_Usuario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Usua_Rol_FK" not-null="true" />
+            </key>
+            <one-to-many class="logic.AbaaTbUsuario" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-sep-2019 0:08:08 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="logic.SboTbArticulo" table="Sbo_TB_Articulo" schema="dbo" catalog="ABAA" optimistic-lock="version">
+        <id name="artIdPk" type="int">
+            <column name="Art_Id_Pk" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="abaaProyectos" class="logic.AbaaProyectos" fetch="select">
+            <column name="Art_Proy_FK" />
+        </many-to-one>
+        <many-to-one name="abaaTbDepartamento" class="logic.AbaaTbDepartamento" fetch="select">
+            <column name="Art_Depa_Fk" length="45" />
+        </many-to-one>
+        <many-to-one name="sboTbCatArticulo" class="logic.SboTbCatArticulo" fetch="select">
+            <column name="Art_Codi_Cat_SICOP_FK" />
+        </many-to-one>
+        <many-to-one name="sboTbCatContable" class="logic.SboTbCatContable" fetch="select">
+            <column name="Art_Codi_Cont" length="30" />
+        </many-to-one>
+        <many-to-one name="sboTbOrdenCompra" class="logic.SboTbOrdenCompra" fetch="select">
+            <column name="Art_Orde_Comp_FK" />
+        </many-to-one>
+        <many-to-one name="sboTbSoliArti" class="logic.SboTbSoliArti" fetch="select">
+            <column name="Art_Soli_Arti" />
+        </many-to-one>
+        <property name="artPrecio" type="java.lang.Double">
+            <column name="Art_Precio" precision="53" scale="0" />
+        </property>
+        <property name="artCodContGast" type="string">
+            <column name="Art_Cod_Cont_Gast" length="45" />
+        </property>
+        <property name="artCodContExis" type="string">
+            <column name="Art_Cod_Cont_Exis" length="45" />
+        </property>
+        <property name="artCodContSal" type="string">
+            <column name="Art_Cod_Cont_Sal" length="45" />
+        </property>
+        <property name="artFvenc" type="date">
+            <column name="Art_FVenc" length="10" />
+        </property>
+        <property name="artFingr" type="date">
+            <column name="Art_FIngr" length="10" />
+        </property>
+        <property name="artFsali" type="date">
+            <column name="Art_FSali" length="10" />
+        </property>
+        <property name="artMaxi" type="java.lang.Integer">
+            <column name="Art_Maxi" />
+        </property>
+        <property name="artMini" type="java.lang.Integer">
+            <column name="Art_Mini" />
+        </property>
+        <property name="artEsAc" type="java.lang.Boolean">
+            <column name="Art_EsAc" />
+        </property>
+        <property name="artLimiDepa" type="java.lang.Integer">
+            <column name="Art_Limi_Depa" />
+        </property>
+        <property name="artCantRest" type="java.lang.Integer">
+            <column name="Art_Cant_Rest" />
+        </property>
+        <property name="artCant" type="java.lang.Integer">
+            <column name="Art_Cant" />
+        </property>
+        <property name="artMode" type="string">
+            <column name="Art_Mode" length="45" />
+        </property>
+        <property name="artNumeSeri" type="string">
+            <column name="Art_Nume_Seri" length="45" />
+        </property>
+        <property name="artMarc" type="string">
+            <column name="Art_Marc" length="45" />
+        </property>
+        <property name="artNumeFact" type="string">
+            <column name="Art_Nume_Fact" length="45" />
+        </property>
+        <property name="artCodiPresup" type="string">
+            <column name="Art_Codi_Presup" length="30" />
+        </property>
+        <property name="artDesc" type="string">
+            <column name="Art_Desc" length="45" />
+        </property>
+        <property name="artNumeContra" type="string">
+            <column name="Art_Nume_Contra" length="45" />
+        </property>
+        <set name="abaaTbOcproyectos" table="ABAA_TB_OCProyecto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="OCProy_Arti_ID" />
+            </key>
+            <one-to-many class="logic.AbaaTbOcproyecto" />
+        </set>
+        <set name="sboTbExistencias" table="Sbo_TB_Existencia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Exis_Id_Arti" not-null="true" />
+            </key>
+            <one-to-many class="logic.SboTbExistencia" />
+        </set>
+    </class>
+</hibernate-mapping>

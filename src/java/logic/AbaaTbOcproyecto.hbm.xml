@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-sep-2019 0:08:08 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="logic.AbaaTbOcproyecto" table="ABAA_TB_OCProyecto" schema="dbo" catalog="ABAA" optimistic-lock="version">
+        <composite-id name="id" class="logic.AbaaTbOcproyectoId">
+            <key-property name="ocproyOcId" type="int">
+                <column name="OCProy_OC_ID" />
+            </key-property>
+            <key-property name="ocproyProyId" type="int">
+                <column name="OCProy_Proy_ID" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="abaaProyectos" class="logic.AbaaProyectos" update="false" insert="false" fetch="select">
+            <column name="OCProy_Proy_ID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sboTbArticulo" class="logic.SboTbArticulo" fetch="select">
+            <column name="OCProy_Arti_ID" />
+        </many-to-one>
+        <many-to-one name="sboTbOrdenCompra" class="logic.SboTbOrdenCompra" update="false" insert="false" fetch="select">
+            <column name="OCProy_OC_ID" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

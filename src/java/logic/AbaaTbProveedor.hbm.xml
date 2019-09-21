@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-sep-2019 0:08:08 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="logic.AbaaTbProveedor" table="ABAA_TB_Proveedor" schema="dbo" catalog="ABAA" optimistic-lock="version">
+        <id name="proveIdProvePk" type="int">
+            <column name="Prove_Id_Prove_PK" />
+            <generator class="assigned" />
+        </id>
+        <property name="proveCodigo" type="string">
+            <column name="Prove_Codigo" length="45" />
+        </property>
+        <property name="proveCedula" type="string">
+            <column name="Prove_Cedula" length="45" />
+        </property>
+        <property name="proveTelefono" type="java.lang.Integer">
+            <column name="Prove_Telefono" />
+        </property>
+        <property name="proveCorreo" type="string">
+            <column name="Prove_Correo" length="45" />
+        </property>
+        <property name="proveFax" type="string">
+            <column name="Prove_Fax" length="45" />
+        </property>
+        <property name="proveNomb" type="string">
+            <column name="Prove_Nomb" length="45" not-null="true" />
+        </property>
+        <set name="sboTbOrdenCompras" table="Sbo_TB_OrdenCompra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="OC_Prove_FK" />
+            </key>
+            <one-to-many class="logic.SboTbOrdenCompra" />
+        </set>
+    </class>
+</hibernate-mapping>

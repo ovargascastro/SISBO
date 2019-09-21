@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-sep-2019 0:08:08 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="logic.SboTbCatContable" table="Sbo_TB_CatContable" schema="dbo" catalog="ABAA" optimistic-lock="version">
+        <id name="cntIdPk" type="string">
+            <column name="Cnt_Id_PK" length="30" />
+            <generator class="assigned" />
+        </id>
+        <property name="cntDesc" type="string">
+            <column name="Cnt_Desc" length="45" />
+        </property>
+        <set name="sboTbArticulos" table="Sbo_TB_Articulo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Art_Codi_Cont" length="30" />
+            </key>
+            <one-to-many class="logic.SboTbArticulo" />
+        </set>
+    </class>
+</hibernate-mapping>

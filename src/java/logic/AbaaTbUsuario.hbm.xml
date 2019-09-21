@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-sep-2019 0:08:08 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="logic.AbaaTbUsuario" table="ABAA_TB_Usuario" schema="dbo" catalog="ABAA" optimistic-lock="version">
+        <id name="usuaIdPk" type="int">
+            <column name="Usua_Id_PK" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="abaaTbEstado" class="logic.AbaaTbEstado" fetch="select">
+            <column name="Usua_Esta_FK" not-null="true" />
+        </many-to-one>
+        <many-to-one name="abaaTbFuncionario" class="logic.AbaaTbFuncionario" fetch="select">
+            <column name="Usua_Cedu_FK" not-null="true" />
+        </many-to-one>
+        <many-to-one name="abaaTbRol" class="logic.AbaaTbRol" fetch="select">
+            <column name="Usua_Rol_FK" not-null="true" />
+        </many-to-one>
+        <property name="usuaCont" type="string">
+            <column name="Usua_Cont" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

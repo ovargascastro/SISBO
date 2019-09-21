@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-sep-2019 0:08:08 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="logic.AbaaProyectos" table="ABAA_Proyectos" schema="dbo" catalog="ABAA" optimistic-lock="version">
+        <id name="proyIdPk" type="int">
+            <column name="Proy_Id_PK" />
+            <generator class="assigned" />
+        </id>
+        <property name="proyDesc" type="string">
+            <column name="Proy_Desc" length="45" not-null="true" />
+        </property>
+        <set name="abaaTbOcproyectos" table="ABAA_TB_OCProyecto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="OCProy_Proy_ID" not-null="true" />
+            </key>
+            <one-to-many class="logic.AbaaTbOcproyecto" />
+        </set>
+        <set name="sboTbArticulos" table="Sbo_TB_Articulo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Art_Proy_FK" />
+            </key>
+            <one-to-many class="logic.SboTbArticulo" />
+        </set>
+    </class>
+</hibernate-mapping>

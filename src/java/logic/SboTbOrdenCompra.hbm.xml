@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-sep-2019 0:08:08 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="logic.SboTbOrdenCompra" table="Sbo_TB_OrdenCompra" schema="dbo" catalog="ABAA" optimistic-lock="version">
+        <id name="ocIdPk" type="int">
+            <column name="OC_Id_PK" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="abaaTbEstado" class="logic.AbaaTbEstado" fetch="select">
+            <column name="OC_Esta_FK" />
+        </many-to-one>
+        <many-to-one name="abaaTbProveedor" class="logic.AbaaTbProveedor" fetch="select">
+            <column name="OC_Prove_FK" />
+        </many-to-one>
+        <property name="ocFecha" type="date">
+            <column name="OC_Fecha" length="10" />
+        </property>
+        <property name="ocPrecTota" type="java.lang.Double">
+            <column name="OC_Prec_Tota" precision="53" scale="0" />
+        </property>
+        <property name="ocPlazoEntrega" type="string">
+            <column name="OC_PlazoEntrega" length="50" />
+        </property>
+        <property name="ocEntregarA" type="string">
+            <column name="OC_EntregarA" length="30" />
+        </property>
+        <set name="sboTbArticulos" table="Sbo_TB_Articulo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Art_Orde_Comp_FK" />
+            </key>
+            <one-to-many class="logic.SboTbArticulo" />
+        </set>
+        <set name="abaaTbOcproyectos" table="ABAA_TB_OCProyecto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="OCProy_OC_ID" not-null="true" />
+            </key>
+            <one-to-many class="logic.AbaaTbOcproyecto" />
+        </set>
+    </class>
+</hibernate-mapping>

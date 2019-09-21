@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-sep-2019 0:08:08 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="logic.SboTbSoliArti" table="Sbo_TB_Soli_Arti" schema="dbo" catalog="ABAA" optimistic-lock="version">
+        <id name="solArtiIdPk" type="int">
+            <column name="Sol_Arti_Id_Pk" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="abaaTbDepartamento" class="logic.AbaaTbDepartamento" fetch="select">
+            <column name="Sol_Arti_Id_Depa_Fk" length="45" />
+        </many-to-one>
+        <many-to-one name="abaaTbEstado" class="logic.AbaaTbEstado" fetch="select">
+            <column name="Sol_Arti_Id_Esta_FK" />
+        </many-to-one>
+        <many-to-one name="abaaTbFuncionario" class="logic.AbaaTbFuncionario" fetch="select">
+            <column name="Sol_Arti_Id_Func_Fk" />
+        </many-to-one>
+        <property name="solArtiCant" type="java.lang.Double">
+            <column name="Sol_Arti_Cant" precision="53" scale="0" />
+        </property>
+        <property name="solArtiVistJefe" type="java.lang.Boolean">
+            <column name="Sol_Arti_Vist_Jefe" />
+        </property>
+        <property name="solArtiVistTi" type="java.lang.Boolean">
+            <column name="Sol_Arti_Vist_Ti" />
+        </property>
+        <property name="solArtiFechSoli" type="date">
+            <column name="Sol_Arti_Fech_Soli" length="10" />
+        </property>
+        <set name="sboTbArticulos" table="Sbo_TB_Articulo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Art_Soli_Arti" />
+            </key>
+            <one-to-many class="logic.SboTbArticulo" />
+        </set>
+    </class>
+</hibernate-mapping>
