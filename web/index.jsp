@@ -18,5 +18,5 @@
         <a href="presentation/bodega/ingresoArticulosNuevos.jsp">Ingreso de Articulos Nuevos</a>
         <br>
         <a href="presentation/catalogos/administracionCatalogos.jsp">Administracion de Catalogos</a>
-    </body>
+    </body> 
 </html>
