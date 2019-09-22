@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-sep-2019 1:11:20 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="logic.SboTbLimiteDpto" table="Sbo_TB_LimiteDpto" schema="dbo" catalog="ABAA" optimistic-lock="version">
+        <composite-id name="id" class="logic.SboTbLimiteDptoId">
+            <key-property name="limiteDptoIdDptoPk" type="string">
+                <column name="LimiteDpto_Id_Dpto_PK" length="45" />
+            </key-property>
+            <key-property name="limiteDptoIdCatArtiPk" type="int">
+                <column name="LimiteDpto_Id_Cat_Arti_PK" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="abaaTbDepartamento" class="logic.AbaaTbDepartamento" update="false" insert="false" fetch="select">
+            <column name="LimiteDpto_Id_Dpto_PK" length="45" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sboTbCatArticulo" class="logic.SboTbCatArticulo" update="false" insert="false" fetch="select">
+            <column name="LimiteDpto_Id_Cat_Arti_PK" not-null="true" />
+        </many-to-one>
+        <property name="limiteDptoLimite" type="java.lang.Integer">
+            <column name="LimiteDpto_limite" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,5 +1,5 @@
 package logic;
-// Generated 21-sep-2019 0:08:08 by Hibernate Tools 4.3.1
+// Generated 22-sep-2019 1:11:19 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -17,6 +17,7 @@ public class AbaaTbDepartamento  implements java.io.Serializable {
      private String deptoNomb;
      private Set<SboTbSoliArti> sboTbSoliArtis = new HashSet<SboTbSoliArti>(0);
      private Set<SboTbArticulo> sboTbArticulos = new HashSet<SboTbArticulo>(0);
+     private Set<SboTbLimiteDpto> sboTbLimiteDptos = new HashSet<SboTbLimiteDpto>(0);
      private Set<AbaaTbFuncionario> abaaTbFuncionarios = new HashSet<AbaaTbFuncionario>(0);
 
     public AbaaTbDepartamento() {
@@ -27,13 +28,14 @@ public class AbaaTbDepartamento  implements java.io.Serializable {
         this.deptoIdPk = deptoIdPk;
         this.deptoNomb = deptoNomb;
     }
-    public AbaaTbDepartamento(String deptoIdPk, AbaaTbDireccion abaaTbDireccion, AbaaTbFuncionario abaaTbFuncionario, String deptoNomb, Set<SboTbSoliArti> sboTbSoliArtis, Set<SboTbArticulo> sboTbArticulos, Set<AbaaTbFuncionario> abaaTbFuncionarios) {
+    public AbaaTbDepartamento(String deptoIdPk, AbaaTbDireccion abaaTbDireccion, AbaaTbFuncionario abaaTbFuncionario, String deptoNomb, Set<SboTbSoliArti> sboTbSoliArtis, Set<SboTbArticulo> sboTbArticulos, Set<SboTbLimiteDpto> sboTbLimiteDptos, Set<AbaaTbFuncionario> abaaTbFuncionarios) {
        this.deptoIdPk = deptoIdPk;
        this.abaaTbDireccion = abaaTbDireccion;
        this.abaaTbFuncionario = abaaTbFuncionario;
        this.deptoNomb = deptoNomb;
        this.sboTbSoliArtis = sboTbSoliArtis;
        this.sboTbArticulos = sboTbArticulos;
+       this.sboTbLimiteDptos = sboTbLimiteDptos;
        this.abaaTbFuncionarios = abaaTbFuncionarios;
     }
    
@@ -78,6 +80,13 @@ public class AbaaTbDepartamento  implements java.io.Serializable {
     
     public void setSboTbArticulos(Set<SboTbArticulo> sboTbArticulos) {
         this.sboTbArticulos = sboTbArticulos;
+    }
+    public Set<SboTbLimiteDpto> getSboTbLimiteDptos() {
+        return this.sboTbLimiteDptos;
+    }
+    
+    public void setSboTbLimiteDptos(Set<SboTbLimiteDpto> sboTbLimiteDptos) {
+        this.sboTbLimiteDptos = sboTbLimiteDptos;
     }
     public Set<AbaaTbFuncionario> getAbaaTbFuncionarios() {
         return this.abaaTbFuncionarios;

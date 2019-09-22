@@ -1,5 +1,5 @@
 package logic;
-// Generated 21-sep-2019 0:08:08 by Hibernate Tools 4.3.1
+// Generated 22-sep-2019 1:11:19 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -14,13 +14,12 @@ public class SboTbSoliArti  implements java.io.Serializable {
 
      private int solArtiIdPk;
      private AbaaTbDepartamento abaaTbDepartamento;
-     private AbaaTbEstado abaaTbEstado;
      private AbaaTbFuncionario abaaTbFuncionario;
-     private Double solArtiCant;
      private Boolean solArtiVistJefe;
      private Boolean solArtiVistTi;
      private Date solArtiFechSoli;
-     private Set<SboTbArticulo> sboTbArticulos = new HashSet<SboTbArticulo>(0);
+     private Date solArtiFechSali;
+     private Set<SboTbSolixArti> sboTbSolixArtis = new HashSet<SboTbSolixArti>(0);
 
     public SboTbSoliArti() {
     }
@@ -29,16 +28,15 @@ public class SboTbSoliArti  implements java.io.Serializable {
     public SboTbSoliArti(int solArtiIdPk) {
         this.solArtiIdPk = solArtiIdPk;
     }
-    public SboTbSoliArti(int solArtiIdPk, AbaaTbDepartamento abaaTbDepartamento, AbaaTbEstado abaaTbEstado, AbaaTbFuncionario abaaTbFuncionario, Double solArtiCant, Boolean solArtiVistJefe, Boolean solArtiVistTi, Date solArtiFechSoli, Set<SboTbArticulo> sboTbArticulos) {
+    public SboTbSoliArti(int solArtiIdPk, AbaaTbDepartamento abaaTbDepartamento, AbaaTbFuncionario abaaTbFuncionario, Boolean solArtiVistJefe, Boolean solArtiVistTi, Date solArtiFechSoli, Date solArtiFechSali, Set<SboTbSolixArti> sboTbSolixArtis) {
        this.solArtiIdPk = solArtiIdPk;
        this.abaaTbDepartamento = abaaTbDepartamento;
-       this.abaaTbEstado = abaaTbEstado;
        this.abaaTbFuncionario = abaaTbFuncionario;
-       this.solArtiCant = solArtiCant;
        this.solArtiVistJefe = solArtiVistJefe;
        this.solArtiVistTi = solArtiVistTi;
        this.solArtiFechSoli = solArtiFechSoli;
-       this.sboTbArticulos = sboTbArticulos;
+       this.solArtiFechSali = solArtiFechSali;
+       this.sboTbSolixArtis = sboTbSolixArtis;
     }
    
     public int getSolArtiIdPk() {
@@ -55,26 +53,12 @@ public class SboTbSoliArti  implements java.io.Serializable {
     public void setAbaaTbDepartamento(AbaaTbDepartamento abaaTbDepartamento) {
         this.abaaTbDepartamento = abaaTbDepartamento;
     }
-    public AbaaTbEstado getAbaaTbEstado() {
-        return this.abaaTbEstado;
-    }
-    
-    public void setAbaaTbEstado(AbaaTbEstado abaaTbEstado) {
-        this.abaaTbEstado = abaaTbEstado;
-    }
     public AbaaTbFuncionario getAbaaTbFuncionario() {
         return this.abaaTbFuncionario;
     }
     
     public void setAbaaTbFuncionario(AbaaTbFuncionario abaaTbFuncionario) {
         this.abaaTbFuncionario = abaaTbFuncionario;
-    }
-    public Double getSolArtiCant() {
-        return this.solArtiCant;
-    }
-    
-    public void setSolArtiCant(Double solArtiCant) {
-        this.solArtiCant = solArtiCant;
     }
     public Boolean getSolArtiVistJefe() {
         return this.solArtiVistJefe;
@@ -97,12 +81,19 @@ public class SboTbSoliArti  implements java.io.Serializable {
     public void setSolArtiFechSoli(Date solArtiFechSoli) {
         this.solArtiFechSoli = solArtiFechSoli;
     }
-    public Set<SboTbArticulo> getSboTbArticulos() {
-        return this.sboTbArticulos;
+    public Date getSolArtiFechSali() {
+        return this.solArtiFechSali;
     }
     
-    public void setSboTbArticulos(Set<SboTbArticulo> sboTbArticulos) {
-        this.sboTbArticulos = sboTbArticulos;
+    public void setSolArtiFechSali(Date solArtiFechSali) {
+        this.solArtiFechSali = solArtiFechSali;
+    }
+    public Set<SboTbSolixArti> getSboTbSolixArtis() {
+        return this.sboTbSolixArtis;
+    }
+    
+    public void setSboTbSolixArtis(Set<SboTbSolixArti> sboTbSolixArtis) {
+        this.sboTbSolixArtis = sboTbSolixArtis;
     }
 
 
