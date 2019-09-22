@@ -173,4 +173,34 @@ public class catalogosDAO {
         db.getConnection().close();
     }
      
+       public void crearFamilia(SboTbFamilia objeto) throws Exception{
+        String query = "insert into Sbo_TB_Familia(Fami_Id_Pk,Fami_Desc)values(?,?)";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setString(1, objeto.getFamiIdPk());
+        preparedStmt.setString(2, objeto.getFamiDesc());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+       }
+       
+       public void crearSubFamilia(SboTbSubFamilia objeto) throws Exception{
+        String query = "insert into Sbo_TB_SubFamilia(SubFami_Id_Pk,SubFami_Desc,SubFami_CodF_Fk)values(?,?,?)";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setString(1, objeto.getSubFamiIdPk());
+        preparedStmt.setString(2, objeto.getSubFamiDesc());
+        preparedStmt.setString(3, objeto.getSboTbFamilia().getFamiIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+       }
+       
+            public void crearCatArticulo(SboTbCatArticulo objeto) throws Exception{
+        String query = "insert into Sbo_TB_CatArticulo(Cat_Cod_Sicop,Cat_SubF_FK,Cat_Desc)values(?,?,?)";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        
+         preparedStmt.setString(1, objeto.getCatCodSicop());
+        preparedStmt.setString(2, objeto.getSboTbSubFamilia().getSubFamiIdPk());
+        preparedStmt.setString(3, objeto.getCatDesc());
+       
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+       }
 }

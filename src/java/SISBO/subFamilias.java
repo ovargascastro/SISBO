@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -54,6 +55,16 @@ public class subFamilias {
     public void update(SboTbSubFamilia subfamilia) {
         try {
             Model.instance().actualizarSubFamilia(subfamilia);
+        } catch (Exception ex) {
+            throw new NotFoundException();
+        }
+    }
+     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void agregarSubFamilia(SboTbSubFamilia subfamilia) {
+        try {
+            Model.instance().crearSubFamilia(subfamilia);
+
         } catch (Exception ex) {
             throw new NotFoundException();
         }

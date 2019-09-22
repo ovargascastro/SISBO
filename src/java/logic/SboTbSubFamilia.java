@@ -10,7 +10,6 @@ import java.util.Set;
  */
 public class SboTbSubFamilia  implements java.io.Serializable {
 
-
      private String subFamiIdPk;
      private SboTbFamilia sboTbFamilia;
      private String subFamiDesc;

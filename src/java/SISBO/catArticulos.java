@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -59,4 +60,15 @@ public class catArticulos {
         }
     }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void agregarCatArticulo(SboTbCatArticulo articulo) {
+        try {
+            Model.instance().crearCatArticulo(articulo);
+
+        } catch (Exception ex) {
+            throw new NotFoundException();
+        }
+    }
+    
 }
