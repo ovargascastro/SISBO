@@ -153,4 +153,24 @@ public class catalogosDAO {
         db.getConnection().close();
     }
 
+     public void actualizarSubFamilia(SboTbSubFamilia objeto) throws Exception {
+        String query = "update Sbo_TB_SubFamilia set SubFami_Desc = ?, SubFami_CodF_Fk = ? where SubFami_Id_Pk = ?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setString(1, objeto.getSubFamiDesc());
+        preparedStmt.setString(2, objeto.getSboTbFamilia().getFamiIdPk());
+        preparedStmt.setString(3, objeto.getSubFamiIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
+
+       public void actualizarCatArticulo(SboTbCatArticulo objeto) throws Exception {
+        String query = "update Sbo_TB_CatArticulo set Cat_Desc = ?, Cat_SubF_FK = ? where Cat_Id_PK = ?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setString(1, objeto.getCatDesc());
+        preparedStmt.setString(2, objeto.getSboTbSubFamilia().getSubFamiIdPk());
+        preparedStmt.setInt(3, objeto.getCatIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
+     
 }

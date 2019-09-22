@@ -88,8 +88,9 @@ function mostrarFamilia(fam) {
     $("#descripFamilia").val(fam.famiDesc);
     $('#modalEditarFam').modal('show');
 }
-
+var catArtActual;
 function mostrarCatArt(art) {
+    catArtActual = art.catIdPk;
     $("#descripArt").val(art.catDesc);
     $("#selectSubFam").val(art.sboTbSubFamilia.subFamiIdPk);
     selectSubFamilias();
@@ -170,5 +171,67 @@ function actualizarFamilia() {
 function afterUpdateFm(){
     buscarFamilias();
     $('#modalEditarFam').modal('hide');
+
+}
+
+function actualizarSubFamilia() {
+var e = document.getElementById("selectFamilias");
+var strUser = e.options[e.selectedIndex].value;
+    
+    SboTbSubFamilia = {
+        subFamiIdPk: $("#codigoSubFam").val(),
+        subFamiDesc: $("#descripSubFam").val(),
+        sboTbFamilia:{
+            famiIdPk: strUser
+        }
+    };
+    $.ajax({type: "PUT",
+        url: "api/subfamilias",
+        data: JSON.stringify(SboTbSubFamilia),
+        contentType: "application/json",
+        success: afterUpdateSubFm,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+function afterUpdateSubFm(){
+    buscarSubFamilias();
+    $('#modalSubFam').modal('hide');
+
+}
+
+
+function actualizarCatArticulo() {
+var e = document.getElementById("selectSubFam");
+var strUser = e.options[e.selectedIndex].value;
+
+
+    
+    SboTbCatArticulo = {
+        catDesc: $("#descripArt").val(),
+        catIdPk: catArtActual,
+       // subFamiDesc: $("#descripSubFam").val(),
+        sboTbSubFamilia:{
+            subFamiIdPk: strUser
+        }
+    };
+    $.ajax({type: "PUT",
+        url: "api/catArticulos",
+        data: JSON.stringify(SboTbCatArticulo),
+        contentType: "application/json",
+        success: afterUpdateCatArt,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+function afterUpdateCatArt(){
+    buscarCatArticulos();
+    $('#modalArticulo').modal('hide');
 
 }

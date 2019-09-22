@@ -63,5 +63,13 @@ public class Model {
     public void actualizarFamilia(SboTbFamilia familia) throws Exception{
         catdao.actualizarFamilia(familia);
     }
+    
+       public void actualizarSubFamilia(SboTbSubFamilia subfamilia) throws Exception{
+        catdao.actualizarSubFamilia(subfamilia);
+    }
 
+           public void actualizarCatArticulo(SboTbCatArticulo articulo) throws Exception{
+        catdao.actualizarCatArticulo(articulo);
+    }
+       
 }

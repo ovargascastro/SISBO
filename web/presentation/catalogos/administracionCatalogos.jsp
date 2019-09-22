@@ -133,7 +133,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button">Guardar</button></div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button" onclick="javascript:actualizarSubFamilia()">Guardar</button></div>
                 </div>
             </div>
         </div>
@@ -157,7 +157,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button">Guardar</button></div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button" onclick="javascript:actualizarCatArticulo()">Guardar</button></div>
                 </div>
             </div>
         </div>
