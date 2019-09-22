@@ -1,0 +1,172 @@
+#titulo {
+  text-align: center;
+  padding: 40px;
+  background: url(../../assets/img/inv.png) no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+#titulo .jumbotron {
+  border-radius: 20px;
+  padding: 40px;
+  background-color: rgba(255,255,255,0.75);
+}
+
+#formulario {
+  margin-top: 30px;
+  padding: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 30px;
+}
+
+#botones {
+  padding: 45px;
+}
+
+#busqueda {
+  margin-left: 30px;
+  padding: 40px;
+  margin-right: 30px;
+}
+
+#tablaArticulos {
+  padding: 30px;
+}
+
+#contenedorIngreso {
+  padding: 30px;
+}
+
+#cantidadIngreso {
+  align-content: center;
+  padding: 10px;
+}
+
+#contenedorEncabezado {
+  padding: 30px;
+}
+
+#linea {
+  margin-top: 10px;
+  padding: 10px;
+}
+
+#infoArticulo {
+  padding: 10px;
+}
+
+#botonAgregar {
+  padding: 15px;
+}
+
+#rowTabla {
+  margin-top: 15px;
+}
+
+#botonGuardar {
+  padding: 15px;
+}
+
+#titulo {
+  text-align: center;
+  padding: 40px;
+  background: url(../../assets/img/inv.png) no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+#titulo .jumbotron {
+  border-radius: 20px;
+  padding: 40px;
+  background-color: rgba(255,255,255,0.75);
+}
+
+#formulario {
+  margin-top: 30px;
+  padding: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 30px;
+}
+
+#busqueda {
+  margin-left: 30px;
+  padding: 40px;
+  margin-right: 30px;
+}
+
+#tablaOrdenes {
+  padding: 30px;
+}
+
+#contenedorIngreso {
+  padding: 30px;
+}
+
+#cantidadIngreso {
+  align-content: center;
+  padding: 10px;
+}
+
+#cuerpoListaOrdenes {
+  padding: 30px;
+  margin-bottom: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+#formulario {
+  margin-top: 30px;
+  padding: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 30px;
+}
+
+#botones {
+  padding: 45px;
+}
+
+#busqueda {
+  margin-left: 30px;
+  padding: 40px;
+  margin-right: 30px;
+}
+
+#tablaArticulos {
+  padding: 30px;
+}
+
+#contenedorIngreso {
+  padding: 30px;
+}
+
+#cantidadIngreso {
+  align-content: center;
+  padding: 10px;
+}
+
+#catalogos {
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+#tablaCatalogos {
+  padding: 30px;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 30px;
+}
+
+#contenedorTabla {
+  padding: 30px;
+}
+
+#magnifier {
+  width: 20px;
+}
+
+

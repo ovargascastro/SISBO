@@ -7,8 +7,10 @@ package SISBO;
 
 import java.sql.SQLException;
 import java.util.List;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -27,9 +29,9 @@ public class subFamilias {
 
     @GET
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    public List<SboTbSubFamilia> getSubFamilias(@QueryParam("nombre") String nombre) throws ClassNotFoundException, SQLException {
+    public List<SboTbSubFamilia> getSubFamilias(@QueryParam("filtro") String filtro) throws ClassNotFoundException, SQLException {
 
-        List<SboTbSubFamilia> lista = Model.instance().listaSubFamilias();
+        List<SboTbSubFamilia> lista = Model.instance().listaSubFamilias(filtro);
         List<SboTbSubFamilia> lista2 = lista;
         return lista2;
 
@@ -47,4 +49,14 @@ public class subFamilias {
         }
     }
 
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void update(SboTbSubFamilia subfamilia) {
+        try {
+            Model.instance().actualizarSubFamilia(subfamilia);
+        } catch (Exception ex) {
+            throw new NotFoundException();
+        }
+    }
+    
 }

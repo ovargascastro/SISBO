@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-sep-2019 1:11:20 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="logic.SboTbSolixArti" table="Sbo_TB_SolixArti" schema="dbo" catalog="ABAA" optimistic-lock="version">
+        <composite-id name="id" class="logic.SboTbSolixArtiId">
+            <key-property name="solixArtiIdSoliArtiPk" type="int">
+                <column name="SolixArti_Id_Soli_Arti_PK" />
+            </key-property>
+            <key-property name="solixArtiIdArtiPk" type="int">
+                <column name="SolixArti_Id_Arti_PK" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="sboTbArticulo" class="logic.SboTbArticulo" update="false" insert="false" fetch="select">
+            <column name="SolixArti_Id_Arti_PK" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sboTbSoliArti" class="logic.SboTbSoliArti" update="false" insert="false" fetch="select">
+            <column name="SolixArti_Id_Soli_Arti_PK" not-null="true" />
+        </many-to-one>
+        <property name="solArtiCant" type="java.lang.Integer">
+            <column name="Sol_Arti_Cant" />
+        </property>
+    </class>
+</hibernate-mapping>

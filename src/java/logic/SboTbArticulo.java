@@ -1,5 +1,5 @@
 package logic;
-// Generated 21-sep-2019 0:08:08 by Hibernate Tools 4.3.1
+// Generated 22-sep-2019 1:11:19 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -16,30 +16,25 @@ public class SboTbArticulo  implements java.io.Serializable {
      private AbaaProyectos abaaProyectos;
      private AbaaTbDepartamento abaaTbDepartamento;
      private SboTbCatArticulo sboTbCatArticulo;
-     private SboTbCatContable sboTbCatContable;
      private SboTbOrdenCompra sboTbOrdenCompra;
-     private SboTbSoliArti sboTbSoliArti;
      private Double artPrecio;
-     private String artCodContGast;
-     private String artCodContExis;
-     private String artCodContSal;
-     private Date artFvenc;
-     private Date artFingr;
-     private Date artFsali;
-     private Integer artMaxi;
-     private Integer artMini;
-     private Boolean artEsAc;
-     private Integer artLimiDepa;
-     private Integer artCantRest;
      private Integer artCant;
+     private Integer artCantRest;
+     private Date artFingr;
+     private Date artFvenc;
+     private String artDesc;
      private String artMode;
      private String artNumeSeri;
      private String artMarc;
      private String artNumeFact;
      private String artCodiPresup;
-     private String artDesc;
-     private String artNumeContra;
+     private String artCodiCont;
+     private String artCodContGast;
+     private String artCodContExis;
+     private String artCodContSal;
+     private Boolean artEsAc;
      private Set<AbaaTbOcproyecto> abaaTbOcproyectos = new HashSet<AbaaTbOcproyecto>(0);
+     private Set<SboTbSolixArti> sboTbSolixArtis = new HashSet<SboTbSolixArti>(0);
      private Set<SboTbExistencia> sboTbExistencias = new HashSet<SboTbExistencia>(0);
 
     public SboTbArticulo() {
@@ -49,35 +44,30 @@ public class SboTbArticulo  implements java.io.Serializable {
     public SboTbArticulo(int artIdPk) {
         this.artIdPk = artIdPk;
     }
-    public SboTbArticulo(int artIdPk, AbaaProyectos abaaProyectos, AbaaTbDepartamento abaaTbDepartamento, SboTbCatArticulo sboTbCatArticulo, SboTbCatContable sboTbCatContable, SboTbOrdenCompra sboTbOrdenCompra, SboTbSoliArti sboTbSoliArti, Double artPrecio, String artCodContGast, String artCodContExis, String artCodContSal, Date artFvenc, Date artFingr, Date artFsali, Integer artMaxi, Integer artMini, Boolean artEsAc, Integer artLimiDepa, Integer artCantRest, Integer artCant, String artMode, String artNumeSeri, String artMarc, String artNumeFact, String artCodiPresup, String artDesc, String artNumeContra, Set<AbaaTbOcproyecto> abaaTbOcproyectos, Set<SboTbExistencia> sboTbExistencias) {
+    public SboTbArticulo(int artIdPk, AbaaProyectos abaaProyectos, AbaaTbDepartamento abaaTbDepartamento, SboTbCatArticulo sboTbCatArticulo, SboTbOrdenCompra sboTbOrdenCompra, Double artPrecio, Integer artCant, Integer artCantRest, Date artFingr, Date artFvenc, String artDesc, String artMode, String artNumeSeri, String artMarc, String artNumeFact, String artCodiPresup, String artCodiCont, String artCodContGast, String artCodContExis, String artCodContSal, Boolean artEsAc, Set<AbaaTbOcproyecto> abaaTbOcproyectos, Set<SboTbSolixArti> sboTbSolixArtis, Set<SboTbExistencia> sboTbExistencias) {
        this.artIdPk = artIdPk;
        this.abaaProyectos = abaaProyectos;
        this.abaaTbDepartamento = abaaTbDepartamento;
        this.sboTbCatArticulo = sboTbCatArticulo;
-       this.sboTbCatContable = sboTbCatContable;
        this.sboTbOrdenCompra = sboTbOrdenCompra;
-       this.sboTbSoliArti = sboTbSoliArti;
        this.artPrecio = artPrecio;
-       this.artCodContGast = artCodContGast;
-       this.artCodContExis = artCodContExis;
-       this.artCodContSal = artCodContSal;
-       this.artFvenc = artFvenc;
-       this.artFingr = artFingr;
-       this.artFsali = artFsali;
-       this.artMaxi = artMaxi;
-       this.artMini = artMini;
-       this.artEsAc = artEsAc;
-       this.artLimiDepa = artLimiDepa;
-       this.artCantRest = artCantRest;
        this.artCant = artCant;
+       this.artCantRest = artCantRest;
+       this.artFingr = artFingr;
+       this.artFvenc = artFvenc;
+       this.artDesc = artDesc;
        this.artMode = artMode;
        this.artNumeSeri = artNumeSeri;
        this.artMarc = artMarc;
        this.artNumeFact = artNumeFact;
        this.artCodiPresup = artCodiPresup;
-       this.artDesc = artDesc;
-       this.artNumeContra = artNumeContra;
+       this.artCodiCont = artCodiCont;
+       this.artCodContGast = artCodContGast;
+       this.artCodContExis = artCodContExis;
+       this.artCodContSal = artCodContSal;
+       this.artEsAc = artEsAc;
        this.abaaTbOcproyectos = abaaTbOcproyectos;
+       this.sboTbSolixArtis = sboTbSolixArtis;
        this.sboTbExistencias = sboTbExistencias;
     }
    
@@ -109,26 +99,12 @@ public class SboTbArticulo  implements java.io.Serializable {
     public void setSboTbCatArticulo(SboTbCatArticulo sboTbCatArticulo) {
         this.sboTbCatArticulo = sboTbCatArticulo;
     }
-    public SboTbCatContable getSboTbCatContable() {
-        return this.sboTbCatContable;
-    }
-    
-    public void setSboTbCatContable(SboTbCatContable sboTbCatContable) {
-        this.sboTbCatContable = sboTbCatContable;
-    }
     public SboTbOrdenCompra getSboTbOrdenCompra() {
         return this.sboTbOrdenCompra;
     }
     
     public void setSboTbOrdenCompra(SboTbOrdenCompra sboTbOrdenCompra) {
         this.sboTbOrdenCompra = sboTbOrdenCompra;
-    }
-    public SboTbSoliArti getSboTbSoliArti() {
-        return this.sboTbSoliArti;
-    }
-    
-    public void setSboTbSoliArti(SboTbSoliArti sboTbSoliArti) {
-        this.sboTbSoliArti = sboTbSoliArti;
     }
     public Double getArtPrecio() {
         return this.artPrecio;
@@ -137,75 +113,12 @@ public class SboTbArticulo  implements java.io.Serializable {
     public void setArtPrecio(Double artPrecio) {
         this.artPrecio = artPrecio;
     }
-    public String getArtCodContGast() {
-        return this.artCodContGast;
+    public Integer getArtCant() {
+        return this.artCant;
     }
     
-    public void setArtCodContGast(String artCodContGast) {
-        this.artCodContGast = artCodContGast;
-    }
-    public String getArtCodContExis() {
-        return this.artCodContExis;
-    }
-    
-    public void setArtCodContExis(String artCodContExis) {
-        this.artCodContExis = artCodContExis;
-    }
-    public String getArtCodContSal() {
-        return this.artCodContSal;
-    }
-    
-    public void setArtCodContSal(String artCodContSal) {
-        this.artCodContSal = artCodContSal;
-    }
-    public Date getArtFvenc() {
-        return this.artFvenc;
-    }
-    
-    public void setArtFvenc(Date artFvenc) {
-        this.artFvenc = artFvenc;
-    }
-    public Date getArtFingr() {
-        return this.artFingr;
-    }
-    
-    public void setArtFingr(Date artFingr) {
-        this.artFingr = artFingr;
-    }
-    public Date getArtFsali() {
-        return this.artFsali;
-    }
-    
-    public void setArtFsali(Date artFsali) {
-        this.artFsali = artFsali;
-    }
-    public Integer getArtMaxi() {
-        return this.artMaxi;
-    }
-    
-    public void setArtMaxi(Integer artMaxi) {
-        this.artMaxi = artMaxi;
-    }
-    public Integer getArtMini() {
-        return this.artMini;
-    }
-    
-    public void setArtMini(Integer artMini) {
-        this.artMini = artMini;
-    }
-    public Boolean getArtEsAc() {
-        return this.artEsAc;
-    }
-    
-    public void setArtEsAc(Boolean artEsAc) {
-        this.artEsAc = artEsAc;
-    }
-    public Integer getArtLimiDepa() {
-        return this.artLimiDepa;
-    }
-    
-    public void setArtLimiDepa(Integer artLimiDepa) {
-        this.artLimiDepa = artLimiDepa;
+    public void setArtCant(Integer artCant) {
+        this.artCant = artCant;
     }
     public Integer getArtCantRest() {
         return this.artCantRest;
@@ -214,12 +127,26 @@ public class SboTbArticulo  implements java.io.Serializable {
     public void setArtCantRest(Integer artCantRest) {
         this.artCantRest = artCantRest;
     }
-    public Integer getArtCant() {
-        return this.artCant;
+    public Date getArtFingr() {
+        return this.artFingr;
     }
     
-    public void setArtCant(Integer artCant) {
-        this.artCant = artCant;
+    public void setArtFingr(Date artFingr) {
+        this.artFingr = artFingr;
+    }
+    public Date getArtFvenc() {
+        return this.artFvenc;
+    }
+    
+    public void setArtFvenc(Date artFvenc) {
+        this.artFvenc = artFvenc;
+    }
+    public String getArtDesc() {
+        return this.artDesc;
+    }
+    
+    public void setArtDesc(String artDesc) {
+        this.artDesc = artDesc;
     }
     public String getArtMode() {
         return this.artMode;
@@ -256,19 +183,40 @@ public class SboTbArticulo  implements java.io.Serializable {
     public void setArtCodiPresup(String artCodiPresup) {
         this.artCodiPresup = artCodiPresup;
     }
-    public String getArtDesc() {
-        return this.artDesc;
+    public String getArtCodiCont() {
+        return this.artCodiCont;
     }
     
-    public void setArtDesc(String artDesc) {
-        this.artDesc = artDesc;
+    public void setArtCodiCont(String artCodiCont) {
+        this.artCodiCont = artCodiCont;
     }
-    public String getArtNumeContra() {
-        return this.artNumeContra;
+    public String getArtCodContGast() {
+        return this.artCodContGast;
     }
     
-    public void setArtNumeContra(String artNumeContra) {
-        this.artNumeContra = artNumeContra;
+    public void setArtCodContGast(String artCodContGast) {
+        this.artCodContGast = artCodContGast;
+    }
+    public String getArtCodContExis() {
+        return this.artCodContExis;
+    }
+    
+    public void setArtCodContExis(String artCodContExis) {
+        this.artCodContExis = artCodContExis;
+    }
+    public String getArtCodContSal() {
+        return this.artCodContSal;
+    }
+    
+    public void setArtCodContSal(String artCodContSal) {
+        this.artCodContSal = artCodContSal;
+    }
+    public Boolean getArtEsAc() {
+        return this.artEsAc;
+    }
+    
+    public void setArtEsAc(Boolean artEsAc) {
+        this.artEsAc = artEsAc;
     }
     public Set<AbaaTbOcproyecto> getAbaaTbOcproyectos() {
         return this.abaaTbOcproyectos;
@@ -276,6 +224,13 @@ public class SboTbArticulo  implements java.io.Serializable {
     
     public void setAbaaTbOcproyectos(Set<AbaaTbOcproyecto> abaaTbOcproyectos) {
         this.abaaTbOcproyectos = abaaTbOcproyectos;
+    }
+    public Set<SboTbSolixArti> getSboTbSolixArtis() {
+        return this.sboTbSolixArtis;
+    }
+    
+    public void setSboTbSolixArtis(Set<SboTbSolixArti> sboTbSolixArtis) {
+        this.sboTbSolixArtis = sboTbSolixArtis;
     }
     public Set<SboTbExistencia> getSboTbExistencias() {
         return this.sboTbExistencias;
