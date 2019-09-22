@@ -90,6 +90,7 @@ function mostrarFamilia(fam) {
 }
 var catArtActual;
 function mostrarCatArt(art) {
+    resetearSelectSubFam(document.getElementById("selectSubFam"));
     catArtActual = art.catIdPk;
     $("#descripArt").val(art.catDesc);
     $("#selectSubFam").val(art.sboTbSubFamilia.subFamiIdPk);
@@ -98,6 +99,8 @@ function mostrarCatArt(art) {
 }
 
 function mostrarSubFamilia(subfam) {
+    
+    resetearSelectFam(document.getElementById("selectFamilias"));
     $("#codigoSubFam").val(subfam.subFamiIdPk);
     $("#descripSubFam").val(subfam.subFamiDesc);
     $("#selectFamilias").val(subfam.sboTbFamilia.famiIdPk);
@@ -118,7 +121,7 @@ function concatenarBusqueda() {
 
 
 function selectFamilias() {
-
+   
     $.ajax({type: "GET",
         url: "api/familias?filtro=" + $("#filtro").val(),
         success: function (data) {
@@ -135,7 +138,7 @@ function selectFamilias() {
 
 
 function selectSubFamilias() {
-
+  
     $.ajax({type: "GET",
         url: "api/subfamilias?filtro=" + $("#filtro").val(),
         success: function (data) {
@@ -168,20 +171,21 @@ function actualizarFamilia() {
 
 }
 
-function afterUpdateFm(){
+function afterUpdateFm() {
     buscarFamilias();
     $('#modalEditarFam').modal('hide');
 
 }
 
 function actualizarSubFamilia() {
-var e = document.getElementById("selectFamilias");
-var strUser = e.options[e.selectedIndex].value;
     
+    var e = document.getElementById("selectFamilias");
+    var strUser = e.options[e.selectedIndex].value;
+
     SboTbSubFamilia = {
         subFamiIdPk: $("#codigoSubFam").val(),
         subFamiDesc: $("#descripSubFam").val(),
-        sboTbFamilia:{
+        sboTbFamilia: {
             famiIdPk: strUser
         }
     };
@@ -197,24 +201,25 @@ var strUser = e.options[e.selectedIndex].value;
 
 }
 
-function afterUpdateSubFm(){
+function afterUpdateSubFm() {
     buscarSubFamilias();
     $('#modalSubFam').modal('hide');
+    resetearSelectFam();
 
 }
 
 
 function actualizarCatArticulo() {
-var e = document.getElementById("selectSubFam");
-var strUser = e.options[e.selectedIndex].value;
+    var e = document.getElementById("selectSubFam");
+    var strUser = e.options[e.selectedIndex].value;
 
 
-    
+
     SboTbCatArticulo = {
         catDesc: $("#descripArt").val(),
         catIdPk: catArtActual,
-       // subFamiDesc: $("#descripSubFam").val(),
-        sboTbSubFamilia:{
+        // subFamiDesc: $("#descripSubFam").val(),
+        sboTbSubFamilia: {
             subFamiIdPk: strUser
         }
     };
@@ -230,15 +235,15 @@ var strUser = e.options[e.selectedIndex].value;
 
 }
 
-function afterUpdateCatArt(){
+function afterUpdateCatArt() {
     buscarCatArticulos();
     $('#modalArticulo').modal('hide');
 
 }
 
-function agregarACatalogo(){
-    
-        var e = document.getElementById("selectcatalogos");
+function agregarACatalogo() {
+
+    var e = document.getElementById("selectcatalogos");
     var strUser = e.options[e.selectedIndex].value;
 
     switch (strUser) {
@@ -256,18 +261,39 @@ function agregarACatalogo(){
             break;
 
     }
-    
+
 }
 
-function abrirModalAgregaCatArticulo(){
+function abrirModalAgregaCatArticulo() {
     $('#modalAgregarCatArticulo').modal('show');
-    
+
 }
-function abrirModalAgregaSubFam(){
+function abrirModalAgregaSubFam() {
     $('#modalAgregarSubFamilia').modal('show');
-    
+
 }
-function abrirModalAgregaFam(){
+function abrirModalAgregaFam() {
     $('#modalAgregarFamilia').modal('show');
-    
+
 }
+
+
+function resetearSelectFam(selectbox)
+{
+    var i;
+    for(i = selectbox.options.length - 1 ; i >= 0 ; i--)
+    {
+        selectbox.remove(i);
+    }
+}
+
+function resetearSelectSubFam(selectbox)
+{
+    var i;
+    for(i = selectbox.options.length - 1 ; i >= 0 ; i--)
+    {
+        selectbox.remove(i);
+    }
+}
+
+
