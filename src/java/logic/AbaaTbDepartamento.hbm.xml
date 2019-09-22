@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 21-sep-2019 0:08:08 by Hibernate Tools 4.3.1 -->
+<!-- Generated 22-sep-2019 1:11:20 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="logic.AbaaTbDepartamento" table="ABAA_TB_Departamento" schema="dbo" catalog="ABAA" optimistic-lock="version">
         <id name="deptoIdPk" type="string">
@@ -25,9 +25,15 @@
         </set>
         <set name="sboTbArticulos" table="Sbo_TB_Articulo" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="Art_Depa_Fk" length="45" />
+                <column name="Art_Depa_FK" length="45" />
             </key>
             <one-to-many class="logic.SboTbArticulo" />
+        </set>
+        <set name="sboTbLimiteDptos" table="Sbo_TB_LimiteDpto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="LimiteDpto_Id_Dpto_PK" length="45" not-null="true" />
+            </key>
+            <one-to-many class="logic.SboTbLimiteDpto" />
         </set>
         <set name="abaaTbFuncionarios" table="ABAA_TB_Funcionario" inverse="true" lazy="true" fetch="select">
             <key>

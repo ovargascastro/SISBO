@@ -1,5 +1,5 @@
 package logic;
-// Generated 21-sep-2019 0:08:08 by Hibernate Tools 4.3.1
+// Generated 22-sep-2019 1:11:19 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -13,11 +13,11 @@ public class SboTbOrdenCompra  implements java.io.Serializable {
 
 
      private int ocIdPk;
-     private AbaaTbEstado abaaTbEstado;
      private AbaaTbProveedor abaaTbProveedor;
      private Date ocFecha;
      private Double ocPrecTota;
-     private String ocPlazoEntrega;
+     private String ocEsta;
+     private Date ocPlazoEntrega;
      private String ocEntregarA;
      private Set<SboTbArticulo> sboTbArticulos = new HashSet<SboTbArticulo>(0);
      private Set<AbaaTbOcproyecto> abaaTbOcproyectos = new HashSet<AbaaTbOcproyecto>(0);
@@ -29,12 +29,12 @@ public class SboTbOrdenCompra  implements java.io.Serializable {
     public SboTbOrdenCompra(int ocIdPk) {
         this.ocIdPk = ocIdPk;
     }
-    public SboTbOrdenCompra(int ocIdPk, AbaaTbEstado abaaTbEstado, AbaaTbProveedor abaaTbProveedor, Date ocFecha, Double ocPrecTota, String ocPlazoEntrega, String ocEntregarA, Set<SboTbArticulo> sboTbArticulos, Set<AbaaTbOcproyecto> abaaTbOcproyectos) {
+    public SboTbOrdenCompra(int ocIdPk, AbaaTbProveedor abaaTbProveedor, Date ocFecha, Double ocPrecTota, String ocEsta, Date ocPlazoEntrega, String ocEntregarA, Set<SboTbArticulo> sboTbArticulos, Set<AbaaTbOcproyecto> abaaTbOcproyectos) {
        this.ocIdPk = ocIdPk;
-       this.abaaTbEstado = abaaTbEstado;
        this.abaaTbProveedor = abaaTbProveedor;
        this.ocFecha = ocFecha;
        this.ocPrecTota = ocPrecTota;
+       this.ocEsta = ocEsta;
        this.ocPlazoEntrega = ocPlazoEntrega;
        this.ocEntregarA = ocEntregarA;
        this.sboTbArticulos = sboTbArticulos;
@@ -47,13 +47,6 @@ public class SboTbOrdenCompra  implements java.io.Serializable {
     
     public void setOcIdPk(int ocIdPk) {
         this.ocIdPk = ocIdPk;
-    }
-    public AbaaTbEstado getAbaaTbEstado() {
-        return this.abaaTbEstado;
-    }
-    
-    public void setAbaaTbEstado(AbaaTbEstado abaaTbEstado) {
-        this.abaaTbEstado = abaaTbEstado;
     }
     public AbaaTbProveedor getAbaaTbProveedor() {
         return this.abaaTbProveedor;
@@ -76,11 +69,18 @@ public class SboTbOrdenCompra  implements java.io.Serializable {
     public void setOcPrecTota(Double ocPrecTota) {
         this.ocPrecTota = ocPrecTota;
     }
-    public String getOcPlazoEntrega() {
+    public String getOcEsta() {
+        return this.ocEsta;
+    }
+    
+    public void setOcEsta(String ocEsta) {
+        this.ocEsta = ocEsta;
+    }
+    public Date getOcPlazoEntrega() {
         return this.ocPlazoEntrega;
     }
     
-    public void setOcPlazoEntrega(String ocPlazoEntrega) {
+    public void setOcPlazoEntrega(Date ocPlazoEntrega) {
         this.ocPlazoEntrega = ocPlazoEntrega;
     }
     public String getOcEntregarA() {

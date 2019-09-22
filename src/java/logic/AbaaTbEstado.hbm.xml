@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 21-sep-2019 0:08:08 by Hibernate Tools 4.3.1 -->
+<!-- Generated 22-sep-2019 1:11:20 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="logic.AbaaTbEstado" table="ABAA_TB_Estado" schema="dbo" catalog="ABAA" optimistic-lock="version">
         <id name="estaIdPk" type="int">
@@ -14,23 +14,11 @@
         <property name="estaTipo" type="string">
             <column name="Esta_Tipo" length="45" not-null="true" />
         </property>
-        <set name="sboTbSoliArtis" table="Sbo_TB_Soli_Arti" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Sol_Arti_Id_Esta_FK" />
-            </key>
-            <one-to-many class="logic.SboTbSoliArti" />
-        </set>
         <set name="abaaTbUsuarios" table="ABAA_TB_Usuario" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="Usua_Esta_FK" not-null="true" />
             </key>
             <one-to-many class="logic.AbaaTbUsuario" />
-        </set>
-        <set name="sboTbOrdenCompras" table="Sbo_TB_OrdenCompra" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="OC_Esta_FK" />
-            </key>
-            <one-to-many class="logic.SboTbOrdenCompra" />
         </set>
     </class>
 </hibernate-mapping>

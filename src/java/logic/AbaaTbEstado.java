@@ -1,5 +1,5 @@
 package logic;
-// Generated 21-sep-2019 0:08:08 by Hibernate Tools 4.3.1
+// Generated 22-sep-2019 1:11:19 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -14,9 +14,7 @@ public class AbaaTbEstado  implements java.io.Serializable {
      private int estaIdPk;
      private String estaNombre;
      private String estaTipo;
-     private Set<SboTbSoliArti> sboTbSoliArtis = new HashSet<SboTbSoliArti>(0);
      private Set<AbaaTbUsuario> abaaTbUsuarios = new HashSet<AbaaTbUsuario>(0);
-     private Set<SboTbOrdenCompra> sboTbOrdenCompras = new HashSet<SboTbOrdenCompra>(0);
 
     public AbaaTbEstado() {
     }
@@ -27,13 +25,11 @@ public class AbaaTbEstado  implements java.io.Serializable {
         this.estaNombre = estaNombre;
         this.estaTipo = estaTipo;
     }
-    public AbaaTbEstado(int estaIdPk, String estaNombre, String estaTipo, Set<SboTbSoliArti> sboTbSoliArtis, Set<AbaaTbUsuario> abaaTbUsuarios, Set<SboTbOrdenCompra> sboTbOrdenCompras) {
+    public AbaaTbEstado(int estaIdPk, String estaNombre, String estaTipo, Set<AbaaTbUsuario> abaaTbUsuarios) {
        this.estaIdPk = estaIdPk;
        this.estaNombre = estaNombre;
        this.estaTipo = estaTipo;
-       this.sboTbSoliArtis = sboTbSoliArtis;
        this.abaaTbUsuarios = abaaTbUsuarios;
-       this.sboTbOrdenCompras = sboTbOrdenCompras;
     }
    
     public int getEstaIdPk() {
@@ -57,26 +53,12 @@ public class AbaaTbEstado  implements java.io.Serializable {
     public void setEstaTipo(String estaTipo) {
         this.estaTipo = estaTipo;
     }
-    public Set<SboTbSoliArti> getSboTbSoliArtis() {
-        return this.sboTbSoliArtis;
-    }
-    
-    public void setSboTbSoliArtis(Set<SboTbSoliArti> sboTbSoliArtis) {
-        this.sboTbSoliArtis = sboTbSoliArtis;
-    }
     public Set<AbaaTbUsuario> getAbaaTbUsuarios() {
         return this.abaaTbUsuarios;
     }
     
     public void setAbaaTbUsuarios(Set<AbaaTbUsuario> abaaTbUsuarios) {
         this.abaaTbUsuarios = abaaTbUsuarios;
-    }
-    public Set<SboTbOrdenCompra> getSboTbOrdenCompras() {
-        return this.sboTbOrdenCompras;
-    }
-    
-    public void setSboTbOrdenCompras(Set<SboTbOrdenCompra> sboTbOrdenCompras) {
-        this.sboTbOrdenCompras = sboTbOrdenCompras;
     }
 
 

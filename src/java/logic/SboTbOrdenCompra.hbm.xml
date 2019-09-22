@@ -1,16 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 21-sep-2019 0:08:08 by Hibernate Tools 4.3.1 -->
+<!-- Generated 22-sep-2019 1:11:20 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="logic.SboTbOrdenCompra" table="Sbo_TB_OrdenCompra" schema="dbo" catalog="ABAA" optimistic-lock="version">
         <id name="ocIdPk" type="int">
             <column name="OC_Id_PK" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="abaaTbEstado" class="logic.AbaaTbEstado" fetch="select">
-            <column name="OC_Esta_FK" />
-        </many-to-one>
         <many-to-one name="abaaTbProveedor" class="logic.AbaaTbProveedor" fetch="select">
             <column name="OC_Prove_FK" />
         </many-to-one>
@@ -20,11 +17,14 @@
         <property name="ocPrecTota" type="java.lang.Double">
             <column name="OC_Prec_Tota" precision="53" scale="0" />
         </property>
-        <property name="ocPlazoEntrega" type="string">
-            <column name="OC_PlazoEntrega" length="50" />
+        <property name="ocEsta" type="string">
+            <column name="OC_Esta" length="30" />
+        </property>
+        <property name="ocPlazoEntrega" type="date">
+            <column name="OC_PlazoEntrega" length="10" />
         </property>
         <property name="ocEntregarA" type="string">
-            <column name="OC_EntregarA" length="30" />
+            <column name="OC_EntregarA" length="50" />
         </property>
         <set name="sboTbArticulos" table="Sbo_TB_Articulo" inverse="true" lazy="true" fetch="select">
             <key>
