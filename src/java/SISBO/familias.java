@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -65,9 +66,22 @@ public class familias {
         }
     }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void agregarFunc(SboTbFamilia familia) {
+        try {
+            Model.instance().crearFamilia(familia);
+
+        } catch (Exception ex) {
+            throw new NotFoundException();
+        }
+    }
+    
+    
     /**
      * PUT method for updating or creating an instance of GenericResource
      *
      * @param content representation for the resource
+     *
      */
 }
