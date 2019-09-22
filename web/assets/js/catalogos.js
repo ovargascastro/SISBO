@@ -235,3 +235,39 @@ function afterUpdateCatArt(){
     $('#modalArticulo').modal('hide');
 
 }
+
+function agregarACatalogo(){
+    
+        var e = document.getElementById("selectcatalogos");
+    var strUser = e.options[e.selectedIndex].value;
+
+    switch (strUser) {
+        case "1":
+            abrirModalAgregaFam();
+            $("#filtro").val('');
+            break;
+        case "2":
+            abrirModalAgregaSubFam();
+            $("#filtro").val('');
+            break;
+        case "3":
+            abrirModalAgregaCatArticulo();
+            $("#filtro").val('');
+            break;
+
+    }
+    
+}
+
+function abrirModalAgregaCatArticulo(){
+    $('#modalAgregarCatArticulo').modal('show');
+    
+}
+function abrirModalAgregaSubFam(){
+    $('#modalAgregarSubFamilia').modal('show');
+    
+}
+function abrirModalAgregaFam(){
+    $('#modalAgregarFamilia').modal('show');
+    
+}
