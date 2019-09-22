@@ -15,6 +15,7 @@
         <title>Ingreso de Articulos Nuevos</title>
     </head>
     <body>
+        <%@ include file="/presentation/header.jsp" %>
         <div id="titulo">
             <div class="jumbotron">
                 <h1>Ingresar Artículos Nuevos</h1>
@@ -154,7 +155,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" onclick="cerrarInfoArt()" >Cerrar</button></div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" onclick="CerrarInfoArt()" >Cerrar</button></div>
                 </div>
             </div>
         </div>

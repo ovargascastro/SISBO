@@ -15,6 +15,7 @@
         <title>Ingreso de Articulos Nuevos</title>
     </head>
     <body>
+        <%@ include file="/presentation/header.jsp" %>
         <div id="titulo">
             <div class="jumbotron">
                 <h1>Ingresar Artículos Nuevos</h1>
