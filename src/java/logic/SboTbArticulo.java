@@ -33,10 +33,7 @@ public class SboTbArticulo  implements java.io.Serializable {
      private String artCodContExis;
      private String artCodContSal;
      private Boolean artEsAc;
-<<<<<<< HEAD
-=======
      private String artUnidadMedida;
->>>>>>> b135b106a81b9cd1f79372940fd4bf7193c371ab
      private Set<AbaaTbOcproyecto> abaaTbOcproyectos = new HashSet<AbaaTbOcproyecto>(0);
      private Set<SboTbSolixArti> sboTbSolixArtis = new HashSet<SboTbSolixArti>(0);
      private Set<SboTbExistencia> sboTbExistencias = new HashSet<SboTbExistencia>(0);
@@ -193,7 +190,6 @@ public class SboTbArticulo  implements java.io.Serializable {
     
     public void setArtCodiCont(String artCodiCont) {
         this.artCodiCont = artCodiCont;
-<<<<<<< HEAD
     }
     public String getArtCodContGast() {
         return this.artCodContGast;
@@ -220,34 +216,6 @@ public class SboTbArticulo  implements java.io.Serializable {
         return this.artEsAc;
     }
     
-=======
-    }
-    public String getArtCodContGast() {
-        return this.artCodContGast;
-    }
-    
-    public void setArtCodContGast(String artCodContGast) {
-        this.artCodContGast = artCodContGast;
-    }
-    public String getArtCodContExis() {
-        return this.artCodContExis;
-    }
-    
-    public void setArtCodContExis(String artCodContExis) {
-        this.artCodContExis = artCodContExis;
-    }
-    public String getArtCodContSal() {
-        return this.artCodContSal;
-    }
-    
-    public void setArtCodContSal(String artCodContSal) {
-        this.artCodContSal = artCodContSal;
-    }
-    public Boolean getArtEsAc() {
-        return this.artEsAc;
-    }
-    
->>>>>>> b135b106a81b9cd1f79372940fd4bf7193c371ab
     public void setArtEsAc(Boolean artEsAc) {
         this.artEsAc = artEsAc;
     }
@@ -279,11 +247,6 @@ public class SboTbArticulo  implements java.io.Serializable {
 
     public void setArtUnidadMedida(String artUnidadMedida) {
         this.artUnidadMedida = artUnidadMedida;
-    }
-
-
-
+    }    
 
 }
-
-

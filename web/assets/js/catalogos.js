@@ -273,7 +273,6 @@ function agregarACatalogo() {
 
 function abrirModalAgregaCatArticulo() {
     $('#modalAgregarCatArticulo').modal('show');
-<<<<<<< HEAD
 
 }
 function abrirModalAgregaSubFam() {
@@ -305,10 +304,10 @@ function resetearSelectSubFam(selectbox)
 }
 
 
-=======
+
      $("#selectSubFam").val("");
    // selectAgregaSubFamilias();
-}
+
 
 function selectAgregaSubFamilias() {
 
@@ -433,4 +432,3 @@ function afterCreateCatArt(){
     $('#modalAgregarCatArticulo').modal('hide');
 
 }
->>>>>>> b135b106a81b9cd1f79372940fd4bf7193c371ab
