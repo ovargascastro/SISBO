@@ -269,6 +269,9 @@ function agregarACatalogo(){
 function abrirModalAgregaCatArticulo(){
     $('#modalAgregarCatArticulo').modal('show');
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> bbf1f7e578a21250e7389f0239ac4d9082f53a72
 
 }
 function abrirModalAgregaSubFam() {
@@ -300,10 +303,14 @@ function resetearSelectSubFam(selectbox)
 }
 
 
+<<<<<<< HEAD
 =======
+=======
+
+>>>>>>> bbf1f7e578a21250e7389f0239ac4d9082f53a72
      $("#selectSubFam").val("");
    // selectAgregaSubFamilias();
-}
+
 
 function selectAgregaSubFamilias() {
 
@@ -428,4 +435,7 @@ function afterCreateCatArt(){
     $('#modalAgregarCatArticulo').modal('hide');
 
 }
+<<<<<<< HEAD
 >>>>>>> e75747bfae3579dbade9e58753922e42e7891b89
+=======
+>>>>>>> bbf1f7e578a21250e7389f0239ac4d9082f53a72
