@@ -1,5 +1,5 @@
 package logic;
-// Generated 21-sep-2019 0:08:08 by Hibernate Tools 4.3.1
+// Generated 22-sep-2019 1:11:19 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -13,6 +13,7 @@ public class SboTbFamilia  implements java.io.Serializable {
 
      private String famiIdPk;
      private String famiDesc;
+     private String famiEstado;
      private Set<SboTbSubFamilia> sboTbSubFamilias = new HashSet<SboTbSubFamilia>(0);
 
     public SboTbFamilia() {
@@ -22,9 +23,10 @@ public class SboTbFamilia  implements java.io.Serializable {
     public SboTbFamilia(String famiIdPk) {
         this.famiIdPk = famiIdPk;
     }
-    public SboTbFamilia(String famiIdPk, String famiDesc, Set<SboTbSubFamilia> sboTbSubFamilias) {
+    public SboTbFamilia(String famiIdPk, String famiDesc, String famiEstado,Set<SboTbSubFamilia> sboTbSubFamilias) {
        this.famiIdPk = famiIdPk;
        this.famiDesc = famiDesc;
+       this.famiEstado=famiEstado;
        this.sboTbSubFamilias = sboTbSubFamilias;
     }
    
@@ -50,9 +52,14 @@ public class SboTbFamilia  implements java.io.Serializable {
         this.sboTbSubFamilias = sboTbSubFamilias;
     }
 
+    public String getFamiEstado() {
+        return famiEstado;
+    }
 
+    public void setFamiEstado(String famiEstado) {
+        this.famiEstado = famiEstado;
+    }
 
 
 }
-
 

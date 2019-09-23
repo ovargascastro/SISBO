@@ -25,13 +25,14 @@ public class catalogosDAO {
     public catalogosDAO() {
         db = new RelDatabase();
 
-    }
+    }//agregar el estado aca recordar
 
     private SboTbFamilia familia(ResultSet rs) {
         try {
             SboTbFamilia ob = new SboTbFamilia();
             ob.setFamiDesc(rs.getString("Fami_Desc"));
             ob.setFamiIdPk(rs.getString("Fami_Id_Pk"));
+            ob.setFamiEstado(rs.getString("Fami_Estado")); 
             return ob;
         } catch (SQLException ex) {
             return null;
@@ -44,6 +45,7 @@ public class catalogosDAO {
             SboTbCatArticulo ob = new SboTbCatArticulo();
             ob.setCatIdPk(rs.getInt("Cat_Id_Pk"));
             ob.setCatDesc(rs.getString("Cat_Desc"));
+           ob.setArtCat_Estado(rs.getString("Cat_Estado"));
             ob.setSboTbSubFamilia(Subfamilia(rs));
             return ob;
         } catch (SQLException ex) {
@@ -58,6 +60,7 @@ public class catalogosDAO {
             ob.setSubFamiIdPk(rs.getString("SubFami_Id_Pk"));
             ob.setSboTbFamilia(familia(rs));
             ob.setSubFamiDesc(rs.getString("SubFami_Desc"));
+            ob.setSubFamiEstado(rs.getString("SubFami_Estado"));
             return ob;
         } catch (SQLException ex) {
             return null;
@@ -145,62 +148,70 @@ public class catalogosDAO {
     }
 
     public void actualizarFamilia(SboTbFamilia objeto) throws Exception {
-        String query = "update Sbo_TB_Familia set Fami_Desc = ? where Fami_Id_Pk = ?";
+        String query = "update Sbo_TB_Familia set Fami_Desc = ?,Fami_Estado = ? where Fami_Id_Pk = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getFamiDesc());
-        preparedStmt.setString(2, objeto.getFamiIdPk());
+         preparedStmt.setString(2, objeto.getFamiEstado());
+        preparedStmt.setString(3, objeto.getFamiIdPk());
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
 
      public void actualizarSubFamilia(SboTbSubFamilia objeto) throws Exception {
-        String query = "update Sbo_TB_SubFamilia set SubFami_Desc = ?, SubFami_CodF_Fk = ? where SubFami_Id_Pk = ?";
+        String query = "update Sbo_TB_SubFamilia set SubFami_Desc = ?, SubFami_CodF_Fk = ?, SubFami_Estado = ? where SubFami_Id_Pk = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getSubFamiDesc());
         preparedStmt.setString(2, objeto.getSboTbFamilia().getFamiIdPk());
-        preparedStmt.setString(3, objeto.getSubFamiIdPk());
+         preparedStmt.setString(3, objeto.getSubFamiEstado());
+        preparedStmt.setString(4, objeto.getSubFamiIdPk());
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
 
        public void actualizarCatArticulo(SboTbCatArticulo objeto) throws Exception {
-        String query = "update Sbo_TB_CatArticulo set Cat_Desc = ?, Cat_SubF_FK = ? where Cat_Id_PK = ?";
+        String query = "update Sbo_TB_CatArticulo set Cat_Desc = ?, Cat_SubF_FK = ?, Cat_Estado=? where Cat_Id_PK = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getCatDesc());
         preparedStmt.setString(2, objeto.getSboTbSubFamilia().getSubFamiIdPk());
-        preparedStmt.setInt(3, objeto.getCatIdPk());
+        preparedStmt.setString(3, objeto.getArtCat_Estado());
+        preparedStmt.setInt(4, objeto.getCatIdPk());
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
      
        public void crearFamilia(SboTbFamilia objeto) throws Exception{
-        String query = "insert into Sbo_TB_Familia(Fami_Id_Pk,Fami_Desc)values(?,?)";
+        String query = "insert into Sbo_TB_Familia(Fami_Id_Pk,Fami_Desc,Fami_Estado)values(?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getFamiIdPk());
         preparedStmt.setString(2, objeto.getFamiDesc());
+        preparedStmt.setString(3, "1");
         preparedStmt.executeUpdate();
         db.getConnection().close();
        }
        
        public void crearSubFamilia(SboTbSubFamilia objeto) throws Exception{
-        String query = "insert into Sbo_TB_SubFamilia(SubFami_Id_Pk,SubFami_Desc,SubFami_CodF_Fk)values(?,?,?)";
+        String query = "insert into Sbo_TB_SubFamilia(SubFami_Id_Pk,SubFami_Desc,SubFami_CodF_Fk,SubFami_Estado)values(?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getSubFamiIdPk());
         preparedStmt.setString(2, objeto.getSubFamiDesc());
         preparedStmt.setString(3, objeto.getSboTbFamilia().getFamiIdPk());
+        preparedStmt.setString(4, "1");
         preparedStmt.executeUpdate();
         db.getConnection().close();
        }
        
             public void crearCatArticulo(SboTbCatArticulo objeto) throws Exception{
-        String query = "insert into Sbo_TB_CatArticulo(Cat_Cod_Sicop,Cat_SubF_FK,Cat_Desc)values(?,?,?)";
+        String query = "insert into Sbo_TB_CatArticulo(Cat_Cod_Sicop,Cat_SubF_FK,Cat_Desc,Cat_Estado)values(?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         
-         preparedStmt.setString(1, objeto.getCatCodSicop());
+        preparedStmt.setString(1, objeto.getCatCodSicop());
         preparedStmt.setString(2, objeto.getSboTbSubFamilia().getSubFamiIdPk());
         preparedStmt.setString(3, objeto.getCatDesc());
-       
+        preparedStmt.setString(4, "1");
         preparedStmt.executeUpdate();
         db.getConnection().close();
        }
+            
+            
+            
 }
