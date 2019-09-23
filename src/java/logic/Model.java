@@ -69,7 +69,6 @@ public class Model {
     public void actualizarCatArticulo(SboTbCatArticulo articulo) throws Exception {
         catdao.actualizarCatArticulo(articulo);
     }
-<<<<<<< HEAD
 
     public void crearFamilia(SboTbFamilia familia) throws Exception {
         catdao.crearFamilia(familia);
@@ -82,17 +81,4 @@ public class Model {
     public void crearCatArticulo(SboTbCatArticulo articulo) throws Exception {
         catdao.crearCatArticulo(articulo);
     }
-=======
-      public void crearFamilia(SboTbFamilia familia) throws Exception{
-                 
-        catdao.crearFamilia(familia);
-             }
-        public void crearSubFamilia(SboTbSubFamilia subfamilia) throws Exception{
-                   catdao.crearSubFamilia(subfamilia);
-             }
-      
-              public void crearCatArticulo(SboTbCatArticulo articulo) throws Exception{
-                   catdao.crearCatArticulo(articulo);
-             }
->>>>>>> e75747bfae3579dbade9e58753922e42e7891b89
 }
