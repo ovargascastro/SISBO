@@ -192,7 +192,7 @@ public class catalogosDAO {
         db.getConnection().close();
        }
        
-            public void crearCatArticulo(SboTbCatArticulo objeto) throws Exception{
+        public void crearCatArticulo(SboTbCatArticulo objeto) throws Exception{
         String query = "insert into Sbo_TB_CatArticulo(Cat_Cod_Sicop,Cat_SubF_FK,Cat_Desc)values(?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         

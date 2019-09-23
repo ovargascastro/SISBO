@@ -121,10 +121,9 @@
                         <form>
                             <div class="container">
                                 <div class="form-row">
-                                    <div class="col"><label>Articulo</label><input id="articulo" class="form-control" type="text" readonly><label>Cantidad Minima</label><input id="cantMin" class="form-control" type="number" placeholder="Min"><label>Fecha de Ingreso</label><input class="form-control" type="date"><label>Cantidad a Ingresar</label>
-                                        <input
-                                            class="form-control" type="number"></div>
-                                    <div class="col"><label>Descripcion</label><input class="form-control" type="text" placeholder="Descripcion"><label>Cantidad Maxima</label><input class="form-control" type="number" placeholder="Max"><label>Fecha de Vencimiento</label>
+                                    <div class="col"><label>Articulo</label><input id="articulo" class="form-control" type="text" readonly><label>Fecha de Ingreso</label><input class="form-control" type="date"><label>Cantidad a Ingresar</label>
+                                        <input class="form-control" type="number"></div>
+                                    <div class="col"><label>Descripcion</label><input class="form-control" type="text" placeholder="Descripcion"><label>Fecha de Vencimiento</label>
                                         <input
                                             class="form-control" type="date"><label>Informacion del Articulo</label>
                                         <div class="text-center"><img src="assets/img/info(1).png" onclick="abrirModalInfoArticulo()"></div>
@@ -152,7 +151,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" onclick="CerrarInfoArt()" >Cerrar</button></div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" onclick="cerrarInfoArt()" >Cerrar</button></div>
                 </div>
             </div>
         </div>

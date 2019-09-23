@@ -60,6 +60,11 @@ public class Model {
 
     }
     
+    public SboTbOrdenCompra getSboTbArtxOrden(String filtro) throws Exception{
+     /*   SboTBoc oc = */  
+        return null;
+    }
+    
     public void actualizarFamilia(SboTbFamilia familia) throws Exception{
         catdao.actualizarFamilia(familia);
     }
@@ -68,18 +73,21 @@ public class Model {
         catdao.actualizarSubFamilia(subfamilia);
     }
 
-           public void actualizarCatArticulo(SboTbCatArticulo articulo) throws Exception{
+      public void actualizarCatArticulo(SboTbCatArticulo articulo) throws Exception{
         catdao.actualizarCatArticulo(articulo);
     }
       public void crearFamilia(SboTbFamilia familia) throws Exception{
                  
         catdao.crearFamilia(familia);
              }
-        public void crearSubFamilia(SboTbSubFamilia subfamilia) throws Exception{
+      public void crearSubFamilia(SboTbSubFamilia subfamilia) throws Exception{
                    catdao.crearSubFamilia(subfamilia);
              }
       
-              public void crearCatArticulo(SboTbCatArticulo articulo) throws Exception{
+      public void crearCatArticulo(SboTbCatArticulo articulo) throws Exception{
                    catdao.crearCatArticulo(articulo);
              }
+
+           
+
 }
