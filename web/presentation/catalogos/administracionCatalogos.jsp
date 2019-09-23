@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="assets/css/styles.css">
         <title>Administracion de Catalogos</title>
     </head>
-    <body>
+    <body onload="javascript:cargarSelects()">
         <%@ include file="/presentation/header.jsp" %>
         <div id="titulo">
             <div class="jumbotron">
@@ -99,7 +99,7 @@
                         <form>
                             <div class="container">
                                 <div class="form-row">
-                                    <div class="col"><label>Código Fam<br></label><input class="form-control" type="text" id="codigoFamilia"></div>
+                                    <div class="col"><label>Código Fam<br></label><input class="form-control" type="text" id="codigoFamilia" readonly></div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col"><label>Descripción<br></label><input class="form-control" type="text" id="descripFamilia"></div>
@@ -121,7 +121,7 @@
                         <form>
                             <div class="container">
                                 <div class="form-row">
-                                    <div class="col"><label>Código Sub-Fam<br></label><input class="form-control" type="text" id="codigoSubFam"></div>
+                                    <div class="col"><label>Código Sub-Fam<br></label><input class="form-control" type="text" id="codigoSubFam" readonly></div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col"><label>Descripción<br></label><input class="form-control" type="text" id="descripSubFam"></div>
@@ -171,15 +171,18 @@
                     <div class="container">
                         <form>
                             <div class="form-row">
-                                <div class="col"><label>Descripcion</label><input class="form-control" type="text"></div>
+                                <div class="col"><label>Descripcion</label><input class="form-control" type="text" id="AgregarDescipcionCatArt"></div>
                                 </div>
                              <div class="form-row">
-                                <div class="col"><label>SubFamilia</label><select class="form-control"><optgroup label="This is a group"><option value="12" selected="">This is item 1</option><option value="13">This is item 2</option><option value="14">This is item 3</option></optgroup></select></div>
+                                <div class="col"><label>Codigo Articulo Sicop</label><input class="form-control" type="text" id="AgregarCodSicopCatArt"></div>
+                                </div>
+                             <div class="form-row">
+                                <div class="col"><label>SubFamilia</label><select class="form-control" id="AgregarSubfamiliaCatArt"></select></div>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button">Agregar</button></div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button" onclick="javascript:CrearCatArticulo()">Agregar</button></div>
             </div>
         </div>
     </div>
@@ -192,18 +195,18 @@
                     <div class="container">
                         <form>
                             <div class="form-row">
-                                <div class="col"><label>Código</label><input class="form-control" type="text"></div>
+                                <div class="col"><label>Código</label><input class="form-control" type="text" id="AgregarCodigoSubF"></div>
                                 </div>
                              <div class="form-row">
-                                <div class="col"><label>Descripcion</label><input class="form-control" type="text"></div>
+                                <div class="col"><label>Descripcion</label><input class="form-control" type="text" id="AgregarDescripcionSubF"></div>
                                 </div>
                              <div class="form-row">
-                                <div class="col"><label>Familia</label><select class="form-control"><optgroup label="This is a group"><option value="12" selected="">This is item 1</option><option value="13">This is item 2</option><option value="14">This is item 3</option></optgroup></select></div>
+                                <div class="col"><label>Familia</label><select class="form-control" id="AgregarFamiliaSubF"></select></div>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button">Agregar</button></div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button" onclick="javascript:crearSubFamilia()">Agregar</button></div>
             </div>
         </div>
     </div>
@@ -217,16 +220,16 @@
                     <div class="container">
                         <form>
                             <div class="form-row">
-                                <div class="col"><label>Código</label><input class="form-control" type="text"></div>
+                                <div class="col"><label>Código</label><input class="form-control" type="text" id="AgregarCodigoFam"></div>
                                 </div>
                              <div class="form-row">
-                                <div class="col"><label>Descripcion</label><input class="form-control" type="text"></div>
+                                <div class="col"><label>Descripcion</label><input class="form-control" type="text" id="AgregarDescripcionFam"></div>
                                
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button">Agregar</button></div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button" onclick="javascript:crearFamilia()">Agregar</button></div>
             </div>
         </div>
     </div>

@@ -33,6 +33,10 @@ public class SboTbArticulo  implements java.io.Serializable {
      private String artCodContExis;
      private String artCodContSal;
      private Boolean artEsAc;
+<<<<<<< HEAD
+=======
+     private String artUnidadMedida;
+>>>>>>> e75747bfae3579dbade9e58753922e42e7891b89
      private Set<AbaaTbOcproyecto> abaaTbOcproyectos = new HashSet<AbaaTbOcproyecto>(0);
      private Set<SboTbSolixArti> sboTbSolixArtis = new HashSet<SboTbSolixArti>(0);
      private Set<SboTbExistencia> sboTbExistencias = new HashSet<SboTbExistencia>(0);
@@ -189,6 +193,7 @@ public class SboTbArticulo  implements java.io.Serializable {
     
     public void setArtCodiCont(String artCodiCont) {
         this.artCodiCont = artCodiCont;
+<<<<<<< HEAD
     }
     public String getArtCodContGast() {
         return this.artCodContGast;
@@ -215,6 +220,34 @@ public class SboTbArticulo  implements java.io.Serializable {
         return this.artEsAc;
     }
     
+=======
+    }
+    public String getArtCodContGast() {
+        return this.artCodContGast;
+    }
+    
+    public void setArtCodContGast(String artCodContGast) {
+        this.artCodContGast = artCodContGast;
+    }
+    public String getArtCodContExis() {
+        return this.artCodContExis;
+    }
+    
+    public void setArtCodContExis(String artCodContExis) {
+        this.artCodContExis = artCodContExis;
+    }
+    public String getArtCodContSal() {
+        return this.artCodContSal;
+    }
+    
+    public void setArtCodContSal(String artCodContSal) {
+        this.artCodContSal = artCodContSal;
+    }
+    public Boolean getArtEsAc() {
+        return this.artEsAc;
+    }
+    
+>>>>>>> e75747bfae3579dbade9e58753922e42e7891b89
     public void setArtEsAc(Boolean artEsAc) {
         this.artEsAc = artEsAc;
     }
@@ -238,6 +271,14 @@ public class SboTbArticulo  implements java.io.Serializable {
     
     public void setSboTbExistencias(Set<SboTbExistencia> sboTbExistencias) {
         this.sboTbExistencias = sboTbExistencias;
+    }
+
+    public String getArtUnidadMedida() {
+        return artUnidadMedida;
+    }
+
+    public void setArtUnidadMedida(String artUnidadMedida) {
+        this.artUnidadMedida = artUnidadMedida;
     }
 
 
