@@ -201,11 +201,19 @@
                             });
                         }
 
+                        function formatDate(fecha) {
+                            var dia= fecha.substring(8,10);
+                            var mes= fecha.substring(5,7);
+                            var annio = fecha.substring(0,4);
+                            var newFecha = dia+"/"+mes+"/"+annio;
+                            return newFecha;
+                        }
+
                         function filaOC(listado, objeto) {
                             var tr = $("<tr />");
                             tr.html(
                                     "<td>" + objeto.ocIdPk + "</td>"
-                                    + "<td>" + objeto.ocFecha + "</td>"
+                                    + "<td>" + formatDate(objeto.ocFecha) + "</td>"
                                     + "<td>" + objeto.ocEsta + "</td>"
                                     + "<td><img class='small-img' src='assets/img/delivery-cart.png' onclick='abrirModalListarArticulos()'></td>");
                             listado.append(tr);
