@@ -1,22 +1,4 @@
-<<<<<<< HEAD
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
-
-/**
- *
- * @author Marco
- */
-public class OrdenCompraDAO {
-    
-    
-    
-=======
-package data;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,6 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import logic.SboTbOrdenCompra;
 import logic.AbaaTbProveedor;
+
+
+/**
+ *
+ * @author Marco
+ */
+    
 
 public class OrdenCompraDAO {
 
@@ -65,6 +54,26 @@ public class OrdenCompraDAO {
         }
     }
 
+    public List<SboTbOrdenCompra> listaOCxArt(String filtro) {
+        List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
+        try {
+            String sql = "select Sbo_TB_CatArticulo.Cat_Desc 'Nombre',Sbo_TB_Articulo.Art_Desc 'Descripcion', Sbo_TB_Articulo.Art_Mode 'Modelo', Sbo_TB_Articulo.Art_Nume_Seri 'N. Serie',\n" +
+                         "Sbo_TB_Articulo.Art_Marc 'Marca', Sbo_TB_OrdenCompra.OC_Id_PK 'Orden de Compra', ABAA_TB_Departamento.Depto_Nomb 'Unidad Usuaria'\n" +
+                         "\n" +
+                         "from Sbo_TB_CatArticulo ,Sbo_TB_Articulo, Sbo_TB_OrdenCompra, ABAA_TB_Departamento\n" +
+                         "\n" +
+                         "where Sbo_TB_CatArticulo.Cat_Id_PK = Sbo_TB_Articulo.Art_Codi_Cat_Arti_FK and Sbo_TB_Articulo.Art_Orde_Comp_FK = Sbo_TB_OrdenCompra.OC_Id_PK \n" +
+                         "and Sbo_TB_Articulo.Art_Depa_FK = ABAA_TB_Departamento.Depto_Id_PK like '%%%s%%';";
+            sql = String.format(sql, filtro);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(OrdenCompra(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+
     public List<SboTbOrdenCompra> listaFamilias(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {
@@ -80,5 +89,4 @@ public class OrdenCompraDAO {
         }
         return resultado;
     }
->>>>>>> 7b84a04aac452b3db2164b68522936be9f123244
 }
