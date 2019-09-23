@@ -52,23 +52,16 @@ public class Model {
     }
 
     public SboTbSubFamilia getSboTbSubfamilia(String filtro) throws Exception {
-
         SboTbSubFamilia ob = catdao.getSboTbSubFamilia(filtro);
         return ob;
 
     }
-<<<<<<< HEAD
-
-    public void actualizarFamilia(SboTbFamilia familia) throws Exception {
-=======
     
-    public SboTbOrdenCompra getSboTbArtxOrden(String filtro) throws Exception{
-     /*   SboTBoc oc = */  
+    public SboTbOrdenCompra getSboTbArtxOrden(String filtro) throws Exception {
         return null;
     }
-    
-    public void actualizarFamilia(SboTbFamilia familia) throws Exception{
->>>>>>> bbf1f7e578a21250e7389f0239ac4d9082f53a72
+
+    public void actualizarFamilia(SboTbFamilia familia) throws Exception {
         catdao.actualizarFamilia(familia);
     }
 
@@ -76,17 +69,12 @@ public class Model {
         catdao.actualizarSubFamilia(subfamilia);
     }
 
-<<<<<<< HEAD
     public void actualizarCatArticulo(SboTbCatArticulo articulo) throws Exception {
-=======
-      public void actualizarCatArticulo(SboTbCatArticulo articulo) throws Exception{
->>>>>>> bbf1f7e578a21250e7389f0239ac4d9082f53a72
         catdao.actualizarCatArticulo(articulo);
     }
 
     public void crearFamilia(SboTbFamilia familia) throws Exception {
         catdao.crearFamilia(familia);
-<<<<<<< HEAD
     }
 
     public void crearSubFamilia(SboTbSubFamilia subfamilia) throws Exception {
@@ -96,17 +84,4 @@ public class Model {
     public void crearCatArticulo(SboTbCatArticulo articulo) throws Exception {
         catdao.crearCatArticulo(articulo);
     }
-=======
-             }
-      public void crearSubFamilia(SboTbSubFamilia subfamilia) throws Exception{
-                   catdao.crearSubFamilia(subfamilia);
-             }
-      
-      public void crearCatArticulo(SboTbCatArticulo articulo) throws Exception{
-                   catdao.crearCatArticulo(articulo);
-             }
-
-           
-
->>>>>>> bbf1f7e578a21250e7389f0239ac4d9082f53a72
 }

@@ -93,7 +93,7 @@ function mostrarCatArt(art) {
     catArtActual = art.catIdPk;
     $("#descripArt").val(art.catDesc);
     $("#selectSubFam").val(art.sboTbSubFamilia.subFamiIdPk);
-   // selectSubFamilias();
+    // selectSubFamilias();
     $('#modalArticulo').modal('show');
 }
 
@@ -101,7 +101,7 @@ function mostrarSubFamilia(subfam) {
     $("#codigoSubFam").val(subfam.subFamiIdPk);
     $("#descripSubFam").val(subfam.subFamiDesc);
     $("#selectFamilias").val(subfam.sboTbFamilia.famiIdPk);
-   // selectFamilias();
+    // selectFamilias();
     $('#modalSubFam').modal('show');
 }
 
@@ -117,7 +117,7 @@ function concatenarBusqueda() {
 }
 
 
-function cargarSelects(){
+function cargarSelects() {
     selectFamilias();
     selectSubFamilias();
     selectAgregaFamilias();
@@ -175,20 +175,20 @@ function actualizarFamilia() {
 
 }
 
-function afterUpdateFm(){
+function afterUpdateFm() {
     buscarFamilias();
     $('#modalEditarFam').modal('hide');
 
 }
 
 function actualizarSubFamilia() {
-var e = document.getElementById("selectFamilias");
-var strUser = e.options[e.selectedIndex].value;
-    
+    var e = document.getElementById("selectFamilias");
+    var strUser = e.options[e.selectedIndex].value;
+
     SboTbSubFamilia = {
         subFamiIdPk: $("#codigoSubFam").val(),
         subFamiDesc: $("#descripSubFam").val(),
-        sboTbFamilia:{
+        sboTbFamilia: {
             famiIdPk: strUser
         }
     };
@@ -204,7 +204,7 @@ var strUser = e.options[e.selectedIndex].value;
 
 }
 
-function afterUpdateSubFm(){
+function afterUpdateSubFm() {
     buscarSubFamilias();
     $('#modalSubFam').modal('hide');
 
@@ -212,16 +212,16 @@ function afterUpdateSubFm(){
 
 
 function actualizarCatArticulo() {
-var e = document.getElementById("selectSubFam");
-var strUser = e.options[e.selectedIndex].value;
+    var e = document.getElementById("selectSubFam");
+    var strUser = e.options[e.selectedIndex].value;
 
 
-    
+
     SboTbCatArticulo = {
         catDesc: $("#descripArt").val(),
         catIdPk: catArtActual,
-       // subFamiDesc: $("#descripSubFam").val(),
-        sboTbSubFamilia:{
+        // subFamiDesc: $("#descripSubFam").val(),
+        sboTbSubFamilia: {
             subFamiIdPk: strUser
         }
     };
@@ -237,15 +237,15 @@ var strUser = e.options[e.selectedIndex].value;
 
 }
 
-function afterUpdateCatArt(){
+function afterUpdateCatArt() {
     buscarCatArticulos();
     $('#modalArticulo').modal('hide');
 
 }
 
-function agregarACatalogo(){
-    
-        var e = document.getElementById("selectcatalogos");
+function agregarACatalogo() {
+
+    var e = document.getElementById("selectcatalogos");
     var strUser = e.options[e.selectedIndex].value;
 
     switch (strUser) {
@@ -263,31 +263,24 @@ function agregarACatalogo(){
             break;
 
     }
-    
+
 }
 
-function abrirModalAgregaCatArticulo(){
+function abrirModalAgregaCatArticulo() {
     $('#modalAgregarCatArticulo').modal('show');
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> bbf1f7e578a21250e7389f0239ac4d9082f53a72
-
 }
 function abrirModalAgregaSubFam() {
     $('#modalAgregarSubFamilia').modal('show');
-
 }
+
 function abrirModalAgregaFam() {
     $('#modalAgregarFamilia').modal('show');
-
 }
-
 
 function resetearSelectFam(selectbox)
 {
     var i;
-    for(i = selectbox.options.length - 1 ; i >= 0 ; i--)
+    for (i = selectbox.options.length - 1; i >= 0; i--)
     {
         selectbox.remove(i);
     }
@@ -296,20 +289,14 @@ function resetearSelectFam(selectbox)
 function resetearSelectSubFam(selectbox)
 {
     var i;
-    for(i = selectbox.options.length - 1 ; i >= 0 ; i--)
+    for (i = selectbox.options.length - 1; i >= 0; i--)
     {
         selectbox.remove(i);
     }
 }
 
-
-<<<<<<< HEAD
-=======
-=======
-
->>>>>>> bbf1f7e578a21250e7389f0239ac4d9082f53a72
-     $("#selectSubFam").val("");
-   // selectAgregaSubFamilias();
+//$("#selectSubFam").val("");
+// selectAgregaSubFamilias();
 
 
 function selectAgregaSubFamilias() {
@@ -328,17 +315,17 @@ function selectAgregaSubFamilias() {
 
 }
 
-function abrirModalAgregaSubFam(){
+function abrirModalAgregaSubFam() {
     $('#modalAgregarSubFamilia').modal('show');
-        $("#AgregarFamiliaSubF").val("");
+    $("#AgregarFamiliaSubF").val("");
     //selectAgregaFamilias();
-    
+
 }
 
 function selectAgregaFamilias() {
 
     $.ajax({type: "GET",
-        url: "api/familias?filtro="+ $("#filtro").val(),
+        url: "api/familias?filtro=" + $("#filtro").val(),
         success: function (data) {
             $.each(data, function (key, fam) {
                 $("#AgregarFamiliaSubF").append('<option value=' + fam.famiIdPk + '>' + fam.famiDesc + '</option>');
@@ -351,43 +338,47 @@ function selectAgregaFamilias() {
 
 }
 
-function abrirModalAgregaFam(){
+function abrirModalAgregaFam() {
     $('#modalAgregarFamilia').modal('show');
-    }
-   function crearFamilia(){
+}
+function crearFamilia() {
 //           var e = document.getElementById("Select2");
 //           var strUser = e.options[e.selectedIndex].value;
-           SboTbFamilia = {
+    SboTbFamilia = {
         famiIdPk: $("#AgregarCodigoFam").val(),
         famiDesc: $("#AgregarDescripcionFam").val()
     };
-            
-            $.ajax({type: "POST", 
-                  url:"api/familias", 
-                  data: JSON.stringify(SboTbFamilia),
-                  contentType: "application/json",
-                  success: afterCreateFm,
-                  error: function(jqXHR){ alert(errorMessage(jqXHR.status));}                 
-                });      
-      
+
+    $.ajax({
+        type: "POST",
+        url: "api/familias",
+        data: JSON.stringify(SboTbFamilia),
+        contentType: "application/json",
+        success: afterCreateFm,
+        error: function (jqXHR) {
+            alert(errorMessage(jqXHR.status));
+        }
+    });
+
 }
-function afterCreateFm(){
+function afterCreateFm() {
     buscarFamilias();
     $('#modalAgregarFamilia').modal('hide');
 }
 
 function crearSubFamilia() {
-var e = document.getElementById("AgregarFamiliaSubF");
-var strUser = e.options[e.selectedIndex].value;
-    
+    var e = document.getElementById("AgregarFamiliaSubF");
+    var strUser = e.options[e.selectedIndex].value;
+
     SboTbSubFamilia = {
         subFamiIdPk: $("#AgregarCodigoSubF").val(),
         subFamiDesc: $("#AgregarDescripcionSubF").val(),
-        sboTbFamilia:{
+        sboTbFamilia: {
             famiIdPk: strUser
         }
     };
-    $.ajax({type: "POST",
+    $.ajax({
+        type: "POST",
         url: "api/subfamilias",
         data: JSON.stringify(SboTbSubFamilia),
         contentType: "application/json",
@@ -399,26 +390,27 @@ var strUser = e.options[e.selectedIndex].value;
 
 }
 
-function afterCreateSubFm(){
+function afterCreateSubFm() {
     buscarSubFamilias();
     $('#modalAgregarSubFamilia').modal('hide');
 }
 
 function CrearCatArticulo() {
-var e = document.getElementById("AgregarSubfamiliaCatArt");
-var strUser = e.options[e.selectedIndex].value;
+    var e = document.getElementById("AgregarSubfamiliaCatArt");
+    var strUser = e.options[e.selectedIndex].value;
 
 
-    
+
     SboTbCatArticulo = {
         catDesc: $("#AgregarDescipcionCatArt").val(),
         catCodSicop: $("#AgregarCodSicopCatArt").val(),
-       // subFamiDesc: $("#descripSubFam").val(),
-        sboTbSubFamilia:{
+        // subFamiDesc: $("#descripSubFam").val(),
+        sboTbSubFamilia: {
             subFamiIdPk: strUser
         }
     };
-    $.ajax({type: "POST",
+    $.ajax({
+        type: "POST",
         url: "api/catArticulos",
         data: JSON.stringify(SboTbCatArticulo),
         contentType: "application/json",
@@ -430,12 +422,7 @@ var strUser = e.options[e.selectedIndex].value;
 
 }
 
-function afterCreateCatArt(){
+function afterCreateCatArt() {
     buscarCatArticulos();
     $('#modalAgregarCatArticulo').modal('hide');
-
 }
-<<<<<<< HEAD
->>>>>>> e75747bfae3579dbade9e58753922e42e7891b89
-=======
->>>>>>> bbf1f7e578a21250e7389f0239ac4d9082f53a72
