@@ -27,8 +27,6 @@ public class Model {
 
     }
 
- 
-
     public List<SboTbSubFamilia> listaSubFamilias(String filtro) throws ClassNotFoundException, SQLException {
         List result = catdao.listaSubFamilias(filtro);
         return result;
@@ -54,40 +52,36 @@ public class Model {
     }
 
     public SboTbSubFamilia getSboTbSubfamilia(String filtro) throws Exception {
-
         SboTbSubFamilia ob = catdao.getSboTbSubFamilia(filtro);
         return ob;
 
     }
     
-    public SboTbOrdenCompra getSboTbArtxOrden(String filtro) throws Exception{
-     /*   SboTBoc oc = */  
+    public SboTbOrdenCompra getSboTbArtxOrden(String filtro) throws Exception {
         return null;
     }
-    
-    public void actualizarFamilia(SboTbFamilia familia) throws Exception{
+
+    public void actualizarFamilia(SboTbFamilia familia) throws Exception {
         catdao.actualizarFamilia(familia);
     }
-    
-       public void actualizarSubFamilia(SboTbSubFamilia subfamilia) throws Exception{
+
+    public void actualizarSubFamilia(SboTbSubFamilia subfamilia) throws Exception {
         catdao.actualizarSubFamilia(subfamilia);
     }
 
-      public void actualizarCatArticulo(SboTbCatArticulo articulo) throws Exception{
+    public void actualizarCatArticulo(SboTbCatArticulo articulo) throws Exception {
         catdao.actualizarCatArticulo(articulo);
     }
-      public void crearFamilia(SboTbFamilia familia) throws Exception{
-                 
+
+    public void crearFamilia(SboTbFamilia familia) throws Exception {
         catdao.crearFamilia(familia);
-             }
-      public void crearSubFamilia(SboTbSubFamilia subfamilia) throws Exception{
-                   catdao.crearSubFamilia(subfamilia);
-             }
-      
-      public void crearCatArticulo(SboTbCatArticulo articulo) throws Exception{
-                   catdao.crearCatArticulo(articulo);
-             }
+    }
 
-           
+    public void crearSubFamilia(SboTbSubFamilia subfamilia) throws Exception {
+        catdao.crearSubFamilia(subfamilia);
+    }
 
+    public void crearCatArticulo(SboTbCatArticulo articulo) throws Exception {
+        catdao.crearCatArticulo(articulo);
+    }
 }
