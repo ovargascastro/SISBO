@@ -48,7 +48,7 @@ public class OrdenCompraDAO {
         }
     }
 
-    public List<SboTbOrdenCompra> listaFamilias(String filtro) {
+    public List<SboTbOrdenCompra> listaOrdenesCompra(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {
             String sql = "select oc.OC_Id_PK, oc.OC_Fecha, OC_Prec_Tota, oc.OC_Esta,OC_Prove_FK,OC_PlazoEntrega,OC_EntregarA\n"
