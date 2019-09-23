@@ -99,7 +99,7 @@
                         <form>
                             <div class="container">
                                 <div class="form-row">
-                                    <div class="col"><label>Código Fam<br></label><input class="form-control" type="text" id="codigoFamilia"></div>
+                                    <div class="col"><label>Código Fam<br></label><input class="form-control" type="text" id="codigoFamilia" readonly></div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col"><label>Descripción<br></label><input class="form-control" type="text" id="descripFamilia"></div>
@@ -121,7 +121,7 @@
                         <form>
                             <div class="container">
                                 <div class="form-row">
-                                    <div class="col"><label>Código Sub-Fam<br></label><input class="form-control" type="text" id="codigoSubFam"></div>
+                                    <div class="col"><label>Código Sub-Fam<br></label><input class="form-control" type="text" id="codigoSubFam" readonly></div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col"><label>Descripción<br></label><input class="form-control" type="text" id="descripSubFam"></div>
