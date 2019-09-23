@@ -7,6 +7,7 @@ import java.util.List;
 public class Model {
 
     private final catalogosDAO catdao;
+    private final OrdenCompraDAO ocdao;
     private static Model uniqueInstance;
 
     public static Model instance() {
@@ -18,7 +19,7 @@ public class Model {
 
     private Model() {
         catdao = new catalogosDAO();
-
+        ocdao = new OrdenCompraDAO();
     }
 
     public List<SboTbFamilia> listaFamilias(String filtro) throws ClassNotFoundException, SQLException {
@@ -56,7 +57,7 @@ public class Model {
         return ob;
 
     }
-    
+
     public SboTbOrdenCompra getSboTbArtxOrden(String filtro) throws Exception {
         return null;
     }
@@ -83,5 +84,10 @@ public class Model {
 
     public void crearCatArticulo(SboTbCatArticulo articulo) throws Exception {
         catdao.crearCatArticulo(articulo);
+    }
+
+    public List<SboTbOrdenCompra> listaOrdenesCompra(String filtro) throws ClassNotFoundException, SQLException {
+        List result = ocdao.listaFamilias(filtro);
+        return result;
     }
 }
