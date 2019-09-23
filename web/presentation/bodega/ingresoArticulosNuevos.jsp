@@ -25,50 +25,50 @@
         </div>
         <div class="card" id="cuerpoListaOrdenes">
             <div class="card-body">
-                <h4 class="text-center card-title">Listado de Ordenes de Compra</h4>
+                <h4 class="text-center card-title">Listado de Órdenes de Compra</h4>
                 <div class="container">
                     <div class="row">
                         <div class="col">
                             <form>
                                 <div><label>Buscar Orden de Compra</label>
                                     <div class="form-row">
-                                        <div class="col"><input class="form-control" type="text" placeholder="Codigo Orden de Compra"></div>
-                                        <div class="col"><button class="btn btn-primary" type="button">Búscar</button></div>
+                                        <div class="col"><input class="form-control" type="text" placeholder="Codigo Orden de Compra" id="numeroOC" name="numeroOC"></div>
+                                        <div class="col"><button class="btn btn-primary" type="button" onclick="buscarOrdenes()">Buscar</button></div>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
-                <div class="row">
-                    <div class="col text-center" id="tablaOrdenes">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">Número<br>de Orden</th>
-                                        <th class="text-center">Fecha</th>
-                                        <th class="text-center">Estado</th>
-                                        <th class="text-center">Articulos</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>02210</td>
-                                        <td>08/09/2019</td>
-                                        <td>Pendiente</td>
-                                        <td><img src="assets/img/delivery-cart.png" onclick="abrirModalListarArticulos()"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>02209</td>
-                                        <td>07/09/2019</td>
-                                        <td>Pariclamente<br>Procesada</td>
-                                        <td><img src="assets/img/delivery-cart.png"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="row">
+                        <div class="col text-center" id="tablaOrdenes">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Número<br>de Orden</th>
+                                            <th class="text-center">Fecha<br>de Solicitud</th>
+                                            <th class="text-center">Estado</th>
+                                            <th class="text-center">Artículos</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="listadoOC">
+                                        <!--<tr>
+                                            <td>02210</td>
+                                            <td>08/09/2019</td>
+                                            <td>Pendiente</td>
+                                            <td><img src="assets/img/delivery-cart.png" onclick="abrirModalListarArticulos()"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>02209</td>
+                                            <td>07/09/2019</td>
+                                            <td>Pariclamente<br>Procesada</td>
+                                            <td><img src="assets/img/delivery-cart.png"></td>
+                                        </tr>-->
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -171,33 +171,54 @@
 </html>
 
 <script>
-                    function abrirModalListarArticulos() {
-                        $('#listaArticulos').modal('show');
+                        function abrirModalListarArticulos() {
+                            $('#listaArticulos').modal('show');
+                        }
 
-                    }
+                        function abrirModalAgregarArticulos() {
+                            $('#listaArticulos').modal('hide');
+                            $('#articulo').val('Silla');
+                            $('#agregarArticulo').modal('show');
+                        }
 
-                    function abrirModalAgregarArticulos() {
-                        $('#listaArticulos').modal('hide');
-                        $('#articulo').val('Silla');
-                        $('#agregarArticulo').modal('show');
+                        function abrirModalInfoArticulo() {
+                            $('#agregarArticulo').modal('hide');
+                            $('#articuloInfo').val('Silla');
+                            $('#subfamInfo').val('Equipo y mobiliario de oficina');
+                            $('#codArtInfo').val('1234');
+                            $('#famInfo').val('Bienes Duraderos');
+                            $('#modalInfoArt').modal('show');
+                        }
 
-                    }
+                        function cerrarInfoArt() {
+                            $('#agregarArticulo').modal('show');
+                            $('#modalInfoArt').modal('hide');
+                        }
 
-                    function abrirModalInfoArticulo() {
-                        $('#agregarArticulo').modal('hide');
-                        $('#articuloInfo').val('Silla');
-                        $('#subfamInfo').val('Equipo y mobiliario de oficina');
-                        $('#codArtInfo').val('1234');
-                        $('#famInfo').val('Bienes Duraderos');
-                        $('#modalInfoArt').modal('show');
+                        function buscarOrdenes() {
+                            $.ajax({type: "GET",
+                                url: "api/listadoOCArtNuevos?numeroOC=" + $("#numeroOC").val(),
+                                success: listaOC
+                            });
+                        }
 
-                    }
+                        function listaOC(ordenes) {
+                            var listado = $("#listadoOC");
+                            listado.html("");
+                            ordenes.forEach((p) => {
+                                filaOC(listado, p);
+                            });
+                        }
 
-                    function cerrarInfoArt() {
-                        $('#agregarArticulo').modal('show');
-                        $('#modalInfoArt').modal('hide');
-
-                    }
+                        function filaOC(listado, objeto) {
+                            var tr = $("<tr />");
+                            tr.html(
+                                    "<td>" + objeto.ocIdPk + "</td>"
+                                    + "<td>" + objeto.ocFecha + "</td>"
+                                    + "<td>" + objeto.ocEsta + "</td>"
+                                    + "<td><img class='small-img' src='assets/img/delivery-cart.png' onclick='abrirModalListarArticulos()'></td>");
+                            listado.append(tr);
+                        }
 
 
 
