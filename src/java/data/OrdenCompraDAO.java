@@ -2,7 +2,9 @@ package data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import logic.SboTbOrdenCompra;
 import logic.AbaaTbProveedor;
@@ -95,7 +97,7 @@ public class OrdenCompraDAO {
         return resultado;
     }
 
-    public List<SboTbOrdenCompra> listaFamilias(String filtro) {
+    public List<SboTbOrdenCompra> listaOrdenesCompra(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {
             String sql = "select oc.OC_Id_PK, oc.OC_Fecha, OC_Prec_Tota, oc.OC_Esta,OC_Prove_FK,OC_PlazoEntrega,OC_EntregarA\n"

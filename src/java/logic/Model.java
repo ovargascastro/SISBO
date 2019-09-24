@@ -87,7 +87,7 @@ public class Model {
     }
 
     public List<SboTbOrdenCompra> listaOrdenesCompra(String filtro) throws ClassNotFoundException, SQLException {
-        List result = ocdao.listaFamilias(filtro);
+        List result = ocdao.listaOrdenesCompra(filtro);
         return result;
     }
 }
