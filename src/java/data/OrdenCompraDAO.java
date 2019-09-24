@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import logic.SboTbOrdenCompra;
 import logic.AbaaTbProveedor;
+import logic.SboTbArticulo;
+import logic.SboTbCatArticulo;
+import logic.AbaaTbDepartamento;
 
 
 /**
@@ -53,7 +56,25 @@ public class OrdenCompraDAO {
             return null;
         }
     }
-
+    
+    private SboTbArticulo Articulo(ResultSet rs){
+        try {
+            SboTbArticulo art = new SboTbArticulo();
+            art.getSboTbCatArticulo().getCatDesc();
+            art.getArtDesc();
+            art.getArtMode();
+            art.getArtMarc();
+            art.getArtNumeSeri();
+            art.getAbaaTbDepartamento().getDeptoNomb();
+            art.getArtFingr();
+            art.getArtFvenc();
+            art.setArtCant(rs.getInt("Art_Cant"));
+            return art;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+    
     public List<SboTbOrdenCompra> listaOCxArt(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {

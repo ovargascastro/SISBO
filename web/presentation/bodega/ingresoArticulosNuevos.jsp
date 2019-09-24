@@ -121,20 +121,23 @@
                         <form>
                             <div class="container">
                                 <div class="form-row">
-                                    <div class="col"><label>Artículo</label><input id="articulo" class="form-control" type="text" readonly placeholder="Artículo">
-                                        <label>Modelo</label><input class="form-control" type="text" placeholder="Modelo">
-                                        <label>N° Serie</label><input class="form-control" type="text" placeholder="N° Serie">
+                                    <div class="col">
+                                        <label>Artículo</label><input id="articulo" class="form-control" type="text" readonly placeholder="Artículo">
                                         <label>Descripcion</label><input class="form-control" type="text" placeholder="Descripcion">
-                                        <label>Unidad Usuaria</label><input class="form-control" type="text" placeholder="Unidad Usuaria">
+                                        <label>Modelo</label><input class="form-control" type="text" placeholder="Modelo">
+                                        <label>Marca</label><input class="form-control" type="text" placeholder="Marca">
+                                        <label>N° Serie</label><input class="form-control" type="text" placeholder="N° Serie">
                                     </div>                       
                                     <div class="col">
+                                    <label>Unidad Usuaria</label><input class="form-control" type="text" placeholder="Unidad Usuaria">    
+                                    <label>Bodega</label><input class="form-control" type="text" placeholder="Bodega">    
                                     <label>Fecha de Ingreso</label><input class="form-control" type="date" placeholder="Fecha de Ingreso">
                                     <label>Fecha de Vencimiento</label><input class="form-control" type="date" placeholder="Fecha de Vencimiento">
                                     <label>Cantidad a Ingresar</label><input class="form-control" type="number" placeholder="Cantidad a Ingresar">    
                                     <br>
                                     <div class="col">
                                     <label>Informacion del Articulo</label>
-                                        <div class="text-center"><br><br><img src="assets/img/info(1).png" onclick="abrirModalInfoArticulo()"></div>
+                                        <div class="text-center"><img src="assets/img/info(1).png" onclick="abrirModalInfoArticulo()"></div>
                                     </div>
                                     </div>
                                 </div>
