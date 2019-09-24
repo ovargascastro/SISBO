@@ -11,6 +11,7 @@ import logic.AbaaTbProveedor;
 import logic.SboTbArticulo;
 import logic.SboTbCatArticulo;
 import logic.AbaaTbDepartamento;
+import logic.SboTbBodega;
 
 
 /**
@@ -59,38 +60,45 @@ public class OrdenCompraDAO {
         }
     }
     
-    private SboTbArticulo Articulo(ResultSet rs){
+    private SboTbArticulo ObtenerArticulo(ResultSet rs){
         try {
             SboTbArticulo art = new SboTbArticulo();
-            art.getSboTbCatArticulo().getCatDesc();
-            art.getArtDesc();
-            art.getArtMode();
-            art.getArtMarc();
-            art.getArtNumeSeri();
-            art.getAbaaTbDepartamento().getDeptoNomb();
-            art.getArtFingr();
-            art.getArtFvenc();
+            art.setArtDesc(rs.getString("Art_Desc"));
             art.setArtCant(rs.getInt("Art_Cant"));
+            art.setArtCantRest(rs.getInt("Art_Cant_Rest"));
             return art;
         } catch (SQLException ex) {
             return null;
         }
     }
     
-    public List<SboTbOrdenCompra> listaOCxArt(String filtro) {
-        List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
+    private SboTbBodega ObtenerBodega(ResultSet rs){
         try {
-            String sql = "select Sbo_TB_CatArticulo.Cat_Desc 'Nombre',Sbo_TB_Articulo.Art_Desc 'Descripcion', Sbo_TB_Articulo.Art_Mode 'Modelo', Sbo_TB_Articulo.Art_Nume_Seri 'N. Serie',\n" +
-                         "Sbo_TB_Articulo.Art_Marc 'Marca', Sbo_TB_OrdenCompra.OC_Id_PK 'Orden de Compra', ABAA_TB_Departamento.Depto_Nomb 'Unidad Usuaria'\n" +
-                         "\n" +
-                         "from Sbo_TB_CatArticulo ,Sbo_TB_Articulo, Sbo_TB_OrdenCompra, ABAA_TB_Departamento\n" +
-                         "\n" +
-                         "where Sbo_TB_CatArticulo.Cat_Id_PK = Sbo_TB_Articulo.Art_Codi_Cat_Arti_FK and Sbo_TB_Articulo.Art_Orde_Comp_FK = Sbo_TB_OrdenCompra.OC_Id_PK \n" +
-                         "and Sbo_TB_Articulo.Art_Depa_FK = ABAA_TB_Departamento.Depto_Id_PK like '%%%s%%';";
-            sql = String.format(sql, filtro);
+            SboTbBodega bod = new SboTbBodega();
+            bod.getBodeDesc();
+        return bod;        
+        } 
+        catch (Exception e) {
+         
+        return null;
+            
+        }
+    
+    }
+    
+    public List<SboTbArticulo> listaOCxArt(String filtro) {
+        List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
+        try {
+            String sql = "select Sbo_TB_Articulo.Art_Desc, Sbo_TB_Articulo.Art_Cant, \n" +
+            "Sbo_TB_Articulo.Art_Cant_Rest" +
+            "\n" +
+            "from Sbo_TB_Articulo, Sbo_TB_OrdenCompra" +
+            "\n" +
+            "where Sbo_TB_Articulo.Art_Orde_Comp_FK = Sbo_TB_OrdenCompra.OC_Id_PK and Sbo_TB_Articulo.Art_Orde_Comp_FK = '%%%s%%'; ";
+   //         sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
-                resultado.add(OrdenCompra(rs));
+                resultado.add(ObtenerArticulo(rs));
             }
         } catch (SQLException ex) {
         }

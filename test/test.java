@@ -8,10 +8,11 @@ public class test {
 
     public static void main(String[] args) {
         OrdenCompraDAO OCDAO = new OrdenCompraDAO();
-        List<SboTbOrdenCompra> lista = new ArrayList<SboTbOrdenCompra>();
-        lista = OCDAO.listaFamilias("");
-        for (SboTbOrdenCompra u : lista) {
-            System.out.println(u.getOcIdPk());
+        List<SboTbArticulo> lista = new ArrayList<SboTbArticulo>();
+        //lista = OCDAO.listaOrdenesCompra("");
+        lista = OCDAO.listaOCxArt("");
+        for (SboTbArticulo u : lista) {
+            System.out.println(u.getArtDesc());
         }
 
     }

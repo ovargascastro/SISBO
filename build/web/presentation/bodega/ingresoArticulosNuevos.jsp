@@ -86,13 +86,14 @@
                                             <thead>
                                                 <tr>
                                                     <th>Articulo</th>
-                                                    <th>Cantidad</th>
+                                                    <th>Cantidad en Bodega</th>
+                                                    <th>Cantidad Restante</th>     
                                                     <th>Agregar</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="listadoOCxArt">
                                                 <tr>
-                                                    <td>Sillas</td>
+                                                  <!--  <td>Sillas</td>
                                                     <td>50</td>
                                                     <td><img src="assets/img/plus.png" onclick="abrirModalAgregarArticulos()"></td>
                                                 </tr>
@@ -100,7 +101,7 @@
                                                     <td>Bombillos</td>
                                                     <td>25</td>
                                                     <td><img src="assets/img/plus.png"></td>
-                                                </tr>
+                                                </tr>-->
                                             </tbody>
                                         </table>
                                     </div>
@@ -212,7 +213,15 @@
                                 filaOC(listado, p);
                             });
                         }
-
+                        
+                        function listaArtxOC(ordenes) {
+                            var listado = $("#listadoOCxArt");
+                            listado.html("");
+                            ordenes.forEach((p) => {
+                                filaOC(listado, p);
+                            });
+                        }
+                        
                         function formatDate(fecha) {
                             var dia= fecha.substring(8,10);
                             var mes= fecha.substring(5,7);
@@ -227,7 +236,17 @@
                                     "<td>" + objeto.ocIdPk + "</td>"
                                     + "<td>" + formatDate(objeto.ocFecha) + "</td>"
                                     + "<td>" + objeto.ocEsta + "</td>"
-                                    + "<td><img class='small-img' src='assets/img/delivery-cart.png' onclick='abrirModalListarArticulos()'></td>");
+                                    + "<td><img src='assets/img/plus.png' onclick='abrirModalListarArticulos()'></td>");
+                                    listado.append(tr);
+                        }
+                        
+                        function filaOCxArt(listado, objeto) {
+                            var tr = $("<tr />");
+                            tr.html(
+                                    "<td>" + objeto.artDesc + "</td>"
+                                    + "<td>" + objeto.artCant + "</td>"
+                                    + "<td>" + objeto.artCantRest + "</td>"
+                                    + "<td><img class='small-img' src='assets/img/delivery-cart.png' onclick='abrirModalAgregarArticulos()'></td>");
                             listado.append(tr);
                         }
 
