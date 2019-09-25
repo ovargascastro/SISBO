@@ -79,6 +79,7 @@ public class Model {
     
     public void actualizarFamilia(SboTbFamilia familia) throws Exception {
         catdao.actualizarFamilia(familia);
+        //a
     }
     
     public void actualizarSubFamilia(SboTbSubFamilia subfamilia) throws Exception {
