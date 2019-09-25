@@ -86,13 +86,14 @@
                                             <thead>
                                                 <tr>
                                                     <th>Articulo</th>
-                                                    <th>Cantidad</th>
+                                                    <th>Cantidad en Bodega</th>
+                                                    <th>Cantidad Restante</th>     
                                                     <th>Agregar</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="listadoOCxArt">
                                                 <tr>
-                                                    <td>Sillas</td>
+                                                  <!--  <td>Sillas</td>
                                                     <td>50</td>
                                                     <td><img src="assets/img/plus.png" onclick="abrirModalAgregarArticulos()"></td>
                                                 </tr>
@@ -100,7 +101,7 @@
                                                     <td>Bombillos</td>
                                                     <td>25</td>
                                                     <td><img src="assets/img/plus.png"></td>
-                                                </tr>
+                                                </tr>-->
                                             </tbody>
                                         </table>
                                     </div>
@@ -121,12 +122,24 @@
                         <form>
                             <div class="container">
                                 <div class="form-row">
-                                    <div class="col"><label>Articulo</label><input id="articulo" class="form-control" type="text" readonly><label>Fecha de Ingreso</label><input class="form-control" type="date"><label>Cantidad a Ingresar</label>
-                                        <input class="form-control" type="number"></div>
-                                    <div class="col"><label>Descripcion</label><input class="form-control" type="text" placeholder="Descripcion"><label>Fecha de Vencimiento</label>
-                                        <input
-                                            class="form-control" type="date"><label>Informacion del Articulo</label>
+                                    <div class="col">
+                                        <label>Artículo</label><input id="articulo" class="form-control" type="text" readonly placeholder="Artículo">
+                                        <label>Descripcion</label><input class="form-control" type="text" placeholder="Descripcion">
+                                        <label>Modelo</label><input class="form-control" type="text" placeholder="Modelo">
+                                        <label>Marca</label><input class="form-control" type="text" placeholder="Marca">
+                                        <label>N° Serie</label><input class="form-control" type="text" placeholder="N° Serie">
+                                    </div>                       
+                                    <div class="col">
+                                    <label>Unidad Usuaria</label><input class="form-control" type="text" placeholder="Unidad Usuaria">    
+                                    <label>Bodega</label><input class="form-control" type="text" placeholder="Bodega">    
+                                    <label>Fecha de Ingreso</label><input class="form-control" type="date" placeholder="Fecha de Ingreso">
+                                    <label>Fecha de Vencimiento</label><input class="form-control" type="date" placeholder="Fecha de Vencimiento">
+                                    <label>Cantidad a Ingresar</label><input class="form-control" type="number" placeholder="Cantidad a Ingresar">    
+                                    <br>
+                                    <div class="col">
+                                    <label>Informacion del Articulo</label>
                                         <div class="text-center"><img src="assets/img/info(1).png" onclick="abrirModalInfoArticulo()"></div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -162,10 +175,15 @@
 </html>
 
 <script>
-                        function abrirModalListarArticulos() {
+                        /*function abrirModalListarArticulos() {
+                            $('#listaArticulos').modal('show');
+                        }*/
+                        
+                        function abrirModalListarArticulos(id) {
+                            buscarArtxOc(id);
                             $('#listaArticulos').modal('show');
                         }
-
+                        
                         function abrirModalAgregarArticulos() {
                             $('#listaArticulos').modal('hide');
                             $('#articulo').val('Silla');
@@ -192,6 +210,13 @@
                                 success: listaOC
                             });
                         }
+                        
+                        function buscarArtxOc(id) {
+                            $.ajax({type: "GET",
+                                url: "api/ListaOCxArt?numeroOCArt=" + id,
+                                success: listaArtxOC
+                            });
+                        }
 
                         function listaOC(ordenes) {
                             var listado = $("#listadoOC");
@@ -200,7 +225,15 @@
                                 filaOC(listado, p);
                             });
                         }
-
+                        
+                        function listaArtxOC(ordenes) {
+                            var listado = $("#listadoOCxArt");
+                            listado.html("");
+                            ordenes.forEach((p) => {
+                                filaOCxArt(listado, p);
+                            });
+                        }
+                        
                         function formatDate(fecha) {
                             var dia= fecha.substring(8,10);
                             var mes= fecha.substring(5,7);
@@ -215,7 +248,17 @@
                                     "<td>" + objeto.ocIdPk + "</td>"
                                     + "<td>" + formatDate(objeto.ocFecha) + "</td>"
                                     + "<td>" + objeto.ocEsta + "</td>"
-                                    + "<td><img class='small-img' src='assets/img/delivery-cart.png' onclick='abrirModalListarArticulos()'></td>");
+                                    + "<td><img src='assets/img/plus.png' onclick='abrirModalListarArticulos(\""+objeto.ocIdPk +"\");'></td>");
+                                    listado.append(tr);
+                        }
+                        
+                        function filaOCxArt(listado, objeto) {
+                            var tr = $("<tr />");
+                            tr.html(
+                                    "<td>" + objeto.artDesc + "</td>"
+                                    + "<td>" + objeto.artCant + "</td>"
+                                    + "<td>" + objeto.artCantRest + "</td>"
+                                    + "<td><img class='small-img' src='assets/img/delivery-cart.png' onclick='abrirModalAgregarArticulos()'></td>");
                             listado.append(tr);
                         }
 

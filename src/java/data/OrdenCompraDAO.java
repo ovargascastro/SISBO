@@ -1,5 +1,4 @@
 package data;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +8,17 @@ import java.util.Date;
 import java.util.List;
 import logic.SboTbOrdenCompra;
 import logic.AbaaTbProveedor;
+import logic.SboTbArticulo;
+import logic.SboTbCatArticulo;
+import logic.AbaaTbDepartamento;
+import logic.SboTbBodega;
+
+
+/**
+ *
+ * @author Marco
+ */
+    
 
 public class OrdenCompraDAO {
 
@@ -48,6 +58,51 @@ public class OrdenCompraDAO {
         } catch (SQLException ex) {
             return null;
         }
+    }
+    
+    private SboTbArticulo ObtenerArticulo(ResultSet rs){
+        try {
+            SboTbArticulo art = new SboTbArticulo();
+            art.setArtDesc(rs.getString("Art_Desc"));
+            art.setArtCant(rs.getInt("Art_Cant"));
+            art.setArtCantRest(rs.getInt("Art_Cant_Rest"));
+            return art;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+    
+    private SboTbBodega ObtenerBodega(ResultSet rs){
+        try {
+            SboTbBodega bod = new SboTbBodega();
+            bod.getBodeDesc();
+        return bod;        
+        } 
+        catch (Exception e) {
+         
+        return null;
+            
+        }
+    
+    }
+    
+    public List<SboTbArticulo> listaOCxArt(String filtro) {
+        List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
+        try {
+            String sql = "select Sbo_TB_Articulo.Art_Desc, Sbo_TB_Articulo.Art_Cant, \n" +
+            "Sbo_TB_Articulo.Art_Cant_Rest" +
+            "\n" +
+            "from Sbo_TB_Articulo, Sbo_TB_OrdenCompra" +
+            "\n" +
+            "where Sbo_TB_Articulo.Art_Orde_Comp_FK = Sbo_TB_OrdenCompra.OC_Id_PK and Sbo_TB_Articulo.Art_Orde_Comp_FK = "+filtro+";";
+   //         sql = String.format(sql, filtro);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(ObtenerArticulo(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
     }
 
     public List<SboTbOrdenCompra> listaOrdenesCompra(String filtro) {

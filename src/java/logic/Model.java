@@ -58,8 +58,9 @@ public class Model {
 
     }
 
-    public SboTbOrdenCompra getSboTbArtxOrden(String filtro) throws Exception {
-        return null;
+    public List<SboTbArticulo> ListaArtxOrden(String filtro) throws ClassNotFoundException, SQLException {
+       List oc = ocdao.listaOCxArt(filtro);
+       return oc;
     }
 
     public void actualizarFamilia(SboTbFamilia familia) throws Exception {
