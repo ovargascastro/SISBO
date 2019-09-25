@@ -13,21 +13,18 @@ import java.util.List;
 import logic.AbaaTbProveedor;
 import logic.SboTbOrdenCompra;
 
-
-
-
 /**
  *
  * @author Osvaldo Vargas
  */
 public class OrdenCompraDAO {
+
     RelDatabase db;
-    
 
     public OrdenCompraDAO() {
         db = new RelDatabase();
     }
-    
+
     private SboTbOrdenCompra OrdenCompra(ResultSet rs) {
         try {
             SboTbOrdenCompra oc = new SboTbOrdenCompra();
@@ -59,7 +56,7 @@ public class OrdenCompraDAO {
             return null;
         }
     }
-    
+
     public int getLastInsertOrdenesCompra() throws Exception {
         String sql = " select IDENT_CURRENT( 'Sbo_TB_OrdenCompra' ) as seq ";
         sql = String.format(sql);
@@ -70,40 +67,39 @@ public class OrdenCompraDAO {
             throw new Exception("error");
         }
     }
-    
+
     private int lastInsertOrdenCompra(ResultSet rs) {
         try {
             int x;
-	    x = rs.getInt("seq");
+            x = rs.getInt("seq");
             return x;
         } catch (SQLException ex) {
             return 0;
         }
     }
 
-    
-    public void agregarOrdenCompra(SboTbOrdenCompra objeto) throws Exception{
-    String query = "insert into Sbo_TB_OrdenCompra(OC_Fecha,OC_Prec_Tota,"
-            + "OC_Esta,OC_Prove_FK,OC_PlazoEntrega,OC_EntregarA)"
-            + "values(?,?,?,?,?,?)";
-    
-    PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
-    java.util.Date utilStartDate = objeto.getOcFecha();
-    java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
-     preparedStmt.setDate(1, sqlStartDate);
-     
-    preparedStmt.setDouble(2, objeto.getOcPrecTota());
-    preparedStmt.setString(3, objeto.getOcEsta());
-    preparedStmt.setInt(4, objeto.getAbaaTbProveedor().getProveIdProvePk());
-    
-    java.util.Date utilStartDate2 = objeto.getOcPlazoEntrega();
-    java.sql.Date sqlStartDate2 = new java.sql.Date(utilStartDate2.getTime());
-    preparedStmt.setDate(5, sqlStartDate2);
-    
-    preparedStmt.setString(6, objeto.getOcEntregarA());
-    preparedStmt.executeUpdate();
-    db.getConnection().close();
-   }
+    public void agregarOrdenCompra(SboTbOrdenCompra objeto) throws Exception {
+        String query = "insert into Sbo_TB_OrdenCompra(OC_Fecha,OC_Prec_Tota,"
+                + "OC_Esta,OC_Prove_FK,OC_PlazoEntrega,OC_EntregarA)"
+                + "values(?,?,?,?,?,?)";
+
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        java.util.Date utilStartDate = objeto.getOcFecha();
+        java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+        preparedStmt.setDate(1, sqlStartDate);
+
+        preparedStmt.setDouble(2, objeto.getOcPrecTota());
+        preparedStmt.setString(3, objeto.getOcEsta());
+        preparedStmt.setInt(4, objeto.getAbaaTbProveedor().getProveIdProvePk());
+
+        java.util.Date utilStartDate2 = objeto.getOcPlazoEntrega();
+        java.sql.Date sqlStartDate2 = new java.sql.Date(utilStartDate2.getTime());
+        preparedStmt.setDate(5, sqlStartDate2);
+
+        preparedStmt.setString(6, objeto.getOcEntregarA());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
 
     public List<SboTbOrdenCompra> listaOrdenes(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
@@ -120,9 +116,8 @@ public class OrdenCompraDAO {
         }
         return resultado;
     }
-    
-    
-       public List<SboTbOrdenCompra> listadoOrdenesC(String filtro) {
+
+    public List<SboTbOrdenCompra> listadoOrdenesC(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {
             String sql = "select * from Sbo_TB_OrdenCompra o where o.OC_Id_Pk like '%%%s%%'";
@@ -134,5 +129,29 @@ public class OrdenCompraDAO {
         } catch (SQLException ex) {
         }
         return resultado;
+    }
+
+    public List<SboTbOrdenCompra> listadoOrdenesCompraConta(String filtro) {
+        List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
+        try {
+            String sql = "select * from Sbo_TB_OrdenCompra o where o.OC_Esta='asignar codigos' and o.OC_Id_Pk like '%%%s%%'";
+            sql = String.format(sql, filtro);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(OrdenCompra(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+
+    public void actualizaEstadoOC(SboTbOrdenCompra objeto) throws SQLException {
+        String query = "update Sbo_TB_OrdenCompra set OC_Esta = ? where OC_Id_PK = ?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setString(1, objeto.getOcEsta());
+        preparedStmt.setInt(2, objeto.getOcIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+
     }
 }

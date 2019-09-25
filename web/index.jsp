@@ -15,7 +15,9 @@
         <%@ include file="/presentation/header.jsp" %>
         <a href="presentation/proveeduria/ordenDeCompra.jsp">Orden de Compra</a>
         <br>
-        <a href="presentation/proveeduria/listarOrdenes.jsp">Ordenes de Compra Listado</a>
+        <a href="presentation/proveeduria/listarOrdenes.jsp">Listado Ordenes de Compra</a>
+        <br>
+        <a href="presentation/proveeduria/asignarCodContable.jsp">Codigo Contable</a>
         <br>
         <a href="presentation/bodega/ingresoArticulosNuevos.jsp">Ingreso de Articulos Nuevos</a>
         <br>

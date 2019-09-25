@@ -15,8 +15,7 @@
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <title>Lista Ordenes de Compra</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
+
 </head>
 
 <body style="background-color: rgb(255,255,255);">
@@ -66,10 +65,11 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" role="dialog" tabindex="-1" id="listaArticulos">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
+    
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="listaArticulos">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+                      <div class="modal-header">
                     <h4 class="modal-title">Listado de Articulos</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                 <div class="modal-body">
                     <div class="container text-center">
@@ -95,9 +95,11 @@
                     </div>
                 </div>
                 <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button></div>
-            </div>
-        </div>
     </div>
+  </div>
+</div>
+    
+
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/ordenCompra.js" type="text/javascript"></script>

@@ -206,6 +206,25 @@ public class ArticulosDAO {
         }
         return resultado;
     }
+    
+        public List<SboTbArticulo> listadoArticulosPorOrdenConta(int filtro) {
+        List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
+        try {
+            String sql = "select * from Sbo_TB_Articulo a inner join Sbo_TB_CatArticulo c on a.Art_Codi_Cat_Arti_FK=c.Cat_Id_Pk"
+                    + " inner join Sbo_TB_SubFamilia sf on c.Cat_SubF_FK=sf.SubFami_Id_Pk"
+                    + " inner join Sbo_TB_OrdenCompra o on a.Art_Orde_Comp_FK=o.OC_Id_PK"
+                    + " where a.Art_Orde_Comp_FK = '%s'";
+            sql = String.format(sql, filtro);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(articulo(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+    
+
 
     private SboTbArticulo articulo(ResultSet rs) {
         try {
@@ -223,6 +242,7 @@ public class ArticulosDAO {
             ar.setArtMarc(rs.getString("Art_Marc"));
             ar.setArtNumeFact(rs.getString("Art_Nume_Fact"));
             ar.setArtEsAc(rs.getBoolean("Art_EsAc"));
+            ar.setArtCodiCont(rs.getString("Art_Codi_Cont"));
             ar.setSboTbCatArticulo(catArticulo(rs));
             ar.setAbaaProyectos(proyecto(rs));
             ar.setAbaaTbDepartamento(departamento(rs));
@@ -233,4 +253,17 @@ public class ArticulosDAO {
             return null;
         }
     }
+    
+    
+    
+        public void actualizarCodigCont(SboTbArticulo objeto) throws Exception {
+        String query = "update Sbo_TB_Articulo set Art_Codi_Cont = ? where Art_Id_Pk = ?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setString(1, objeto.getArtCodiCont());
+        preparedStmt.setInt(2, objeto.getArtIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
+        
+        
 }

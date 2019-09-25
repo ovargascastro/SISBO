@@ -182,6 +182,14 @@ function buscarOrdenes() {
     });
 }
 
+function estadoConta() {
+
+    $.ajax({type: "GET",
+        url: "api/ordCont?filtro=" + $("#filtro").val(),
+        success: listaOrdenes
+    });
+}
+
 function formatDate(fecha) {
     var dia = fecha.substring(8, 10);
     var mes = fecha.substring(5, 7);
@@ -200,3 +208,13 @@ function articulosXorden(filtro){
     $('#listaArticulos').modal('show');
 }
 
+
+function articulosXordenConta(filtro){
+    
+        $.ajax({type: "GET",
+        url: "api/artInner?filtro=" + filtro,
+        success: listaArticulos
+    });
+
+    $('#listaArticulos').modal('show');
+}
