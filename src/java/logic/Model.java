@@ -20,7 +20,6 @@ public class Model {
     public int numOrden;
     public int numArticulo;
     Map<Integer, SboTbArticulo> listaTemp = new HashMap<>();
-    public List<SboTbArticulo> lista = new ArrayList();
     public int contador = 1;
     
     public static Model instance() {
@@ -126,22 +125,28 @@ public class Model {
         String idDepto = art.getAbaaTbDepartamento().getDeptoIdPk();
         AbaaTbDepartamento depto = dptodao.getDepartamento(idDepto);
         art.setAbaaTbDepartamento(depto);
-        //art.setArtIdPk(contador);
-        //contador++;
-        //art.getAbaaTbDepartamento().setDeptoNomb("prueba");
-        lista.add(art);
+        art.setArtIdPk(contador);
+        contador++;
+        listaTemp.put(art.getArtIdPk(), art);
     }
     
-    public void eliminarArtTemp(SboTbArticulo art) throws Exception {
+    public SboTbArticulo getArticuloTemporal(int id){
+        return listaTemp.get(id);
+    }
+    
+    public void eliminarArtTemp(SboTbArticulo art) throws Exception{
         listaTemp.remove(art.getArtIdPk(), art);
     }
     
-    public void setLista(List<SboTbArticulo> lista) {
-        this.lista = lista;
+    public void actualizarArticuloTemporal(SboTbArticulo art) throws Exception{
+        listaTemp.put(art.getArtIdPk(), art);
     }
-    
-    public List<SboTbArticulo> getLista() {
-        return lista;
+    public Map<Integer, SboTbArticulo> getListaTemp() {
+        return listaTemp;
+    }
+
+    public void setListaTemp(Map<Integer, SboTbArticulo> listaTemp) {
+        this.listaTemp = listaTemp;
     }
     
     public void agregarOrden(SboTbOrdenCompra orden) throws Exception {
@@ -152,35 +157,40 @@ public class Model {
     
     public Double calculaTotal() {
         Double total = 0.0;
-        for (SboTbArticulo art : lista) {
+        for (SboTbArticulo art : listaTemp.values()) {
             total += art.getArtPrecio() * art.getArtCant();
         }
         return total;
     }
     
-    public void reiniciaLista() {
-        lista = new ArrayList();
+    public void reiniciaLista(){
+        listaTemp = new HashMap<>();
         contador = 1;
     }
     
-    public void agregarArticulos() throws Exception {
+    public void agregarArticulos()throws Exception{
         SboTbOrdenCompra orden = new SboTbOrdenCompra(numOrden);
         //AbaaTbOcproyecto ordenxProyecto = new AbaaTbOcproyecto();
 //        SboTbArticulo arti = new SboTbArticulo();
-        for (SboTbArticulo art : lista) {
+        for(SboTbArticulo art : listaTemp.values()){
             art.setSboTbOrdenCompra(orden);
         }
-        for (SboTbArticulo art : lista) {
-            if (art.getAbaaProyectos().getProyIdPk() == 0) {
+        for(SboTbArticulo art : listaTemp.values()){
+//            articulodao.agregarArticulo(art);
+            
+            if(art.getAbaaProyectos().getProyIdPk()==0){
                 articulodao.agregarArticulo(art);
+                
 //                numArticulo=articulodao.getLastInsertArticulo();
 //                arti.setArtIdPk(numArticulo);
 //                ordenxProyecto.setAbaaProyectos(art.getAbaaProyectos());
 //                ordenxProyecto.setSboTbArticulo(arti);
 //                ordenxProyecto.setSboTbOrdenCompra(orden);
 //                ordenXdao.agregarDatos(ordenxProyecto);
-            } else {
+            }
+            else{
                 articulodao.agregarArticuloConProyecto(art);
+                
 //                numArticulo=articulodao.getLastInsertArticulo();
 //                arti.setArtIdPk(numArticulo);
 //                ordenxProyecto.setAbaaProyectos(art.getAbaaProyectos());

@@ -59,6 +59,13 @@ function limpiar() {
     $('#selectCatalogoArticulos option').prop('selected', function () {
         return this.defaultSelected;
     });
+    $('#selectProyectos option').prop('selected', function () {
+        return this.defaultSelected;
+    });
+    $('#proyectoCheck').prop('checked', false);
+    $('#comboProy').hide();
+//    document.getElementById("proyectoCheck").checked === true
+    
 }
 
 function buscar2() {
@@ -67,6 +74,16 @@ function buscar2() {
         success: listaArticulosTemporales
     });
 }
+
+function eliminarArt(id){
+   if(confirm("Desea eliminar el articulo?") ){
+           $.ajax({type: "DELETE", 
+          url:"api/articulostemporales/"+id, 
+          success: buscar2,
+          error: function(status){ alert(errorMessage(status));}                 
+        }); 
+    }
+  }
 
 function selectCatArticulos() {
     $.ajax({type: "GET",
@@ -110,7 +127,7 @@ function agregarOrdenCompra() {
 //            proyIdPk: p
 //        },
         ocFecha: fecha2,
-        ocEsta: "no procesada",
+        ocEsta: "asignar codigos",
         ocPlazoEntrega: plazo2,
         ocEntregarA: $("#entregarA").val()
     };
