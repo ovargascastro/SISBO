@@ -1,4 +1,5 @@
 package data;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,13 +14,10 @@ import logic.SboTbCatArticulo;
 import logic.AbaaTbDepartamento;
 import logic.SboTbBodega;
 
-
 /**
  *
  * @author Marco
  */
-    
-
 public class OrdenCompraDAO {
 
     RelDatabase db;
@@ -59,10 +57,11 @@ public class OrdenCompraDAO {
             return null;
         }
     }
-    
-    private SboTbArticulo ObtenerArticulo(ResultSet rs){
+
+    private SboTbArticulo ObtenerArticulo(ResultSet rs) {
         try {
             SboTbArticulo art = new SboTbArticulo();
+            art.setArtIdPk(rs.getInt("Art_Id_PK"));
             art.setArtDesc(rs.getString("Art_Desc"));
             art.setArtCant(rs.getInt("Art_Cant"));
             art.setArtCantRest(rs.getInt("Art_Cant_Rest"));
@@ -71,31 +70,14 @@ public class OrdenCompraDAO {
             return null;
         }
     }
-    
-    private SboTbBodega ObtenerBodega(ResultSet rs){
-        try {
-            SboTbBodega bod = new SboTbBodega();
-            bod.getBodeDesc();
-        return bod;        
-        } 
-        catch (Exception e) {
-         
-        return null;
-            
-        }
-    
-    }
-    
+
     public List<SboTbArticulo> listaOCxArt(String filtro) {
         List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
         try {
-            String sql = "select Sbo_TB_Articulo.Art_Desc, Sbo_TB_Articulo.Art_Cant, \n" +
-            "Sbo_TB_Articulo.Art_Cant_Rest" +
-            "\n" +
-            "from Sbo_TB_Articulo, Sbo_TB_OrdenCompra" +
-            "\n" +
-            "where Sbo_TB_Articulo.Art_Orde_Comp_FK = Sbo_TB_OrdenCompra.OC_Id_PK and Sbo_TB_Articulo.Art_Orde_Comp_FK = "+filtro+";";
-   //         sql = String.format(sql, filtro);
+            String sql = "select Sbo_TB_Articulo.Art_Id_PK,Sbo_TB_Articulo.Art_Desc, Sbo_TB_Articulo.Art_Cant,Sbo_TB_Articulo.Art_Cant_Rest\n"
+                    + "from Sbo_TB_Articulo, Sbo_TB_OrdenCompra\n"
+                    + "where Sbo_TB_Articulo.Art_Orde_Comp_FK = Sbo_TB_OrdenCompra.OC_Id_PK \n"
+                    + "and Sbo_TB_Articulo.Art_Orde_Comp_FK=" + filtro + ";";
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
                 resultado.add(ObtenerArticulo(rs));

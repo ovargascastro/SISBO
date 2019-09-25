@@ -52,18 +52,6 @@
                                         </tr>
                                     </thead>
                                     <tbody id="listadoOC">
-                                        <!--<tr>
-                                            <td>02210</td>
-                                            <td>08/09/2019</td>
-                                            <td>Pendiente</td>
-                                            <td><img src="assets/img/delivery-cart.png" onclick="abrirModalListarArticulos()"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>02209</td>
-                                            <td>07/09/2019</td>
-                                            <td>Pariclamente<br>Procesada</td>
-                                            <td><img src="assets/img/delivery-cart.png"></td>
-                                        </tr>-->
                                     </tbody>
                                 </table>
                             </div>
@@ -92,16 +80,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="listadoOCxArt">
-                                                <tr>
-                                                  <!--  <td>Sillas</td>
-                                                    <td>50</td>
-                                                    <td><img src="assets/img/plus.png" onclick="abrirModalAgregarArticulos()"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bombillos</td>
-                                                    <td>25</td>
-                                                    <td><img src="assets/img/plus.png"></td>
-                                                </tr>-->
                                             </tbody>
                                         </table>
                                     </div>
@@ -123,23 +101,23 @@
                             <div class="container">
                                 <div class="form-row">
                                     <div class="col">
-                                        <label>Artículo</label><input id="articulo" class="form-control" type="text" readonly placeholder="Artículo">
-                                        <label>Descripcion</label><input class="form-control" type="text" placeholder="Descripcion">
-                                        <label>Modelo</label><input class="form-control" type="text" placeholder="Modelo">
-                                        <label>Marca</label><input class="form-control" type="text" placeholder="Marca">
-                                        <label>N° Serie</label><input class="form-control" type="text" placeholder="N° Serie">
+                                        <label>Artículo</label><input id="AddArtArticulo" class="form-control" type="text" readonly placeholder="Artículo">
+                                        <label>Descripcion</label><input id="AddArtDescripcion" class="form-control" type="text" placeholder="Descripcion">
+                                        <label>Modelo</label><input id="AddArtModelo" class="form-control" type="text" placeholder="Modelo">
+                                        <label>Marca</label><input id="AddArtMarca" class="form-control" type="text" placeholder="Marca">
+                                        <label>N° Serie</label><input id="AddArtNSerie" class="form-control" type="text" placeholder="N° Serie">
                                     </div>                       
                                     <div class="col">
-                                    <label>Unidad Usuaria</label><input class="form-control" type="text" placeholder="Unidad Usuaria">    
-                                    <label>Bodega</label><input class="form-control" type="text" placeholder="Bodega">    
-                                    <label>Fecha de Ingreso</label><input class="form-control" type="date" placeholder="Fecha de Ingreso">
-                                    <label>Fecha de Vencimiento</label><input class="form-control" type="date" placeholder="Fecha de Vencimiento">
-                                    <label>Cantidad a Ingresar</label><input class="form-control" type="number" placeholder="Cantidad a Ingresar">    
-                                    <br>
-                                    <div class="col">
-                                    <label>Informacion del Articulo</label>
-                                        <div class="text-center"><img src="assets/img/info(1).png" onclick="abrirModalInfoArticulo()"></div>
-                                    </div>
+                                        <label>Unidad Usuaria</label><input id="AddArtUniUsuaria" class="form-control" type="text" readonly placeholder="Unidad Usuaria">    
+                                        <label>Bodega</label><input id="AddArtBodega" class="form-control" type="text" placeholder="Bodega">    
+                                        <label>Fecha de Ingreso</label><input id="AddArtFIngreso" class="form-control" type="date" placeholder="Fecha de Ingreso">
+                                        <label>Fecha de Vencimiento</label><input id="AddArtFVencimiento" class="form-control" type="date" placeholder="Fecha de Vencimiento">
+                                        <label>Cantidad a Ingresar</label><input id="AddArtCant" class="form-control" type="number" placeholder="Cantidad a Ingresar">    
+                                        <br>
+                                        <div class="col">
+                                            <label>Informacion del Articulo</label>
+                                            <div class="text-center"><img src="assets/img/info(1).png" onclick="abrirModalInfoArticulo()"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -175,20 +153,23 @@
 </html>
 
 <script>
-                        /*function abrirModalListarArticulos() {
-                            $('#listaArticulos').modal('show');
-                        }*/
-                        
+
                         function abrirModalListarArticulos(id) {
                             buscarArtxOc(id);
                             $('#listaArticulos').modal('show');
                         }
-                        
-                        function abrirModalAgregarArticulos() {
+
+                        function abrirModalAgregarArticulos(idArti) {
                             $('#listaArticulos').modal('hide');
-                            $('#articulo').val('Silla');
+                            solicitarDatosArticulo(idArti);
                             $('#agregarArticulo').modal('show');
                         }
+
+                        /*function abrirModalAgregarArticulos() {
+                         $('#listaArticulos').modal('hide');
+                         $('#articulo').val('Silla');
+                         $('#agregarArticulo').modal('show');
+                         }*/
 
                         function abrirModalInfoArticulo() {
                             $('#agregarArticulo').modal('hide');
@@ -210,12 +191,28 @@
                                 success: listaOC
                             });
                         }
-                        
+
                         function buscarArtxOc(id) {
                             $.ajax({type: "GET",
                                 url: "api/ListaOCxArt?numeroOCArt=" + id,
                                 success: listaArtxOC
                             });
+                        }
+
+                        function solicitarDatosArticulo(id) {
+                            $.ajax({type: "GET",
+                                url: "api/ListaOCxArt/" + id,
+                                success: mostrarDatosArt
+                            });
+                        }
+
+                        function mostrarDatosArt(objeto) {
+                            $("#AddArtArticulo").val(objeto.sboTbCatArticulo.catDesc);
+                            $("#AddArtDescripcion").val(objeto.artDesc);
+                            $("#AddArtModelo").val(objeto.artMode);
+                            $("#AddArtMarca").val(objeto.artMarc);
+                            $("#AddArtNSerie").val(objeto.artNumeSeri);
+                            $("#AddArtUniUsuaria").val(objeto.abaaTbDepartamento.deptoNomb);
                         }
 
                         function listaOC(ordenes) {
@@ -225,7 +222,7 @@
                                 filaOC(listado, p);
                             });
                         }
-                        
+
                         function listaArtxOC(ordenes) {
                             var listado = $("#listadoOCxArt");
                             listado.html("");
@@ -233,12 +230,12 @@
                                 filaOCxArt(listado, p);
                             });
                         }
-                        
+
                         function formatDate(fecha) {
-                            var dia= fecha.substring(8,10);
-                            var mes= fecha.substring(5,7);
-                            var annio = fecha.substring(0,4);
-                            var newFecha = dia+"/"+mes+"/"+annio;
+                            var dia = fecha.substring(8, 10);
+                            var mes = fecha.substring(5, 7);
+                            var annio = fecha.substring(0, 4);
+                            var newFecha = dia + "/" + mes + "/" + annio;
                             return newFecha;
                         }
 
@@ -248,17 +245,17 @@
                                     "<td>" + objeto.ocIdPk + "</td>"
                                     + "<td>" + formatDate(objeto.ocFecha) + "</td>"
                                     + "<td>" + objeto.ocEsta + "</td>"
-                                    + "<td><img src='assets/img/plus.png' onclick='abrirModalListarArticulos(\""+objeto.ocIdPk +"\");'></td>");
-                                    listado.append(tr);
+                                    + "<td><img src='assets/img/delivery-cart.png' onclick='abrirModalListarArticulos(\"" + objeto.ocIdPk + "\");'></td>");
+                            listado.append(tr);
                         }
-                        
+
                         function filaOCxArt(listado, objeto) {
                             var tr = $("<tr />");
                             tr.html(
                                     "<td>" + objeto.artDesc + "</td>"
                                     + "<td>" + objeto.artCant + "</td>"
                                     + "<td>" + objeto.artCantRest + "</td>"
-                                    + "<td><img class='small-img' src='assets/img/delivery-cart.png' onclick='abrirModalAgregarArticulos()'></td>");
+                                    + "<td><img class='small-img' src='assets/img/plus.png' onclick='abrirModalAgregarArticulos(\"" + objeto.artIdPk + "\");'></td>");
                             listado.append(tr);
                         }
 

@@ -8,6 +8,7 @@ public class Model {
 
     private final catalogosDAO catdao;
     private final OrdenCompraDAO ocdao;
+    private final ArticuloOCDAO artidao;
     private static Model uniqueInstance;
 
     public static Model instance() {
@@ -20,6 +21,7 @@ public class Model {
     private Model() {
         catdao = new catalogosDAO();
         ocdao = new OrdenCompraDAO();
+        artidao = new ArticuloOCDAO();
     }
 
     public List<SboTbFamilia> listaFamilias(String filtro) throws ClassNotFoundException, SQLException {
@@ -59,8 +61,8 @@ public class Model {
     }
 
     public List<SboTbArticulo> ListaArtxOrden(String filtro) throws ClassNotFoundException, SQLException {
-       List oc = ocdao.listaOCxArt(filtro);
-       return oc;
+        List oc = ocdao.listaOCxArt(filtro);
+        return oc;
     }
 
     public void actualizarFamilia(SboTbFamilia familia) throws Exception {
@@ -90,5 +92,9 @@ public class Model {
     public List<SboTbOrdenCompra> listaOrdenesCompra(String filtro) throws ClassNotFoundException, SQLException {
         List result = ocdao.listaOrdenesCompra(filtro);
         return result;
+    }
+
+    public SboTbArticulo buscaDatosArticulo(String filtro) throws Exception {
+        return artidao.datosArticulo(filtro);
     }
 }
