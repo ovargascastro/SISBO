@@ -97,4 +97,8 @@ public class Model {
     public SboTbArticulo buscaDatosArticulo(String filtro) throws Exception {
         return artidao.datosArticulo(filtro);
     }
+
+    public SboTbArticulo buscaDescCatsArticulo(String filtro) throws Exception {
+        return artidao.DescripcionCatsPorArticulo(filtro);
+    }
 }

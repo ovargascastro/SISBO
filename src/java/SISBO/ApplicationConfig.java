@@ -31,6 +31,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(SISBO.ListaOCxArt.class);
         resources.add(SISBO.catArticulos.class);
+        resources.add(SISBO.descCatsArticulo.class);
         resources.add(SISBO.familias.class);
         resources.add(SISBO.listadoOCArtNuevos.class);
         resources.add(SISBO.subFamilias.class);

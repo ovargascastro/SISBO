@@ -25,10 +25,16 @@ public class test {
         ArticuloOCDAO artDAO = new ArticuloOCDAO();
         SboTbArticulo articulo = new SboTbArticulo();
         try {
-            articulo = artDAO.datosArticulo("1");
+//            articulo = artDAO.datosArticulo("1");
             System.out.println("Id articulo: " + articulo.getArtIdPk()
                     + "/ Id Dpto: " + articulo.getAbaaTbDepartamento().getDeptoIdPk()
                     + "/Id Cat: " + articulo.getSboTbCatArticulo().getCatIdPk());
+        } catch (Exception ex) {
+        }
+        try {
+            articulo = artDAO.DescripcionCatsPorArticulo("1");
+            System.out.println(articulo.getSboTbCatArticulo().getCatDesc() + ","
+                    + articulo.getSboTbCatArticulo().getSboTbSubFamilia().getSubFamiDesc());
         } catch (Exception ex) {
         }
     }

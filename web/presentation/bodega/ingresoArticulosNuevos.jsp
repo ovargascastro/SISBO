@@ -116,7 +116,8 @@
                                         <br>
                                         <div class="col">
                                             <label>Informacion del Articulo</label>
-                                            <div class="text-center"><img src="assets/img/info(1).png" onclick="abrirModalInfoArticulo()"></div>
+                                            <!--<div class="text-center" id="botonArticuloInfo"><img src="assets/img/info(1).png" onclick="abrirModalInfoArticulo()"></div>-->
+                                            <div class="text-center" id="botonArticuloInfo"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -165,18 +166,9 @@
                             $('#agregarArticulo').modal('show');
                         }
 
-                        /*function abrirModalAgregarArticulos() {
-                         $('#listaArticulos').modal('hide');
-                         $('#articulo').val('Silla');
-                         $('#agregarArticulo').modal('show');
-                         }*/
-
-                        function abrirModalInfoArticulo() {
+                        function abrirModalInfoArticulo(idCat) {
                             $('#agregarArticulo').modal('hide');
-                            $('#articuloInfo').val('Silla');
-                            $('#subfamInfo').val('Equipo y mobiliario de oficina');
-                            $('#codArtInfo').val('1234');
-                            $('#famInfo').val('Bienes Duraderos');
+                            solicitarDatosCatalogosArticulo(idCat);
                             $('#modalInfoArt').modal('show');
                         }
 
@@ -213,6 +205,26 @@
                             $("#AddArtMarca").val(objeto.artMarc);
                             $("#AddArtNSerie").val(objeto.artNumeSeri);
                             $("#AddArtUniUsuaria").val(objeto.abaaTbDepartamento.deptoNomb);
+                            cargarBotonInfo(objeto.sboTbCatArticulo.catIdPk);
+                        }
+
+                        function solicitarDatosCatalogosArticulo(id) {
+                            $.ajax({type: "GET",
+                                url: "api/descCatsArticulo/" + id,
+                                success: mostrarDatosCatsArt
+                            });
+                        }
+
+                        function mostrarDatosCatsArt(objeto) {
+                            $("#codArtInfo").val(objeto.sboTbCatArticulo.catIdPk);
+                            $("#articuloInfo").val(objeto.sboTbCatArticulo.catDesc);
+                            $("#subfamInfo").val(objeto.sboTbCatArticulo.sboTbSubFamilia.subFamiDesc);
+                            $("#famInfo").val(objeto.sboTbCatArticulo.sboTbSubFamilia.sboTbFamilia.famiDesc);
+                        }
+
+                        function cargarBotonInfo(catalogoID) {
+                            var linea = "<img src='assets/img/info(1).png' onclick='abrirModalInfoArticulo(\"" + catalogoID + "\")'>";
+                            $("#botonArticuloInfo").empty().append(linea);
                         }
 
                         function listaOC(ordenes) {
