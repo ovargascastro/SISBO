@@ -175,10 +175,15 @@
 </html>
 
 <script>
-                        function abrirModalListarArticulos() {
+                        /*function abrirModalListarArticulos() {
+                            $('#listaArticulos').modal('show');
+                        }*/
+                        
+                        function abrirModalListarArticulos(id) {
+                            buscarArtxOc(id);
                             $('#listaArticulos').modal('show');
                         }
-
+                        
                         function abrirModalAgregarArticulos() {
                             $('#listaArticulos').modal('hide');
                             $('#articulo').val('Silla');
@@ -205,6 +210,13 @@
                                 success: listaOC
                             });
                         }
+                        
+                        function buscarArtxOc(id) {
+                            $.ajax({type: "GET",
+                                url: "api/ListaOCxArt?numeroOCArt=" + id,
+                                success: listaArtxOC
+                            });
+                        }
 
                         function listaOC(ordenes) {
                             var listado = $("#listadoOC");
@@ -218,7 +230,7 @@
                             var listado = $("#listadoOCxArt");
                             listado.html("");
                             ordenes.forEach((p) => {
-                                filaOC(listado, p);
+                                filaOCxArt(listado, p);
                             });
                         }
                         
@@ -236,7 +248,7 @@
                                     "<td>" + objeto.ocIdPk + "</td>"
                                     + "<td>" + formatDate(objeto.ocFecha) + "</td>"
                                     + "<td>" + objeto.ocEsta + "</td>"
-                                    + "<td><img src='assets/img/plus.png' onclick='abrirModalListarArticulos()'></td>");
+                                    + "<td><img src='assets/img/plus.png' onclick='abrirModalListarArticulos(\""+objeto.ocIdPk +"\");'></td>");
                                     listado.append(tr);
                         }
                         

@@ -94,7 +94,7 @@ public class OrdenCompraDAO {
             "\n" +
             "from Sbo_TB_Articulo, Sbo_TB_OrdenCompra" +
             "\n" +
-            "where Sbo_TB_Articulo.Art_Orde_Comp_FK = Sbo_TB_OrdenCompra.OC_Id_PK and Sbo_TB_Articulo.Art_Orde_Comp_FK = '%%%s%%'; ";
+            "where Sbo_TB_Articulo.Art_Orde_Comp_FK = Sbo_TB_OrdenCompra.OC_Id_PK and Sbo_TB_Articulo.Art_Orde_Comp_FK = "+filtro+";";
    //         sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {

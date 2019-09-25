@@ -28,7 +28,7 @@ public class ListaOCxArt {
     
     @GET
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    public List<SboTbArticulo> getArticulos(@QueryParam("numeroOC") String filtro) throws ClassNotFoundException, SQLException {
+    public List<SboTbArticulo> getArticulos(@QueryParam("numeroOCArt") String filtro) throws ClassNotFoundException, SQLException {
         List<SboTbArticulo> lista = Model.instance().ListaArtxOrden(filtro);
         return lista;
     }

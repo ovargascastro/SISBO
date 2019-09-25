@@ -10,7 +10,7 @@ public class test {
         OrdenCompraDAO OCDAO = new OrdenCompraDAO();
         List<SboTbArticulo> lista = new ArrayList<SboTbArticulo>();
         //lista = OCDAO.listaOrdenesCompra("");
-        lista = OCDAO.listaOCxArt("");
+        lista = OCDAO.listaOCxArt("1");
         for (SboTbArticulo u : lista) {
             System.out.println(u.getArtDesc());
         }
