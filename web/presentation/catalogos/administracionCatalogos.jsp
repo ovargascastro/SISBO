@@ -3,6 +3,11 @@
     Created on : 15-sep-2019, 22:03:11
     Author     : oscar
 --%>
+<%-- 
+    Document   : administracionCatalogos
+    Created on : 15-sep-2019, 22:03:11
+    Author     : oscar
+--%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -61,7 +66,7 @@
                                                 <th>Código</th>
                                                 <th>Descripción</th>
                                                 <th>Editar</th>
-                                                <th>Eliminar</th>
+                                                <th>Estado</th>
                                             </tr>
                                         </thead>
 
@@ -77,15 +82,28 @@
         </div>
 
 
-        <div role="dialog" tabindex="-1" class="modal fade" id="modalEliminar">
+        <div role="dialog" tabindex="-1" class="modal fade" id="modalDesactivar">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Eliminar</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                        <h4 class="modal-title">Desactivar</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                     <div class="modal-body">
-                        <p>Desea eliminar el registro seleccionado?</p>
+                        <p>Desea desactivar el registro seleccionado?</p>
                     </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary bg-danger" type="button">Eliminar</button></div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button><button class="btn btn-primary bg-danger" type="button" onclick="javascript:Desactivar()">Desactivar</button></div>
+                </div>
+            </div>
+        </div>
+        
+                <div role="dialog" tabindex="-1" class="modal fade" id="modalActivar">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Activar</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <p>Desea activar el registro seleccionado?</p>
+                    </div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button><button class="btn btn-primary bg-success" type="button" onclick="javascript:Activar()">Activar</button></div>
                 </div>
             </div>
         </div>
@@ -251,12 +269,22 @@
 
                                     function filaFam(listado, objeto) {
                                         var tr = $("<tr />");
-                                        tr.html(
+                                        if(objeto.famiEstado === '0'){
+                                             tr.html(
                                                 "<td>" + objeto.famiIdPk + "</td>"
                                                 + "<td>" + objeto.famiDesc + "</td>"
                                                 + "<td><img class='small-img' src='assets/img/edit.png' onclick='abrirModalEditar(\"" + objeto.famiIdPk + "\");'></td>"
-                                                + "<td><img src='assets/img/trash-delete.png' onclick='del(\"" + objeto.famiIdPk + "\");'></td>");
+                                                +"<td><img src='assets/img/lock.png' onclick='abrirModalDesactivar(\"" + objeto.famiIdPk + "\");'></td>");
+                                         listado.append(tr); 
+                                        }else{
+                                             tr.html(
+                                                "<td>" + objeto.famiIdPk + "</td>"
+                                                + "<td>" + objeto.famiDesc + "</td>"
+                                                + "<td><img class='small-img' src='assets/img/edit.png' onclick='abrirModalEditar(\"" + objeto.famiIdPk + "\");'></td>"
+                                                +"<td><img src='assets/img/unlock.png' onclick='abrirModalDesactivar(\"" + objeto.famiIdPk + "\");'></td>");       
                                         listado.append(tr);
+                                        }
+                                       
                                     }
 
                                     function listaSubFam(personas) {
@@ -266,16 +294,29 @@
                                             filaSubFam(listado, p);
                                         });
                                     }
+                                    
+                                    
+  
+function filaSubFam(listado, objeto) {
+    var tr = $("<tr />");
+    if (objeto.subFamiEstado === '0') {
+        tr.html(
+                "<td>" + objeto.subFamiIdPk + "</td>"
+                + "<td>" + objeto.subFamiDesc + "</td>"
+                + "<td><img class='small-img' src='assets/img/edit.png' onclick='abrirModalEditar(\"" + objeto.subFamiIdPk + "\");'></td>"
+                + "<td><img src='assets/img/lock.png' onclick='abrirModalDesactivar(\"" + objeto.subFamiIdPk + "\");'></td>");
+        listado.append(tr);
+    } else {
+        tr.html(
+                "<td>" + objeto.subFamiIdPk + "</td>"
+                + "<td>" + objeto.subFamiDesc + "</td>"
+                + "<td><img class='small-img' src='assets/img/edit.png' onclick='abrirModalEditar(\"" + objeto.subFamiIdPk + "\");'></td>"
+                + "<td><img src='assets/img/unlock.png' onclick='abrirModalDesactivar(\"" + objeto.subFamiIdPk + "\");'></td>");
+        listado.append(tr);
 
-                                    function filaSubFam(listado, objeto) {
-                                        var tr = $("<tr />");
-                                        tr.html(
-                                                "<td>" + objeto.subFamiIdPk + "</td>"
-                                                + "<td>" + objeto.subFamiDesc + "</td>"
-                                                + "<td><img class='small-img' src='assets/img/edit.png' onclick='abrirModalEditar(\"" + objeto.subFamiIdPk + "\");'></td>"
-                                                + "<td><img src='assets/img/trash-delete.png' onclick='del(\"" + objeto.subFamiIdPk + "\");'></td>");
-                                        listado.append(tr);
-                                    }
+    }
+}
+
 
                                     function listaCatArt(personas) {
                                         var listado = $("#listado");
@@ -287,12 +328,23 @@
 
                                     function filaCatArt(listado, objeto) {
                                         var tr = $("<tr />");
+                                        if(objeto.artCat_Estado==='0'){
                                         tr.html(
                                                 "<td>" + objeto.catIdPk + "</td>"
                                                 + "<td>" + objeto.catDesc + "</td>"
                                                 + "<td><img class='small-img' src='assets/img/edit.png' onclick='abrirModalEditar(\"" + objeto.catIdPk + "\");'></td>"
-                                                + "<td><img src='assets/img/trash-delete.png' onclick='del(\"" + objeto.catIdPk + "\");'></td>");
+                                                + "<td><img src='assets/img/lock.png' onclick='abrirModalDesactivar(\"" + objeto.catIdPk + "\");'></td>");
                                         listado.append(tr);
+                                    }else{
+                                        tr.html(
+                                                "<td>" + objeto.catIdPk + "</td>"
+                                                + "<td>" + objeto.catDesc + "</td>"
+                                                + "<td><img class='small-img' src='assets/img/edit.png' onclick='abrirModalEditar(\"" + objeto.catIdPk + "\");'></td>"
+                                                + "<td><img src='assets/img/unlock.png' onclick='abrirModalDesactivar(\"" + objeto.catIdPk + "\");'></td>");
+                                        listado.append(tr);
+                                        
+                                        
+                                    }
                                     }
 
 

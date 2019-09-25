@@ -9,6 +9,7 @@ public class Model {
     private final catalogosDAO catdao;
     private static Model uniqueInstance;
 
+
     public static Model instance() {
         if (uniqueInstance == null) {
             uniqueInstance = new Model();
