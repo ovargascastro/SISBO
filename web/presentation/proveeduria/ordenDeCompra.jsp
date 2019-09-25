@@ -120,7 +120,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" role="dialog" tabindex="-1" id="modalArticulo">
+            <div class="modal fade" role="dialog" tabindex="-1" id="modalArticulo" data-backdrop="static">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -161,7 +161,7 @@
                                         <input class="form-control" type="text" placeholder="Serie" id="Serie">
 
                                         <label>Precio</label>
-                                        <input class="form-control" type="text" placeholder="Precio" id="Precio">
+                                        <input class="form-control" type="number" placeholder="Precio" id="Precio">
 
                                         <label>Unidad Usuaria</label>
                                         <select class="form-control" id="selectDeptos">
@@ -196,7 +196,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button>
+                            <button class="btn btn-light" type="button" data-dismiss="modal" onclick="javascript:limpiar()">Cancelar</button>
                             <button class="btn btn-primary" type="button" onclick="javascript:agregarArticuloTemporal()">Agregar</button></div>
                     </div>
                 </div>
@@ -273,7 +273,7 @@
                 + "<td>" + articulo.artDesc + "</td>"
                 + "<td>" + articulo.artPrecio + "</td>"
                 + "<td>" + (articulo.artPrecio * articulo.artCant) + "</td>"
-                + "<td><img src='assets/img/trash-delete.png' ></td>");
+                + "<td><img src='assets/img/trash-delete.png' onclick='eliminarArt(\"" + articulo.artIdPk + "\");'></td>");
         listado.append(tr);
     }
 
