@@ -90,6 +90,10 @@ public class SboTbCatArticulo  implements java.io.Serializable {
         this.sboTbArticulos = sboTbArticulos;
     }
 
+    public void setArtCat_Estado(String artCat_Estado) {
+        this.artCat_Estado = artCat_Estado;
+    }
+
 
 
     public String getArtCat_Estado() {
