@@ -38,7 +38,7 @@
                                 <div class="form-row">
                                     <div class="col text-center"><select class="form-control" id="selectcatalogos"><optgroup label="Catalogos"><option value="1" selected="">Familia</option><option value="2">Sub-Familia</option><option value="3">Artículo</option></optgroup></select>
                                         <div class="form-row">
-                                            <div class="col"><br><input class="form-control" type="text" id="filtro"></div>
+                                            <div class="col"><br><input class="form-control" type="text" id="filtro" placeholder="Filtro"></div>
                                         </div>
                                     </div>
                                     <div class="col text-left"><button class="btn btn-primary border-light" type="button" onclick="javascript:concatenarBusqueda()">Búscar &nbsp;<img id="magnifier" src="assets/img/magnifier.png"></button></div>
@@ -111,21 +111,23 @@
         <div class="modal fade" role="dialog" tabindex="-1" id="modalEditarFam">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
+                    <form action="javascript:actualizarFamilia()">
                     <div class="modal-header">
                         <h4 class="modal-title">Editar</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                     <div class="modal-body">
-                        <form>
+                        
                             <div class="container">
                                 <div class="form-row">
-                                    <div class="col"><label>Código Fam<br></label><input class="form-control" type="text" id="codigoFamilia"></div>
+                                    <div class="col"><label>Código Fam<br></label><input class="form-control" type="text" id="codigoFamilia" required readonly></div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="col"><label>Descripción<br></label><input class="form-control" type="text" id="descripFamilia"></div>
+                                    <div class="col"><label>Descripción<br></label><input class="form-control" type="text" id="descripFamilia" required></div>
                                 </div>
                             </div>
-                        </form>
                     </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary" type="button" onclick="javascript:actualizarFamilia()">Guardar</button></div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary" type="submit">Guardar</button></div>
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -133,25 +135,27 @@
         <div class="modal fade" role="dialog" tabindex="-1" id="modalSubFam">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
+                    <form action="javascript:actualizarSubFamilia()">
                     <div class="modal-header">
                         <h4 class="modal-title">Editar</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                     <div class="modal-body">
-                        <form>
+                        
                             <div class="container">
                                 <div class="form-row">
-                                    <div class="col"><label>Código Sub-Fam<br></label><input class="form-control" type="text" id="codigoSubFam"></div>
+                                    <div class="col"><label>Código Sub-Fam<br></label><input class="form-control" type="text" id="codigoSubFam" required readonly></div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="col"><label>Descripción<br></label><input class="form-control" type="text" id="descripSubFam"></div>
+                                    <div class="col"><label>Descripción<br></label><input class="form-control" type="text" id="descripSubFam" required></div>
                                 </div>
                                 <div class="form-row">
 
-                                    <div class="col"><label>CodFamilia<br></label><select class="form-control" id="selectFamilias"></select></div>
+                                    <div class="col"><label>CodFamilia<br></label><select class="form-control" id="selectFamilias" required></select></div>
                                 </div>
                             </div>
-                        </form>
                     </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button" onclick="javascript:actualizarSubFamilia()">Guardar</button></div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="submit">Guardar</button></div>
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -160,22 +164,24 @@
         <div class="modal fade" role="dialog" tabindex="-1" id="modalArticulo">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
+                    <form action="javascript:actualizarCatArticulo()">
                     <div class="modal-header">
                         <h4 class="modal-title">Editar</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                     <div class="modal-body">
-                        <form>
+                        
                             <div class="container">
                                 <div class="form-row">
-                                    <div class="col"><label>Descripción<br></label><input class="form-control" type="text" id="descripArt"></div>
+                                    <div class="col"><label>Descripción<br></label><input class="form-control" type="text" id="descripArt" required=""></div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col"><label>Sub-Familia<br></label>
-                                        <select class="form-control" id="selectSubFam"></select></div>
+                                        <select class="form-control" id="selectSubFam" required></select></div>
                                 </div>
                             </div>
-                        </form>
                     </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button" onclick="javascript:actualizarCatArticulo()">Guardar</button></div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="submit">Guardar</button></div>
+                   </form>
+
                 </div>
             </div>
         </div>
@@ -183,48 +189,52 @@
          <div class="modal fade" role="dialog" tabindex="-1" id="modalAgregarCatArticulo">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+                <form action="javascript:CrearCatArticulo()">
                 <div class="modal-header">
                     <h4 class="modal-title">Agregar Artículo</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                 <div class="modal-body">
                     <div class="container">
-                        <form>
+                        
                             <div class="form-row">
-                                <div class="col"><label>Descripcion</label><input class="form-control" type="text" id="AgregarDescipcionCatArt"></div>
+                                <div class="col"><label>Descripcion</label><input class="form-control" type="text" id="AgregarDescipcionCatArt" required></div>
                                 </div>
                              <div class="form-row">
-                                <div class="col"><label>Codigo Articulo Sicop</label><input class="form-control" type="text" id="AgregarCodSicopCatArt"></div>
+                                <div class="col"><label>Codigo Articulo Sicop</label><input class="form-control" type="text" id="AgregarCodSicopCatArt" required></div>
                                 </div>
                              <div class="form-row">
                                 <div class="col"><label>SubFamilia</label><select class="form-control" id="AgregarSubfamiliaCatArt"></select></div>
                             </div>
-                        </form>
                     </div>
                 </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button" onclick="javascript:CrearCatArticulo()">Agregar</button></div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="submit">Agregar</button></div>
+                </form>
+
             </div>
         </div>
     </div>
          <div class="modal fade" role="dialog" tabindex="-1" id="modalAgregarSubFamilia">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+                <form action="javascript:crearSubFamilia()">
                 <div class="modal-header">
                     <h4 class="modal-title">Agregar SubFamilia</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                 <div class="modal-body">
                     <div class="container">
-                        <form>
+                        
                             <div class="form-row">
-                                <div class="col"><label>Código</label><input class="form-control" type="text" id="AgregarCodigoSubF"></div>
+                                <div class="col"><label>Código</label><input class="form-control" type="text" id="AgregarCodigoSubF" required></div>
                                 </div>
                              <div class="form-row">
-                                <div class="col"><label>Descripcion</label><input class="form-control" type="text" id="AgregarDescripcionSubF"></div>
+                                <div class="col"><label>Descripcion</label><input class="form-control" type="text" id="AgregarDescripcionSubF" required></div>
                                 </div>
                              <div class="form-row">
-                                <div class="col"><label>Familia</label><select class="form-control" id="AgregarFamiliaSubF"></select></div>
+                                <div class="col"><label>Familia</label><select class="form-control" id="AgregarFamiliaSubF" required></select></div>
                             </div>
-                        </form>
                     </div>
                 </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button" onclick="javascript:crearSubFamilia()">Agregar</button></div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="submit">Agregar</button></div>
+               </form>
+
             </div>
         </div>
     </div>
@@ -232,22 +242,23 @@
     <div class="modal fade" role="dialog" tabindex="-1" id="modalAgregarFamilia">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+                <form action="javascript:crearFamilia()">
                 <div class="modal-header">
                     <h4 class="modal-title">Agregar Familia</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                 <div class="modal-body">
                     <div class="container">
-                        <form>
+                        
                             <div class="form-row">
-                                <div class="col"><label>Código</label><input class="form-control" type="text" id="AgregarCodigoFam"></div>
+                                <div class="col"><label>Código</label><input class="form-control" type="text" id="AgregarCodigoFam" required></div>
                                 </div>
                              <div class="form-row">
-                                <div class="col"><label>Descripcion</label><input class="form-control" type="text" id="AgregarDescripcionFam"></div>
+                                <div class="col"><label>Descripcion</label><input class="form-control" type="text" id="AgregarDescripcionFam" required></div>
                                
                             </div>
-                        </form>
                     </div>
                 </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button" onclick="javascript:crearFamilia()">Agregar</button></div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="submit">Agregar</button></div>
+                </form>
             </div>
         </div>
     </div>
