@@ -29,9 +29,11 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(SISBO.Bodega.class);
+        resources.add(SISBO.Bodega.class
+        resources.add(SISBO.BodegaListaOC.class);
+        resources.add(SISBO.Existencias.class);
         resources.add(SISBO.ListaOCxArt.class);
-        resources.add(SISBO.catArticulos.class);
+        resources.add(SISBO.catArticulos.class
         resources.add(SISBO.descCatsArticulo.class);
         resources.add(SISBO.familias.class);
         resources.add(SISBO.listadoOCArtNuevos.class);
