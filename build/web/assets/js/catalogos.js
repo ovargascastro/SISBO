@@ -88,7 +88,8 @@ function mostrarFamilia(fam) {
     $("#descripFamilia").val(fam.famiDesc);
     $('#modalEditarFam').modal('show');
 }
-var catArtActual;
+
+
 function mostrarCatArt(art) {
     catArtActual = art.catIdPk;
     $("#descripArt").val(art.catDesc);

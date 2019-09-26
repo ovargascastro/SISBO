@@ -9,6 +9,7 @@ public class Model {
     private final catalogosDAO catdao;
     private final OrdenCompraDAO ocdao;
     private final ArticuloOCDAO artidao;
+    private final BodegaDAO bodegadao;
     private static Model uniqueInstance;
 
     public static Model instance() {
@@ -22,6 +23,7 @@ public class Model {
         catdao = new catalogosDAO();
         ocdao = new OrdenCompraDAO();
         artidao = new ArticuloOCDAO();
+        bodegadao = new BodegaDAO();
     }
 
     public List<SboTbFamilia> listaFamilias(String filtro) throws ClassNotFoundException, SQLException {
@@ -100,5 +102,18 @@ public class Model {
 
     public SboTbArticulo buscaDescCatsArticulo(String filtro) throws Exception {
         return artidao.DescripcionCatsPorArticulo(filtro);
+    }
+
+    public List<SboTbBodega> listaBodegas(String filtro) throws ClassNotFoundException, SQLException {
+        List result = bodegadao.listaBodegas(filtro);
+        return result;
+    }
+
+    public void disminuirCantPendienteArticulo(SboTbArticulo articulo) throws Exception {
+        artidao.disminuirCantPendienteArticulo(articulo);
+    }
+
+    public void aumentarExistenciasArticulo(SboTbExistencia existencia) throws Exception {
+        artidao.aumentarExistencias(existencia);
     }
 }

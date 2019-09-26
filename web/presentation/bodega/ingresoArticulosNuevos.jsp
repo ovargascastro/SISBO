@@ -70,7 +70,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table" id="ListadoArticulosTotal">
                                             <thead>
                                                 <tr>
                                                     <th>Articulo</th>
@@ -101,6 +101,7 @@
                             <div class="container">
                                 <div class="form-row">
                                     <div class="col">
+                                        <input id="AddArtId" class="form-control" type="hidden">
                                         <label>Artículo</label><input id="AddArtArticulo" class="form-control" type="text" readonly placeholder="Artículo">
                                         <label>Descripcion</label><input id="AddArtDescripcion" class="form-control" type="text" placeholder="Descripcion">
                                         <label>Modelo</label><input id="AddArtModelo" class="form-control" type="text" placeholder="Modelo">
@@ -109,14 +110,13 @@
                                     </div>                       
                                     <div class="col">
                                         <label>Unidad Usuaria</label><input id="AddArtUniUsuaria" class="form-control" type="text" readonly placeholder="Unidad Usuaria">    
-                                        <label>Bodega</label><input id="AddArtBodega" class="form-control" type="text" placeholder="Bodega">    
+                                        <label>Bodega</label><select class="form-control" id="AddArtBodega"></select>
                                         <label>Fecha de Ingreso</label><input id="AddArtFIngreso" class="form-control" type="date" placeholder="Fecha de Ingreso">
                                         <label>Fecha de Vencimiento</label><input id="AddArtFVencimiento" class="form-control" type="date" placeholder="Fecha de Vencimiento">
                                         <label>Cantidad a Ingresar</label><input id="AddArtCant" class="form-control" type="number" placeholder="Cantidad a Ingresar">    
                                         <br>
                                         <div class="col">
                                             <label>Informacion del Articulo</label>
-                                            <!--<div class="text-center" id="botonArticuloInfo"><img src="assets/img/info(1).png" onclick="abrirModalInfoArticulo()"></div>-->
                                             <div class="text-center" id="botonArticuloInfo"></div>
                                         </div>
                                     </div>
@@ -124,7 +124,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button><button class="btn btn-primary" type="button">Agregar</button></div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button><button class="btn btn-primary" type="button" onclick="actualizarArticulo()">Agregar</button></div>
                 </div>
             </div>
         </div>
@@ -163,6 +163,7 @@
                         function abrirModalAgregarArticulos(idArti) {
                             $('#listaArticulos').modal('hide');
                             solicitarDatosArticulo(idArti);
+                            selectBodegas();
                             $('#agregarArticulo').modal('show');
                         }
 
@@ -175,6 +176,11 @@
                         function cerrarInfoArt() {
                             $('#agregarArticulo').modal('show');
                             $('#modalInfoArt').modal('hide');
+                        }
+
+                        function refrescarListaArticulos(id) {
+                            $('#agregarArticulo').modal('hide');
+                            $('#listaArticulos').modal('show');
                         }
 
                         function buscarOrdenes() {
@@ -199,6 +205,7 @@
                         }
 
                         function mostrarDatosArt(objeto) {
+                            $("#AddArtId").val(objeto.artIdPk);
                             $("#AddArtArticulo").val(objeto.sboTbCatArticulo.catDesc);
                             $("#AddArtDescripcion").val(objeto.artDesc);
                             $("#AddArtModelo").val(objeto.artMode);
@@ -270,6 +277,92 @@
                                     + "<td><img class='small-img' src='assets/img/plus.png' onclick='abrirModalAgregarArticulos(\"" + objeto.artIdPk + "\");'></td>");
                             listado.append(tr);
                         }
+
+                        function selectBodegas() {
+                            var vacio = "";
+                            $.ajax({type: "GET",
+                                url: "api/BodegaListaOC?filtro=" + vacio,
+                                success: function (data) {
+                                    $.each(data, function (key, bod) {
+                                        $("#AddArtBodega").empty().append('<option value=' + bod.bodeIdPk + '>' + bod.bodeIdPk + ' - ' + bod.bodeDesc + '</option>');
+                                    });
+                                },
+                                error: function (data) {
+                                    alert('error');
+                                }
+                            });
+
+                        }
+
+                        function parseaFecha(fechaOriginal) {
+                            var fecha = fechaOriginal;
+                            var fecha2;
+                            if (fecha.length > 0) {
+                                fecha2 = fecha.toDate("yyyy-mm-dd");
+                            } else {
+                                fecha2 = null;
+                            }
+                            return fecha2;
+                        }
+
+                        function actualizarArticulo() {
+                            aumentarExistencias();
+                            disminuirRestantes();
+                        }
+
+                        function aumentarExistencias() {
+                            existencia = {
+                                sboTbBodega: [{bodeIdPk: $("#AddArtBodega").val()}],
+                                sboTbArticulo: [{artIdPk: $("#AddArtId").val()}],
+                                exisCant: $("#AddArtCant").val()
+                            };
+                            $.ajax({type: "PUT",
+                                url: "api/Existencias",
+                                data: JSON.stringify(existencia),
+                                contentType: "application/json"});
+                        }
+
+                        function disminuirRestantes() {
+                            articulo = {
+                                artIdPk: $("#AddArtId").val(),
+                                artDesc: $("#AddArtDescripcion").val(),
+                                artMode: $("#AddArtModelo").val(),
+                                artMarc: $("#AddArtMarca").val(),
+                                artNumeSeri: $("#AddArtNSerie").val(),
+                                artFingr: parseaFecha($("#AddArtFIngreso").val()),
+                                artFvenc: parseaFecha($("#AddArtFVencimiento").val()),
+                                artCantRest: $("#AddArtCant").val()
+                            };
+                            $.ajax({type: "PUT",
+                                url: "api/ListaOCxArt",
+                                data: JSON.stringify(articulo),
+                                contentType: "application/json"})
+                                    .then(function () {
+                                        buscarArtxOc($("#AddArtId").val());
+                                    });
+                            $('#listaArticulos').modal('show');
+                            $('#agregarArticulo').modal('hide');
+                        }
+
+                        String.prototype.toDate = function (format)
+                        {
+                            var normalized = this.replace(/[^a-zA-Z0-9]/g, '-');
+                            var normalizedFormat = format.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-');
+                            var formatItems = normalizedFormat.split('-');
+                            var dateItems = normalized.split('-');
+
+                            var monthIndex = formatItems.indexOf("mm");
+                            var dayIndex = formatItems.indexOf("dd");
+                            var yearIndex = formatItems.indexOf("yyyy");
+
+                            var today = new Date();
+
+                            var year = yearIndex > -1 ? dateItems[yearIndex] : today.getFullYear();
+                            var month = monthIndex > -1 ? dateItems[monthIndex] - 1 : today.getMonth() - 1;
+                            var day = dayIndex > -1 ? dateItems[dayIndex] : today.getDate();
+
+                            return new Date(year, month, day);
+                        };
 
 
 

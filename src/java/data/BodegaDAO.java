@@ -22,17 +22,32 @@ public class BodegaDAO {
         db = new RelDatabase();
     }
 
-    private SboTbBodega ObtenerBodega(ResultSet rs) {
+    private SboTbBodega Bodega(ResultSet rs) {
         try {
-            SboTbBodega bod = new SboTbBodega();
-            //bod.getBodeDesc();
-            return bod;
-        } catch (Exception e) {
-
+            SboTbBodega bodega = new SboTbBodega();
+            bodega.setBodeIdPk(rs.getInt("Bode_Id_PK"));
+            bodega.setBodeUbic(rs.getString("Bode_Ubic"));
+            bodega.setBodeDesc(rs.getString("Bode_Desc"));
+            return bodega;
+        } catch (SQLException ex) {
             return null;
-
         }
+    }
 
+    public List<SboTbBodega> listaBodegas(String filtro) {
+        List<SboTbBodega> resultado = new ArrayList<SboTbBodega>();
+        try {
+            String sql = "select bod.Bode_Id_PK,bod.Bode_Ubic,bod.Bode_Desc\n"
+                    + "from Sbo_TB_Bodega bod\n"
+                    + "where bod.Bode_Id_PK like '%%%s%%';";
+            sql = String.format(sql, filtro);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(Bodega(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
     }
 
 }

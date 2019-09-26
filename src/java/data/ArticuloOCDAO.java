@@ -11,6 +11,7 @@ import logic.SboTbArticulo;
 import logic.SboTbCatArticulo;
 import logic.AbaaTbDepartamento;
 import logic.SboTbCatArticulo;
+import logic.SboTbExistencia;
 import logic.SboTbSubFamilia;
 import logic.SboTbFamilia;
 
@@ -90,6 +91,38 @@ public class ArticuloOCDAO {
         } else {
             throw new Exception();
         }
+    }
+
+    public void disminuirCantPendienteArticulo(SboTbArticulo articulo) throws Exception {
+        String query = "update Sbo_TB_Articulo set Art_Desc=?, Art_Mode= ?, Art_Marc=?,\n"
+                + "Art_Nume_Seri=?, Art_FIngr=?, Art_FVenc=?, Art_Cant_Rest=Art_Cant_Rest-?\n"
+                + "where Art_Id_PK=?;";
+
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setString(1, articulo.getArtDesc());
+        preparedStmt.setString(2, articulo.getArtMode());
+        preparedStmt.setString(3, articulo.getArtMarc());
+        preparedStmt.setString(4, articulo.getArtNumeSeri());
+        java.util.Date utilStartDate = articulo.getArtFingr();
+        java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+        preparedStmt.setDate(5, sqlStartDate);
+        utilStartDate = articulo.getArtFvenc();
+        sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+        preparedStmt.setDate(6, sqlStartDate);
+        preparedStmt.setInt(7, articulo.getArtCantRest());
+        preparedStmt.setInt(8, articulo.getArtIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
+
+    public void aumentarExistencias(SboTbExistencia existencia) throws Exception {
+        String query = "execute aumentaExistencias ?,?,?;";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setInt(1, existencia.getSboTbBodega().getBodeIdPk());
+        preparedStmt.setInt(2, existencia.getSboTbArticulo().getArtIdPk());
+        preparedStmt.setDouble(3, existencia.getExisCant());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
     }
 
 }
