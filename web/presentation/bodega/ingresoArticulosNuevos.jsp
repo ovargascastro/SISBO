@@ -109,7 +109,11 @@
                                     </div>                       
                                     <div class="col">
                                         <label>Unidad Usuaria</label><input id="AddArtUniUsuaria" class="form-control" type="text" readonly placeholder="Unidad Usuaria">    
-                                        <label>Bodega</label><input id="AddArtBodega" class="form-control" type="text" placeholder="Bodega">    
+                                        <label>Bodega</label>
+                                        <select id="AddArtBodega" class="form-control" >
+                                            
+                                        </select>
+                                        
                                         <label>Fecha de Ingreso</label><input id="AddArtFIngreso" class="form-control" type="date" placeholder="Fecha de Ingreso">
                                         <label>Fecha de Vencimiento</label><input id="AddArtFVencimiento" class="form-control" type="date" placeholder="Fecha de Vencimiento">
                                         <label>Cantidad a Ingresar</label><input id="AddArtCant" class="form-control" type="number" placeholder="Cantidad a Ingresar">    
@@ -183,6 +187,13 @@
                                 success: listaOC
                             });
                         }
+                        
+                        function buscarBodegas() {
+                            $.ajax({type: "GET",
+                                url: "api/ListaBodega",
+                                success: listaBodegas
+                            });
+                        }
 
                         function buscarArtxOc(id) {
                             $.ajax({type: "GET",
@@ -234,6 +245,14 @@
                                 filaOC(listado, p);
                             });
                         }
+                        
+                        function listaBodegas(bodegas) {
+                            var listado = $("#AddArtBodega");
+                            listado.html("");
+                            bodegas.forEach((p) => {
+                                filaBodegas(listado, p);
+                            });
+                        }
 
                         function listaArtxOC(ordenes) {
                             var listado = $("#listadoOCxArt");
@@ -260,7 +279,8 @@
                                     + "<td><img src='assets/img/delivery-cart.png' onclick='abrirModalListarArticulos(\"" + objeto.ocIdPk + "\");'></td>");
                             listado.append(tr);
                         }
-
+                      
+    
                         function filaOCxArt(listado, objeto) {
                             var tr = $("<tr />");
                             tr.html(
@@ -271,6 +291,25 @@
                             listado.append(tr);
                         }
 
+                     
+                     function filaBodegas(key, bod){
+                        $.ajax({type: "GET",
+                        url: "api/ListaBodega",
+                        success: function (data) {
+                            $.each(data, function (key, bod) {
+                                $("#AddArtBodega").append('<option value=' + bod.bodeIdPk + '>ID Bodega:' + bod.bodeIdPk + 
+                                'Nombre Bodega:' +bod.bodeDesc+'</option>');
+                            });
+                        },
+                        error: function (data) {
+                            alert('error');
+                        }
+    });    
+                            
+                        }
+                        
+                        
+                     
 
 
 </script>

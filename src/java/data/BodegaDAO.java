@@ -25,14 +25,29 @@ public class BodegaDAO {
     private SboTbBodega ObtenerBodega(ResultSet rs) {
         try {
             SboTbBodega bod = new SboTbBodega();
-            //bod.getBodeDesc();
+            bod.setBodeIdPk(rs.getInt("Bode_Id_PK"));
+            bod.setBodeDesc(rs.getString("Bode_Desc"));
             return bod;
-        } catch (Exception e) {
+        } catch (SQLException e) {
 
             return null;
 
         }
 
     }
+    
+    public List<SboTbBodega> listaBodega() {
+        List<SboTbBodega> resultado = new ArrayList<SboTbBodega>();
+        try {
+            String sql = "select Sbo_TB_Bodega.Bode_Id_PK,Sbo_TB_Bodega.Bode_Desc \n" +
+                         "from Sbo_TB_Bodega";
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(ObtenerBodega(rs));
+            }
+        } catch (SQLException ex) {}
+    
+        return resultado;
 
+    }
 }
