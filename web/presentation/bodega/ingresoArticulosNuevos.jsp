@@ -110,15 +110,9 @@
                                     </div>                       
                                     <div class="col">
                                         <label>Unidad Usuaria</label><input id="AddArtUniUsuaria" class="form-control" type="text" readonly placeholder="Unidad Usuaria">    
-<<<<<<< HEAD
                                         <label>Bodega</label>
-                                        <select id="AddArtBodega" class="form-control" >
-                                            
-                                        </select>
-                                        
-=======
-                                        <label>Bodega</label><select class="form-control" id="AddArtBodega"></select>
->>>>>>> 87591537ee618209d870cf09ab7092f193f59fc8
+                                        <select id="AddArtBodega" class="form-control" >                                            
+                                        </select>                                        
                                         <label>Fecha de Ingreso</label><input id="AddArtFIngreso" class="form-control" type="date" placeholder="Fecha de Ingreso">
                                         <label>Fecha de Vencimiento</label><input id="AddArtFVencimiento" class="form-control" type="date" placeholder="Fecha de Vencimiento">
                                         <label>Cantidad a Ingresar</label><input id="AddArtCant" class="form-control" type="number" placeholder="Cantidad a Ingresar">    
@@ -301,28 +295,7 @@
                                     + "<td><img class='small-img' src='assets/img/plus.png' onclick='abrirModalAgregarArticulos(\"" + objeto.artIdPk + "\");'></td>");
                             listado.append(tr);
                         }
-
-<<<<<<< HEAD
-                     
-                     function filaBodegas(key, bod){
-                        $.ajax({type: "GET",
-                        url: "api/ListaBodega",
-                        success: function (data) {
-                            $.each(data, function (key, bod) {
-                                $("#AddArtBodega").append('<option value=' + bod.bodeIdPk + '>ID Bodega:' + bod.bodeIdPk + 
-                                'Nombre Bodega:' +bod.bodeDesc+'</option>');
-                            });
-                        },
-                        error: function (data) {
-                            alert('error');
-                        }
-    });    
-                            
-                        }
                         
-                        
-                     
-=======
                         function selectBodegas() {
                             var vacio = "";
                             $.ajax({type: "GET",
@@ -408,8 +381,5 @@
 
                             return new Date(year, month, day);
                         };
-
->>>>>>> 87591537ee618209d870cf09ab7092f193f59fc8
-
 
 </script>

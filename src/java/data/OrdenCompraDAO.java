@@ -90,9 +90,10 @@ public class OrdenCompraDAO {
     public List<SboTbOrdenCompra> listaOrdenesCompra(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {
-            String sql = "select oc.OC_Id_PK, oc.OC_Fecha, OC_Prec_Tota, oc.OC_Esta,OC_Prove_FK,OC_PlazoEntrega,OC_EntregarA\n"
+            String sql = "select  oc.OC_Id_PK, oc.OC_Fecha, OC_Prec_Tota, oc.OC_Esta,OC_Prove_FK,OC_PlazoEntrega,OC_EntregarA\n"
                     + "from Sbo_TB_OrdenCompra oc, Sbo_TB_Articulo art\n"
-                    + "where art.Art_Orde_Comp_Fk=oc.OC_Id_PK and oc.OC_Id_PK like '%%%s%%';";
+                    + "where art.Art_Orde_Comp_Fk=oc.OC_Id_PK  and (oc.OC_Esta = 'No Procesado' OR oc.OC_Esta = 'Parcialmente Procesado') \n" 
+                    + "and oc.OC_Id_PK like '%%%s%%';";
             sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
