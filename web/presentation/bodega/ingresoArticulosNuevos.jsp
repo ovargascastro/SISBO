@@ -38,39 +38,36 @@
                             </form>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col text-center" id="tablaOrdenes">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">Codigo</th>
-                                            <th class="text-center">Fecha</th>
-                                            <th class="text-center">Estado</th>
-                                            <th class="text-center">Departamento</th>
-                                            <th class="text-center">Articulos</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>02210</td>
-                                            <td>08/09/2019</td>
-                                            <td>Pendiente</td>
-                                            <td>Acueducto</td>
-                                            <td><img src="assets/img/delivery-cart.png" onclick="abrirModalListarArticulos()"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>02209</td>
-                                            <td>07/09/2019</td>
-                                            <td>Pariclamente<br>Procesada</td>
-                                            <td>Contabilidad</td>
-                                            <td><img src="assets/img/delivery-cart.png"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                <div class="row">
+                    <div class="col text-center" id="tablaOrdenes">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Número<br>de Orden</th>
+                                        <th class="text-center">Fecha</th>
+                                        <th class="text-center">Estado</th>
+                                        <th class="text-center">Articulos</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>02210</td>
+                                        <td>08/09/2019</td>
+                                        <td>Pendiente</td>
+                                        <td><img src="assets/img/delivery-cart.png" onclick="abrirModalListarArticulos()"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>02209</td>
+                                        <td>07/09/2019</td>
+                                        <td>Pariclamente<br>Procesada</td>
+                                        <td><img src="assets/img/delivery-cart.png"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import logic.SboTbCatArticulo;
+import logic.SboTbCatContable;
 import logic.SboTbFamilia;
 import logic.SboTbSubFamilia;
 
@@ -25,7 +26,9 @@ public class catalogosDAO {
     public catalogosDAO() {
         db = new RelDatabase();
 
-    }//agregar el estado aca recordar
+    }
+    
+    
 
     private SboTbFamilia familia(ResultSet rs) {
         try {
@@ -38,6 +41,21 @@ public class catalogosDAO {
             return null;
         }
 
+    }
+    
+    private SboTbCatContable CatContable(ResultSet rs){
+        
+         try {
+            SboTbCatContable ob = new SboTbCatContable();
+            ob.setCntDesc(rs.getString("Cnt_Desc"));
+            ob.setCntIdPk(rs.getInt("Cnt_Id_PK"));
+            ob.setCntEst(rs.getString("Cnt_Est")); 
+            ob.setCntNivel(rs.getInt("Cnt_Nivel"));
+            ob.setCntCodi(rs.getString("Cnt_Codi"));
+            return ob;
+        } catch (SQLException ex) {
+            return null;
+        }
     }
 
     private SboTbCatArticulo catArticulo(ResultSet rs) {
@@ -111,6 +129,21 @@ public class catalogosDAO {
         }
         return resultado;
     }
+    
+    public List<SboTbCatContable> listaCatContable(String filtro) {
+        List<SboTbCatContable> resultado = new ArrayList<SboTbCatContable>();
+        try {
+            String sql = "select * from Sbo_TB_CatContable s where s.Cnt_Desc like '%%%s%%'";
+            sql = String.format(sql,filtro);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(CatContable(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+
 
     public SboTbCatArticulo getCatArticulo(int filtro) throws Exception {
         String sql = "select * from Sbo_Tb_CatArticulo a inner join Sbo_TB_SubFamilia s on a.Cat_SubF_FK = s.SubFami_Id_Pk"
@@ -135,6 +168,18 @@ public class catalogosDAO {
         }
     }
 
+    
+    public SboTbCatContable getSboTbCatContable(int filtro) throws Exception {
+        String sql = "select * from Sbo_TB_CatContable f where f.Cnt_Id_PK ='%s'";
+        sql = String.format(sql, filtro);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return CatContable(rs);
+        } else {
+            throw new Exception("Bien no Existe");
+        }
+    }
+    
     public SboTbSubFamilia getSboTbSubFamilia(String filtro) throws Exception {
         String sql = "select * from Sbo_TB_SubFamilia s inner join Sbo_TB_Familia f on s.SubFami_CodF_Fk = f.Fami_Id_Pk"
                 + " where s.SubFami_Id_Pk ='%s'";
@@ -157,6 +202,17 @@ public class catalogosDAO {
         db.getConnection().close();
     }
 
+       public void actualizarCatContable(SboTbCatContable objeto) throws Exception {
+        String query = "update Sbo_TB_CatContable set Cnt_Desc = ?, Cnt_Est = ?, Cnt_Nivel = ?, Cnt_Codi = ? where Cnt_Id_PK = ?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setString(1, objeto.getCntDesc());
+         preparedStmt.setString(2, objeto.getCntEst());
+        preparedStmt.setInt(3, objeto.getCntNivel());
+         preparedStmt.setString(4, objeto.getCntCodi());
+          preparedStmt.setInt(5, objeto.getCntIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
      public void actualizarSubFamilia(SboTbSubFamilia objeto) throws Exception {
         String query = "update Sbo_TB_SubFamilia set SubFami_Desc = ?, SubFami_CodF_Fk = ?, SubFami_Estado = ? where SubFami_Id_Pk = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -212,6 +268,16 @@ public class catalogosDAO {
         db.getConnection().close();
        }
             
-            
+       public void crearCatContable(SboTbCatContable objeto) throws Exception{
+        String query = "insert into Sbo_TB_CatContable(Cnt_Desc,Cnt_Codi,Cnt_Nivel,Cnt_Est)values(?,?,?,?)";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+       
+        preparedStmt.setString(1, objeto.getCntDesc());
+        preparedStmt.setString(2, objeto.getCntCodi());
+        preparedStmt.setInt(3, objeto.getCntNivel());
+        preparedStmt.setString(4,"1");
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+       }
             
 }

@@ -45,6 +45,12 @@ public class Model {
         
     }
     
+     public List<SboTbCatContable> listaCatContables(String filtro) throws ClassNotFoundException, SQLException {
+        List result = catdao.listaCatContable(filtro);
+        return result;
+        
+    }
+    
     public List<SboTbSubFamilia> listaSubFamilias(String filtro) throws ClassNotFoundException, SQLException {
         List result = catdao.listaSubFamilias(filtro);
         return result;
@@ -62,6 +68,10 @@ public class Model {
         return ob;
     }
     
+      public SboTbCatContable getSboTbCatContable(int filtro) throws Exception {
+        SboTbCatContable ob = catdao.getSboTbCatContable(filtro);
+        return ob;
+    }
     public SboTbCatArticulo getCatArticulo(String filtro) throws Exception {
         int filtro2 = Integer.parseInt(filtro);
         SboTbCatArticulo ob = catdao.getCatArticulo(filtro2);
@@ -78,6 +88,7 @@ public class Model {
     
     public void actualizarFamilia(SboTbFamilia familia) throws Exception {
         catdao.actualizarFamilia(familia);
+        //a
     }
     
     public void actualizarSubFamilia(SboTbSubFamilia subfamilia) throws Exception {
@@ -235,5 +246,14 @@ public class Model {
         ordendao.actualizaEstadoOC(objeto);
         
     }
+    public void actualizarCatContable(SboTbCatContable cont) throws Exception {
+        catdao.actualizarCatContable(cont);
+        
+    }
+      public void crearCatContable(SboTbCatContable cont) throws Exception {
+        catdao.crearCatContable(cont);
+    }
+    
+    
     
 }

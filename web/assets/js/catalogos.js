@@ -23,6 +23,10 @@ function buscar() {
             buscarCatArticulos();
             $("#filtro").val('');
             break;
+         case "4":
+            buscarCatContables();
+            $("#filtro").val('');
+            break;
 
     }
 }
@@ -45,6 +49,14 @@ function buscarCatArticulos() {
     $.ajax({type: "GET",
         url: "api/catArticulos?filtro=" + $("#filtro").val(),
         success: listaCatArt
+    });
+
+}
+
+function buscarCatContables() {
+    $.ajax({type: "GET",
+        url: "api/contables?filtro=" + $("#filtro").val(),
+        success: listaCatConta
     });
 
 }
@@ -80,7 +92,18 @@ function abrirModalEditar(filtro) {
             }
         });
     }
-}
+    else if (strUser === "4") {
+
+
+        $.ajax({type: "GET",
+            url: "api/contables/" + filtro,
+            success: mostrarCatCont,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+    }
+} 
 
 var famEsta;
 function mostrarFamilia(fam) {
@@ -90,6 +113,18 @@ function mostrarFamilia(fam) {
     $("#descripFamilia").val(fam.famiDesc);
     $('#modalEditarFam').modal('show');
 }
+
+var contAct;
+var contEsta;
+function mostrarCatCont(cont) {
+    contAct=cont.cntIdPk;
+    contEsta = cont.cntEst;
+    $("#codigoContable").val(cont.cntCodi);
+    $("#descripContable").val(cont.cntDesc);
+    $("#NivelContable").val(cont.cntNivel);
+    $('#modalEditarCatContable').modal('show');
+}
+
 var catArtEstado;
 var catArtActual;
 function mostrarCatArt(art) {
@@ -251,6 +286,40 @@ function afterUpdateSubFm() {
 
 }
 
+ 
+
+function actualizarCatContable() {
+    console.log(contEsta);
+    SboTbCatContable = {
+        cntEst: contEsta,
+        cntIdPk:contAct,
+        cntCodi: $("#codigoContable").val(),
+        cntNivel: $("#NivelContable").val(),
+        cntDesc: $("#descripContable").val()
+    };
+    $.ajax({type: "PUT",
+        url: "api/contables",
+        data: JSON.stringify(SboTbCatContable),
+        contentType: "application/json",
+        success: afterUpdateCt,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+function afterUpdateCt() {
+    buscarCatContables();
+    $('#modalEditarCatContable').modal('hide');
+
+}
+
+
+
+
+
+
 
 function actualizarCatArticulo() {
     var e = document.getElementById("selectSubFam");
@@ -302,10 +371,17 @@ function agregarACatalogo() {
         case "3":
             abrirModalAgregaCatArticulo();
             $("#filtro").val('');
+            break;  
+          case "4":
+            abrirModalAgregaCodContable();
+            $("#filtro").val('');
             break;
 
     }
 
+}
+function abrirModalAgregaCodContable() {
+    $('#modalAgregarCatContable').modal('show');
 }
 
 function abrirModalAgregaCatArticulo() {
@@ -379,6 +455,35 @@ function afterCreateFm() {
     buscarFamilias();
     $('#modalAgregarFamilia').modal('hide');
 }
+
+
+
+
+function crearCatContable() {
+//           var e = document.getElementById("Select2");
+//           var strUser = e.options[e.selectedIndex].value;
+    SboTbCatContable = {
+        cntCodi: $("#AgregarCodCatCont").val(),
+        cntDesc: $("#AgregarDescipcionCatCont").val(),
+        cntNivel: $("#AgregarNivelCatCont").val()
+    };
+
+    $.ajax({type: "POST",
+        url: "api/contables",
+        data: JSON.stringify(SboTbCatContable),
+        contentType: "application/json",
+        success: afterCreateCont,
+        error: function (jqXHR) {
+            alert(errorMessage(jqXHR.status));
+        }
+    });
+
+}
+function afterCreateCont() {
+    buscarCatContables();
+    $('#modalAgregarCatContable').modal('hide');
+}
+
 
 function crearSubFamilia() {
     var e = document.getElementById("AgregarFamiliaSubF");
@@ -472,6 +577,18 @@ function abrirModalDesactivar(filtro) {
             }
         });
     }
+    
+    else if (strUser === "4") {
+
+
+        $.ajax({type: "GET",
+            url: "api/contables/" + filtro,
+            success: desactivarCatConta,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+    }
 }
 
 
@@ -526,7 +643,7 @@ function desactivarCatArt(articulo) {
     catArtId = articulo.catIdPk;
     catArtDesc = articulo.catDesc;
     catArtSubF = articulo.sboTbSubFamilia;
-    catArtEst = articulo.artCat_Estado;
+   // catArtEst = articulo.artCat_Estado;
 
     if (articulo.artCat_Estado === '1') {
         $('#modalDesactivar').modal('show');
@@ -534,6 +651,27 @@ function desactivarCatArt(articulo) {
         $('#modalActivar').modal('show');
     }
 }
+
+var catContId;
+var catContDesc;
+var catCodi;
+var catContEst;
+var catNivel;
+
+function desactivarCatConta(cont) {
+    catContId = cont.cntIdPk;
+    catContDesc = cont.cntDesc;
+    catCodi = cont.cntCodi;
+   // catContEst = cont.cntEst;
+    catNivel= cont.cntNivel;
+
+    if (cont.cntEst === '1') {
+        $('#modalDesactivar').modal('show');
+    } else {
+        $('#modalActivar').modal('show');
+    }
+}
+
 
 var famiEstAct = 0;
 function actualizarEstadoFamilia() {
@@ -617,6 +755,36 @@ function afterUpdateCatArtEs() {
 
 }
 
+
+
+var EstadoActual = 0;
+function actualizarEstadoCatConta() {
+
+    SboTbCatContable = {
+        cntDesc: catContDesc,
+        cntIdPk: catContId,
+        cntEst: EstadoActual,
+        cntCodi: catCodi,
+        cntNivel:catNivel
+    };
+    $.ajax({type: "PUT",
+        url: "api/contables",
+        data: JSON.stringify(SboTbCatContable),
+        contentType: "application/json",
+        success: afterUpdateCatContEs,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+function afterUpdateCatContEs() {
+    buscarCatContables();
+    $('#modalDesactivar').modal('hide');
+
+}
+
 function Desactivar() {
     var e = document.getElementById("selectcatalogos");
     var strUser = e.options[e.selectedIndex].value;
@@ -644,6 +812,17 @@ function Desactivar() {
         $.ajax({type: "GET",
             url: "api/catArticulos/",
             success: actualizarEstadoCatArticulo,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+    }
+    else if (strUser === "4") {
+
+
+        $.ajax({type: "GET",
+            url: "api/contables/",
+            success: actualizarEstadoCatConta,
             error: function (jqXHR) {
                 alert(errorMessage(jqXHR.status));
             }
@@ -683,6 +862,17 @@ function Activar() {
             }
         });
     }
+    else if (strUser === "4") {
+
+
+        $.ajax({type: "GET",
+            url: "api/contables/",
+            success: ActivaContables,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+    }
 }
 
 function ActivaFamilia() {
@@ -711,7 +901,34 @@ function ocultarModalActivarF() {
     $('#modalActivar').modal('hide');
 
 }
+function ActivaContables() {
 
+    var valor = 1;
+   SboTbCatContable = {
+        cntDesc: catContDesc,
+        cntIdPk: catContId,
+        cntEst: valor,
+        cntCodi: catCodi,
+        cntNivel:catNivel
+    };
+    $.ajax({type: "PUT",
+        url: "api/contables",
+        data: JSON.stringify(SboTbCatContable),
+        contentType: "application/json",
+        success: ocultarModalActivarCont,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+
+}
+
+function ocultarModalActivarCont() {
+    buscarCatContables();
+    $('#modalActivar').modal('hide');
+
+}
 
 function ActivaSubF() {
     var valor = 1;
