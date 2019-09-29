@@ -129,13 +129,16 @@
 
                                         }
 
-
+                                        var num = 0;
                                         function listaArticulos(personas) {
                                             var listado = $("#listaArticulosOrdenC");
                                             listado.html("");
                                             personas.forEach((p) => {
                                                 filaArticulos(listado, p);
+                                                num = num+1;
+                                                //cargarSelectConta(num);
                                             });
+                                            //cargarSelectConta("#selectConta");
                                         }
 
                                         var cont = 0;
@@ -148,23 +151,23 @@
                                                     "<td>" + objeto.sboTbCatArticulo.catDesc + "</td>"
                                                     + "<td>" + objeto.sboTbCatArticulo.sboTbSubFamilia.subFamiIdPk +"</td>"
                                                     + "<td>" + objeto.sboTbCatArticulo.sboTbSubFamilia.subFamiDesc + "</td>"
-                                                    //+ "<td><select class='form-control' id='selectConta' required><option values='0' selected disabled = 'true'>Seleccione una opcion</option></select></td>");
-                                                    + "<td><input type='text' class='form-control' required='required' id=" + cont + "></td>");
+                                                    + "<td><select class='form-control' id='selectConta"+cont+"' required><option values='0' selected disabled = 'true'>Seleccione una opcion</option></select></td>");
+                                                    //+ "<td><input type='text' class='form-control' required='required' id=" + cont + "></td>");
                                             listado.append(tr);
-
+                                            cargarSelectConta("#selectConta"+cont);
                                         }
                                         
                                         var actual = 1;
                                         function asignaCodContable() {
                                             
                                             for (i = 0; i < cont; i++) {
-                                                //var codConta = document.getElementById("selectConta").value;
+                                                var codConta = document.getElementById("selectConta"+actual).value;
                                                 var objeto = articulosArray.shift();
                                                 SboTbArticulo = {
                                                     artIdPk: objeto.artIdPk,
                                                     artDesc: objeto.artDesc,
-                                                    //artCodiCont: codConta,
-                                                    artCodiCont: $("#" + actual).val(),
+                                                    artCodiCont: codConta,
+                                                    //artCodiCont: $("#" + actual).val(),
                                                     sboTbOrdenCompra:{
                                                         ocIdPk: objeto.sboTbOrdenCompra.ocIdPk
                                                     }
@@ -182,6 +185,20 @@
                                             }
 
                                             $('#listaArticulos').modal('hide');
+                                        }
+                                        
+                                        function cargarSelectConta(conta) {
+                                            $.ajax({type: "GET",
+                                                url: "api/contables?filtro=" + " ",
+                                                success: function (data) {
+                                                    $.each(data, function (key, c) {
+                                                        $(conta).append('<option value=' + c.cntIdPk + '>' + c.cntDesc + '</option>');
+                                                    });
+                                                },
+                                                error: function (data) {
+                                                    alert('error');
+                                                }
+                                            });
                                         }
 </script>
 </html>

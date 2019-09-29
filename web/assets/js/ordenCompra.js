@@ -230,21 +230,20 @@ function articulosXordenConta(filtro){
         url: "api/artInner?filtro=" + filtro,
         success: listaArticulos
     });
-    cargarSelectConta();
+//    cargarSelectConta();
     $('#listaArticulos').modal('show');
 }
 
-function cargarSelectConta() {
-//     alert('hola');
-    $.ajax({type: "GET",
-        url: "api/contables?filtro=" + " ",
-        success: function (data) {
-            $.each(data, function (key, c) {
-                $("#selectConta").append('<option value=' + c.cntIdPk + '>' + c.cntDesc + '</option>');
-            });
-        },
-        error: function (data) {
-            alert('no se pudo');
-        }
-    });
-}
+//function cargarSelectConta() {
+//    $.ajax({type: "GET",
+//        url: "api/contables?filtro=" + " ",
+//        success: function (data) {
+//            $.each(data, function (key, c) {
+//                $("#selectConta").append('<option value=' + c.cntIdPk + '>' + c.cntDesc + '</option>');
+//            });
+//        },
+//        error: function (data) {
+//            alert('error');
+//        }
+//    });
+//}
