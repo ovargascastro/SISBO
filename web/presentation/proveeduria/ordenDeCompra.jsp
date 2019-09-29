@@ -36,7 +36,7 @@
                             </div>
                             <div class="col">
                                 <label>Codigo Proveedor</label>
-                                <input class="form-control" type="text" placeholder="Cod. Proveedor" id="codigoProveedor" readonly="readonly">
+                                <input class="form-control" type="text" placeholder="Codigo Proveedor" id="codigoProveedor" readonly="readonly">
                             </div>
                         </div>
                         <div class="form-row">
@@ -54,7 +54,7 @@
                             </div>
                             <div class="col">
                                 <label>Identificación</label>
-                                <input class="form-control" type="text" placeholder="Cedula" id="Cedula" readonly="readonly">
+                                <input class="form-control" type="text" placeholder="Identificación" id="Cedula" readonly="readonly">
                                 
                                 <label>Correo electrónico</label> 
                                 <input class="form-control" type="email" placeholder="email" id="email" readonly="readonly">
