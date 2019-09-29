@@ -40,26 +40,27 @@ made subject to such option by the copyright holder.
 Contributor(s):
 -->
 <hibernate-reverse-engineering>
-  <schema-selection match-catalog="abaa" match-schema="ROOT"/>
-  <table-filter match-name="Sbo_TB_SubFamilia"/>
-  <table-filter match-name="ABAA_TB_Departamento"/>
-  <table-filter match-name="Sbo_TB_Bodega"/>
-  <table-filter match-name="Sbo_TB_Proveedor"/>
-  <table-filter match-name="ABAA_TB_Direccion"/>
-  <table-filter match-name="ABAA_TB_OCProyecto"/>
-  <table-filter match-name="ABAA_TB_Funcionario"/>
-  <table-filter match-name="Sbo_TB_Familia"/>
-  <table-filter match-name="ABAA_TB_OCProveedor"/>
-  <table-filter match-name="Sbo_TB_Soli_Arti"/>
-  <table-filter match-name="Sbo_TB_Existencia"/>
-  <table-filter match-name="ABAA_TB_Estado"/>
-  <table-filter match-name="ABAA_TB_USUARIO"/>
+  <schema-selection match-catalog="ABAA" match-schema="dbo"/>
   <table-filter match-name="ABAA_TB_RolxPermiso"/>
-  <table-filter match-name="SAC_Proyectos"/>
-  <table-filter match-name="Sbo_TB_Contable"/>
-  <table-filter match-name="Sbo_TB_OrdenCompra"/>
-  <table-filter match-name="Sbo_TB_Articulo"/>
   <table-filter match-name="ABAA_TB_Permisos"/>
-  <table-filter match-name="CatArticulo"/>
+  <table-filter match-name="Sbo_TB_SolixArti"/>
+  <table-filter match-name="ABAA_TB_Direccion"/>
   <table-filter match-name="ABAA_TB_Rol"/>
+  <table-filter match-name="ABAA_Proyectos"/>
+  <table-filter match-name="Sbo_TB_CatContable"/>
+  <table-filter match-name="Sbo_TB_SubFamilia"/>
+  <table-filter match-name="ABAA_TB_Estado"/>
+  <table-filter match-name="Sbo_TB_Existencia"/>
+  <table-filter match-name="ABAA_TB_Proveedor"/>
+  <table-filter match-name="ABAA_TB_Departamento"/>
+  <table-filter match-name="Sbo_TB_Familia"/>
+  <table-filter match-name="Sbo_TB_Soli_Arti"/>
+  <table-filter match-name="Sbo_TB_Articulo"/>
+  <table-filter match-name="ABAA_TB_Funcionario"/>
+  <table-filter match-name="Sbo_TB_CatArticulo"/>
+  <table-filter match-name="Sbo_TB_Bodega"/>
+  <table-filter match-name="ABAA_TB_OCProyecto"/>
+  <table-filter match-name="Sbo_TB_LimiteDpto"/>
+  <table-filter match-name="ABAA_TB_Usuario"/>
+  <table-filter match-name="Sbo_TB_OrdenCompra"/>
 </hibernate-reverse-engineering>

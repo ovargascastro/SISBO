@@ -35,7 +35,7 @@
                                 <input class="form-control" type="date" id="fechaOrden" required>
                             </div>
                             <div class="col">
-                                <label>Codigo Prov</label>
+                                <label>Codigo Proveedor</label>
                                 <input class="form-control" type="text" placeholder="Cod. Proveedor" id="codigoProveedor" readonly="readonly">
                             </div>
                         </div>
@@ -46,20 +46,19 @@
                                     <option values="0" selected disabled = "true">Seleccione una opcion</option>
                                 </select>
 
-
-                                <label>Correo</label> 
-                                <input class="form-control" type="email" placeholder="email" id="email" readonly="readonly">
-
                                 <label>Plazo de Entrega</label>
-                                <input class="form-control" type="date" placeholder="Plazo de entrega" id="plazoEntrega">
+                                <input class="form-control" type="text" placeholder="Plazo de entrega" id="plazoEntrega">
 
-                                <label>Sirvase entregar al señor(a)</label>
-                                <input class="form-control" type="text" placeholder="Entregar a" id="entregarA">
+                                <label>Sirvase entregar a</label>
+                                <input class="form-control" type="text" placeholder="Municipalidad de Santo Domingo" value="Municipalidad de Santo Domingo" id="entregarA" readonly="readonly">
                             </div>
                             <div class="col">
-                                <label>Cedula</label>
+                                <label>Identificación</label>
                                 <input class="form-control" type="text" placeholder="Cedula" id="Cedula" readonly="readonly">
-
+                                
+                                <label>Correo electrónico</label> 
+                                <input class="form-control" type="email" placeholder="email" id="email" readonly="readonly">
+                                
                                 <label>Telefono</label>
                                 <input class="form-control" type="text" placeholder="Telefono" id="Telefono" readonly="readonly">
 
@@ -160,11 +159,8 @@
                                         <label>Marca</label>
                                         <input class="form-control" type="text" placeholder="Marca" id="Marca">
 
-                                        <label>Serie</label>
-                                        <input class="form-control" type="text" placeholder="Serie" id="Serie">
-
-                                        <label>Precio</label>
-                                        <input class="form-control" type="number" placeholder="Precio" id="Precio" required>
+                                        <label>Cantidad</label>
+                                        <input class="form-control" type="number" placeholder="Cantidad" id="Cantidad" required>
 
                                         <label>Unidad Usuaria</label>
                                         <select class="form-control" id="selectDeptos" required>
@@ -179,11 +175,10 @@
 
                                         <label>Modelo</label>
                                         <input class="form-control" type="text" placeholder="Modelo" id="Modelo">
-
-                                        <label>Cantidad</label>
-                                        <input class="form-control"
-                                               type="number" placeholder="Cantidad" id="Cantidad" required>
-
+                                        
+                                        <label>Precio</label>
+                                        <input class="form-control" type="number" placeholder="Precio" id="Precio" required>
+                                        
                                         <label>Unidad de Medida</label>
                                         <select class="form-control" id="selectUnidadMedida">
                                             <option values="0" selected disabled = "true">Seleccione una opcion</option>
@@ -263,6 +258,7 @@
                                     selectDeptos();
                                     selectProyectos();
                                     selectCatArticulos();
+                                    //cargarSelectConta();
                                 }
 
                                 function listaArticulosTemporales(art) {

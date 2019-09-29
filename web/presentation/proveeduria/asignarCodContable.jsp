@@ -148,20 +148,22 @@
                                                     "<td>" + objeto.sboTbCatArticulo.catDesc + "</td>"
                                                     + "<td>" + objeto.sboTbCatArticulo.sboTbSubFamilia.subFamiIdPk +"</td>"
                                                     + "<td>" + objeto.sboTbCatArticulo.sboTbSubFamilia.subFamiDesc + "</td>"
+                                                    //+ "<td><select class='form-control' id='selectConta' required><option values='0' selected disabled = 'true'>Seleccione una opcion</option></select></td>");
                                                     + "<td><input type='text' class='form-control' required='required' id=" + cont + "></td>");
                                             listado.append(tr);
 
                                         }
-
+                                        
                                         var actual = 1;
                                         function asignaCodContable() {
-
+                                            
                                             for (i = 0; i < cont; i++) {
-
+                                                //var codConta = document.getElementById("selectConta").value;
                                                 var objeto = articulosArray.shift();
                                                 SboTbArticulo = {
                                                     artIdPk: objeto.artIdPk,
                                                     artDesc: objeto.artDesc,
+                                                    //artCodiCont: codConta,
                                                     artCodiCont: $("#" + actual).val(),
                                                     sboTbOrdenCompra:{
                                                         ocIdPk: objeto.sboTbOrdenCompra.ocIdPk

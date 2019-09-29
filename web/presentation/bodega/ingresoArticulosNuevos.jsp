@@ -14,7 +14,8 @@
         <link rel="stylesheet" href="assets/css/styles.css">
         <title>Ingreso de Articulos Nuevos</title>
     </head>
-    <body>
+    <body onload="selectBodegas()">
+        <%@ include file="/presentation/header.jsp" %>
         <div id="titulo">
             <div class="jumbotron">
                 <h1>Ingresar Artículos Nuevos</h1>
@@ -24,15 +25,15 @@
         </div>
         <div class="card" id="cuerpoListaOrdenes">
             <div class="card-body">
-                <h4 class="text-center card-title">Listado de Ordenes de Compra</h4>
+                <h4 class="text-center card-title">Listado de Órdenes de Compra</h4>
                 <div class="container">
                     <div class="row">
                         <div class="col">
                             <form>
                                 <div><label>Buscar Orden de Compra</label>
                                     <div class="form-row">
-                                        <div class="col"><input class="form-control" type="text" placeholder="Codigo Orden de Compra"></div>
-                                        <div class="col"><button class="btn btn-primary" type="button">Búscar</button></div>
+                                        <div class="col"><input class="form-control" type="text" placeholder="Codigo Orden de Compra" id="numeroOC" name="numeroOC"></div>
+                                        <div class="col"><button class="btn btn-primary" type="button" onclick="buscarOrdenes()">Buscar</button></div>
                                     </div>
                                 </div>
                             </form>
@@ -44,28 +45,13 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">Codigo</th>
-                                            <th class="text-center">Fecha</th>
+                                            <th class="text-center">Número<br>de Orden</th>
+                                            <th class="text-center">Fecha<br>de Solicitud</th>
                                             <th class="text-center">Estado</th>
-                                            <th class="text-center">Departamento</th>
-                                            <th class="text-center">Articulos</th>
+                                            <th class="text-center">Artículos</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>02210</td>
-                                            <td>08/09/2019</td>
-                                            <td>Pendiente</td>
-                                            <td>Acueducto</td>
-                                            <td><img src="assets/img/delivery-cart.png" onclick="abrirModalListarArticulos()"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>02209</td>
-                                            <td>07/09/2019</td>
-                                            <td>Pariclamente<br>Procesada</td>
-                                            <td>Contabilidad</td>
-                                            <td><img src="assets/img/delivery-cart.png"></td>
-                                        </tr>
+                                    <tbody id="listadoOC">
                                     </tbody>
                                 </table>
                             </div>
@@ -84,25 +70,16 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table" id="ListadoArticulosTotal">
                                             <thead>
                                                 <tr>
                                                     <th>Articulo</th>
-                                                    <th>Cantidad</th>
+                                                    <th>Cantidad Pedida</th>
+                                                    <th>Cantidad Restante</th>     
                                                     <th>Agregar</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Sillas</td>
-                                                    <td>50</td>
-                                                    <td><img src="assets/img/plus.png" onclick="abrirModalAgregarArticulos()"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bombillos</td>
-                                                    <td>25</td>
-                                                    <td><img src="assets/img/plus.png"></td>
-                                                </tr>
+                                            <tbody id="listadoOCxArt">
                                             </tbody>
                                         </table>
                                     </div>
@@ -123,19 +100,33 @@
                         <form>
                             <div class="container">
                                 <div class="form-row">
-                                    <div class="col"><label>Articulo</label><input id="articulo" class="form-control" type="text" readonly><label>Cantidad Minima</label><input id="cantMin" class="form-control" type="number" placeholder="Min"><label>Fecha de Ingreso</label><input class="form-control" type="date"><label>Cantidad a Ingresar</label>
-                                        <input
-                                            class="form-control" type="number"></div>
-                                    <div class="col"><label>Descripcion</label><input class="form-control" type="text" placeholder="Descripcion"><label>Cantidad Maxima</label><input class="form-control" type="number" placeholder="Max"><label>Fecha de Vencimiento</label>
-                                        <input
-                                            class="form-control" type="date"><label>Informacion del Articulo</label>
-                                        <div class="text-center"><img src="assets/img/info(1).png" onclick="abrirModalInfoArticulo()"></div>
+                                    <div class="col">
+                                        <input id="AddArtId" class="form-control" type="hidden">
+                                        <input id="OCId" class="form-control" type="hidden">
+                                        <label>Artículo</label><input id="AddArtArticulo" class="form-control" type="text" readonly placeholder="Artículo">
+                                        <label>Descripcion</label><input id="AddArtDescripcion" class="form-control" type="text" placeholder="Descripcion">
+                                        <label>Modelo</label><input id="AddArtModelo" class="form-control" type="text" placeholder="Modelo">
+                                        <label>Marca</label><input id="AddArtMarca" class="form-control" type="text" placeholder="Marca">
+                                        <label>N° Serie</label><input id="AddArtNSerie" class="form-control" type="text" placeholder="N° Serie">
+                                    </div>                       
+                                    <div class="col">
+                                        <label>Unidad Usuaria</label><input id="AddArtUniUsuaria" class="form-control" type="text" readonly placeholder="Unidad Usuaria">    
+                                        <label>Bodega</label><select class="form-control" id="AddArtBodega"></select>
+                                        <label>Fecha de Ingreso</label><input id="AddArtFIngreso" class="form-control" type="date" placeholder="Fecha de Ingreso">
+                                        <label>Fecha de Vencimiento</label><input id="AddArtFVencimiento" class="form-control" type="date" placeholder="Fecha de Vencimiento">
+                                        <label>Cantidad a Ingresar</label><input id="AddArtCant" class="form-control" type="number" placeholder="Cantidad a Ingresar">    
+                                        <br>
+                                        <div class="col">
+                                            <label>Informacion del Articulo</label>
+                                            <div class="text-center" id="botonArticuloInfo"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button><button class="btn btn-primary" type="button">Agregar</button></div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-primary" type="button" onclick="actualizarArticulo()">Agregar</button></div>
                 </div>
             </div>
         </div>
@@ -165,33 +156,218 @@
 </html>
 
 <script>
-                    function abrirModalListarArticulos() {
-                        $('#listaArticulos').modal('show');
 
-                    }
+                        function abrirModalListarArticulos(id) {
+                            buscarArtxOc(id);
+                            $('#listaArticulos').modal('show');
+                        }
 
-                    function abrirModalAgregarArticulos() {
-                        $('#listaArticulos').modal('hide');
-                        $('#articulo').val('Silla');
-                        $('#agregarArticulo').modal('show');
+                        function abrirModalAgregarArticulos(idArti) {
+                            $('#listaArticulos').modal('hide');
+                            solicitarDatosArticulo(idArti);
+                            //selectBodegas();
+                            $('#agregarArticulo').modal('show');
+                        }
 
-                    }
+                        function abrirModalInfoArticulo(idCat) {
+                            $('#agregarArticulo').modal('hide');
+                            solicitarDatosCatalogosArticulo(idCat);
+                            $('#modalInfoArt').modal('show');
+                        }
 
-                    function abrirModalInfoArticulo() {
-                        $('#agregarArticulo').modal('hide');
-                        $('#articuloInfo').val('Silla');
-                        $('#subfamInfo').val('Equipo y mobiliario de oficina');
-                        $('#codArtInfo').val('1234');
-                        $('#famInfo').val('Bienes Duraderos');
-                        $('#modalInfoArt').modal('show');
+                        function cerrarInfoArt() {
+                            $('#agregarArticulo').modal('show');
+                            $('#modalInfoArt').modal('hide');
+                        }
 
-                    }
+                        function refrescarListaArticulos(id) {
+                            $('#agregarArticulo').modal('hide');
+                            $('#listaArticulos').modal('show');
+                        }
 
-                    function cerrarInfoArt() {
-                        $('#agregarArticulo').modal('show');
-                        $('#modalInfoArt').modal('hide');
+                        function buscarOrdenes() {
+                            $.ajax({type: "GET",
+                                url: "api/listadoOCArtNuevos?numeroOC=" + $("#numeroOC").val(),
+                                success: listaOC
+                            });
+                        }
 
-                    }
+                        function buscarArtxOc(id) {
+                            $.ajax({type: "GET",
+                                url: "api/ListaOCxArt?numeroOCArt=" + id,
+                                success: listaArtxOC
+                            });
+                        }
+
+                        function solicitarDatosArticulo(id) {
+                            $.ajax({type: "GET",
+                                url: "api/ListaOCxArt/" + id,
+                                success: mostrarDatosArt
+                            });
+                        }
+
+                        function mostrarDatosArt(objeto) {
+                            $("#AddArtId").val(objeto.artIdPk);
+                            $("#OCId").val(objeto.sboTbOrdenCompra.ocIdPk);
+                            $("#AddArtArticulo").val(objeto.sboTbCatArticulo.catDesc);
+                            $("#AddArtDescripcion").val(objeto.artDesc);
+                            $("#AddArtModelo").val(objeto.artMode);
+                            $("#AddArtMarca").val(objeto.artMarc);
+                            $("#AddArtNSerie").val(objeto.artNumeSeri);
+                            $("#AddArtUniUsuaria").val(objeto.abaaTbDepartamento.deptoNomb);
+                            cargarBotonInfo(objeto.sboTbCatArticulo.catIdPk);
+                        }
+
+                        function solicitarDatosCatalogosArticulo(id) {
+                            $.ajax({type: "GET",
+                                url: "api/descCatsArticulo/" + id,
+                                success: mostrarDatosCatsArt
+                            });
+                        }
+
+                        function mostrarDatosCatsArt(objeto) {
+                            $("#codArtInfo").val(objeto.sboTbCatArticulo.catIdPk);
+                            $("#articuloInfo").val(objeto.sboTbCatArticulo.catDesc);
+                            $("#subfamInfo").val(objeto.sboTbCatArticulo.sboTbSubFamilia.subFamiDesc);
+                            $("#famInfo").val(objeto.sboTbCatArticulo.sboTbSubFamilia.sboTbFamilia.famiDesc);
+                        }
+
+                        function cargarBotonInfo(catalogoID) {
+                            var linea = "<img src='assets/img/info(1).png' onclick='abrirModalInfoArticulo(\"" + catalogoID + "\")'>";
+                            $("#botonArticuloInfo").empty().append(linea);
+                        }
+
+                        function listaOC(ordenes) {
+                            var listado = $("#listadoOC");
+                            listado.html("");
+                            ordenes.forEach((p) => {
+                                filaOC(listado, p);
+                            });
+                        }
+
+                        function listaArtxOC(ordenes) {
+                            var listado = $("#listadoOCxArt");
+                            listado.html("");
+                            ordenes.forEach((p) => {
+                                filaOCxArt(listado, p);
+                            });
+                        }
+
+                        function formatDate(fecha) {
+                            var dia = fecha.substring(8, 10);
+                            var mes = fecha.substring(5, 7);
+                            var annio = fecha.substring(0, 4);
+                            var newFecha = dia + "/" + mes + "/" + annio;
+                            return newFecha;
+                        }
+
+                        function filaOC(listado, objeto) {
+                            var tr = $("<tr />");
+                            tr.html(
+                                    "<td>" + objeto.ocIdPk + "</td>"
+                                    + "<td>" + formatDate(objeto.ocFecha) + "</td>"
+                                    + "<td>" + objeto.ocEsta + "</td>"
+                                    + "<td><img src='assets/img/delivery-cart.png' onclick='abrirModalListarArticulos(\"" + objeto.ocIdPk + "\");'></td>");
+                            listado.append(tr);
+                        }
+
+                        function filaOCxArt(listado, objeto) {
+                            var tr = $("<tr />");
+                            tr.html(
+                                    "<td>" + objeto.artDesc + "</td>"
+                                    + "<td>" + objeto.artCant + "</td>"
+                                    + "<td>" + objeto.artCantRest + "</td>"
+                                    + "<td><img class='small-img' src='assets/img/plus.png' onclick='abrirModalAgregarArticulos(\"" + objeto.artIdPk + "\");'></td>");
+                            listado.append(tr);
+                        }
+
+                        function selectBodegas() {
+                            var vacio = "";
+                            $.ajax({type: "GET",
+                                url: "api/BodegaListaOC?filtro=" + vacio,
+                                success: function (data) {
+                                    $.each(data, function (key, bod) {
+                                        $("#AddArtBodega").append('<option value=' + bod.bodeIdPk + '>' + bod.bodeIdPk + ' - ' + bod.bodeDesc + '</option>');
+                                    });
+                                },
+                                error: function (data) {
+                                    alert('error');
+                                }
+                            });
+
+                        }
+
+                        function parseaFecha(fechaOriginal) {
+                            var fecha = fechaOriginal;
+                            var fecha2;
+                            if (fecha.length > 0) {
+                                fecha2 = fecha.toDate("yyyy-mm-dd");
+                            } else {
+                                fecha2 = "";
+                            }
+                            return fecha2;
+                        }
+
+                        function actualizarArticulo() {
+                            aumentarExistencias();
+                            disminuirRestantes();
+                        }
+
+                        function aumentarExistencias() {
+                            existencia = {
+                                sboTbBodega: [{bodeIdPk: $("#AddArtBodega").val()}],
+                                sboTbArticulo: [{artIdPk: $("#AddArtId").val()}],
+                                exisCant: $("#AddArtCant").val()
+                            };
+                            $.ajax({type: "PUT",
+                                url: "api/Existencias",
+                                data: JSON.stringify(existencia),
+                                contentType: "application/json"});
+                        }
+
+                        function disminuirRestantes() {
+                            articulo = {
+                                artIdPk: $("#AddArtId").val(),
+                                artDesc: $("#AddArtDescripcion").val(),
+                                artMode: $("#AddArtModelo").val(),
+                                artMarc: $("#AddArtMarca").val(),
+                                artNumeSeri: $("#AddArtNSerie").val(),
+                                artFingr: parseaFecha($("#AddArtFIngreso").val()),
+                                artFvenc: parseaFecha($("#AddArtFVencimiento").val()),
+                                sboTbOrdenCompra: [{ocIdPk: $("#OCId").val()}],
+                                artCantRest: $("#AddArtCant").val()
+                            };
+                            $.ajax({type: "PUT",
+                                url: "api/ListaOCxArt",
+                                data: JSON.stringify(articulo),
+                                contentType: "application/json"})
+                                    .then(function () {
+                                        buscarArtxOc($("#OCId").val());
+                                        buscarOrdenes();
+                                    });
+                            $('#listaArticulos').modal('show');
+                            $('#agregarArticulo').modal('hide');
+                        }
+
+                        String.prototype.toDate = function (format)
+                        {
+                            var normalized = this.replace(/[^a-zA-Z0-9]/g, '-');
+                            var normalizedFormat = format.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-');
+                            var formatItems = normalizedFormat.split('-');
+                            var dateItems = normalized.split('-');
+
+                            var monthIndex = formatItems.indexOf("mm");
+                            var dayIndex = formatItems.indexOf("dd");
+                            var yearIndex = formatItems.indexOf("yyyy");
+
+                            var today = new Date();
+
+                            var year = yearIndex > -1 ? dateItems[yearIndex] : today.getFullYear();
+                            var month = monthIndex > -1 ? dateItems[monthIndex] - 1 : today.getMonth() - 1;
+                            var day = dayIndex > -1 ? dateItems[dayIndex] : today.getDate();
+
+                            return new Date(year, month, day);
+                        };
 
 
 

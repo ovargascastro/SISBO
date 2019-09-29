@@ -113,8 +113,6 @@ function agregarOrdenCompra() {
     var provee = document.getElementById("selectProveedores").value;
     var fecha = document.getElementById("fechaOrden").value;
     var fecha2 = fecha.toDate("yyyy-mm-dd");
-    var plazo = document.getElementById("plazoEntrega").value;
-    var plazo2 = plazo.toDate("yyyy-mm-dd");
 //    var p = 0;
 //    if(document.getElementById("proyectoCheck").checked === true){
 //            p = document.getElementById("selectProyectos").value;
@@ -128,7 +126,7 @@ function agregarOrdenCompra() {
 //        },
         ocFecha: fecha2,
         ocEsta: "asignar codigos",
-        ocPlazoEntrega: plazo2,
+        ocPlazoEntrega: $("#plazoEntrega").val(),
         ocEntregarA: $("#entregarA").val()
     };
     $.ajax({type: "POST",
@@ -232,6 +230,21 @@ function articulosXordenConta(filtro){
         url: "api/artInner?filtro=" + filtro,
         success: listaArticulos
     });
-
+    cargarSelectConta();
     $('#listaArticulos').modal('show');
+}
+
+function cargarSelectConta() {
+//     alert('hola');
+    $.ajax({type: "GET",
+        url: "api/contables?filtro=" + " ",
+        success: function (data) {
+            $.each(data, function (key, c) {
+                $("#selectConta").append('<option value=' + c.cntIdPk + '>' + c.cntDesc + '</option>');
+            });
+        },
+        error: function (data) {
+            alert('no se pudo');
+        }
+    });
 }

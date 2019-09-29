@@ -36,7 +36,7 @@
                             <h4 class="text-center">Desplegar catálogo de</h4>
                             <form id="busqueda">
                                 <div class="form-row">
-                                    <div class="col text-center"><select class="form-control" id="selectcatalogos"><optgroup label="Catalogos"><option value="1" selected="">Familia</option><option value="2">Sub-Familia</option><option value="3">Artículo</option></optgroup></select>
+                                    <div class="col text-center"><select class="form-control" id="selectcatalogos"><optgroup label="Catalogos"><option value="1" selected="">Familia</option><option value="2">Sub-Familia</option><option value="3">Artículo</option><option value="4">Contables</option></optgroup></select>
                                         <div class="form-row">
                                             <div class="col"><br><input class="form-control" type="text" id="filtro" placeholder="Filtro"></div>
                                         </div>
@@ -118,7 +118,7 @@
                         
                             <div class="container">
                                 <div class="form-row">
-                                    <div class="col"><label>Código Fam<br></label><input class="form-control" type="text" id="codigoFamilia" required readonly></div>
+                                    <div class="col"><label>Código Fam<br></label><input class="form-control" type="text" id="codigoFamilia" readonly></div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col"><label>Descripción<br></label><input class="form-control" type="text" id="descripFamilia" required></div>
@@ -132,6 +132,35 @@
             </div>
         </div>
 
+        <div class="modal fade" role="dialog" tabindex="-1" id="modalEditarCatContable">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="javascript:actualizarCatContable()">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Editar</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        
+                            <div class="container">
+                                <div class="form-row">
+                                    <div class="col"><label>Código Contable<br></label><input class="form-control" type="text" id="codigoContable" readonly></div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col"><label>Nivel<br></label><input class="form-control" type="text" id="NivelContable" readonly></div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col"><label>Descripción<br></label><input class="form-control" type="text" id="descripContable" required></div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary" type="submit">Guardar</button></div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        
+        
+        
         <div class="modal fade" role="dialog" tabindex="-1" id="modalSubFam">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -142,7 +171,7 @@
                         
                             <div class="container">
                                 <div class="form-row">
-                                    <div class="col"><label>Código Sub-Fam<br></label><input class="form-control" type="text" id="codigoSubFam" required readonly></div>
+                                    <div class="col"><label>Código Sub-Fam<br></label><input class="form-control" type="text" id="codigoSubFam" readonly></div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col"><label>Descripción<br></label><input class="form-control" type="text" id="descripSubFam" required></div>
@@ -212,6 +241,34 @@
             </div>
         </div>
     </div>
+        
+        <div class="modal fade" role="dialog" tabindex="-1" id="modalAgregarCatContable">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="javascript:crearCatContable()">
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar codigo contable </h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                <div class="modal-body">
+                    <div class="container">
+                         <div class="form-row">
+                                <div class="col"><label>Codigo Contable</label><input class="form-control" type="text" id="AgregarCodCatCont" required></div>
+                                </div>
+                            <div class="form-row">
+                                <div class="col"><label>Descripcion</label><input class="form-control" type="text" id="AgregarDescipcionCatCont" required></div>
+                                </div>
+                             <div class="form-row">
+                                <div class="col"><label>Nivel</label><input class="form-control" type="text" id="AgregarNivelCatCont" required></div>
+                                </div>
+                    </div>
+                </div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="submit">Agregar</button></div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+        
+        
          <div class="modal fade" role="dialog" tabindex="-1" id="modalAgregarSubFamilia">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -358,6 +415,35 @@ function filaSubFam(listado, objeto) {
                                     }
                                     }
 
+
+function listaCatConta(personas) {
+                                        var listado = $("#listado");
+                                        listado.html("");
+                                        personas.forEach((p) => {
+                                            filaCatConta(listado, p);
+                                        });
+                                    }
+
+                                    function filaCatConta(listado, objeto) {
+                                        var tr = $("<tr />");
+                                        if(objeto.cntEst==='0'){
+                                        tr.html(
+                                                "<td>" + objeto.cntIdPk + "</td>"
+                                                + "<td>" + objeto.cntDesc + "</td>"
+                                                + "<td><img class='small-img' src='assets/img/edit.png' onclick='abrirModalEditar(\"" + objeto.cntIdPk + "\");'></td>"
+                                                + "<td><img src='assets/img/lock.png' onclick='abrirModalDesactivar(\"" + objeto.cntIdPk + "\");'></td>");
+                                        listado.append(tr);
+                                    }else{
+                                        tr.html(
+                                                "<td>" + objeto.cntIdPk + "</td>"
+                                                + "<td>" + objeto.cntDesc + "</td>"
+                                                + "<td><img class='small-img' src='assets/img/edit.png' onclick='abrirModalEditar(\"" + objeto.cntIdPk + "\");'></td>"
+                                                + "<td><img src='assets/img/unlock.png' onclick='abrirModalDesactivar(\"" + objeto.cntIdPk + "\");'></td>");
+                                        listado.append(tr);
+                                        
+                                        
+                                    }
+                                    }
 
     </script>
 </html>

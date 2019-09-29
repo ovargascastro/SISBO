@@ -1,7 +1,5 @@
 
 function selectDeptos() {
-//resetearSelectDeptos(document.getElementById("selectDeptos"));
-//$("#selectDeptos").append('<option value="0" selected disabled = "true"> Seleccione una opcion </option>');
     $.ajax({type: "GET",
         url: "api/departamentos",
         success: function (data) {

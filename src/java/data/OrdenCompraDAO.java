@@ -1,10 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import logic.SboTbOrdenCompra;
+import logic.AbaaTbProveedor;
+import logic.SboTbArticulo;
+import logic.SboTbCatArticulo;
+import logic.AbaaTbDepartamento;
+import logic.SboTbBodega;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,10 +21,6 @@ import java.util.List;
 import logic.AbaaTbProveedor;
 import logic.SboTbOrdenCompra;
 
-/**
- *
- * @author Osvaldo Vargas
- */
 public class OrdenCompraDAO {
 
     RelDatabase db;
@@ -33,7 +37,7 @@ public class OrdenCompraDAO {
             oc.setOcPrecTota(rs.getDouble("OC_Prec_Tota"));
             oc.setOcEsta(rs.getString("OC_Esta"));
             oc.setAbaaTbProveedor(Proveedor(rs));
-            oc.setOcPlazoEntrega(rs.getDate("OC_PlazoEntrega"));
+            oc.setOcPlazoEntrega(rs.getString("OC_PlazoEntrega"));
             oc.setOcEntregarA(rs.getString("OC_EntregarA"));
             return oc;
         } catch (SQLException ex) {
@@ -57,6 +61,55 @@ public class OrdenCompraDAO {
         }
     }
 
+    private SboTbArticulo ObtenerArticulo(ResultSet rs) {
+        try {
+            SboTbArticulo art = new SboTbArticulo();
+            art.setArtIdPk(rs.getInt("Art_Id_PK"));
+            art.setArtDesc(rs.getString("Art_Desc"));
+            art.setArtCant(rs.getInt("Art_Cant"));
+            art.setArtCantRest(rs.getInt("Art_Cant_Rest"));
+            return art;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+
+    public List<SboTbArticulo> listaOCxArt(String filtro) {
+        List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
+        try {
+            String sql = "select Sbo_TB_Articulo.Art_Id_PK,Sbo_TB_Articulo.Art_Desc, Sbo_TB_Articulo.Art_Cant,Sbo_TB_Articulo.Art_Cant_Rest\n"
+                    + "from Sbo_TB_Articulo, Sbo_TB_OrdenCompra\n"
+                    + "where Sbo_TB_Articulo.Art_Orde_Comp_FK = Sbo_TB_OrdenCompra.OC_Id_PK \n"
+                    + "and Sbo_TB_Articulo.Art_Orde_Comp_FK=" + filtro + ";";
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(ObtenerArticulo(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+
+    public List<SboTbOrdenCompra> listaOrdenesCompra(String filtro) {
+        List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
+        try {
+            String sql = "select distinct oc.OC_Id_PK, oc.OC_Fecha, OC_Prec_Tota, oc.OC_Esta,OC_Prove_FK,OC_PlazoEntrega,OC_EntregarA\n"
+                    + "from Sbo_TB_OrdenCompra oc, Sbo_TB_Articulo art\n"
+                    + "where art.Art_Orde_Comp_Fk=oc.OC_Id_PK \n"
+                    + "and (oc.OC_Esta='No Procesada' or oc.OC_Esta='Parcialmente Procesada') \n"
+                    + "and oc.OC_Id_PK like '%%%s%%';";
+            sql = String.format(sql, filtro);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(OrdenCompra(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+
+    // ------------------ A partir de aquí, está todo lo de Oscar/Orlando ------------------
+    
     public int getLastInsertOrdenesCompra() throws Exception {
         String sql = " select IDENT_CURRENT( 'Sbo_TB_OrdenCompra' ) as seq ";
         sql = String.format(sql);
@@ -92,9 +145,8 @@ public class OrdenCompraDAO {
         preparedStmt.setString(3, objeto.getOcEsta());
         preparedStmt.setInt(4, objeto.getAbaaTbProveedor().getProveIdProvePk());
 
-        java.util.Date utilStartDate2 = objeto.getOcPlazoEntrega();
-        java.sql.Date sqlStartDate2 = new java.sql.Date(utilStartDate2.getTime());
-        preparedStmt.setDate(5, sqlStartDate2);
+        
+        preparedStmt.setString(5, objeto.getOcPlazoEntrega());
 
         preparedStmt.setString(6, objeto.getOcEntregarA());
         preparedStmt.executeUpdate();
@@ -154,4 +206,5 @@ public class OrdenCompraDAO {
         db.getConnection().close();
 
     }
+
 }
