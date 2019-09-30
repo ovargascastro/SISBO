@@ -258,7 +258,7 @@
                                     selectDeptos();
                                     selectProyectos();
                                     selectCatArticulos();
-                                    //cargarSelectConta();
+                                    <%Model.instance().reiniciaLista();%>
                                 }
 
                                 function listaArticulosTemporales(art) {

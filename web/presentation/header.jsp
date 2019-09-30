@@ -20,35 +20,27 @@
                      id="navcol-1">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item" role="presentation"><a class="nav-link active" href="index.jsp">Inicio</a></li>
+                        
+                        <li class="nav-item" role="presentation"><a class="nav-link active" href="presentation/proveeduria/ordenDeCompra.jsp">Orden de Compra</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link active" href="presentation/proveeduria/listarOrdenes.jsp">Listado Ordenes de Compra</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link active" href="presentation/proveeduria/asignarCodContable.jsp">Codigo Contable</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link active" href="presentation/bodega/ingresoArticulosNuevos.jsp">Ingreso de Articulos Nuevos</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link active" href="presentation/catalogos/administracionCatalogos.jsp">Administracion de Catalogos</a></li>
                         <%--
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="ordenDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <li class="nav-item dropdown" >
+                            <a class="nav-link dropdown-toggle active" href="#" id="ordenDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Ordenes de compra
                             </a>    
                             <div class="dropdown-menu" aria-labelledby="ordenDropdown">
-                                <a href="presentation/proveeduria/ordenDeCompra.jsp">Orden de Compra</a>
-                                <br>
-                                <a href="presentation/proveeduria/listarOrdenes.jsp">Listado Ordenes de Compra</a>
-                                <br>
-                                <a href="presentation/proveeduria/asignarCodContable.jsp">Codigo Contable</a>
+                                <a class="dropdown-item" href="presentation/proveeduria/ordenDeCompra.jsp">Nueva Ordend de Compra</a>
+                                
+                                <a class="dropdown-item" href="presentation/proveeduria/listarOrdenes.jsp">Listado</a>
+                                
+                                <a class="dropdown-item" href="presentation/proveeduria/asignarCodContable.jsp">Asignar Codigo Contable</a>
                             </div>    
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="artDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Articulos
-                            </a>    
-                            <div class="dropdown-menu" aria-labelledby="artDropdown">
-                                <a href="presentation/bodega/ingresoArticulosNuevos.jsp">Ingreso de Articulos Nuevos</a>
-                            </div>    
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="catDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Catalogos
-                            </a>    
-                            <div class="dropdown-menu" aria-labelledby="catDropdown">
-                                <a href="presentation/catalogos/administracionCatalogos.jsp">Administracion de Catalogos</a>
-                            </div>    
-                        </li>
+                        <li class="nav-item" role="presentation"><a class="nav-link active" href="presentation/bodega/ingresoArticulosNuevos.jsp">Ingreso de Articulos Nuevos</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link active" href="presentation/catalogos/administracionCatalogos.jsp">Administracion de Catalogos</a></li>
                         --%>
                     </ul>
                 </div>
