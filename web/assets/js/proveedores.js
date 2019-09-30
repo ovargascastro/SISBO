@@ -1,6 +1,4 @@
 function selectProveedores() {
-//    resetearSelectProveedores(document.getElementById("selectProveedores"));
-//    $("#selectProveedores").append('<option value="0" selected disabled = "true"> Seleccione una opcion </option>');
     $.ajax({type: "GET",
         url: "api/proveedores",
         success: function (data) {

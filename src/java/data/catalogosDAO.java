@@ -266,30 +266,4 @@ public class catalogosDAO {
         db.getConnection().close();
        }
     
-//    public List<SboTbCatContable> listaCodContables() {
-//        List<SboTbCatContable> resultado = new ArrayList<SboTbCatContable>();
-//        try {
-//            String sql = "select * from Sbo_TB_CatContable";
-//            sql = String.format(sql);
-//            ResultSet rs = db.executeQuery(sql);
-//            while (rs.next()) {
-//                resultado.add(catContable(rs));
-//            }
-//        } catch (SQLException ex) {
-//        }
-//        return resultado;
-//    }
-//    
-//    private SboTbCatContable catContable(ResultSet rs) {
-//        try {
-//            SboTbCatContable ob = new SboTbCatContable();
-//            ob.setCntIdPk(rs.getInt("Cnt_Id_PK"));
-//            ob.setCntCodi(rs.getString("Cnt_Codi"));
-//            ob.setCntDesc(rs.getString("Cnt_Desc"));
-//            ob.setCntNivel(rs.getInt("Cnt_Nivel"));
-//            return ob;
-//        } catch (SQLException ex) {
-//            return null;
-//        }
-//    }
 }

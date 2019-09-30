@@ -47,6 +47,7 @@
                                         <tr>
                                             <th class="text-center">Número<br>de Orden</th>
                                             <th class="text-center">Fecha<br>de Solicitud</th>
+                                            <th class="text-center">Precio<br>Total</th>
                                             <th class="text-center">Estado</th>
                                             <th class="text-center">Artículos</th>
                                         </tr>
@@ -64,7 +65,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Listado de Articulos</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                        <h4 class="modal-title">Listado de Artículos</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                     <div class="modal-body">
                         <div class="container text-center">
                             <div class="row">
@@ -73,7 +74,7 @@
                                         <table class="table" id="ListadoArticulosTotal">
                                             <thead>
                                                 <tr>
-                                                    <th>Articulo</th>
+                                                    <th>Artículo</th>
                                                     <th>Cantidad Pedida</th>
                                                     <th>Cantidad Restante</th>     
                                                     <th>Agregar</th>
@@ -87,7 +88,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button><button class="btn btn-primary" type="button">Save</button></div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Regresar</button></div>
                 </div>
             </div>
         </div>
@@ -95,7 +96,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Agregar Articulo</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                        <h4 class="modal-title">Agregar Artículo</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                     <div class="modal-body">
                         <form>
                             <div class="container">
@@ -104,20 +105,20 @@
                                         <input id="AddArtId" class="form-control" type="hidden">
                                         <input id="OCId" class="form-control" type="hidden">
                                         <label>Artículo</label><input id="AddArtArticulo" class="form-control" type="text" readonly placeholder="Artículo">
-                                        <label>Descripcion</label><input id="AddArtDescripcion" class="form-control" type="text" placeholder="Descripcion">
+                                        <label>Descripción</label><input id="AddArtDescripcion" class="form-control" type="text" placeholder="Descripcion">
                                         <label>Modelo</label><input id="AddArtModelo" class="form-control" type="text" placeholder="Modelo">
                                         <label>Marca</label><input id="AddArtMarca" class="form-control" type="text" placeholder="Marca">
                                         <label>N° Serie</label><input id="AddArtNSerie" class="form-control" type="text" placeholder="N° Serie">
                                     </div>                       
                                     <div class="col">
                                         <label>Unidad Usuaria</label><input id="AddArtUniUsuaria" class="form-control" type="text" readonly placeholder="Unidad Usuaria">    
-                                        <label>Bodega</label><select class="form-control" id="AddArtBodega"></select>
-                                        <label>Fecha de Ingreso</label><input id="AddArtFIngreso" class="form-control" type="date" placeholder="Fecha de Ingreso">
+                                        <label>Bodega</label><select class="form-control" id="AddArtBodega" required></select>
+                                        <label>Fecha de Ingreso</label><input id="AddArtFIngreso" class="form-control" type="date" placeholder="Fecha de Ingreso" required>
                                         <label>Fecha de Vencimiento</label><input id="AddArtFVencimiento" class="form-control" type="date" placeholder="Fecha de Vencimiento">
-                                        <label>Cantidad a Ingresar</label><input id="AddArtCant" class="form-control" type="number" placeholder="Cantidad a Ingresar">    
+                                        <label>Cantidad a Ingresar</label><input id="AddArtCant" class="form-control" type="number" placeholder="Cantidad a Ingresar" required>    
                                         <br>
                                         <div class="col">
-                                            <label>Informacion del Articulo</label>
+                                            <label>Información del Artículo</label>
                                             <div class="text-center" id="botonArticuloInfo"></div>
                                         </div>
                                     </div>
@@ -134,13 +135,13 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Informacion del Articulo</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                        <h4 class="modal-title">Información del Artículo</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                     <div class="modal-body">
                         <form>
                             <div class="container">
                                 <div class="form-row">
-                                    <div class="col"><label>Articulo</label><input class="form-control" type="text" id="articuloInfo" readonly><label>Sub-Familia</label><input class="form-control" type="text" id="subfamInfo" readonly></div>
-                                    <div class="col"><label>Codigo Articulo</label><input class="form-control" type="text" id="codArtInfo" readonly><label>Familia</label><input class="form-control" type="text" id="famInfo" readonly></div>
+                                    <div class="col"><label>Artículo</label><input class="form-control" type="text" id="articuloInfo" readonly><label>Sub-Familia</label><input class="form-control" type="text" id="subfamInfo" readonly></div>
+                                    <div class="col"><label>Código Artículo</label><input class="form-control" type="text" id="codArtInfo" readonly><label>Familia</label><input class="form-control" type="text" id="famInfo" readonly></div>
                                 </div>
                             </div>
                         </form>
@@ -266,6 +267,7 @@
                             tr.html(
                                     "<td>" + objeto.ocIdPk + "</td>"
                                     + "<td>" + formatDate(objeto.ocFecha) + "</td>"
+                                    + "<td>" + objeto.ocPrecTota + "</td>"
                                     + "<td>" + objeto.ocEsta + "</td>"
                                     + "<td><img src='assets/img/delivery-cart.png' onclick='abrirModalListarArticulos(\"" + objeto.ocIdPk + "\");'></td>");
                             listado.append(tr);

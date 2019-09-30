@@ -35,7 +35,7 @@
                                 <input class="form-control" type="date" id="fechaOrden" required>
                             </div>
                             <div class="col">
-                                <label>Codigo Proveedor</label>
+                                <label>Código Proveedor</label>
                                 <input class="form-control" type="text" placeholder="Codigo Proveedor" id="codigoProveedor" readonly="readonly">
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                                 <label>Plazo de Entrega</label>
                                 <input class="form-control" type="text" placeholder="Plazo de entrega" id="plazoEntrega">
 
-                                <label>Sirvase entregar a</label>
+                                <label>Sírvase entregar a</label>
                                 <input class="form-control" type="text" placeholder="Municipalidad de Santo Domingo" value="Municipalidad de Santo Domingo" id="entregarA" readonly="readonly">
                             </div>
                             <div class="col">
@@ -59,23 +59,39 @@
                                 <label>Correo electrónico</label> 
                                 <input class="form-control" type="email" placeholder="email" id="email" readonly="readonly">
                                 
-                                <label>Telefono</label>
-                                <input class="form-control" type="text" placeholder="Telefono" id="Telefono" readonly="readonly">
+                                <label>Teléfono</label>
+                                <input class="form-control" type="text" placeholder="Teléfono" id="Telefono" readonly="readonly">
 
                                 <label>Fax</label>
                                 <input class="form-control" type="text" placeholder="Fax" id="Fax" readonly="readonly">
-
-                                <%--
-                                <div class="form-check"><input class="form-check-input" type="checkbox" id="proyectoCheck">
-                                    <label class="form-check-label" for="formCheck-1">Seleccione si pertene a un proyecto</label></div>
-                                <div class="form-check" id="comboProy">
-                                    <label>Proyecto</label>
-                                    <select class="form-control" id="selectProyectos">
-                                        <option values="0" selected disabled = "true">Seleccione una opcion</option>
-
-                                    </select>
+                            </div>
+                        </div>
+                            <div class="form-row">
+                            <div class="col text-center">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Proyectos</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="proyectosRow">
+                                        </tbody>
+                                    </table>
                                 </div>
-                                --%>
+                            </div>
+                            <div class="col text-center">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Unidades Usuarias</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="departamentosRow">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="form-row" id="linea">
@@ -84,7 +100,7 @@
                             </div>
                         </div>
                         <div class="form-row" id="botonAgregar">
-                            <div class="col text-center"><button class="btn btn-primary" type="button" onclick="abrirModalArt()">Agregar Articulo</button></div>
+                            <div class="col text-center"><button class="btn btn-primary" type="button" onclick="abrirModalArt()">Agregar Artículo</button></div>
                         </div>
                         <div class="form-row" id="linea">
                             <div class="col">
@@ -98,9 +114,10 @@
                                         <thead class="text-center">
                                             <tr>
                                                 <th>Cantidad<br><br></th>
+                                                <th>Artículo<br><br></th>
+                                                <th>Descripción<br><br></th>
                                                 <th>Unidad<br>Medida</th>
                                                 <th>Unidad<br>Usuaria</th>
-                                                <th>Descripción<br><br></th>
                                                 <th>Precio<br>Unitario</th>
                                                 <th>Precio<br>Total</th>
                                                 <th>Eliminar<br><br></th>
@@ -180,7 +197,7 @@
                                         <input class="form-control" type="number" placeholder="Precio" id="Precio" required>
                                         
                                         <label>Unidad de Medida</label>
-                                        <select class="form-control" id="selectUnidadMedida">
+                                        <select class="form-control" id="selectUnidadMedida" required>
                                             <option values="0" selected disabled = "true">Seleccione una opcion</option>
                                             <option value="Unidad" >Unidad</option>
                                             <option value="Kilo">Kilo</option>
@@ -267,21 +284,25 @@
                                     art.forEach((a) => {
                                         filaArticulosTemporales(listado, a);
                                     });
+                                    agregaDepartamento(art);
+                                    agregaProyecto(art);
                                 }
 
-
+                                var array = [];
+                                var x;
                                 function filaArticulosTemporales(listado, articulo) {
                                     var tr = $("<tr />");
                                     tr.html(
                                             "<td>" + articulo.artCant + "</td>"
+                                            + "<td>" + articulo.sboTbCatArticulo.catDesc + "</td>"
+                                            + "<td>" + articulo.artDesc + "</td>"
                                             + "<td>" + articulo.artUnidadMedida + "</td>"
                                             + "<td>" + articulo.abaaTbDepartamento.deptoNomb + "</td>"
-                                            + "<td>" + articulo.artDesc + "</td>"
                                             + "<td>" + articulo.artPrecio + "</td>"
                                             + "<td>" + (articulo.artPrecio * articulo.artCant) + "</td>"
                                             + "<td><img src='assets/img/trash-delete.png' onclick='eliminarArt(\"" + articulo.artIdPk + "\");'></td>");
                                     listado.append(tr);
+                                    
                                 }
-
 
 </script>

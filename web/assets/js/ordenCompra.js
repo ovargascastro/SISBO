@@ -3,12 +3,20 @@ function agregarArticuloTemporal() {
     var art = document.getElementById("selectCatalogoArticulos").value;
     var unidad = document.getElementById("selectUnidadMedida").value;
     var proyect = 0;
+    
+    var e = document.getElementById("selectProyectos");
+    var descProy = e.options[e.selectedIndex].text;
+    if(descProy==='Seleccione una opcion'){
+        descProy='Proyecto no asignado';
+    }
+    
     if (document.getElementById("proyectoCheck").checked === true) {
         proyect = document.getElementById("selectProyectos").value;
     }
     SboTbArticulo = {
         abaaProyectos: {
-            proyIdPk: proyect
+            proyIdPk: proyect,
+            proyDesc: descProy
         },
         sboTbCatArticulo: {
             catIdPk: art
@@ -34,6 +42,8 @@ function agregarArticuloTemporal() {
             alert(errorMessage(jqXHR.status));
         }
     });
+
+
 }
 
 function exito() {
@@ -64,7 +74,6 @@ function limpiar() {
     });
     $('#proyectoCheck').prop('checked', false);
     $('#comboProy').hide();
-//    document.getElementById("proyectoCheck").checked === true
     
 }
 
@@ -113,17 +122,12 @@ function agregarOrdenCompra() {
     var provee = document.getElementById("selectProveedores").value;
     var fecha = document.getElementById("fechaOrden").value;
     var fecha2 = fecha.toDate("yyyy-mm-dd");
-//    var p = 0;
-//    if(document.getElementById("proyectoCheck").checked === true){
-//            p = document.getElementById("selectProyectos").value;
-//        }
+
     SboTbOrdenCompra = {
         abaaTbProveedor: {
             proveIdProvePk: provee
         },
-//        abaaProyectos: {
-//            proyIdPk: p
-//        },
+
         ocFecha: fecha2,
         ocEsta: "asignar codigos",
         ocPlazoEntrega: $("#plazoEntrega").val(),
@@ -230,20 +234,39 @@ function articulosXordenConta(filtro){
         url: "api/artInner?filtro=" + filtro,
         success: listaArticulos
     });
-//    cargarSelectConta();
+
     $('#listaArticulos').modal('show');
 }
 
-//function cargarSelectConta() {
-//    $.ajax({type: "GET",
-//        url: "api/contables?filtro=" + " ",
-//        success: function (data) {
-//            $.each(data, function (key, c) {
-//                $("#selectConta").append('<option value=' + c.cntIdPk + '>' + c.cntDesc + '</option>');
-//            });
-//        },
-//        error: function (data) {
-//            alert('error');
-//        }
-//    });
-//}
+function agregaDepartamento(objeto) {
+    var listado = $("#departamentosRow");
+    listado.html("");
+    objeto.forEach((a) => {
+        filaDepartamentos(listado, a);
+    });
+
+}
+function filaDepartamentos(listado, objeto) {
+
+    var tr = $("<tr />");
+    tr.html(
+            "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>");
+    listado.append(tr);
+}
+
+function agregaProyecto(objeto) {
+    var listado = $("#proyectosRow");
+    listado.html("");
+    objeto.forEach((a) => {
+        filaProyectos(listado, a);
+    });
+
+}
+function filaProyectos(listado, objeto) {
+
+    var tr = $("<tr />");
+    tr.html(
+            "<td>" + objeto.abaaProyectos.proyDesc + "</td>");
+    listado.append(tr);
+}
+

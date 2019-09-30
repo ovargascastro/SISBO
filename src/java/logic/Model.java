@@ -155,6 +155,9 @@ public class Model {
         String idDepto = art.getAbaaTbDepartamento().getDeptoIdPk();
         AbaaTbDepartamento depto = dptodao.getDepartamento(idDepto);
         art.setAbaaTbDepartamento(depto);
+        int idCatArt = art.getSboTbCatArticulo().getCatIdPk();
+        SboTbCatArticulo catArt = catdao.getCatArticulo(idCatArt);
+        art.setSboTbCatArticulo(catArt);
         art.setArtIdPk(contador);
         contador++;
         listaTemp.put(art.getArtIdPk(), art);
@@ -238,11 +241,6 @@ public class Model {
     public void actualizaEstadoOrdenCom(SboTbOrdenCompra objeto) throws SQLException {
         ordendao.actualizaEstadoOC(objeto);
     }
-    
-//    public List<SboTbCatContable> listaCatContable() throws ClassNotFoundException, SQLException {
-//        List result = catdao.listaCodContables();
-//        return result;
-//    }
     
     public List<SboTbCatContable> listaCatContables(String filtro) throws ClassNotFoundException, SQLException {
         List result = catdao.listaCatContable(filtro);
