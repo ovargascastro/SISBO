@@ -50,6 +50,7 @@
                                     <tr>
                                         <th class="text-center">Número<br>de Orden</th>
                                         <th class="text-center">Fecha</th>
+                                        <th class="text-center">Precio<br>Total</th>
                                         <th class="text-center">Estado</th>
                                         <th class="text-center">Artículos</th>
                                     </tr>
@@ -123,6 +124,7 @@
                                             tr.html(
                                                     "<td>" + objeto.ocIdPk + "</td>"
                                                     + "<td>" + formatDate(objeto.ocFecha) + "</td>"
+                                                    + "<td>" + objeto.ocPrecTota + "</td>"
                                                     + "<td>" + objeto.ocEsta + "</td>"
                                                     + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXordenConta(\"" + objeto.ocIdPk + "\");'></td>");
                                             listado.append(tr);
