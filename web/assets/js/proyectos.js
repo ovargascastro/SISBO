@@ -1,7 +1,5 @@
 
 function selectProyectos() {
-//resetearSelectProyectos(document.getElementById("selectProyectos"));
-//$("#selectProyectos").append('<option value="0" selected disabled = "true"> Seleccione una opcion </option>');
     $.ajax({type: "GET",
         url: "api/proyectos",
         success: function (data) {

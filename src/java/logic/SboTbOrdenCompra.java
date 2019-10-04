@@ -17,7 +17,7 @@ public class SboTbOrdenCompra  implements java.io.Serializable {
      private Date ocFecha;
      private Double ocPrecTota;
      private String ocEsta;
-     private Date ocPlazoEntrega;
+     private String ocPlazoEntrega;
      private String ocEntregarA;
      private Set<SboTbArticulo> sboTbArticulos = new HashSet<SboTbArticulo>(0);
      private Set<AbaaTbOcproyecto> abaaTbOcproyectos = new HashSet<AbaaTbOcproyecto>(0);
@@ -29,7 +29,7 @@ public class SboTbOrdenCompra  implements java.io.Serializable {
     public SboTbOrdenCompra(int ocIdPk) {
         this.ocIdPk = ocIdPk;
     }
-    public SboTbOrdenCompra(int ocIdPk, AbaaTbProveedor abaaTbProveedor, Date ocFecha, Double ocPrecTota, String ocEsta, Date ocPlazoEntrega, String ocEntregarA, Set<SboTbArticulo> sboTbArticulos, Set<AbaaTbOcproyecto> abaaTbOcproyectos) {
+    public SboTbOrdenCompra(int ocIdPk, AbaaTbProveedor abaaTbProveedor, Date ocFecha, Double ocPrecTota, String ocEsta, String ocPlazoEntrega, String ocEntregarA, Set<SboTbArticulo> sboTbArticulos, Set<AbaaTbOcproyecto> abaaTbOcproyectos) {
        this.ocIdPk = ocIdPk;
        this.abaaTbProveedor = abaaTbProveedor;
        this.ocFecha = ocFecha;
@@ -76,11 +76,11 @@ public class SboTbOrdenCompra  implements java.io.Serializable {
     public void setOcEsta(String ocEsta) {
         this.ocEsta = ocEsta;
     }
-    public Date getOcPlazoEntrega() {
+    public String getOcPlazoEntrega() {
         return this.ocPlazoEntrega;
     }
     
-    public void setOcPlazoEntrega(Date ocPlazoEntrega) {
+    public void setOcPlazoEntrega(String ocPlazoEntrega) {
         this.ocPlazoEntrega = ocPlazoEntrega;
     }
     public String getOcEntregarA() {

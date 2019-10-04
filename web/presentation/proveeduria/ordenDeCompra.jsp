@@ -24,7 +24,7 @@
                 <p></p>
             </div>
         </div>
-        <form>
+        <form action="javascript:agregarOrdenCompra()">
             <div class="card" id="formulario">
                 <div class="card-body">
                     <h4 class="text-center">Ingreso de Orden de Compra</h4>
@@ -32,11 +32,11 @@
                         <div class="form-row">
                             <div class="col">
                                 <label>Fecha</label>
-                                <input class="form-control" type="date" id="fechaOrden" >
+                                <input class="form-control" type="date" id="fechaOrden" required>
                             </div>
                             <div class="col">
-                                <label>Codigo Prov</label>
-                                <input class="form-control" type="text" placeholder="Cod. Proveedor" id="codigoProveedor" readonly="readonly">
+                                <label>Código Proveedor</label>
+                                <input class="form-control" type="text" placeholder="Codigo Proveedor" id="codigoProveedor" readonly="readonly">
                             </div>
                         </div>
                         <div class="form-row">
@@ -46,37 +46,52 @@
                                     <option values="0" selected disabled = "true">Seleccione una opcion</option>
                                 </select>
 
-
-                                <label>Correo</label> 
-                                <input class="form-control" type="email" placeholder="email" id="email" readonly="readonly">
-
                                 <label>Plazo de Entrega</label>
-                                <input class="form-control" type="date" placeholder="Plazo de entrega" id="plazoEntrega">
+                                <input class="form-control" type="text" placeholder="Plazo de entrega" id="plazoEntrega">
 
-                                <label>Sirvase entregar al señor(a)</label>
-                                <input class="form-control" type="text" placeholder="Entregar a" id="entregarA">
+                                <label>Sírvase entregar a</label>
+                                <input class="form-control" type="text" placeholder="Municipalidad de Santo Domingo" value="Municipalidad de Santo Domingo" id="entregarA" readonly="readonly">
                             </div>
                             <div class="col">
-                                <label>Cedula</label>
-                                <input class="form-control" type="text" placeholder="Cedula" id="Cedula" readonly="readonly">
-
-                                <label>Telefono</label>
-                                <input class="form-control" type="text" placeholder="Telefono" id="Telefono" readonly="readonly">
+                                <label>Identificación</label>
+                                <input class="form-control" type="text" placeholder="Identificación" id="Cedula" readonly="readonly">
+                                
+                                <label>Correo electrónico</label> 
+                                <input class="form-control" type="email" placeholder="email" id="email" readonly="readonly">
+                                
+                                <label>Teléfono</label>
+                                <input class="form-control" type="text" placeholder="Teléfono" id="Telefono" readonly="readonly">
 
                                 <label>Fax</label>
                                 <input class="form-control" type="text" placeholder="Fax" id="Fax" readonly="readonly">
-
-                                <%--
-                                <div class="form-check"><input class="form-check-input" type="checkbox" id="proyectoCheck">
-                                    <label class="form-check-label" for="formCheck-1">Seleccione si pertene a un proyecto</label></div>
-                                <div class="form-check" id="comboProy">
-                                    <label>Proyecto</label>
-                                    <select class="form-control" id="selectProyectos">
-                                        <option values="0" selected disabled = "true">Seleccione una opcion</option>
-
-                                    </select>
+                            </div>
+                        </div>
+                            <div class="form-row">
+                            <div class="col text-center">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Proyectos</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="proyectosRow">
+                                        </tbody>
+                                    </table>
                                 </div>
-                                --%>
+                            </div>
+                            <div class="col text-center">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Unidades Usuarias</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="departamentosRow">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="form-row" id="linea">
@@ -85,7 +100,7 @@
                             </div>
                         </div>
                         <div class="form-row" id="botonAgregar">
-                            <div class="col text-center"><button class="btn btn-primary" type="button" onclick="abrirModalArt()">Agregar Articulo</button></div>
+                            <div class="col text-center"><button class="btn btn-primary" type="button" onclick="abrirModalArt()">Agregar Artículo</button></div>
                         </div>
                         <div class="form-row" id="linea">
                             <div class="col">
@@ -99,9 +114,10 @@
                                         <thead class="text-center">
                                             <tr>
                                                 <th>Cantidad<br><br></th>
+                                                <th>Artículo<br><br></th>
+                                                <th>Descripción<br><br></th>
                                                 <th>Unidad<br>Medida</th>
                                                 <th>Unidad<br>Usuaria</th>
-                                                <th>Descripción<br><br></th>
                                                 <th>Precio<br>Unitario</th>
                                                 <th>Precio<br>Total</th>
                                                 <th>Eliminar<br><br></th>
@@ -115,23 +131,26 @@
                             </div>
                         </div>
                         <div class="form-row text-center" id="botonGuardar">
-                            <div class="col"><button class="btn btn-success" onclick="javascript:agregarOrdenCompra()" type="button">Guardar</button></div>
+                            <div class="col"><button class="btn btn-success" type="submit">Guardar</button></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal fade" role="dialog" tabindex="-1" id="modalArticulo">
-                <div class="modal-dialog" role="document">
+        </form>          
+
+
+        <div class="modal fade" role="dialog" tabindex="-1" id="modalArticulo" data-backdrop="static">
+            <div class="modal-dialog" role="document">
+                <form action="javascript:agregarArticuloTemporal()">
                     <div class="modal-content">
+
                         <div class="modal-header">
+
                             <h4 class="modal-title">Información del Artículo</h4>
-                            <%--
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            --%>
                         </div>
                         <div class="modal-body">
                             <div class="container">
-                                
+
                                 <div class="form-row">
                                     <div class="col">
                                         <div class="form-check"><input class="form-check-input" type="checkbox" id="proyectoCheck">
@@ -140,31 +159,28 @@
                                             <label>Proyecto</label>
                                             <select class="form-control" id="selectProyectos">
                                                 <option values="0" selected disabled = "true">Seleccione una opcion</option>
-                                                
+
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-row">
                                     <div class="col">
                                         <label>Artículo</label>
-                                        <select class="form-control" id="selectCatalogoArticulos">
-                                            <option values="0" selected disabled = "true">Seleccione una opcion</option>
+                                        <select class="form-control" id="selectCatalogoArticulos" required>
+                                            <option values="0" selected disabled = "true" >Seleccione una opcion</option>
 
                                         </select>
 
                                         <label>Marca</label>
                                         <input class="form-control" type="text" placeholder="Marca" id="Marca">
 
-                                        <label>Serie</label>
-                                        <input class="form-control" type="text" placeholder="Serie" id="Serie">
-
-                                        <label>Precio</label>
-                                        <input class="form-control" type="text" placeholder="Precio" id="Precio">
+                                        <label>Cantidad</label>
+                                        <input class="form-control" type="number" placeholder="Cantidad" id="Cantidad" required>
 
                                         <label>Unidad Usuaria</label>
-                                        <select class="form-control" id="selectDeptos">
+                                        <select class="form-control" id="selectDeptos" required>
                                             <option values="0" selected disabled = "true">Seleccione una opcion</option>
 
                                         </select>
@@ -172,17 +188,16 @@
 
                                     <div class="col">
                                         <label>Descripción</label>
-                                        <input class="form-control" type="text" placeholder="Descripción" id="Descripcion">
+                                        <input class="form-control" type="text" placeholder="Descripción" id="Descripcion" required>
 
                                         <label>Modelo</label>
                                         <input class="form-control" type="text" placeholder="Modelo" id="Modelo">
-
-                                        <label>Cantidad</label>
-                                        <input class="form-control"
-                                               type="number" placeholder="Cantidad" id="Cantidad">
-
+                                        
+                                        <label>Precio</label>
+                                        <input class="form-control" type="number" placeholder="Precio" id="Precio" required>
+                                        
                                         <label>Unidad de Medida</label>
-                                        <select class="form-control" id="selectUnidadMedida">
+                                        <select class="form-control" id="selectUnidadMedida" required>
                                             <option values="0" selected disabled = "true">Seleccione una opcion</option>
                                             <option value="Unidad" >Unidad</option>
                                             <option value="Kilo">Kilo</option>
@@ -190,18 +205,25 @@
                                         </select>
 
                                         <label>Código Presupuestario</label>
-                                        <input class="form-control" type="text" placeholder="Código Presupuestario" id="codPresupuestario">
+                                        <input class="form-control" type="text" placeholder="Código Presupuestario" id="codPresupuestario" required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button>
-                            <button class="btn btn-primary" type="button" onclick="javascript:agregarArticuloTemporal()">Agregar</button></div>
+                            <button class="btn btn-light" type="button" data-dismiss="modal" onclick="javascript:limpiar()">Cancelar</button>
+                            <button class="btn btn-primary" type="submit">Agregar</button></div>
+
                     </div>
-                </div>
+                </form>
             </div>
-        </form>
+        </div>
+
+
+
+
+
+
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
@@ -216,66 +238,71 @@
 
 <script>
 
-    function abrirModalEliminar() {
-        $('#modalEliminar').modal('show');
+                                function abrirModalEliminar() {
+                                    $('#modalEliminar').modal('show');
 
 
-    }
+                                }
 
 
-    $(document).ready(function () {
+                                $(document).ready(function () {
 
-        $('#comboProy').hide();
+                                    $('#comboProy').hide();
 
-        $('input[type="checkbox"]').click(function () {
+                                    $('input[type="checkbox"]').click(function () {
 
-            if ($(this).prop("checked") == true) {
+                                        if ($(this).prop("checked") == true) {
 
-                $('#comboProy').show();
+                                            $('#comboProy').show();
 
-            } else if ($(this).prop("checked") == false) {
+                                        } else if ($(this).prop("checked") == false) {
 
-                $('#comboProy').hide();
+                                            $('#comboProy').hide();
 
-            }
+                                        }
 
-        });
+                                    });
 
-    });
+                                });
 
-    function abrirModalArt() {
-        $('#modalArticulo').modal('show');
+                                function abrirModalArt() {
+                                    $('#modalArticulo').modal('show');
 
-    }
+                                }
 
-    function cargarSelectsOrden() {
-        selectProveedores();
-        selectDeptos();
-        selectProyectos();
-        selectCatArticulos();
-    }
+                                function cargarSelectsOrden() {
+                                    selectProveedores();
+                                    selectDeptos();
+                                    selectProyectos();
+                                    selectCatArticulos();
+                                    <%Model.instance().reiniciaLista();%>
+                                }
 
-    function listaArticulosTemporales(art) {
-        var listado = $("#listadoArticulos");
-        listado.html("");
-        art.forEach((a) => {
-            filaArticulosTemporales(listado, a);
-        });
-    }
+                                function listaArticulosTemporales(art) {
+                                    var listado = $("#listadoArticulos");
+                                    listado.html("");
+                                    art.forEach((a) => {
+                                        filaArticulosTemporales(listado, a);
+                                    });
+                                    agregaDepartamento(art);
+                                    agregaProyecto(art);
+                                }
 
-
-    function filaArticulosTemporales(listado, articulo) {
-        var tr = $("<tr />");
-        tr.html(
-                "<td>" + articulo.artCant + "</td>"
-                + "<td>" + articulo.artUnidadMedida + "</td>"
-                + "<td>" + articulo.abaaTbDepartamento.deptoNomb + "</td>"
-                + "<td>" + articulo.artDesc + "</td>"
-                + "<td>" + articulo.artPrecio + "</td>"
-                + "<td>" + (articulo.artPrecio * articulo.artCant) + "</td>"
-                + "<td><img src='assets/img/trash-delete.png' ></td>");
-        listado.append(tr);
-    }
-
+                                var array = [];
+                                var x;
+                                function filaArticulosTemporales(listado, articulo) {
+                                    var tr = $("<tr />");
+                                    tr.html(
+                                            "<td>" + articulo.artCant + "</td>"
+                                            + "<td>" + articulo.sboTbCatArticulo.catDesc + "</td>"
+                                            + "<td>" + articulo.artDesc + "</td>"
+                                            + "<td>" + articulo.artUnidadMedida + "</td>"
+                                            + "<td>" + articulo.abaaTbDepartamento.deptoNomb + "</td>"
+                                            + "<td>" + articulo.artPrecio + "</td>"
+                                            + "<td>" + (articulo.artPrecio * articulo.artCant) + "</td>"
+                                            + "<td><img src='assets/img/trash-delete.png' onclick='eliminarArt(\"" + articulo.artIdPk + "\");'></td>");
+                                    listado.append(tr);
+                                    
+                                }
 
 </script>

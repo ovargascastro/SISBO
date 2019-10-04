@@ -42,9 +42,29 @@ Contributor(s):
 <hibernate-configuration>
   <session-factory>
     <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-    <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=ABAA;user=root;password=root</property>
+    <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=ABAA</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">root</property>
-    <property name="hibernate.current_session_context_class">thread</property>
+    <mapping resource="logic/SboTbOrdenCompra.hbm.xml"/>
+    <mapping resource="logic/SboTbExistencia.hbm.xml"/>
+    <mapping resource="logic/AbaaTbDepartamento.hbm.xml"/>
+    <mapping resource="logic/SboTbSolixArti.hbm.xml"/>
+    <mapping resource="logic/AbaaTbFuncionario.hbm.xml"/>
+    <mapping resource="logic/AbaaTbEstado.hbm.xml"/>
+    <mapping resource="logic/AbaaTbPermisos.hbm.xml"/>
+    <mapping resource="logic/AbaaTbDireccion.hbm.xml"/>
+    <mapping resource="logic/SboTbFamilia.hbm.xml"/>
+    <mapping resource="logic/SboTbSubFamilia.hbm.xml"/>
+    <mapping resource="logic/AbaaTbUsuario.hbm.xml"/>
+    <mapping resource="logic/SboTbLimiteDpto.hbm.xml"/>
+    <mapping resource="logic/SboTbSoliArti.hbm.xml"/>
+    <mapping resource="logic/SboTbCatArticulo.hbm.xml"/>
+    <mapping resource="logic/SboTbBodega.hbm.xml"/>
+    <mapping resource="logic/AbaaTbProveedor.hbm.xml"/>
+    <mapping resource="logic/AbaaTbRol.hbm.xml"/>
+    <mapping resource="logic/AbaaProyectos.hbm.xml"/>
+    <mapping resource="logic/AbaaTbOcproyecto.hbm.xml"/>
+    <mapping resource="logic/SboTbCatContable.hbm.xml"/>
+    <mapping resource="logic/SboTbArticulo.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

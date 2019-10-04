@@ -103,7 +103,7 @@ public class ArticulosDAO {
             oc.setOcPrecTota(rs.getDouble("OC_Prec_Tota"));
             oc.setOcEsta(rs.getString("OC_Esta"));
             oc.setAbaaTbProveedor(Proveedor(rs));
-            oc.setOcPlazoEntrega(rs.getDate("OC_PlazoEntrega"));
+            oc.setOcPlazoEntrega(rs.getString("OC_PlazoEntrega"));
             oc.setOcEntregarA(rs.getString("OC_EntregarA"));
             return oc;
         } catch (SQLException ex) {
@@ -128,45 +128,47 @@ public class ArticulosDAO {
     }
 
     public void agregarArticulo(SboTbArticulo objeto) throws Exception {
-        String query = "insert into Sbo_TB_Articulo(Art_Precio,Art_Cant,Art_Desc,"
+        String query = "insert into Sbo_TB_Articulo(Art_Precio,Art_Cant,Art_Cant_Rest,Art_Desc,"
                 + "Art_Mode,Art_Nume_Seri,Art_Marc,Art_Codi_Presup,"
                 + "Art_Codi_Cat_Arti_FK,Art_Depa_FK,Art_Unid_Medi,Art_Orde_Comp_FK)"
-                + "values(?,?,?,?,?,?,?,?,?,?,?)";
+                + "values(?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setDouble(1, objeto.getArtPrecio());
         preparedStmt.setInt(2, objeto.getArtCant());
-        preparedStmt.setString(3, objeto.getArtDesc());
-        preparedStmt.setString(4, objeto.getArtMode());
-        preparedStmt.setString(5, objeto.getArtNumeSeri());
-        preparedStmt.setString(6, objeto.getArtMarc());
-        preparedStmt.setString(7, objeto.getArtCodiPresup());
-        preparedStmt.setInt(8, objeto.getSboTbCatArticulo().getCatIdPk());
-        preparedStmt.setString(9, objeto.getAbaaTbDepartamento().getDeptoIdPk());
-        preparedStmt.setString(10, objeto.getArtUnidadMedida());
-        preparedStmt.setInt(11, objeto.getSboTbOrdenCompra().getOcIdPk());
+        preparedStmt.setInt(3, objeto.getArtCant());
+        preparedStmt.setString(4, objeto.getArtDesc());
+        preparedStmt.setString(5, objeto.getArtMode());
+        preparedStmt.setString(6, objeto.getArtNumeSeri());
+        preparedStmt.setString(7, objeto.getArtMarc());
+        preparedStmt.setString(8, objeto.getArtCodiPresup());
+        preparedStmt.setInt(9, objeto.getSboTbCatArticulo().getCatIdPk());
+        preparedStmt.setString(10, objeto.getAbaaTbDepartamento().getDeptoIdPk());
+        preparedStmt.setString(11, objeto.getArtUnidadMedida());
+        preparedStmt.setInt(12, objeto.getSboTbOrdenCompra().getOcIdPk());
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
 
     public void agregarArticuloConProyecto(SboTbArticulo objeto) throws Exception {
-        String query = "insert into Sbo_TB_Articulo(Art_Precio,Art_Cant,Art_Desc,"
+        String query = "insert into Sbo_TB_Articulo(Art_Precio,Art_Cant,Art_Cant_Rest,Art_Desc,"
                 + "Art_Mode,Art_Nume_Seri,Art_Marc,Art_Codi_Presup,"
                 + "Art_Codi_Cat_Arti_FK,Art_Proy_FK,Art_Depa_FK,Art_Unid_Medi,"
                 + "Art_Orde_Comp_FK)"
-                + "values(?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setDouble(1, objeto.getArtPrecio());
         preparedStmt.setInt(2, objeto.getArtCant());
-        preparedStmt.setString(3, objeto.getArtDesc());
-        preparedStmt.setString(4, objeto.getArtMode());
-        preparedStmt.setString(5, objeto.getArtNumeSeri());
-        preparedStmt.setString(6, objeto.getArtMarc());
-        preparedStmt.setString(7, objeto.getArtCodiPresup());
-        preparedStmt.setInt(8, objeto.getSboTbCatArticulo().getCatIdPk());
-        preparedStmt.setInt(9, objeto.getAbaaProyectos().getProyIdPk());
-        preparedStmt.setString(10, objeto.getAbaaTbDepartamento().getDeptoIdPk());
-        preparedStmt.setString(11, objeto.getArtUnidadMedida());
-        preparedStmt.setInt(12, objeto.getSboTbOrdenCompra().getOcIdPk());
+        preparedStmt.setInt(3, objeto.getArtCant());
+        preparedStmt.setString(4, objeto.getArtDesc());
+        preparedStmt.setString(5, objeto.getArtMode());
+        preparedStmt.setString(6, objeto.getArtNumeSeri());
+        preparedStmt.setString(7, objeto.getArtMarc());
+        preparedStmt.setString(8, objeto.getArtCodiPresup());
+        preparedStmt.setInt(9, objeto.getSboTbCatArticulo().getCatIdPk());
+        preparedStmt.setInt(10, objeto.getAbaaProyectos().getProyIdPk());
+        preparedStmt.setString(11, objeto.getAbaaTbDepartamento().getDeptoIdPk());
+        preparedStmt.setString(12, objeto.getArtUnidadMedida());
+        preparedStmt.setInt(13, objeto.getSboTbOrdenCompra().getOcIdPk());
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
@@ -206,8 +208,8 @@ public class ArticulosDAO {
         }
         return resultado;
     }
-    
-        public List<SboTbArticulo> listadoArticulosPorOrdenConta(int filtro) {
+
+    public List<SboTbArticulo> listadoArticulosPorOrdenConta(int filtro) {
         List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
         try {
             String sql = "select * from Sbo_TB_Articulo a inner join Sbo_TB_CatArticulo c on a.Art_Codi_Cat_Arti_FK=c.Cat_Id_Pk"
@@ -223,8 +225,6 @@ public class ArticulosDAO {
         }
         return resultado;
     }
-    
-
 
     private SboTbArticulo articulo(ResultSet rs) {
         try {
@@ -253,10 +253,8 @@ public class ArticulosDAO {
             return null;
         }
     }
-    
-    
-    
-        public void actualizarCodigCont(SboTbArticulo objeto) throws Exception {
+
+    public void actualizarCodigCont(SboTbArticulo objeto) throws Exception {
         String query = "update Sbo_TB_Articulo set Art_Codi_Cont = ? where Art_Id_Pk = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getArtCodiCont());
@@ -264,6 +262,5 @@ public class ArticulosDAO {
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
-        
-        
+
 }

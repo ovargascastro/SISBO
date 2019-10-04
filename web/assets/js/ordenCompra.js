@@ -3,12 +3,20 @@ function agregarArticuloTemporal() {
     var art = document.getElementById("selectCatalogoArticulos").value;
     var unidad = document.getElementById("selectUnidadMedida").value;
     var proyect = 0;
+    
+    var e = document.getElementById("selectProyectos");
+    var descProy = e.options[e.selectedIndex].text;
+    if(descProy==='Seleccione una opcion'){
+        descProy='Proyecto no asignado';
+    }
+    
     if (document.getElementById("proyectoCheck").checked === true) {
         proyect = document.getElementById("selectProyectos").value;
     }
     SboTbArticulo = {
         abaaProyectos: {
-            proyIdPk: proyect
+            proyIdPk: proyect,
+            proyDesc: descProy
         },
         sboTbCatArticulo: {
             catIdPk: art
@@ -34,6 +42,8 @@ function agregarArticuloTemporal() {
             alert(errorMessage(jqXHR.status));
         }
     });
+
+
 }
 
 function exito() {
@@ -59,6 +69,12 @@ function limpiar() {
     $('#selectCatalogoArticulos option').prop('selected', function () {
         return this.defaultSelected;
     });
+    $('#selectProyectos option').prop('selected', function () {
+        return this.defaultSelected;
+    });
+    $('#proyectoCheck').prop('checked', false);
+    $('#comboProy').hide();
+    
 }
 
 function buscar2() {
@@ -67,6 +83,16 @@ function buscar2() {
         success: listaArticulosTemporales
     });
 }
+
+function eliminarArt(id){
+   if(confirm("Desea eliminar el articulo?") ){
+           $.ajax({type: "DELETE", 
+          url:"api/articulostemporales/"+id, 
+          success: buscar2,
+          error: function(status){ alert(errorMessage(status));}                 
+        }); 
+    }
+  }
 
 function selectCatArticulos() {
     $.ajax({type: "GET",
@@ -96,22 +122,15 @@ function agregarOrdenCompra() {
     var provee = document.getElementById("selectProveedores").value;
     var fecha = document.getElementById("fechaOrden").value;
     var fecha2 = fecha.toDate("yyyy-mm-dd");
-    var plazo = document.getElementById("plazoEntrega").value;
-    var plazo2 = plazo.toDate("yyyy-mm-dd");
-//    var p = 0;
-//    if(document.getElementById("proyectoCheck").checked === true){
-//            p = document.getElementById("selectProyectos").value;
-//        }
+
     SboTbOrdenCompra = {
         abaaTbProveedor: {
             proveIdProvePk: provee
         },
-//        abaaProyectos: {
-//            proyIdPk: p
-//        },
+
         ocFecha: fecha2,
-        ocEsta: "no procesada",
-        ocPlazoEntrega: plazo2,
+        ocEsta: "asignar codigos",
+        ocPlazoEntrega: $("#plazoEntrega").val(),
         ocEntregarA: $("#entregarA").val()
     };
     $.ajax({type: "POST",
@@ -218,3 +237,36 @@ function articulosXordenConta(filtro){
 
     $('#listaArticulos').modal('show');
 }
+
+function agregaDepartamento(objeto) {
+    var listado = $("#departamentosRow");
+    listado.html("");
+    objeto.forEach((a) => {
+        filaDepartamentos(listado, a);
+    });
+
+}
+function filaDepartamentos(listado, objeto) {
+
+    var tr = $("<tr />");
+    tr.html(
+            "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>");
+    listado.append(tr);
+}
+
+function agregaProyecto(objeto) {
+    var listado = $("#proyectosRow");
+    listado.html("");
+    objeto.forEach((a) => {
+        filaProyectos(listado, a);
+    });
+
+}
+function filaProyectos(listado, objeto) {
+
+    var tr = $("<tr />");
+    tr.html(
+            "<td>" + objeto.abaaProyectos.proyDesc + "</td>");
+    listado.append(tr);
+}
+
