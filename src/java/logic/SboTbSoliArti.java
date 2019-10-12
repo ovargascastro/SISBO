@@ -20,7 +20,7 @@ public class SboTbSoliArti  implements java.io.Serializable {
      private Date solArtiFechSoli;
      private Date solArtiFechSali;
      private Set<SboTbSolixArti> sboTbSolixArtis = new HashSet<SboTbSolixArti>(0);
-
+     private String solArtiEsta;
     public SboTbSoliArti() {
     }
 
@@ -96,6 +96,15 @@ public class SboTbSoliArti  implements java.io.Serializable {
         this.sboTbSolixArtis = sboTbSolixArtis;
     }
 
+    public String getSolArtiEsta() {
+        return solArtiEsta;
+    }
+
+    public void setSolArtiEsta(String solArtiEsta) {
+        this.solArtiEsta = solArtiEsta;
+    }
+
+    
 
 
 

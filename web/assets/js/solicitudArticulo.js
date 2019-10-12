@@ -66,7 +66,7 @@ function agregarSolicitudArticulo() {
         abaaTbFuncionario: {
             funcIdPk: 1
         },
-
+        solArtiEsta: "pendiente",
         solArtiFechSoli: fecha2
     };
     $.ajax({type: "POST",

@@ -125,17 +125,6 @@ public class solicitudArtDAO {
             return null;
         }
     }
-//
-//    private Integer suma(ResultSet rs) {
-//        try {
-//            int ob;
-//            ob.setDeptoIdPk(rs.getString("Depto_Id_Pk"));
-//            ob.setDeptoNomb(rs.getString("Depto_Nomb"));
-//            return ob;
-//        } catch (SQLException ex) {
-//            return null;
-//        }
-//    }
 
     private SboTbCatArticulo catArticulo(ResultSet rs) {
         try {
@@ -234,8 +223,8 @@ public class solicitudArtDAO {
 
     public void agregarSolicitudArticulo(SboTbSoliArti objeto) throws Exception {
         String query = "insert into Sbo_TB_Soli_Arti(Sol_Arti_Fech_Soli,Sol_Arti_Id_Depa_Fk,"
-                + "Sol_Arti_Id_Func_Fk)"
-                + "values(?,?,?)";
+                + "Sol_Arti_Id_Func_Fk,Sol_Arti_Esta)"
+                + "values(?,?,?,?)";
 
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         java.util.Date utilStartDate = objeto.getSolArtiFechSoli();
@@ -244,6 +233,7 @@ public class solicitudArtDAO {
 
         preparedStmt.setString(2, objeto.getAbaaTbDepartamento().getDeptoIdPk());
         preparedStmt.setInt(3, objeto.getAbaaTbFuncionario().getFuncIdPk());
+        preparedStmt.setString(4, objeto.getSolArtiEsta());
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
@@ -304,6 +294,7 @@ public class solicitudArtDAO {
             solArt.setSolArtiIdPk(rs.getInt("Sol_Arti_Id_PK"));
             solArt.setSolArtiFechSoli(rs.getDate("Sol_Arti_Fech_Soli"));
             solArt.setAbaaTbDepartamento(departamento(rs));
+            solArt.setSolArtiEsta(rs.getString("Sol_Arti_Esta"));
             return solArt;
         } catch (SQLException ex) {
             return null;

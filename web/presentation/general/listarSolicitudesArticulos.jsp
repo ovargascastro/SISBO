@@ -53,6 +53,7 @@
                                         <th class="text-center">Número<br>de solicitud</th>
                                         <th class="text-center">Fecha</th>
                                         <th class="text-center">Unidad usuaria</th>
+                                        <th class="text-center">Estado</th>
                                         <th class="text-center">Artículos</th>
                                     </tr>
                                 </thead>
@@ -117,6 +118,7 @@
                 "<td>" + objeto.solArtiIdPk + "</td>"
                 + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
                 + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
+                + "<td>" + objeto.solArtiEsta + "</td>"
                 + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'></td>");
         listado.append(tr);
 
