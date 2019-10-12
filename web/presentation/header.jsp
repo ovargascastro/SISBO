@@ -1,8 +1,4 @@
-<%-- 
-    Document   : header
-    Created on : 15-sep-2019, 21:49:09
-    Author     : oscar
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,6 +25,7 @@
                         <li class="nav-item" role="presentation"><a class="nav-link active" href="presentation/catalogos/administracionCatalogos.jsp">Administración de Catálogos</a></li>
                          <li class="nav-item" role="presentation"><a class="nav-link active" href="presentation/bodega/existencias.jsp">Existencias</a></li>
                          <li class="nav-item" role="presentation"><a class="nav-link active" href="presentation/general/solicitudArticulos.jsp">Solicitud de Articulos</a></li>
+                         <li class="nav-item" role="presentation"><a class="nav-link active" href="presentation/general/listarSolicitudesArticulos.jsp">Listado Solicitud de Articulos</a></li>
                         <%--
                         <li class="nav-item dropdown" >
                             <a class="nav-link dropdown-toggle active"  id="ordenDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

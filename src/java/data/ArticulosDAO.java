@@ -262,5 +262,30 @@ public class ArticulosDAO {
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
+    
+    public SboTbArticulo getArticulo(int id) throws Exception {
+        String sql = "select * from Sbo_TB_Articulo where Art_Id_PK='%s'";
+        sql = String.format(sql, id);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return articulo(rs);
+        } else {
+            throw new Exception("Solicitud no Existe");
+        }
+    }
+    
+    public SboTbArticulo getArticulo2(int id) throws Exception {
+        String sql = "select * "
+                + "from Sbo_TB_Articulo art, ABAA_TB_Departamento dpto, Sbo_TB_CatArticulo cat "
+                + "where art.Art_Depa_FK = dpto.Depto_Id_PK and cat.Cat_Id_PK=art.Art_Codi_Cat_Arti_FK "
+                + "and art.Art_Id_PK="+id+";";
+        sql = String.format(sql);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return articulo(rs);
+        } else {
+            throw new Exception("Solicitud no Existe");
+        }
+    }
 
 }
