@@ -220,6 +220,7 @@ public class solicitudArtDAO {
             return null;
         }
     }
+    
     public void agregarSolicitudArticulo(SboTbSoliArti objeto) throws Exception {
         String query = "insert into Sbo_TB_Soli_Arti(Sol_Arti_Fech_Soli,Sol_Arti_Id_Depa_Fk,"
                 + "Sol_Arti_Id_Func_Fk,Sol_Arti_Esta)"
