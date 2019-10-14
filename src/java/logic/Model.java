@@ -209,10 +209,28 @@ public class Model {
             art.setSboTbOrdenCompra(orden);
         }
         for (SboTbArticulo art : listaTemp.values()) {
+            String valor = art.getSboTbCatArticulo().getSboTbSubFamilia().getSubFamiIdPk();
+            char esAct = valor.charAt(0);
+            valor =  "" + esAct;
             if (art.getAbaaProyectos().getProyIdPk() == 0) {
-                articulodao.agregarArticulo(art);
+                if (valor.equals("2") || valor.equals("5")) {
+                    art.setArtEsAc(true);
+                    articulodao.agregarArticulo(art);
+                } else {
+                    art.setArtEsAc(false);
+                    articulodao.agregarArticulo(art);
+                }
+
             } else {
-                articulodao.agregarArticuloConProyecto(art);
+                if (valor.equals("2") || valor.equals("5")) {
+                    art.setArtEsAc(true);
+                    articulodao.agregarArticuloConProyecto(art);
+                } else {
+                    art.setArtEsAc(false);
+                    articulodao.agregarArticuloConProyecto(art);
+
+                }
+
             }
         }
     }
@@ -242,25 +260,25 @@ public class Model {
     public void actualizaEstadoOrdenCom(SboTbOrdenCompra objeto) throws SQLException {
         ordendao.actualizaEstadoOC(objeto);
     }
-    
+
     public List<SboTbCatContable> listaCatContables(String filtro) throws ClassNotFoundException, SQLException {
         List result = catdao.listaCatContable(filtro);
         return result;
-        
+
     }
-    
+
     public SboTbCatContable getSboTbCatContable(int filtro) throws Exception {
         SboTbCatContable ob = catdao.getSboTbCatContable(filtro);
         return ob;
     }
-    
+
     public void actualizarCatContable(SboTbCatContable cont) throws Exception {
         catdao.actualizarCatContable(cont);
-        
+
     }
-      public void crearCatContable(SboTbCatContable cont) throws Exception {
+
+    public void crearCatContable(SboTbCatContable cont) throws Exception {
         catdao.crearCatContable(cont);
     }
-    
-}
 
+}

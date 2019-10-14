@@ -130,8 +130,8 @@ public class ArticulosDAO {
     public void agregarArticulo(SboTbArticulo objeto) throws Exception {
         String query = "insert into Sbo_TB_Articulo(Art_Precio,Art_Cant,Art_Cant_Rest,Art_Desc,"
                 + "Art_Mode,Art_Nume_Seri,Art_Marc,Art_Codi_Presup,"
-                + "Art_Codi_Cat_Arti_FK,Art_Depa_FK,Art_Unid_Medi,Art_Orde_Comp_FK)"
-                + "values(?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "Art_Codi_Cat_Arti_FK,Art_Depa_FK,Art_Unid_Medi,Art_Orde_Comp_FK,Art_EsAc)"
+                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setDouble(1, objeto.getArtPrecio());
         preparedStmt.setInt(2, objeto.getArtCant());
@@ -145,6 +145,7 @@ public class ArticulosDAO {
         preparedStmt.setString(10, objeto.getAbaaTbDepartamento().getDeptoIdPk());
         preparedStmt.setString(11, objeto.getArtUnidadMedida());
         preparedStmt.setInt(12, objeto.getSboTbOrdenCompra().getOcIdPk());
+        preparedStmt.setBoolean(13, objeto.getArtEsAc());
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
