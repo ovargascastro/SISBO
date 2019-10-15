@@ -55,6 +55,7 @@ public class solicitudesArticulos {
         return null;
     }
     
+    
         @GET
     @Path("{filtro}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -78,5 +79,4 @@ public class solicitudesArticulos {
             throw new NotFoundException();
         }
     }
-    
 }

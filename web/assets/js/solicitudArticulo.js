@@ -230,7 +230,7 @@ function mostrarXaprobar(soli) {
         url: "api/solicitudArticulo",
         data: JSON.stringify(SboTbSoliArti),
         contentType: "application/json",
-        success: afterUpdateApEs,
+        success: afterUpdateApE,
         error: function (jqXHR) {
             alert('Error');
         }
@@ -238,7 +238,7 @@ function mostrarXaprobar(soli) {
 
 }
 
-function afterUpdateApEs() {
+function afterUpdateApE() {
     buscarSolicitudxAprobar();
     $('#modalAprobar').modal('hide');
 
@@ -257,13 +257,18 @@ var solEstado2="PendienteVBJefe";
         url: "api/solicitudArticulo",
         data: JSON.stringify(SboTbSoliArti),
         contentType: "application/json",
-        success: afterUpdateApEs,
+        success: afterUpdateApEsJf,
         error: function (jqXHR) {
             alert('Error');
         }
     });
 
 }
+function afterUpdateApEsJf() {
+    buscarSolicitudxAprobar();
+    $('#modalAprobar').modal('hide');
+
+}   
 
 var solEstado3="PendienteVBTI";     
  function actualizarEstadoTI() {
@@ -278,14 +283,18 @@ var solEstado3="PendienteVBTI";
         url: "api/solicitudArticulo",
         data: JSON.stringify(SboTbSoliArti),
         contentType: "application/json",
-        success: afterUpdateApEs,
+        success: afterUpdateApEsTI,
         error: function (jqXHR) {
             alert('Error');
         }
     });
 
 }
+function afterUpdateApEsTI() {
+    buscarSolicitudxAprobar();
+    $('#modalAprobar').modal('hide');
 
+}   
 
 
 var solEstado4="Rechazado: ";     
@@ -317,6 +326,8 @@ function afterUpdateApEs() {
 }   
 
 function imprimir(filtro) {
+    
+    
      $.ajax({type: "GET",
             url:"api/solicitudArticulo/" + filtro,
             success: mostrarsoli,
@@ -325,7 +336,7 @@ function imprimir(filtro) {
             }
         });
         
-    $.ajax({type: "GET",
+        $.ajax({type: "GET",
         url: "api/artPorSol?filtro=" + filtro,
         success: listaArticulosxSolImp,
         error: function (jqXHR) {

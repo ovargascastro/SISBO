@@ -107,10 +107,15 @@
                     <div class="modal-header">
                         <h4 class="modal-title">Aprobación de Solitudes</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                     <div class="modal-body">
-                        <p>Desea Aprobar la solicitud seleccionada?</p>
+                        <p>Si lo necesita solicite el visto bueno necesario</p>
+                    
+                    <button class="btn btn-light" type="button" onclick="javascript:actualizarEstadoJefe()">Visto Bueno Jefe</button> 
+                    <button class="btn btn-light" type="button" onclick="javascript:actualizarEstadoTI()">Visto Bueno TI</button>
+                    <p><br>¿Desea Aprobar la solicitud seleccionada?</p>
                     </div>
-                    <button class="btn btn-light" type="button" onclick="javascript:actualizarEstadoJefe()">Visto Bueno Jefe</button> <button class="btn btn-light" type="button" onclick="javascript:actualizarEstadoTI()">Visto Bueno TI</button>
-                    <div class="modal-footer"><button class="btn btn-primary bg-danger" type="button" data-dismiss="modal" onclick="javascript:abrirModalRechazar()">Rechazar</button>  <button class="btn btn-success" type="button" onclick="javascript:actualizarEstadoAprobacion()">Aceptar</button></div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary bg-danger" type="button" data-dismiss="modal" onclick="javascript:abrirModalRechazar()">Rechazar</button>  
+                        <button class="btn btn-success" type="button" onclick="javascript:actualizarEstadoAprobacion()">Aprobar</button></div>
                 </div>
             </div>
         </div>
@@ -181,8 +186,5 @@
         listado.append(tr);
 
     }
-    
- 
-    
 </script>
 </html>

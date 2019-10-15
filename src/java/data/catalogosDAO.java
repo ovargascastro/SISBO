@@ -17,12 +17,7 @@ public class catalogosDAO {
 
     public catalogosDAO() {
         db = new RelDatabase();
-
-
     }
-    
-    
-
 
     private SboTbFamilia familia(ResultSet rs) {
         try {
@@ -80,7 +75,8 @@ public class catalogosDAO {
 
     }
     
-    
+  
+
     public List<SboTbFamilia> listaFamilias(String filtro) {
         List<SboTbFamilia> resultado = new ArrayList<SboTbFamilia>();
         try {
@@ -139,6 +135,7 @@ public class catalogosDAO {
     }
     
   
+  
 
 
     public SboTbCatArticulo getCatArticulo(int filtro) throws Exception {
@@ -187,7 +184,8 @@ public class catalogosDAO {
             throw new Exception("Bien no Existe");
         }
     }
-  
+    
+   
     
     public void actualizarCatContable(SboTbCatContable objeto) throws Exception {
         String query = "update Sbo_TB_CatContable set Cnt_Desc = ?, Cnt_Est = ?, Cnt_Nivel = ?, Cnt_Codi = ? where Cnt_Id_PK = ?";
@@ -211,12 +209,7 @@ public class catalogosDAO {
         db.getConnection().close();
     }
 
-
- 
-    
-
     public void actualizarSubFamilia(SboTbSubFamilia objeto) throws Exception {
-
         String query = "update Sbo_TB_SubFamilia set SubFami_Desc = ?, SubFami_CodF_Fk = ?, SubFami_Estado = ? where SubFami_Id_Pk = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getSubFamiDesc());
@@ -270,8 +263,7 @@ public class catalogosDAO {
         db.getConnection().close();
     }
     
- 
-       public void crearCatContable(SboTbCatContable objeto) throws Exception{
+    public void crearCatContable(SboTbCatContable objeto) throws Exception{
         String query = "insert into Sbo_TB_CatContable(Cnt_Desc,Cnt_Codi,Cnt_Nivel,Cnt_Est)values(?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
        
@@ -282,6 +274,5 @@ public class catalogosDAO {
         preparedStmt.executeUpdate();
         db.getConnection().close();
        }
-            
-
+    
 }

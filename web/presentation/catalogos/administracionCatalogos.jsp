@@ -145,11 +145,7 @@
                                     <div class="col"><label>Código Contable<br></label><input class="form-control" type="text" id="codigoContable" readonly></div>
                                 </div>
                                 <div class="form-row">
-
-                                    <div class="col"><label>Nivel<br></label><input class="form-control" type="text" id="NivelContable" readonly></div>
-
                                     <div class="col"><label>Nivel<br></label><input class="form-control" type="text" id="NivelContable"></div>
-
                                 </div>
                                 <div class="form-row">
                                     <div class="col"><label>Descripción<br></label><input class="form-control" type="text" id="descripContable" required></div>
@@ -251,16 +247,6 @@
             <div class="modal-content">
                 <form action="javascript:crearCatContable()">
                 <div class="modal-header">
-
-                    <h4 class="modal-title">Agregar codigo contable </h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                <div class="modal-body">
-                    <div class="container">
-                         <div class="form-row">
-                                <div class="col"><label>Codigo Contable</label><input class="form-control" type="text" id="AgregarCodCatCont" required></div>
-                                </div>
-                            <div class="form-row">
-                                <div class="col"><label>Descripcion</label><input class="form-control" type="text" id="AgregarDescipcionCatCont" required></div>
-
                     <h4 class="modal-title">Agregar código contable </h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                 <div class="modal-body">
                     <div class="container">
@@ -269,7 +255,6 @@
                                 </div>
                             <div class="form-row">
                                 <div class="col"><label>Descripción</label><input class="form-control" type="text" id="AgregarDescipcionCatCont" required></div>
-
                                 </div>
                              <div class="form-row">
                                 <div class="col"><label>Nivel</label><input class="form-control" type="text" id="AgregarNivelCatCont" required></div>
@@ -431,16 +416,13 @@ function filaSubFam(listado, objeto) {
                                     }
 
 
-
-function listaCatConta(personas) {
+                                    function listaCatConta(personas) {
                                         var listado = $("#listado");
                                         listado.html("");
                                         personas.forEach((p) => {
                                             filaCatConta(listado, p);
                                         });
                                     }
-
-                                   
 
                                     function filaCatConta(listado, objeto) {
                                         var tr = $("<tr />");
@@ -454,7 +436,6 @@ function listaCatConta(personas) {
                                     }else{
                                         tr.html(
                                                 "<td>" + objeto.cntCodi + "</td>"
-
                                                 + "<td>" + objeto.cntDesc + "</td>"
                                                 + "<td><img class='small-img' src='assets/img/edit.png' onclick='abrirModalEditar(\"" + objeto.cntIdPk + "\");'></td>"
                                                 + "<td><img src='assets/img/unlock.png' onclick='abrirModalDesactivar(\"" + objeto.cntIdPk + "\");'></td>");

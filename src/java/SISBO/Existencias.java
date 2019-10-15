@@ -14,6 +14,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import logic.Model;
+import logic.SboTbArticulo;
+import logic.SboTbCatArticulo;
 import logic.SboTbExistencia;
 
 @Path("Existencias")
@@ -31,5 +33,15 @@ public class Existencias {
             throw new NotFoundException();
         }
     }
+    
+    @GET
+    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+    public List<SboTbArticulo> getArticulos(@QueryParam("filtro") String filtro) throws ClassNotFoundException, SQLException {
+        List<SboTbArticulo> lista = Model.instance().listaArticulosExistencia(filtro);
+        return lista;
+    }
+    
+    
+    
 
 }
