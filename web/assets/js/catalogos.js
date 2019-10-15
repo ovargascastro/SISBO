@@ -203,9 +203,7 @@ function selectSubFamilias() {
 }
 
 function selectCatArticulos() {
-//resetearSelectCatArticulos(document.getElementById("selectArticulos"));
-//$("#selectArticulos").append('<option value="0" selected disabled = "true"> Seleccione una opcion </option>');
-    $.ajax({type: "GET",
+   $.ajax({type: "GET",
         url: "api/catArticulos?nombre=" + $("#codigo").val(),
         success: function (data) {
             $.each(data, function (key, catArt) {

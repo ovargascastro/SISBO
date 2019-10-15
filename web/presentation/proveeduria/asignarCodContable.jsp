@@ -28,7 +28,7 @@
     </div>
     <div class="card" id="cuerpoListaOrdenes">
         <div class="card-body">
-            <h4 class="text-center card-title">Listado de Ordenes de Compra</h4>
+            <h4 class="text-center card-title">Listado de Órdenes de Compra</h4>
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -36,7 +36,7 @@
                             <div><label>Número Orden de Compra</label>
                                 <div class="form-row">
                                     <div class="col"><input class="form-control" type="text" id="filtro"></div>
-                                    <div class="col"><button class="btn btn-primary" type="button" onclick="javascript:estadoConta()">Búscar</button></div>
+                                    <div class="col"><button class="btn btn-primary" type="button" onclick="javascript:estadoConta()">Buscar</button></div>
                                 </div>
                             </div>
                         </form>
@@ -50,8 +50,9 @@
                                     <tr>
                                         <th class="text-center">Número<br>de Orden</th>
                                         <th class="text-center">Fecha</th>
+                                        <th class="text-center">Precio<br>Total</th>
                                         <th class="text-center">Estado</th>
-                                        <th class="text-center">Articulos</th>
+                                        <th class="text-center">Artículos</th>
                                     </tr>
                                 </thead>
                                 <tbody id="listaordenesc">
@@ -70,7 +71,7 @@
             <div class="modal-content">
                 <form action="javascript:asignaCodContable()">
                     <div class="modal-header">
-                        <h4 class="modal-title">Listado de Articulos</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                        <h4 class="modal-title">Listado de Artículos</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                     <div class="modal-body">
                         <div class="container text-center">
 
@@ -80,10 +81,10 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Articulo<br><br></th>
+                                                    <th>Artículo<br><br></th>
                                                     <th>Sub-Familia<br><br></th>
-                                                    <th>Sub-Familia<br>Descripcion<br></th>
-                                                    <th>Codigo Contable<br><br></th>
+                                                    <th>Sub-Familia<br>Descripción<br></th>
+                                                    <th>Código Contable<br><br></th>
                                                 </tr>
                                             </thead>
 
@@ -123,19 +124,23 @@
                                             tr.html(
                                                     "<td>" + objeto.ocIdPk + "</td>"
                                                     + "<td>" + formatDate(objeto.ocFecha) + "</td>"
+                                                    + "<td>" + objeto.ocPrecTota + "</td>"
                                                     + "<td>" + objeto.ocEsta + "</td>"
                                                     + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXordenConta(\"" + objeto.ocIdPk + "\");'></td>");
                                             listado.append(tr);
 
                                         }
 
-
+                                        var num = 0;
                                         function listaArticulos(personas) {
                                             var listado = $("#listaArticulosOrdenC");
                                             listado.html("");
                                             personas.forEach((p) => {
                                                 filaArticulos(listado, p);
+                                                num = num+1;
+                                                
                                             });
+                                            
                                         }
 
                                         var cont = 0;
@@ -148,21 +153,23 @@
                                                     "<td>" + objeto.sboTbCatArticulo.catDesc + "</td>"
                                                     + "<td>" + objeto.sboTbCatArticulo.sboTbSubFamilia.subFamiIdPk +"</td>"
                                                     + "<td>" + objeto.sboTbCatArticulo.sboTbSubFamilia.subFamiDesc + "</td>"
-                                                    + "<td><input type='text' class='form-control' required='required' id=" + cont + "></td>");
+                                                    + "<td><select class='form-control' id='selectConta"+cont+"' required><option values='0' selected disabled = 'true'>Seleccione una opcion</option></select></td>");
+                                                    
                                             listado.append(tr);
-
+                                            cargarSelectConta("#selectConta"+cont);
                                         }
-
+                                        
                                         var actual = 1;
                                         function asignaCodContable() {
-
+                                            
                                             for (i = 0; i < cont; i++) {
-
+                                                var codConta = document.getElementById("selectConta"+actual).value;
                                                 var objeto = articulosArray.shift();
                                                 SboTbArticulo = {
                                                     artIdPk: objeto.artIdPk,
                                                     artDesc: objeto.artDesc,
-                                                    artCodiCont: $("#" + actual).val(),
+                                                    artCodiCont: codConta,
+                                                    
                                                     sboTbOrdenCompra:{
                                                         ocIdPk: objeto.sboTbOrdenCompra.ocIdPk
                                                     }
@@ -180,6 +187,20 @@
                                             }
 
                                             $('#listaArticulos').modal('hide');
+                                        }
+                                        
+                                        function cargarSelectConta(conta) {
+                                            $.ajax({type: "GET",
+                                                url: "api/contables?filtro=" + " ",
+                                                success: function (data) {
+                                                    $.each(data, function (key, c) {
+                                                        $(conta).append('<option value=' + c.cntIdPk + '>' + c.cntCodi + ' - ' + c.cntDesc + '</option>');
+                                                    });
+                                                },
+                                                error: function (data) {
+                                                    alert('error');
+                                                }
+                                            });
                                         }
 </script>
 </html>

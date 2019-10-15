@@ -17,7 +17,7 @@
         <base href="http://localhost:8084/SISBO/" >
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
-        <title>Administracion de Catalogos</title>
+        <title>Administración de Catalogos</title>
     </head>
     <body onload="javascript:cargarSelects()">
         <%@ include file="/presentation/header.jsp" %>
@@ -41,12 +41,12 @@
                                             <div class="col"><br><input class="form-control" type="text" id="filtro" placeholder="Filtro"></div>
                                         </div>
                                     </div>
-                                    <div class="col text-left"><button class="btn btn-primary border-light" type="button" onclick="javascript:concatenarBusqueda()">Búscar &nbsp;<img id="magnifier" src="assets/img/magnifier.png"></button></div>
+                                    <div class="col text-left"><button class="btn btn-primary border-light" type="button" onclick="javascript:concatenarBusqueda()">Buscar &nbsp;<img id="magnifier" src="assets/img/magnifier.png"></button></div>
                                 </div>
                             </form>
                         </div>
                         <div class="col">
-                            <h4>Agregar Registro a un catalogo</h4><br><br><button class="btn btn-primary" type="button" onclick="javascript:agregarACatalogo()">Registrar</button></div>
+                            <h4>Agregar Registro a un catálogo</h4><br><br><button class="btn btn-primary" type="button" onclick="javascript:agregarACatalogo()">Registrar</button></div>
                     </div>
                 </div>
             </div>
@@ -145,7 +145,11 @@
                                     <div class="col"><label>Código Contable<br></label><input class="form-control" type="text" id="codigoContable" readonly></div>
                                 </div>
                                 <div class="form-row">
+
                                     <div class="col"><label>Nivel<br></label><input class="form-control" type="text" id="NivelContable" readonly></div>
+
+                                    <div class="col"><label>Nivel<br></label><input class="form-control" type="text" id="NivelContable"></div>
+
                                 </div>
                                 <div class="form-row">
                                     <div class="col"><label>Descripción<br></label><input class="form-control" type="text" id="descripContable" required></div>
@@ -225,10 +229,10 @@
                     <div class="container">
                         
                             <div class="form-row">
-                                <div class="col"><label>Descripcion</label><input class="form-control" type="text" id="AgregarDescipcionCatArt" required></div>
+                                <div class="col"><label>Descripción</label><input class="form-control" type="text" id="AgregarDescipcionCatArt" required></div>
                                 </div>
                              <div class="form-row">
-                                <div class="col"><label>Codigo Articulo Sicop</label><input class="form-control" type="text" id="AgregarCodSicopCatArt" required></div>
+                                <div class="col"><label>Código Articulo Sicop</label><input class="form-control" type="text" id="AgregarCodSicopCatArt" required></div>
                                 </div>
                              <div class="form-row">
                                 <div class="col"><label>SubFamilia</label><select class="form-control" id="AgregarSubfamiliaCatArt"></select></div>
@@ -247,6 +251,7 @@
             <div class="modal-content">
                 <form action="javascript:crearCatContable()">
                 <div class="modal-header">
+
                     <h4 class="modal-title">Agregar codigo contable </h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                 <div class="modal-body">
                     <div class="container">
@@ -255,6 +260,16 @@
                                 </div>
                             <div class="form-row">
                                 <div class="col"><label>Descripcion</label><input class="form-control" type="text" id="AgregarDescipcionCatCont" required></div>
+
+                    <h4 class="modal-title">Agregar código contable </h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                <div class="modal-body">
+                    <div class="container">
+                         <div class="form-row">
+                                <div class="col"><label>Código Contable</label><input class="form-control" type="text" id="AgregarCodCatCont" required></div>
+                                </div>
+                            <div class="form-row">
+                                <div class="col"><label>Descripción</label><input class="form-control" type="text" id="AgregarDescipcionCatCont" required></div>
+
                                 </div>
                              <div class="form-row">
                                 <div class="col"><label>Nivel</label><input class="form-control" type="text" id="AgregarNivelCatCont" required></div>
@@ -282,7 +297,7 @@
                                 <div class="col"><label>Código</label><input class="form-control" type="text" id="AgregarCodigoSubF" required></div>
                                 </div>
                              <div class="form-row">
-                                <div class="col"><label>Descripcion</label><input class="form-control" type="text" id="AgregarDescripcionSubF" required></div>
+                                <div class="col"><label>Descripción</label><input class="form-control" type="text" id="AgregarDescripcionSubF" required></div>
                                 </div>
                              <div class="form-row">
                                 <div class="col"><label>Familia</label><select class="form-control" id="AgregarFamiliaSubF" required></select></div>
@@ -309,7 +324,7 @@
                                 <div class="col"><label>Código</label><input class="form-control" type="text" id="AgregarCodigoFam" required></div>
                                 </div>
                              <div class="form-row">
-                                <div class="col"><label>Descripcion</label><input class="form-control" type="text" id="AgregarDescripcionFam" required></div>
+                                <div class="col"><label>Descripción</label><input class="form-control" type="text" id="AgregarDescripcionFam" required></div>
                                
                             </div>
                     </div>
@@ -416,6 +431,7 @@ function filaSubFam(listado, objeto) {
                                     }
 
 
+
 function listaCatConta(personas) {
                                         var listado = $("#listado");
                                         listado.html("");
@@ -424,18 +440,21 @@ function listaCatConta(personas) {
                                         });
                                     }
 
+                                   
+
                                     function filaCatConta(listado, objeto) {
                                         var tr = $("<tr />");
                                         if(objeto.cntEst==='0'){
                                         tr.html(
-                                                "<td>" + objeto.cntIdPk + "</td>"
+                                                "<td>" + objeto.cntCodi + "</td>"
                                                 + "<td>" + objeto.cntDesc + "</td>"
                                                 + "<td><img class='small-img' src='assets/img/edit.png' onclick='abrirModalEditar(\"" + objeto.cntIdPk + "\");'></td>"
                                                 + "<td><img src='assets/img/lock.png' onclick='abrirModalDesactivar(\"" + objeto.cntIdPk + "\");'></td>");
                                         listado.append(tr);
                                     }else{
                                         tr.html(
-                                                "<td>" + objeto.cntIdPk + "</td>"
+                                                "<td>" + objeto.cntCodi + "</td>"
+
                                                 + "<td>" + objeto.cntDesc + "</td>"
                                                 + "<td><img class='small-img' src='assets/img/edit.png' onclick='abrirModalEditar(\"" + objeto.cntIdPk + "\");'></td>"
                                                 + "<td><img src='assets/img/unlock.png' onclick='abrirModalDesactivar(\"" + objeto.cntIdPk + "\");'></td>");

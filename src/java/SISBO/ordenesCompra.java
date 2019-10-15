@@ -51,7 +51,7 @@ public class ordenesCompra {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<SboTbOrdenCompra> search(@QueryParam("filtro") String filtro) {
         try {
-          List<SboTbOrdenCompra> lista = Model.instance().listaOrdenesCompra(filtro);
+          List<SboTbOrdenCompra> lista = Model.instance().listaOrdenesCompraC(filtro);
             return lista;
         } catch (Exception ex) {
             Logger.getLogger(SboTbOrdenCompra.class.getName()).log(Level.SEVERE, null, ex);

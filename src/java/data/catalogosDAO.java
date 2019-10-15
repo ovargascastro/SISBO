@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
 import java.sql.PreparedStatement;
@@ -10,15 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import logic.AbaaTbDepartamento;
 import logic.SboTbCatArticulo;
 import logic.SboTbCatContable;
 import logic.SboTbFamilia;
 import logic.SboTbSubFamilia;
 
-/**
- *
- * @author oscar
- */
 public class catalogosDAO {
 
     RelDatabase db;
@@ -26,16 +18,18 @@ public class catalogosDAO {
     public catalogosDAO() {
         db = new RelDatabase();
 
+
     }
     
     
+
 
     private SboTbFamilia familia(ResultSet rs) {
         try {
             SboTbFamilia ob = new SboTbFamilia();
             ob.setFamiDesc(rs.getString("Fami_Desc"));
             ob.setFamiIdPk(rs.getString("Fami_Id_Pk"));
-            ob.setFamiEstado(rs.getString("Fami_Estado")); 
+            ob.setFamiEstado(rs.getString("Fami_Estado"));
             return ob;
         } catch (SQLException ex) {
             return null;
@@ -63,7 +57,7 @@ public class catalogosDAO {
             SboTbCatArticulo ob = new SboTbCatArticulo();
             ob.setCatIdPk(rs.getInt("Cat_Id_Pk"));
             ob.setCatDesc(rs.getString("Cat_Desc"));
-           ob.setArtCat_Estado(rs.getString("Cat_Estado"));
+            ob.setArtCat_Estado(rs.getString("Cat_Estado"));
             ob.setSboTbSubFamilia(Subfamilia(rs));
             return ob;
         } catch (SQLException ex) {
@@ -85,9 +79,9 @@ public class catalogosDAO {
         }
 
     }
-
     
-        public List<SboTbFamilia> listaFamilias (String filtro) {
+    
+    public List<SboTbFamilia> listaFamilias(String filtro) {
         List<SboTbFamilia> resultado = new ArrayList<SboTbFamilia>();
         try {
             String sql = "select * from Sbo_TB_Familia f where f.Fami_Desc like '%%%s%%'";
@@ -105,7 +99,7 @@ public class catalogosDAO {
         List<SboTbSubFamilia> resultado = new ArrayList<SboTbSubFamilia>();
         try {
             String sql = "select * from Sbo_TB_SubFamilia s where s.SubFami_Desc like '%%%s%%'";
-            sql = String.format(sql,filtro);
+            sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
                 resultado.add(Subfamilia(rs));
@@ -143,6 +137,8 @@ public class catalogosDAO {
         }
         return resultado;
     }
+    
+  
 
 
     public SboTbCatArticulo getCatArticulo(int filtro) throws Exception {
@@ -191,18 +187,9 @@ public class catalogosDAO {
             throw new Exception("Bien no Existe");
         }
     }
-
-    public void actualizarFamilia(SboTbFamilia objeto) throws Exception {
-        String query = "update Sbo_TB_Familia set Fami_Desc = ?,Fami_Estado = ? where Fami_Id_Pk = ?";
-        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
-        preparedStmt.setString(1, objeto.getFamiDesc());
-         preparedStmt.setString(2, objeto.getFamiEstado());
-        preparedStmt.setString(3, objeto.getFamiIdPk());
-        preparedStmt.executeUpdate();
-        db.getConnection().close();
-    }
-
-       public void actualizarCatContable(SboTbCatContable objeto) throws Exception {
+  
+    
+    public void actualizarCatContable(SboTbCatContable objeto) throws Exception {
         String query = "update Sbo_TB_CatContable set Cnt_Desc = ?, Cnt_Est = ?, Cnt_Nivel = ?, Cnt_Codi = ? where Cnt_Id_PK = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getCntDesc());
@@ -213,18 +200,34 @@ public class catalogosDAO {
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
-     public void actualizarSubFamilia(SboTbSubFamilia objeto) throws Exception {
+
+    public void actualizarFamilia(SboTbFamilia objeto) throws Exception {
+        String query = "update Sbo_TB_Familia set Fami_Desc = ?,Fami_Estado = ? where Fami_Id_Pk = ?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setString(1, objeto.getFamiDesc());
+        preparedStmt.setString(2, objeto.getFamiEstado());
+        preparedStmt.setString(3, objeto.getFamiIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
+
+
+ 
+    
+
+    public void actualizarSubFamilia(SboTbSubFamilia objeto) throws Exception {
+
         String query = "update Sbo_TB_SubFamilia set SubFami_Desc = ?, SubFami_CodF_Fk = ?, SubFami_Estado = ? where SubFami_Id_Pk = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getSubFamiDesc());
         preparedStmt.setString(2, objeto.getSboTbFamilia().getFamiIdPk());
-         preparedStmt.setString(3, objeto.getSubFamiEstado());
+        preparedStmt.setString(3, objeto.getSubFamiEstado());
         preparedStmt.setString(4, objeto.getSubFamiIdPk());
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
 
-       public void actualizarCatArticulo(SboTbCatArticulo objeto) throws Exception {
+    public void actualizarCatArticulo(SboTbCatArticulo objeto) throws Exception {
         String query = "update Sbo_TB_CatArticulo set Cat_Desc = ?, Cat_SubF_FK = ?, Cat_Estado=? where Cat_Id_PK = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getCatDesc());
@@ -234,8 +237,8 @@ public class catalogosDAO {
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
-     
-       public void crearFamilia(SboTbFamilia objeto) throws Exception{
+
+    public void crearFamilia(SboTbFamilia objeto) throws Exception {
         String query = "insert into Sbo_TB_Familia(Fami_Id_Pk,Fami_Desc,Fami_Estado)values(?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getFamiIdPk());
@@ -243,9 +246,9 @@ public class catalogosDAO {
         preparedStmt.setString(3, "1");
         preparedStmt.executeUpdate();
         db.getConnection().close();
-       }
-       
-       public void crearSubFamilia(SboTbSubFamilia objeto) throws Exception{
+    }
+
+    public void crearSubFamilia(SboTbSubFamilia objeto) throws Exception {
         String query = "insert into Sbo_TB_SubFamilia(SubFami_Id_Pk,SubFami_Desc,SubFami_CodF_Fk,SubFami_Estado)values(?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getSubFamiIdPk());
@@ -254,20 +257,20 @@ public class catalogosDAO {
         preparedStmt.setString(4, "1");
         preparedStmt.executeUpdate();
         db.getConnection().close();
-       }
-       
-            public void crearCatArticulo(SboTbCatArticulo objeto) throws Exception{
+    }
+
+    public void crearCatArticulo(SboTbCatArticulo objeto) throws Exception {
         String query = "insert into Sbo_TB_CatArticulo(Cat_Cod_Sicop,Cat_SubF_FK,Cat_Desc,Cat_Estado)values(?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
-        
         preparedStmt.setString(1, objeto.getCatCodSicop());
         preparedStmt.setString(2, objeto.getSboTbSubFamilia().getSubFamiIdPk());
         preparedStmt.setString(3, objeto.getCatDesc());
         preparedStmt.setString(4, "1");
         preparedStmt.executeUpdate();
         db.getConnection().close();
-       }
-            
+    }
+    
+ 
        public void crearCatContable(SboTbCatContable objeto) throws Exception{
         String query = "insert into Sbo_TB_CatContable(Cnt_Desc,Cnt_Codi,Cnt_Nivel,Cnt_Est)values(?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -280,4 +283,5 @@ public class catalogosDAO {
         db.getConnection().close();
        }
             
+
 }
