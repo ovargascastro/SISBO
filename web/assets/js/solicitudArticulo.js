@@ -1,3 +1,9 @@
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 
 function selecArt() {
 
@@ -163,4 +169,172 @@ function getExistencias() {
 function muestraCantidad(cant){
     //alert("prueba");
     $("#cantidadExist").val(cant);
+}
+
+function buscarSolicitudxAprobar() {
+
+    $.ajax({type: "GET",
+        url: "api/soliAprobacion?filtro=" + $("#filtro").val(),
+        success: listSoliArt,
+        error: function (jqXHR) {
+            alert(errorMessage(jqXHR.status));
+        }
+    });
+    
+    
+}
+
+function abrirModalRechazar(){
+
+        $('#Rechazar').modal('show');
+   
+
+}
+
+
+function abrirModalAprobar(filtro){
+    console.log(filtro);
+ $.ajax({type: "GET",
+            url:"api/soliAprobacion/" + filtro,
+            success: mostrarXaprobar,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+    
+}
+
+var solIdActual;
+var solFecha;
+var solDeparta;
+function mostrarXaprobar(soli) {
+ solIdActual = soli.solArtiIdPk;
+ solFecha= soli.solArtiFechSoli;
+ solDeparta= soli.abaaTbDepartamento;
+   // solEstado= soli.c;
+        $('#modalAprobar').modal('show');
+        console.log(soli.solArtiIdPk);
+
+}
+
+   var solEstado="Aprobada";     
+ function actualizarEstadoAprobacion() {
+ console.log(solIdActual);
+    SboTbSoliArti = {
+        solArtiIdPk: solIdActual,
+        solArtiFechSoli: solFecha,
+        abaaTbDepartamento: solDeparta,
+        solArtiEsta: solEstado
+    };
+    $.ajax({type: "PUT",
+        url: "api/solicitudArticulo",
+        data: JSON.stringify(SboTbSoliArti),
+        contentType: "application/json",
+        success: afterUpdateApEs,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+function afterUpdateApEs() {
+    buscarSolicitudxAprobar();
+    $('#modalAprobar').modal('hide');
+
+}   
+
+var solEstado2="PendienteVBJefe";     
+ function actualizarEstadoJefe() {
+ console.log(solIdActual);
+    SboTbSoliArti = {
+        solArtiIdPk: solIdActual,
+        solArtiFechSoli: solFecha,
+        abaaTbDepartamento: solDeparta,
+        solArtiEsta: solEstado2
+    };
+    $.ajax({type: "PUT",
+        url: "api/solicitudArticulo",
+        data: JSON.stringify(SboTbSoliArti),
+        contentType: "application/json",
+        success: afterUpdateApEs,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+var solEstado3="PendienteVBTI";     
+ function actualizarEstadoTI() {
+ console.log(solIdActual);
+    SboTbSoliArti = {
+        solArtiIdPk: solIdActual,
+        solArtiFechSoli: solFecha,
+        abaaTbDepartamento: solDeparta,
+        solArtiEsta: solEstado3
+    };
+    $.ajax({type: "PUT",
+        url: "api/solicitudArticulo",
+        data: JSON.stringify(SboTbSoliArti),
+        contentType: "application/json",
+        success: afterUpdateApEs,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+
+
+var solEstado4="Rechazado: ";     
+ function actualizarEstadoRechazo() {
+ console.log(solIdActual);
+    SboTbSoliArti = {
+        solArtiIdPk: solIdActual,
+        solArtiFechSoli: solFecha,
+        abaaTbDepartamento: solDeparta,
+        solArtiEsta:solEstado4+$("#motivo").val()
+    };
+    $.ajax({type: "PUT",
+        url: "api/solicitudArticulo",
+        data: JSON.stringify(SboTbSoliArti),
+        contentType: "application/json",
+        success: afterUpdateApEs,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+
+function afterUpdateApEs() {
+    buscarSolicitudxAprobar();
+    $('#Rechazar').modal('hide');
+
+}   
+
+function imprimir(filtro) {
+     $.ajax({type: "GET",
+            url:"api/solicitudArticulo/" + filtro,
+            success: mostrarsoli,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+    
+}   
+
+var a;
+function mostrarsoli(soli) {
+    
+  console.log(soli);
+    $('#SolicitudImprimir').modal('show');
+   
+   $("#num").val(soli.solArtiIdPk);  
+   $("#departa").val(formatDate(soli.solArtiFechSoli));  
+//    console.log(soli.abaaTbDepartamento.deptoNomb);
+       // console.log(a);
 }

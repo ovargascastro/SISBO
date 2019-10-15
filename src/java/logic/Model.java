@@ -259,6 +259,11 @@ public class Model {
         SboTbCatContable ob = catdao.getSboTbCatContable(filtro);
         return ob;
     }
+     public SboTbSoliArti getSboTbSoliArti(int filtro) throws Exception {
+        SboTbSoliArti ob = solArtdao.getSboTbSoliArti(filtro);
+        return ob;
+    }
+    
 
     public void actualizarCatContable(SboTbCatContable cont) throws Exception {
         catdao.actualizarCatContable(cont);
@@ -359,4 +364,13 @@ public class Model {
         int valor = Integer.parseInt(filtro);
         return solArtdao.listadoArticulosPorSolicitud(valor);
     }
+     public List<SboTbSoliArti> listadoSolicitudxAprobar(String soli){
+        return solArtdao.listadoSolicitudxAprobar(soli);
+     }
+     
+      public void actualizarEstSolicitud(SboTbSoliArti cont) throws Exception {
+        solArtdao.actualizarEstSolicitud(cont);
+        
+    }
+    
 }
