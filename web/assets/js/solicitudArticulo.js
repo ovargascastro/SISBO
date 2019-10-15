@@ -324,6 +324,15 @@ function imprimir(filtro) {
                 alert(errorMessage(jqXHR.status));
             }
         });
+        
+    $.ajax({type: "GET",
+        url: "api/artPorSol?filtro=" + filtro,
+        success: listaArticulosxSolImp,
+        error: function (jqXHR) {
+            alert(errorMessage(jqXHR.status));
+        }
+
+    });
     
 }   
 
