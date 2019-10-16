@@ -379,4 +379,13 @@ public class Model {
         return solArtdao.listadoSolicitudVistobuenoTI(filtro);
     }
     
+       public void actualizarEstSolicitudJefe(SboTbSoliArti cont) throws Exception {
+        solArtdao.actualizarEstSolicitudJefe(cont);
+        
+    }
+       
+     public void actualizarEstSolicitudTI(SboTbSoliArti cont) throws Exception {
+        solArtdao.actualizarEstSolicitudTI(cont);
+        
+    }
 }

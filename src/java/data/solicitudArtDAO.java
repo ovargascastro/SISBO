@@ -336,7 +336,7 @@ public class solicitudArtDAO {
         try {
                 String sql = "select * from Sbo_TB_Soli_Arti sa, ABAA_TB_Departamento dep "
                     + "where sa.Sol_Arti_Id_PK like '%%%s%%'"
-                    + "and (sa.Sol_Arti_Esta = 'pendiente' or sa.Sol_Arti_Esta = 'VBJefeAprobado' or sa.Sol_Arti_Esta = 'VBJefeTIAprobado')"
+                    + "and (sa.Sol_Arti_Esta = 'pendiente' or sa.Sol_Arti_Esta = 'VBJefeAprobado' or sa.Sol_Arti_Esta = 'VBTIAprobado')"
                     + "and sa.Sol_Arti_Id_Depa_Fk=dep.Depto_Id_PK";
 //            String sql = "select * from Sbo_TB_Soli_Arti o where o.Sol_Arti_Esta='pendiente' and o.Sol_Arti_Id_PK like '%%%s%%'";
             sql = String.format(sql, filtro);
@@ -406,4 +406,27 @@ public class solicitudArtDAO {
         return resultado;
     }
      
+           public void actualizarEstSolicitudJefe(SboTbSoliArti objeto) throws SQLException {
+        String query = "update Sbo_TB_Soli_Arti set Sol_Arti_Esta = ?, Sol_Arti_Vist_Jefe = ? where Sol_Arti_Id_PK = ?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setString(1, objeto.getSolArtiEsta());
+        preparedStmt.setBoolean(2, objeto.getSolArtiVistJefe());
+        preparedStmt.setInt(3, objeto.getSolArtiIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+
+    }
+          
+        public void actualizarEstSolicitudTI(SboTbSoliArti objeto) throws SQLException {
+        String query = "update Sbo_TB_Soli_Arti set Sol_Arti_Esta = ?, Sol_Arti_Vist_Ti = ? where Sol_Arti_Id_PK = ?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setString(1, objeto.getSolArtiEsta());
+        preparedStmt.setBoolean(2, objeto.getSolArtiVistTi());
+        preparedStmt.setInt(3, objeto.getSolArtiIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+
+    }
+          
+          
 }

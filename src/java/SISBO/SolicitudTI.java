@@ -54,7 +54,7 @@ public class SolicitudTI {
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(SboTbSoliArti cont) {
         try {
-            Model.instance().actualizarEstSolicitud(cont);
+            Model.instance().actualizarEstSolicitudTI(cont);
         } catch (Exception ex) {
             throw new NotFoundException();
         }

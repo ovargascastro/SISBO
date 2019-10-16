@@ -261,11 +261,14 @@ function AprobarTI(filtro){
 var solIdActual2;
 var solFecha2;
 var solDeparta2;
+
 function mostraraprobarTI(soli) {
  solIdActual2 = soli.solArtiIdPk;
  solFecha2= soli.solArtiFechSoli;
  solDeparta2= soli.abaaTbDepartamento;
+ 
     console.log("estoy en el aprobarIT");
+  
    // solEstado= soli.c;
         $('#AprobarTI').modal('show');
         console.log(soli.solArtiIdPk);
@@ -284,7 +287,7 @@ function abrirModalAprobar(filtro){
         });
     
 }
-
+  var VBJf;
 var solIdActual;
 var solFecha;
 var solDeparta;
@@ -292,7 +295,9 @@ function mostrarXaprobar(soli) {
  solIdActual = soli.solArtiIdPk;
  solFecha= soli.solArtiFechSoli;
  solDeparta= soli.abaaTbDepartamento;
+ VBJF=soli.solArtiVistJefe;
    // solEstado= soli.c;
+     console.log(VBJF);
         $('#modalAprobar').modal('show');
         console.log(soli.solArtiIdPk);
 
@@ -442,6 +447,7 @@ function mostrarsoli(soli) {
 
 
 
+var vistoBueno=1;
 var solEstado1="VBJefeAprobado";     
  function actualizarEstadoVbJf() {
  console.log(solIdActual);
@@ -449,7 +455,8 @@ var solEstado1="VBJefeAprobado";
         solArtiIdPk: solIdActual1,
         solArtiFechSoli: solFecha1,
         abaaTbDepartamento: solDeparta1,
-        solArtiEsta: solEstado1
+        solArtiEsta: solEstado1,
+        solArtiVistJefe:vistoBueno
     };
     $.ajax({type: "PUT",
         url: "api/soliAprobacionJF",
@@ -474,9 +481,9 @@ var solEstado5="Rechazado Jefe: ";
  function actualizarEstadoRechazoJefe() {
  console.log(solIdActual);
     SboTbSoliArti = {
-        solArtiIdPk: solIdActual,
-        solArtiFechSoli: solFecha,
-        abaaTbDepartamento: solDeparta,
+        solArtiIdPk: solIdActual1,
+        solArtiFechSoli: solFecha1,
+        abaaTbDepartamento: solDeparta1,
         solArtiEsta:solEstado5+$("#motivo").val()
     };
     $.ajax({type: "PUT",
@@ -499,15 +506,17 @@ function afterUpdateRechJefe() {
 }   
 
 
-
-var solEstado6="VBJefeTIAprobado";     
+var vistoBueno2=1;
+var solEstado6="VBTIAprobado";     
  function actualizarEstadoVbTI() {
  console.log(solIdActual);
     SboTbSoliArti = {
         solArtiIdPk: solIdActual2,
         solArtiFechSoli: solFecha2,
         abaaTbDepartamento: solDeparta2,
-        solArtiEsta: solEstado6
+        solArtiEsta: solEstado6,
+        solArtiVistTi:vistoBueno2
+        
     };
     $.ajax({type: "PUT",
         url: "api/soliAprobacionTI",
@@ -531,9 +540,9 @@ var solEstado7="Rechazado TI: ";
  function actualizarEstadoRechazoTI() {
  console.log(solIdActual);
     SboTbSoliArti = {
-        solArtiIdPk: solIdActual,
-        solArtiFechSoli: solFecha,
-        abaaTbDepartamento: solDeparta,
+        solArtiIdPk: solIdActual2,
+        solArtiFechSoli: solFecha2,
+        abaaTbDepartamento: solDeparta2,
         solArtiEsta:solEstado7+$("#motivo").val()
     };
     $.ajax({type: "PUT",

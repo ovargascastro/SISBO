@@ -130,7 +130,7 @@
                         <p>Motivo del rechazo de la solicitud</p>
                         <div class="col"><input class="form-control" type="text" id="motivo"></div>
                     </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>  <button class="btn btn-primary bg-danger" type="button" onclick="javascript:actualizarEstadoRechazoJefe()">Rechazar</button></div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>  <button class="btn btn-primary bg-danger" type="button" onclick="actualizarEstadoRechazoTI()">Rechazar</button></div>
                 </div>
             </div>
         </div>
