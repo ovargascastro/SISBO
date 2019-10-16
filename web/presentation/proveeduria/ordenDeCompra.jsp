@@ -194,7 +194,11 @@
                                         <input class="form-control" type="text" placeholder="Modelo" id="Modelo">
                                         
                                         <label>Precio</label>
+
+                                        <input class="form-control" type="number" placeholder="Precio" id="Precio" required>
+
                                         <input class="form-control" type="number" placeholder="Precio" min="0" id="Precio" required>
+
                                         
                                         <label>Unidad de Medida</label>
                                         <select class="form-control" id="selectUnidadMedida" required>

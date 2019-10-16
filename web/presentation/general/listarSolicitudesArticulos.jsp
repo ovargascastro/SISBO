@@ -125,15 +125,8 @@
                                                 <th>Cantidad        <br><br></th>
                                             </tr>
                                         </thead>
-                                        <tbody id="listaArticulosSolicitud">
-                                            <tr>  
-                                              <td> GOMA </td>
-                                              <td> 4 </td>
-                                            </tr>
-                                               <tr>  
-                                              <td> lapiz </td>
-                                              <td> 6 </td>
-                                            </tr>
+                                        <tbody id="listaArticulosSolicitudIMP">
+                                            
                                                   
                                         </tbody>
                                     </table>
@@ -193,6 +186,25 @@
     
 
     function filaArticulos(listado, objeto) {
+        var tr = $("<tr />");
+        tr.html(
+                "<td>" + objeto.sboTbArticulo.artDesc + "</td>"
+                + "<td>" + objeto.solArtiCant + "</td>");
+
+        listado.append(tr);
+
+    }
+       function listaArticulosxSolImp(personas) {
+        var listado = $("#listaArticulosSolicitudIMP");
+        listado.html("");
+        personas.forEach((p) => {
+            filaArticulosImp(listado, p);
+        });
+    }
+    
+    
+
+    function filaArticulosImp(listado, objeto) {
         var tr = $("<tr />");
         tr.html(
                 "<td>" + objeto.sboTbArticulo.artDesc + "</td>"

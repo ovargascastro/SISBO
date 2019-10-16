@@ -5,6 +5,8 @@
  */
 
 
+
+
 function selecArt() {
 
     var filtro = document.getElementById("selectDeptos").value;
@@ -184,10 +186,92 @@ function buscarSolicitudxAprobar() {
     
 }
 
-function abrirModalRechazar(){
+function buscarSolicitudVbJf() {
 
+    $.ajax({type: "GET",
+        url: "api/soliAprobacionJF?filtro=" + $("#filtro").val(),
+        success: listSoliArtJF,
+        error: function (jqXHR) {
+            alert(errorMessage(jqXHR.status));
+        }
+    });
+    
+    
+}
+
+
+function buscarSolicitudVbTI() {
+
+    $.ajax({type: "GET",
+        url: "api/soliAprobacionTI?filtro=" + $("#filtro").val(),
+        success: listSoliArtTI,
+        error: function (jqXHR) {
+            alert(errorMessage(jqXHR.status));
+        }
+    });
+    
+    
+}
+
+function abrirModalRechazar(){
+        $("#motivo").val("");
         $('#Rechazar').modal('show');
    
+
+}
+
+function Aprobar(filtro){
+    console.log(filtro);
+ $.ajax({type: "GET",
+            url:"api/soliAprobacionJF/" + filtro,
+            success: mostraraprobarJF,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+    
+}
+
+var solIdActual1;
+var solFecha1;
+var solDeparta1;
+function mostraraprobarJF(soli) {
+ solIdActual1 = soli.solArtiIdPk;
+ solFecha1= soli.solArtiFechSoli;
+ solDeparta1= soli.abaaTbDepartamento;
+    console.log("estoy en el aprobarJEFE");
+   // solEstado= soli.c;
+        $('#Aprobar').modal('show');
+        console.log(soli.solArtiIdPk);
+
+}
+
+function AprobarTI(filtro){
+    console.log(filtro);
+ $.ajax({type: "GET",
+            url:"api/soliAprobacionTI/" + filtro,
+            success: mostraraprobarTI,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+    
+}
+
+var solIdActual2;
+var solFecha2;
+var solDeparta2;
+
+function mostraraprobarTI(soli) {
+ solIdActual2 = soli.solArtiIdPk;
+ solFecha2= soli.solArtiFechSoli;
+ solDeparta2= soli.abaaTbDepartamento;
+ 
+    console.log("estoy en el aprobarIT");
+  
+   // solEstado= soli.c;
+        $('#AprobarTI').modal('show');
+        console.log(soli.solArtiIdPk);
 
 }
 
@@ -203,7 +287,8 @@ function abrirModalAprobar(filtro){
         });
     
 }
-
+var VBJF;
+var VBTI;
 var solIdActual;
 var solFecha;
 var solDeparta;
@@ -211,7 +296,21 @@ function mostrarXaprobar(soli) {
  solIdActual = soli.solArtiIdPk;
  solFecha= soli.solArtiFechSoli;
  solDeparta= soli.abaaTbDepartamento;
+ VBJF=soli.solArtiVistJefe;
+ VBTI=soli.solArtiVistTi;
    // solEstado= soli.c;
+     console.log(VBJF);
+     console.log(VBTI);
+     if(VBJF===true && VBTI===false){
+         $('#modalAprobarJEFE').modal('show');     
+     }
+     else if(VBJF===false && VBTI===true){
+         $('#modalAprobarTI').modal('show');     
+     }
+     else if(VBJF===true && VBTI===true){
+         $('#modalAprobarAmbas').modal('show');
+      }
+     else
         $('#modalAprobar').modal('show');
         console.log(soli.solArtiIdPk);
 
@@ -230,7 +329,7 @@ function mostrarXaprobar(soli) {
         url: "api/solicitudArticulo",
         data: JSON.stringify(SboTbSoliArti),
         contentType: "application/json",
-        success: afterUpdateApEs,
+        success: afterUpdateApE,
         error: function (jqXHR) {
             alert('Error');
         }
@@ -238,9 +337,20 @@ function mostrarXaprobar(soli) {
 
 }
 
-function afterUpdateApEs() {
+function afterUpdateApE() {
     buscarSolicitudxAprobar();
-    $('#modalAprobar').modal('hide');
+    
+   if(VBJF===true && VBTI===false){
+         $('#modalAprobarJEFE').modal('hide');     
+     }
+     else if(VBJF===false && VBTI===true){
+         $('#modalAprobarTI').modal('hide');     
+     }
+     else if(VBJF===true && VBTI===true){
+         $('#modalAprobarAmbas').modal('hide');
+      }
+     else
+        $('#modalAprobar').modal('hide');
 
 }   
 
@@ -257,13 +367,28 @@ var solEstado2="PendienteVBJefe";
         url: "api/solicitudArticulo",
         data: JSON.stringify(SboTbSoliArti),
         contentType: "application/json",
-        success: afterUpdateApEs,
+        success: afterUpdateApEsJf,
         error: function (jqXHR) {
             alert('Error');
         }
     });
 
 }
+function afterUpdateApEsJf() {
+    buscarSolicitudxAprobar();
+   if(VBJF===true && VBTI===false){
+         $('#modalAprobarJEFE').modal('hide');     
+     }
+     else if(VBJF===false && VBTI===true){
+         $('#modalAprobarTI').modal('hide');     
+     }
+     else if(VBJF===true && VBTI===true){
+         $('#modalAprobarAmbas').modal('hide');
+      }
+     else
+        $('#modalAprobar').modal('hide');
+
+}   
 
 var solEstado3="PendienteVBTI";     
  function actualizarEstadoTI() {
@@ -278,14 +403,28 @@ var solEstado3="PendienteVBTI";
         url: "api/solicitudArticulo",
         data: JSON.stringify(SboTbSoliArti),
         contentType: "application/json",
-        success: afterUpdateApEs,
+        success: afterUpdateApEsTI,
         error: function (jqXHR) {
             alert('Error');
         }
     });
 
 }
+function afterUpdateApEsTI() {
+    buscarSolicitudxAprobar();
+    if(VBJF===true && VBTI===false){
+         $('#modalAprobarJEFE').modal('hide');     
+     }
+     else if(VBJF===false && VBTI===true){
+         $('#modalAprobarTI').modal('hide');     
+     }
+     else if(VBJF===true && VBTI===true){
+         $('#modalAprobarAmbas').modal('hide');
+      }
+     else
+        $('#modalAprobar').modal('hide');
 
+}   
 
 
 var solEstado4="Rechazado: ";     
@@ -317,6 +456,8 @@ function afterUpdateApEs() {
 }   
 
 function imprimir(filtro) {
+    
+    
      $.ajax({type: "GET",
             url:"api/solicitudArticulo/" + filtro,
             success: mostrarsoli,
@@ -324,6 +465,15 @@ function imprimir(filtro) {
                 alert(errorMessage(jqXHR.status));
             }
         });
+        
+        $.ajax({type: "GET",
+        url: "api/artPorSol?filtro=" + filtro,
+        success: listaArticulosxSolImp,
+        error: function (jqXHR) {
+            alert(errorMessage(jqXHR.status));
+        }
+
+    });
     
 }   
 
@@ -338,3 +488,122 @@ function mostrarsoli(soli) {
 //    console.log(soli.abaaTbDepartamento.deptoNomb);
        // console.log(a);
 }
+
+
+
+var vistoBueno=1;
+var solEstado1="VBJefeAprobado";     
+ function actualizarEstadoVbJf() {
+ console.log(solIdActual);
+    SboTbSoliArti = {
+        solArtiIdPk: solIdActual1,
+        solArtiFechSoli: solFecha1,
+        abaaTbDepartamento: solDeparta1,
+        solArtiEsta: solEstado1,
+        solArtiVistJefe:vistoBueno
+    };
+    $.ajax({type: "PUT",
+        url: "api/soliAprobacionJF",
+        data: JSON.stringify(SboTbSoliArti),
+        contentType: "application/json",
+        success: afterUpdateVBJefe,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+function afterUpdateVBJefe() {
+    buscarSolicitudVbJf();
+    $('#Aprobar').modal('hide');
+
+}   
+
+
+var solEstado5="Rechazado Jefe: ";     
+ function actualizarEstadoRechazoJefe() {
+ console.log(solIdActual);
+    SboTbSoliArti = {
+        solArtiIdPk: solIdActual1,
+        solArtiFechSoli: solFecha1,
+        abaaTbDepartamento: solDeparta1,
+        solArtiEsta:solEstado5+$("#motivo").val()
+    };
+    $.ajax({type: "PUT",
+        url: "api/soliAprobacionJF",
+        data: JSON.stringify(SboTbSoliArti),
+        contentType: "application/json",
+        success: afterUpdateRechJefe,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+
+function afterUpdateRechJefe() {
+    buscarSolicitudVbJf();
+    $('#Rechazar').modal('hide');
+
+}   
+
+
+var vistoBueno2=1;
+var solEstado6="VBTIAprobado";     
+ function actualizarEstadoVbTI() {
+ console.log(solIdActual);
+    SboTbSoliArti = {
+        solArtiIdPk: solIdActual2,
+        solArtiFechSoli: solFecha2,
+        abaaTbDepartamento: solDeparta2,
+        solArtiEsta: solEstado6,
+        solArtiVistTi:vistoBueno2
+        
+    };
+    $.ajax({type: "PUT",
+        url: "api/soliAprobacionTI",
+        data: JSON.stringify(SboTbSoliArti),
+        contentType: "application/json",
+        success: afterUpdateVBTI,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+function afterUpdateVBTI() {
+    buscarSolicitudVbTI();
+    $('#AprobarTI').modal('hide');
+
+}   
+
+var solEstado7="Rechazado TI: ";     
+ function actualizarEstadoRechazoTI() {
+ console.log(solIdActual);
+    SboTbSoliArti = {
+        solArtiIdPk: solIdActual2,
+        solArtiFechSoli: solFecha2,
+        abaaTbDepartamento: solDeparta2,
+        solArtiEsta:solEstado7+$("#motivo").val()
+    };
+    $.ajax({type: "PUT",
+        url: "api/soliAprobacionTI",
+        data: JSON.stringify(SboTbSoliArti),
+        contentType: "application/json",
+        success: afterUpdateRechTI,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+
+function afterUpdateRechTI() {
+    buscarSolicitudVbTI();
+    $('#Rechazar').modal('hide');
+
+}   

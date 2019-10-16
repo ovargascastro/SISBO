@@ -372,5 +372,20 @@ public class Model {
         solArtdao.actualizarEstSolicitud(cont);
         
     }
+         public List<SboTbSoliArti> listadoSolicitudVistobuenoJf(String filtro) {
+        return solArtdao.listadoSolicitudVistobuenoJf(filtro);
+    }
+        public List<SboTbSoliArti> listadoSolicitudVistobuenoTI(String filtro) {
+        return solArtdao.listadoSolicitudVistobuenoTI(filtro);
+    }
     
+       public void actualizarEstSolicitudJefe(SboTbSoliArti cont) throws Exception {
+        solArtdao.actualizarEstSolicitudJefe(cont);
+        
+    }
+       
+     public void actualizarEstSolicitudTI(SboTbSoliArti cont) throws Exception {
+        solArtdao.actualizarEstSolicitudTI(cont);
+        
+    }
 }
