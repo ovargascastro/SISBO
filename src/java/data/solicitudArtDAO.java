@@ -220,7 +220,6 @@ public class solicitudArtDAO {
             return null;
         }
     }
-    
     public void agregarSolicitudArticulo(SboTbSoliArti objeto) throws Exception {
         String query = "insert into Sbo_TB_Soli_Arti(Sol_Arti_Fech_Soli,Sol_Arti_Id_Depa_Fk,"
                 + "Sol_Arti_Id_Func_Fk,Sol_Arti_Esta)"
@@ -328,6 +327,47 @@ public class solicitudArtDAO {
             return solxArt;
         } catch (SQLException ex) {
             return null;
+        }
+    }
+    
+
+    
+    public List<SboTbSoliArti> listadoSolicitudxAprobar(String filtro) {
+        List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
+        try {
+                String sql = "select * from Sbo_TB_Soli_Arti sa, ABAA_TB_Departamento dep "
+                    + "where sa.Sol_Arti_Id_PK like '%%%s%%'"
+                    + "and sa.Sol_Arti_Esta = 'pendiente'"
+                    + "and sa.Sol_Arti_Id_Depa_Fk=dep.Depto_Id_PK";
+//            String sql = "select * from Sbo_TB_Soli_Arti o where o.Sol_Arti_Esta='pendiente' and o.Sol_Arti_Id_PK like '%%%s%%'";
+            sql = String.format(sql, filtro);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(soliArti(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+
+    public void actualizarEstSolicitud(SboTbSoliArti objeto) throws SQLException {
+        String query = "update Sbo_TB_Soli_Arti set Sol_Arti_Esta = ? where Sol_Arti_Id_PK = ?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setString(1, objeto.getSolArtiEsta());
+        preparedStmt.setInt(2, objeto.getSolArtiIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+
+    }
+    
+     public SboTbSoliArti getSboTbSoliArti(int filtro) throws Exception {
+        String sql = "select * from Sbo_TB_Soli_Arti f where f.Sol_Arti_Id_PK ='%s'";
+        sql = String.format(sql, filtro);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return soliArti(rs);
+        } else {
+            throw new Exception("Bien no Existe");
         }
     }
 
