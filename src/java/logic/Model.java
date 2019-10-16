@@ -372,5 +372,11 @@ public class Model {
         solArtdao.actualizarEstSolicitud(cont);
         
     }
+         public List<SboTbSoliArti> listadoSolicitudVistobuenoJf(String filtro) {
+        return solArtdao.listadoSolicitudVistobuenoJf(filtro);
+    }
+        public List<SboTbSoliArti> listadoSolicitudVistobuenoTI(String filtro) {
+        return solArtdao.listadoSolicitudVistobuenoTI(filtro);
+    }
     
 }

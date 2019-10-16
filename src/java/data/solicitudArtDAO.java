@@ -330,14 +330,13 @@ public class solicitudArtDAO {
         }
     }
     
-
     
     public List<SboTbSoliArti> listadoSolicitudxAprobar(String filtro) {
         List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
         try {
                 String sql = "select * from Sbo_TB_Soli_Arti sa, ABAA_TB_Departamento dep "
                     + "where sa.Sol_Arti_Id_PK like '%%%s%%'"
-                    + "and sa.Sol_Arti_Esta = 'pendiente'"
+                    + "and (sa.Sol_Arti_Esta = 'pendiente' or sa.Sol_Arti_Esta = 'VBJefeAprobado' or sa.Sol_Arti_Esta = 'VBJefeTIAprobado')"
                     + "and sa.Sol_Arti_Id_Depa_Fk=dep.Depto_Id_PK";
 //            String sql = "select * from Sbo_TB_Soli_Arti o where o.Sol_Arti_Esta='pendiente' and o.Sol_Arti_Id_PK like '%%%s%%'";
             sql = String.format(sql, filtro);
@@ -371,4 +370,40 @@ public class solicitudArtDAO {
         }
     }
 
+          public List<SboTbSoliArti> listadoSolicitudVistobuenoJf(String filtro) {
+        List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
+        try {
+                String sql = "select * from Sbo_TB_Soli_Arti sa, ABAA_TB_Departamento dep "
+                    + "where sa.Sol_Arti_Id_PK like '%%%s%%'"
+                    + "and sa.Sol_Arti_Esta = 'PendienteVBJefe'"
+                    + "and sa.Sol_Arti_Id_Depa_Fk=dep.Depto_Id_PK";
+//            String sql = "select * from Sbo_TB_Soli_Arti o where o.Sol_Arti_Esta='pendiente' and o.Sol_Arti_Id_PK like '%%%s%%'";
+            sql = String.format(sql, filtro);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(soliArti(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+
+          public List<SboTbSoliArti> listadoSolicitudVistobuenoTI(String filtro) {
+        List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
+        try {
+                String sql = "select * from Sbo_TB_Soli_Arti sa, ABAA_TB_Departamento dep "
+                    + "where sa.Sol_Arti_Id_PK like '%%%s%%'"
+                    + "and sa.Sol_Arti_Esta = 'PendienteVBTI'"
+                    + "and sa.Sol_Arti_Id_Depa_Fk=dep.Depto_Id_PK";
+//            String sql = "select * from Sbo_TB_Soli_Arti o where o.Sol_Arti_Esta='pendiente' and o.Sol_Arti_Id_PK like '%%%s%%'";
+            sql = String.format(sql, filtro);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(soliArti(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+     
 }
