@@ -83,10 +83,12 @@ function agregarSolicitudArticulo() {
         contentType: "application/json",
         success: agregarSoliXart,
         error: function (jqXHR) {
-            alert(errorMessage(jqXHR.status));
+            alert("Seleccione los artículos que requiere antes de enviar la solicitud");
         }
     });
 }
+
+
 
 function agregarSoliXart() {
     $.ajax({type: "POST",
@@ -528,7 +530,8 @@ var solEstado5="Rechazado Jefe: ";
         solArtiIdPk: solIdActual1,
         solArtiFechSoli: solFecha1,
         abaaTbDepartamento: solDeparta1,
-        solArtiEsta:solEstado5+$("#motivo").val()
+        solArtiEsta:solEstado5+$("#motivoJF").val(),
+        solArtiVistJefe:0
     };
     $.ajax({type: "PUT",
         url: "api/soliAprobacionJF",
@@ -587,7 +590,8 @@ var solEstado7="Rechazado TI: ";
         solArtiIdPk: solIdActual2,
         solArtiFechSoli: solFecha2,
         abaaTbDepartamento: solDeparta2,
-        solArtiEsta:solEstado7+$("#motivo").val()
+        solArtiEsta:solEstado7+$("#motivoTI").val(),
+        solArtiVistTi:0
     };
     $.ajax({type: "PUT",
         url: "api/soliAprobacionTI",
@@ -607,3 +611,14 @@ function afterUpdateRechTI() {
     $('#Rechazar').modal('hide');
 
 }   
+
+
+function eliminaArt(id){
+   if(confirm("Desea eliminar el articulo?") ){
+           $.ajax({type: "DELETE", 
+          url:"api/artSolTemp/"+id, 
+          success: buscar,
+          error: function(status){ alert(errorMessage(status));}                 
+        }); 
+    }
+  }

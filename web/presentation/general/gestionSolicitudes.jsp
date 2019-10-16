@@ -183,7 +183,7 @@
                         <h4 class="modal-title">Rechazar la Solitudes</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                     <div class="modal-body">
                         <p>Motivo del rechazo de la solicitud</p>
-                        <div class="col"><input class="form-control" type="text" id="motivo"></div>
+                        <div class="col"><input class="form-control" type="text" placeholder="Digite el motivo"  id="motivo"></div>
                     </div>
                     <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>  <button class="btn btn-primary bg-danger" type="button" onclick="javascript:actualizarEstadoRechazo()">Rechazar</button></div>
                 </div>
