@@ -214,7 +214,7 @@ function buscarSolicitudVbTI() {
 }
 
 function abrirModalRechazar(){
-
+        $("#motivo").val("");
         $('#Rechazar').modal('show');
    
 
@@ -287,7 +287,8 @@ function abrirModalAprobar(filtro){
         });
     
 }
-  var VBJf;
+var VBJF;
+var VBTI;
 var solIdActual;
 var solFecha;
 var solDeparta;
@@ -296,8 +297,20 @@ function mostrarXaprobar(soli) {
  solFecha= soli.solArtiFechSoli;
  solDeparta= soli.abaaTbDepartamento;
  VBJF=soli.solArtiVistJefe;
+ VBTI=soli.solArtiVistTi;
    // solEstado= soli.c;
      console.log(VBJF);
+     console.log(VBTI);
+     if(VBJF===true && VBTI===false){
+         $('#modalAprobarJEFE').modal('show');     
+     }
+     else if(VBJF===false && VBTI===true){
+         $('#modalAprobarTI').modal('show');     
+     }
+     else if(VBJF===true && VBTI===true){
+         $('#modalAprobarAmbas').modal('show');
+      }
+     else
         $('#modalAprobar').modal('show');
         console.log(soli.solArtiIdPk);
 
@@ -326,7 +339,18 @@ function mostrarXaprobar(soli) {
 
 function afterUpdateApE() {
     buscarSolicitudxAprobar();
-    $('#modalAprobar').modal('hide');
+    
+   if(VBJF===true && VBTI===false){
+         $('#modalAprobarJEFE').modal('hide');     
+     }
+     else if(VBJF===false && VBTI===true){
+         $('#modalAprobarTI').modal('hide');     
+     }
+     else if(VBJF===true && VBTI===true){
+         $('#modalAprobarAmbas').modal('hide');
+      }
+     else
+        $('#modalAprobar').modal('hide');
 
 }   
 
@@ -352,7 +376,17 @@ var solEstado2="PendienteVBJefe";
 }
 function afterUpdateApEsJf() {
     buscarSolicitudxAprobar();
-    $('#modalAprobar').modal('hide');
+   if(VBJF===true && VBTI===false){
+         $('#modalAprobarJEFE').modal('hide');     
+     }
+     else if(VBJF===false && VBTI===true){
+         $('#modalAprobarTI').modal('hide');     
+     }
+     else if(VBJF===true && VBTI===true){
+         $('#modalAprobarAmbas').modal('hide');
+      }
+     else
+        $('#modalAprobar').modal('hide');
 
 }   
 
@@ -378,7 +412,17 @@ var solEstado3="PendienteVBTI";
 }
 function afterUpdateApEsTI() {
     buscarSolicitudxAprobar();
-    $('#modalAprobar').modal('hide');
+    if(VBJF===true && VBTI===false){
+         $('#modalAprobarJEFE').modal('hide');     
+     }
+     else if(VBJF===false && VBTI===true){
+         $('#modalAprobarTI').modal('hide');     
+     }
+     else if(VBJF===true && VBTI===true){
+         $('#modalAprobarAmbas').modal('hide');
+      }
+     else
+        $('#modalAprobar').modal('hide');
 
 }   
 

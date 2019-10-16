@@ -291,6 +291,8 @@ public class solicitudArtDAO {
         try {
             SboTbSoliArti solArt = new SboTbSoliArti();
             solArt.setSolArtiIdPk(rs.getInt("Sol_Arti_Id_PK"));
+            solArt.setSolArtiVistJefe(rs.getBoolean("Sol_Arti_Vist_Jefe"));
+            solArt.setSolArtiVistTi(rs.getBoolean("Sol_Arti_Vist_Ti"));
             solArt.setSolArtiFechSoli(rs.getDate("Sol_Arti_Fech_Soli"));
             solArt.setAbaaTbDepartamento(departamento(rs));
             solArt.setSolArtiEsta(rs.getString("Sol_Arti_Esta"));

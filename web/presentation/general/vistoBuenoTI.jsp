@@ -27,8 +27,8 @@
     
     <div id="titulo">
         <div class="jumbotron">
-            <h1>Solicitudes de Artículos</h1>
-            <p>Listado de las solicitudes de artículos pendientes</p>
+            <h1>Visto Bueno de solicitudes de Artículos por parte de TI</h1>
+            <p>Listado de las solicitudes de artículos pendientes de Visto Bueno</p>
             <p></p>
         </div>
     </div>
