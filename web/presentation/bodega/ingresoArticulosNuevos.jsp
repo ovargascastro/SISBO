@@ -95,11 +95,12 @@
         </div>
         <div class="modal fade" role="dialog" tabindex="-1" id="agregarArticulo">
             <div class="modal-dialog" role="document">
+                <form id="actualizaArticulo" action="javascript:actualizarArticulo()">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Agregar Artículo</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                     <div class="modal-body">
-                        <form>
+                        
                             <div class="container">
                                 <div class="form-row">
                                     <div class="col">
@@ -125,11 +126,12 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
                     </div>
                     <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>
-                        <button class="btn btn-primary" type="button" onclick="actualizarArticulo()">Agregar</button></div>
+                        <button class="btn btn-primary" type="submit">Agregar</button></div>
                 </div>
+            </form>
+
             </div>
         </div>
         <div class="modal fade" role="dialog" tabindex="-1" id="modalInfoArt">
@@ -158,8 +160,10 @@
 </html>
 
 <script>
-
+                        var articuloActual;
+                        
                         function abrirModalListarArticulos(id) {
+                            articuloActual=id;
                             buscarArtxOc(id);
                             $('#listaArticulos').modal('show');
                         }
@@ -314,6 +318,7 @@
                         function actualizarArticulo() {
                             aumentarExistencias();
                             disminuirRestantes();
+                            $("#actualizaArticulo").trigger('reset');
                         }
 
                         function aumentarExistencias() {
@@ -348,8 +353,13 @@
                                         buscarArtxOc($("#OCId").val());
                                         buscarOrdenes();
                                     });
-                            $('#listaArticulos').modal('show');
+                                    refresca();
+                        }
+                        
+                        function refresca(){
                             $('#agregarArticulo').modal('hide');
+                            $('#listadoOCxArt').empty();
+                            abrirModalListarArticulos(articuloActual);
                         }
 
                         String.prototype.toDate = function (format)
