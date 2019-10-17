@@ -177,7 +177,7 @@
                                         <input class="form-control" type="text" placeholder="Marca" id="Marca">
 
                                         <label>Cantidad</label>
-                                        <input class="form-control" type="number" min="0" placeholder="Cantidad" id="Cantidad" required>
+                                        <input class="form-control" type="number" placeholder="Cantidad" id="Cantidad" required>
 
                                         <label>Unidad Usuaria</label>
                                         <select class="form-control" id="selectDeptos" required>
@@ -194,11 +194,7 @@
                                         <input class="form-control" type="text" placeholder="Modelo" id="Modelo">
                                         
                                         <label>Precio</label>
-
                                         <input class="form-control" type="number" placeholder="Precio" id="Precio" required>
-
-                                        <input class="form-control" type="number" placeholder="Precio" min="0" id="Precio" required>
-
                                         
                                         <label>Unidad de Medida</label>
                                         <select class="form-control" id="selectUnidadMedida" required>
