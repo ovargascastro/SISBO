@@ -45,6 +45,7 @@
                         </form>
                     </div>
                 </div>
+                <br>
                 <div class="row">
                     <div class="col text-center" id="tablaSolicitudes">
                         <div class="table-responsive">
