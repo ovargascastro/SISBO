@@ -355,6 +355,7 @@
                                     });
                                     refresca();
                         }
+                        
                         function refresca(){
                             $('#agregarArticulo').modal('hide');
                             $('#listadoOCxArt').empty();
