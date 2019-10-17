@@ -359,7 +359,9 @@
                         function refresca(){
                             $('#agregarArticulo').modal('hide');
                             $('#listadoOCxArt').empty();
-                            abrirModalListarArticulos(articuloActual);
+                            buscarArtxOc(articuloActual);
+
+                            $('#listaArticulos').modal('show');
                         }
 
                         String.prototype.toDate = function (format)
