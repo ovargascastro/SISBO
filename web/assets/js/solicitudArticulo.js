@@ -56,11 +56,10 @@ function buscar() {
         url: "api/artSolTemp?temporales=" + $("#Modelo").val(),
         success: listaArtTemp
     });
+    $('#formSolicitudArt').trigger("reset");
 }
 
-function limpiar(){
-    $("#cantidad").val('');
-}
+
 
 function agregarSolicitudArticulo() {
     var depto = document.getElementById("selectDeptos").value;

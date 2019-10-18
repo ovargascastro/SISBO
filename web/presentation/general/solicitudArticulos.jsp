@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <form action="javascript:agregarArtTemp()">
+        <form id="formSolicitudArt" action="javascript:agregarArtTemp()">
             <div class="card" id="formulario">
                 <div class="card-body">
                     <h5 class="text-center">Seleccione el artículo y la cantidad deseada</h5>
@@ -176,11 +176,7 @@
                                     }
 
                                     function limpiaEspacios() {
-                                        $("#cantidad").val('');
-                                        $('#selectArt option').prop('selected', function () {
-                                            return this.defaultSelected;
-                                        });
-                                        $("#cantidadExist").val('');
+                                        $('#formSolicitudArt').trigger("reset");
                                     }
 
 
