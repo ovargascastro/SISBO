@@ -14,6 +14,7 @@ import logic.SboTbCatArticulo;
 import logic.SboTbExistencia;
 import logic.SboTbSubFamilia;
 import logic.SboTbFamilia;
+import logic.SboTbOrdenCompra;
 
 public class ArticuloOCDAO {
 
@@ -28,6 +29,7 @@ public class ArticuloOCDAO {
             SboTbArticulo arti = new SboTbArticulo();
             AbaaTbDepartamento dpto = new AbaaTbDepartamento();
             SboTbCatArticulo cat = new SboTbCatArticulo();
+            SboTbOrdenCompra oc = new SboTbOrdenCompra();
             arti.setArtIdPk(rs.getInt("Art_Id_PK"));
             arti.setArtDesc(rs.getString("Art_Desc"));
             arti.setArtMode(rs.getString("Art_Mode"));
@@ -39,6 +41,9 @@ public class ArticuloOCDAO {
             dpto.setDeptoNomb(rs.getString("Depto_Nomb"));
             arti.setSboTbCatArticulo(cat);
             arti.setAbaaTbDepartamento(dpto);
+            oc.setOcIdPk(rs.getInt("OC_Id_PK"));
+            arti.setSboTbOrdenCompra(oc);
+            
             return arti;
         } catch (SQLException ex) {
             return null;
@@ -68,10 +73,10 @@ public class ArticuloOCDAO {
 
     public SboTbArticulo datosArticulo(String filtro) throws Exception {
         String sql = "select art.Art_Id_PK, art.Art_Desc,art.Art_Mode,art.Art_Marc,art.Art_Nume_Seri,\n"
-                + "carArt.Cat_Id_PK,carArt.Cat_Desc,dpto.Depto_Id_PK,dpto.Depto_Nomb\n"
-                + "from Sbo_TB_CatArticulo carArt, ABAA_TB_Departamento dpto, Sbo_TB_Articulo art\n"
+                + "carArt.Cat_Id_PK,carArt.Cat_Desc,dpto.Depto_Id_PK,dpto.Depto_Nomb,oc.OC_Id_PK\n"
+                + "from Sbo_TB_CatArticulo carArt, ABAA_TB_Departamento dpto, Sbo_TB_Articulo art, Sbo_TB_OrdenCompra oc\n"
                 + "where art.Art_Codi_Cat_Arti_FK=carArt.Cat_Id_PK and art.Art_Depa_FK=dpto.Depto_Id_PK\n"
-                + "and art.Art_Id_PK=" + filtro + ";";
+                + "and art.Art_Orde_Comp_FK = oc.OC_Id_PK and art.Art_Id_PK=" + filtro + ";";
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
             return Articulo2(rs);
@@ -112,6 +117,7 @@ public class ArticuloOCDAO {
         preparedStmt.setInt(7, articulo.getArtCantRest());
         preparedStmt.setInt(8, articulo.getArtIdPk());
         preparedStmt.executeUpdate();
+        verificarEstadoOCs(articulo);
         db.getConnection().close();
     }
 
@@ -121,6 +127,14 @@ public class ArticuloOCDAO {
         preparedStmt.setInt(1, existencia.getSboTbBodega().getBodeIdPk());
         preparedStmt.setInt(2, existencia.getSboTbArticulo().getArtIdPk());
         preparedStmt.setDouble(3, existencia.getExisCant());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
+
+    private void verificarEstadoOCs(SboTbArticulo articulo) throws Exception {
+        String query = "execute actualizarEstadoOC ?;";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setInt(1, articulo.getSboTbOrdenCompra().getOcIdPk());
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }

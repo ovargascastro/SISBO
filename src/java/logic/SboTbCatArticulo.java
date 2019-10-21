@@ -11,14 +11,16 @@ import java.util.Set;
 public class SboTbCatArticulo  implements java.io.Serializable {
 
 
-     private int catIdPk;
-     private SboTbSubFamilia sboTbSubFamilia;
-     private String catCodSicop;
-     private String catDesc;
-     private Integer catMaxi;
-     private Integer catMini;
-     private Set<SboTbArticulo> sboTbArticulos = new HashSet<SboTbArticulo>(0);
-     private Set<SboTbLimiteDpto> sboTbLimiteDptos = new HashSet<SboTbLimiteDpto>(0);
+    private int catIdPk;
+    private SboTbSubFamilia sboTbSubFamilia;
+    private String catCodSicop;
+    private String catDesc;
+    private Integer catMaxi;
+    private Integer catMini;
+    private Set<SboTbArticulo> sboTbArticulos = new HashSet<SboTbArticulo>(0);
+    private String artCat_Estado;
+
+
 
     public SboTbCatArticulo() {
     }
@@ -35,7 +37,7 @@ public class SboTbCatArticulo  implements java.io.Serializable {
        this.catMaxi = catMaxi;
        this.catMini = catMini;
        this.sboTbArticulos = sboTbArticulos;
-       this.sboTbLimiteDptos = sboTbLimiteDptos;
+      // this.sboTbLimiteDptos = sboTbLimiteDptos;
     }
    
     public int getCatIdPk() {
@@ -87,13 +89,26 @@ public class SboTbCatArticulo  implements java.io.Serializable {
     public void setSboTbArticulos(Set<SboTbArticulo> sboTbArticulos) {
         this.sboTbArticulos = sboTbArticulos;
     }
-    public Set<SboTbLimiteDpto> getSboTbLimiteDptos() {
-        return this.sboTbLimiteDptos;
+
+    public void setArtCat_Estado(String artCat_Estado) {
+        this.artCat_Estado = artCat_Estado;
     }
-    
-    public void setSboTbLimiteDptos(Set<SboTbLimiteDpto> sboTbLimiteDptos) {
-        this.sboTbLimiteDptos = sboTbLimiteDptos;
+
+
+
+    public String getArtCat_Estado() {
+    return artCat_Estado;
     }
+        
+
+//    public Set<SboTbLimiteDpto> getSboTbLimiteDptos() {
+//        return this.sboTbLimiteDptos;
+//    }
+//    
+//    public void setSboTbLimiteDptos(Set<SboTbLimiteDpto> sboTbLimiteDptos) {
+//        this.sboTbLimiteDptos = sboTbLimiteDptos;
+//
+//    }
 
 
 

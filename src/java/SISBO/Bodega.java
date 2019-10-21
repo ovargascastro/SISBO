@@ -31,8 +31,8 @@ public class Bodega {
     @GET
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     public List<SboTbBodega> getBodegas() throws ClassNotFoundException, SQLException{
-        List<SboTbBodega> lista = Model.instance().ListaBodega();
-        return lista;
+     //   List<SboTbBodega> lista = Model.instance().ListaBodega();
+      return null;
         
     }
 

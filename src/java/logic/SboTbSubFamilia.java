@@ -13,8 +13,10 @@ public class SboTbSubFamilia  implements java.io.Serializable {
 
      private String subFamiIdPk;
      private SboTbFamilia sboTbFamilia;
-     private String subFamiDesc;
+     private String subFamiDesc;  
+     private String subFamiEstado;
      private Set<SboTbCatArticulo> sboTbCatArticulos = new HashSet<SboTbCatArticulo>(0);
+    
 
     public SboTbSubFamilia() {
     }
@@ -23,10 +25,11 @@ public class SboTbSubFamilia  implements java.io.Serializable {
     public SboTbSubFamilia(String subFamiIdPk) {
         this.subFamiIdPk = subFamiIdPk;
     }
-    public SboTbSubFamilia(String subFamiIdPk, SboTbFamilia sboTbFamilia, String subFamiDesc, Set<SboTbCatArticulo> sboTbCatArticulos) {
+    public SboTbSubFamilia(String subFamiIdPk, SboTbFamilia sboTbFamilia, String subFamiDesc,String subFamiEstado, Set<SboTbCatArticulo> sboTbCatArticulos) {
        this.subFamiIdPk = subFamiIdPk;
        this.sboTbFamilia = sboTbFamilia;
        this.subFamiDesc = subFamiDesc;
+       this.subFamiEstado=subFamiEstado;
        this.sboTbCatArticulos = sboTbCatArticulos;
     }
    
@@ -59,9 +62,17 @@ public class SboTbSubFamilia  implements java.io.Serializable {
         this.sboTbCatArticulos = sboTbCatArticulos;
     }
 
+  public String getSubFamiEstado() {
+        return subFamiEstado;
+    }
 
+    public void setSubFamiEstado(String SubFamiEstado) {
+        this.subFamiEstado = SubFamiEstado;
+    }
 
 
 }
+
+
 
 
