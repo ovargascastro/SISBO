@@ -20,10 +20,15 @@ public class Model {
     private final OrdenCompraDAO ordendao;
     private final ArticulosDAO articulodao;
     private final OCxProyectoDAO ordenXdao;
+    private final solicitudArtDAO solArtdao;
     public int numOrden;
+    public int numSoliArti;
     public int numArticulo;
     Map<Integer, SboTbArticulo> listaTemp = new HashMap<>();
+    Map<Integer, SboTbArticulo> artXsolTemp = new HashMap<>();
+    Map<Integer, Integer> cantArtTemp = new HashMap<>();
     public int contador = 1;
+    public int contadorArtXSol = 1;
 
     public static Model instance() {
         if (uniqueInstance == null) {
@@ -43,6 +48,7 @@ public class Model {
         ordendao = new OrdenCompraDAO();
         articulodao = new ArticulosDAO();
         ordenXdao = new OCxProyectoDAO();
+        solArtdao = new solicitudArtDAO();
     }
 
     public List<SboTbFamilia> listaFamilias(String filtro) throws ClassNotFoundException, SQLException {
@@ -242,25 +248,150 @@ public class Model {
     public void actualizaEstadoOrdenCom(SboTbOrdenCompra objeto) throws SQLException {
         ordendao.actualizaEstadoOC(objeto);
     }
-    
+
     public List<SboTbCatContable> listaCatContables(String filtro) throws ClassNotFoundException, SQLException {
         List result = catdao.listaCatContable(filtro);
         return result;
-        
+
     }
-    
+
     public SboTbCatContable getSboTbCatContable(int filtro) throws Exception {
         SboTbCatContable ob = catdao.getSboTbCatContable(filtro);
         return ob;
     }
+     public SboTbSoliArti getSboTbSoliArti(int filtro) throws Exception {
+        SboTbSoliArti ob = solArtdao.getSboTbSoliArti(filtro);
+        return ob;
+    }
     
+
     public void actualizarCatContable(SboTbCatContable cont) throws Exception {
         catdao.actualizarCatContable(cont);
-        
+
     }
-      public void crearCatContable(SboTbCatContable cont) throws Exception {
+
+    public void crearCatContable(SboTbCatContable cont) throws Exception {
         catdao.crearCatContable(cont);
     }
+
+    public List<SboTbArticulo> listaArticulosExistencia(String filtro) throws ClassNotFoundException, SQLException {
+        List result = solArtdao.getArticuloExistencia(filtro);
+        return result;
+
+    }
+
+    public void agregarArtxSolTemp(SboTbArticulo artSol) throws Exception {
+        int idArt = artSol.getArtIdPk();
+        SboTbArticulo art = articulodao.getArticulo2(idArt);
+        art.setCantSolArt(artSol.getCantSolArt());
+        
+        String idDep = art.getAbaaTbDepartamento().getDeptoIdPk();
+        int idCatArt = art.getSboTbCatArticulo().getCatIdPk();
+        int suma = sumaExistencias(idDep, idCatArt);
+        
+        if(art.getCantSolArt()<=suma){
+            artXsolTemp.put(art.getArtIdPk(), art);
+        }
+        else{
+            throw new Exception("Cantidad ingresada es mayor a la existente en bodega. Ingrese una cantida válida.");
+        }
+        
+    }
+
+    public SboTbArticulo getArtxSolTemp(int id) {
+        return artXsolTemp.get(id);
+    }
+
+    public void eliminarArtxSolTemp(SboTbArticulo artSol) throws Exception {
+        artXsolTemp.remove(artSol.getArtIdPk(), artSol);
+    }
+
+    public Map<Integer, SboTbArticulo> getListaArtxSolTemp() {
+        return artXsolTemp;
+    }
+
+    public void setListaArtxSolTemp(Map<Integer, SboTbArticulo> listaTemp) {
+        this.artXsolTemp = listaTemp;
+    }
+
+   public void agregarSolicitudArticulo(SboTbSoliArti solArti) throws Exception {
+        if(!artXsolTemp.isEmpty()){
+            solArtdao.agregarSolicitudArticulo(solArti);
+            numSoliArti = solArtdao.getLastInsertSolicitudArticulo();
+        }
+        else{
+            throw new Exception("Seleccione los artículos que requiere antes de enviar la solicitud");
+        }
+    }
+
+    public void agregarSoliXArti() throws Exception {
+        int x = 1;
+        SboTbSoliArti solArti = new SboTbSoliArti(numSoliArti);
+        SboTbSolixArti solXart = new SboTbSolixArti();
+        solXart.setSboTbSoliArti(solArti);
+        for (SboTbArticulo art : artXsolTemp.values()) {
+            solXart.setSboTbArticulo(art);
+            solXart.setSolArtiCant(art.getCantSolArt());
+            solArtdao.agregarSolicitudXArticulo(solXart);
+        }
+    }
+
+    public void reiniciaListaSolart() {
+        artXsolTemp = new HashMap<>();
+    }
+
+    public int sumaExistencias(String idDepto, int idCatArt) throws Exception {
+        int sum =0;
+        List<SboTbExistencia> existencias = solArtdao.existenciasXarticuloxdepto(idDepto,idCatArt);
+        for(SboTbExistencia exist : existencias){
+            sum += exist.getExisCant();
+        }
+        return sum;
+    }
     
+    public int sumaExistencias2(int id) throws Exception {
+        SboTbArticulo art = articulodao.getArticulo2(id);
+        String idDep = art.getAbaaTbDepartamento().getDeptoIdPk();
+        int idCatArt = art.getSboTbCatArticulo().getCatIdPk();
+        int sum =0;
+        List<SboTbExistencia> existencias = solArtdao.existenciasXarticuloxdepto(idDep,idCatArt);
+        for(SboTbExistencia exist : existencias){
+            sum += exist.getExisCant();
+        }
+        return sum;
+    }
+
+    public List<SboTbSoliArti> listaSolicitudesArticulos(String filtro) {
+        return solArtdao.listadoSolicitudesArticulos(filtro);
+    }
+
+    public List<SboTbSolixArti> listaArticulosXSolicitud(String filtro) {
+        int valor = Integer.parseInt(filtro);
+        return solArtdao.listadoArticulosPorSolicitud(valor);
+    }
+     public List<SboTbSoliArti> listadoSolicitudxAprobar(String soli){
+        return solArtdao.listadoSolicitudxAprobar(soli);
+     }
+     
+      public void actualizarEstSolicitud(SboTbSoliArti cont) throws Exception {
+        solArtdao.actualizarEstSolicitud(cont);
+        
+    }
+         public List<SboTbSoliArti> listadoSolicitudVistobuenoJf(String filtro) {
+        return solArtdao.listadoSolicitudVistobuenoJf(filtro);
+    }
+        public List<SboTbSoliArti> listadoSolicitudVistobuenoTI(String filtro) {
+        return solArtdao.listadoSolicitudVistobuenoTI(filtro);
+    }
+    
+       public void actualizarEstSolicitudJefe(SboTbSoliArti cont) throws Exception {
+        solArtdao.actualizarEstSolicitudJefe(cont);
+        
+    }
+       
+     public void actualizarEstSolicitudTI(SboTbSoliArti cont) throws Exception {
+        solArtdao.actualizarEstSolicitudTI(cont);
+        
+    }
 }
 

@@ -31,6 +31,7 @@ public class SboTbArticulo implements java.io.Serializable {
     private Set<AbaaTbOcproyecto> abaaTbOcproyectos = new HashSet<AbaaTbOcproyecto>(0);
     private Set<SboTbSolixArti> sboTbSolixArtis = new HashSet<SboTbSolixArti>(0);
     private Set<SboTbExistencia> sboTbExistencias = new HashSet<SboTbExistencia>(0);
+    private Integer cantSolArt;
 
     public SboTbArticulo() {
     }
@@ -265,4 +266,13 @@ public class SboTbArticulo implements java.io.Serializable {
     public void setArtUnidadMedida(String artUnidadMedida) {
         this.artUnidadMedida = artUnidadMedida;
     }
+
+    public Integer getCantSolArt() {
+        return cantSolArt;
+    }
+
+    public void setCantSolArt(Integer cantSolArt) {
+        this.cantSolArt = cantSolArt;
+    }
+    
 }

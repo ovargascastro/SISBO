@@ -51,15 +51,12 @@
                                 <th class="text-center">Bodega</th>
                                 <th class="text-center">Artículo</th>
                                 <th class="text-center">Cantidad</th>
+                                <th class="text-center">Aumentar</th>
+                                <th class="text-center">Disminuir</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Principal</td>
-                                <td>Pala</td>
-                                <td>5</td>
-                            </tr>
-                            <tr></tr>
+                            
                         </tbody>
                     </table>
                 </div>

@@ -141,7 +141,7 @@
 
         <div class="modal fade" role="dialog" tabindex="-1" id="modalArticulo" data-backdrop="static">
             <div class="modal-dialog" role="document">
-                <form action="javascript:agregarArticuloTemporal()">
+                <form id="articulosOrden" action="javascript:agregarArticuloTemporal()">
                     <div class="modal-content">
 
                         <div class="modal-header">

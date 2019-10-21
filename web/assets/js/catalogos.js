@@ -1010,3 +1010,441 @@ function ocultarModalActivarCatArt() {
     $('#modalActivar').modal('hide');
 
 }
+
+function abrirModalDesactivar(filtro) {
+    var e = document.getElementById("selectcatalogos");
+    var strUser = e.options[e.selectedIndex].value;
+
+    if (strUser === "1") {
+        $.ajax({type: "GET",
+            url: "api/familias/" + filtro,
+            success: desactivarFamilia,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+    } else if (strUser === "2") {
+        $.ajax({type: "GET",
+            url: "api/subfamilias/" + filtro,
+            success: desactivarSubFamilia,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+
+    } else if (strUser === "3") {
+
+
+        $.ajax({type: "GET",
+            url: "api/catArticulos/" + filtro,
+            success: desactivarCatArt,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+    }
+    
+    else if (strUser === "4") {
+
+
+        $.ajax({type: "GET",
+            url: "api/contables/" + filtro,
+            success: desactivarCatConta,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+    }
+}
+
+
+
+
+
+var famidAct;
+var famiDesAct;
+
+function desactivarFamilia(fam) {
+
+    famidAct = fam.famiIdPk;
+    famiDesAct = fam.famiDesc;
+    // famiEstAct = fam.famiEstado;
+    if (fam.famiEstado === '1') {
+        $('#modalDesactivar').modal('show');
+    } else {
+        $('#modalActivar').modal('show');
+    }
+}
+
+
+
+function ActivarFamilia(fam) {
+    famidAct = fam.famiIdPk;
+    famiDesAct = fam.famiDesc;
+//famiEstAct = fam.famiEstado;
+    $('#modalDesactivar').modal('show');
+}
+
+var subFamidAct;
+var subFamiFami;
+var subFamiDesAct;
+
+function desactivarSubFamilia(Subfam) {
+    subFamidAct = Subfam.subFamiIdPk;
+    subFamiFami = Subfam.sboTbFamilia;
+    subFamiDesAct = Subfam.subFamiDesc;
+    // subFamiEstAct=Subfam.subFamiEstado;
+    if (Subfam.subFamiEstado === '1') {
+        $('#modalDesactivar').modal('show');
+    } else {
+        $('#modalActivar').modal('show');
+    }
+}
+var catArtId;
+var catArtDesc;
+var catArtSubF;
+var catArtEst;
+
+function desactivarCatArt(articulo) {
+    catArtId = articulo.catIdPk;
+    catArtDesc = articulo.catDesc;
+    catArtSubF = articulo.sboTbSubFamilia;
+   // catArtEst = articulo.artCat_Estado;
+
+    if (articulo.artCat_Estado === '1') {
+        $('#modalDesactivar').modal('show');
+    } else {
+        $('#modalActivar').modal('show');
+    }
+}
+
+var catContId;
+var catContDesc;
+var catCodi;
+var catContEst;
+var catNivel;
+
+function desactivarCatConta(cont) {
+    catContId = cont.cntIdPk;
+    catContDesc = cont.cntDesc;
+    catCodi = cont.cntCodi;
+   // catContEst = cont.cntEst;
+    catNivel= cont.cntNivel;
+
+    if (cont.cntEst === '1') {
+        $('#modalDesactivar').modal('show');
+    } else {
+        $('#modalActivar').modal('show');
+    }
+}
+
+
+var famiEstAct = 0;
+function actualizarEstadoFamilia() {
+
+    SboTbFamilia = {
+        famiIdPk: famidAct,
+        famiDesc: famiDesAct,
+        famiEstado: famiEstAct
+
+    };
+    $.ajax({type: "PUT",
+        url: "api/familias",
+        data: JSON.stringify(SboTbFamilia),
+        contentType: "application/json",
+        success: afterUpdateFmEs,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+function afterUpdateFmEs() {
+    buscarFamilias();
+    $('#modalDesactivar').modal('hide');
+
+}
+
+var subFamiEstAct = 0;
+function actualizarEstadoSubFamilia() {
+//var e = document.getElementById("selectFamilias");
+//var strUser = e.options[e.selectedIndex].value;
+
+    SboTbSubFamilia = {
+        subFamiIdPk: subFamidAct,
+        subFamiDesc: subFamiDesAct,
+        sboTbFamilia: subFamiFami,
+        subFamiEstado: subFamiEstAct
+    };
+    $.ajax({type: "PUT",
+        url: "api/subfamilias",
+        data: JSON.stringify(SboTbSubFamilia),
+        contentType: "application/json",
+        success: afterUpdateSubFmEs,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+function afterUpdateSubFmEs() {
+    buscarSubFamilias();
+    $('#modalDesactivar').modal('hide');
+
+}
+var EstadoActual = 0;
+function actualizarEstadoCatArticulo() {
+
+    SboTbCatArticulo = {
+        catDesc: catArtDesc,
+        catIdPk: catArtId,
+        artCat_Estado: EstadoActual,
+        sboTbSubFamilia: catArtSubF
+    };
+    $.ajax({type: "PUT",
+        url: "api/catArticulos",
+        data: JSON.stringify(SboTbCatArticulo),
+        contentType: "application/json",
+        success: afterUpdateCatArtEs,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+function afterUpdateCatArtEs() {
+    buscarCatArticulos();
+    $('#modalDesactivar').modal('hide');
+
+}
+
+
+
+var EstadoActual = 0;
+function actualizarEstadoCatConta() {
+
+    SboTbCatContable = {
+        cntDesc: catContDesc,
+        cntIdPk: catContId,
+        cntEst: EstadoActual,
+        cntCodi: catCodi,
+        cntNivel:catNivel
+    };
+    $.ajax({type: "PUT",
+        url: "api/contables",
+        data: JSON.stringify(SboTbCatContable),
+        contentType: "application/json",
+        success: afterUpdateCatContEs,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+function afterUpdateCatContEs() {
+    buscarCatContables();
+    $('#modalDesactivar').modal('hide');
+
+}
+
+function Desactivar() {
+    var e = document.getElementById("selectcatalogos");
+    var strUser = e.options[e.selectedIndex].value;
+
+    if (strUser === "1") {
+        $.ajax({type: "GET",
+            url: "api/familias/",
+            success: actualizarEstadoFamilia,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+    } else if (strUser === "2") {
+        $.ajax({type: "GET",
+            url: "api/subfamilias/",
+            success: actualizarEstadoSubFamilia,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+
+    } else if (strUser === "3") {
+
+
+        $.ajax({type: "GET",
+            url: "api/catArticulos/",
+            success: actualizarEstadoCatArticulo,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+    }
+    else if (strUser === "4") {
+
+
+        $.ajax({type: "GET",
+            url: "api/contables/",
+            success: actualizarEstadoCatConta,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+    }
+}
+
+function Activar() {
+    var e = document.getElementById("selectcatalogos");
+    var strUser = e.options[e.selectedIndex].value;
+
+    if (strUser === "1") {
+        $.ajax({type: "GET",
+            url: "api/familias/",
+            success: ActivaFamilia,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+    } else if (strUser === "2") {
+        $.ajax({type: "GET",
+            url: "api/subfamilias/",
+            success: ActivaSubF,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+
+    } else if (strUser === "3") {
+
+
+        $.ajax({type: "GET",
+            url: "api/catArticulos/",
+            success: activarArticulo,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+    }
+    else if (strUser === "4") {
+
+
+        $.ajax({type: "GET",
+            url: "api/contables/",
+            success: ActivaContables,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+    }
+}
+
+function ActivaFamilia() {
+
+    var valor = 1;
+    SboTbFamilia = {
+        famiIdPk: famidAct,
+        famiDesc: famiDesAct,
+        famiEstado: valor
+    };
+    $.ajax({type: "PUT",
+        url: "api/familias",
+        data: JSON.stringify(SboTbFamilia),
+        contentType: "application/json",
+        success: ocultarModalActivarF,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+
+}
+
+function ocultarModalActivarF() {
+    buscarFamilias();
+    $('#modalActivar').modal('hide');
+
+}
+function ActivaContables() {
+
+    var valor = 1;
+   SboTbCatContable = {
+        cntDesc: catContDesc,
+        cntIdPk: catContId,
+        cntEst: valor,
+        cntCodi: catCodi,
+        cntNivel:catNivel
+    };
+    $.ajax({type: "PUT",
+        url: "api/contables",
+        data: JSON.stringify(SboTbCatContable),
+        contentType: "application/json",
+        success: ocultarModalActivarCont,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+
+}
+
+function ocultarModalActivarCont() {
+    buscarCatContables();
+    $('#modalActivar').modal('hide');
+
+}
+
+function ActivaSubF() {
+    var valor = 1;
+    SboTbSubFamilia = {
+        subFamiIdPk: subFamidAct,
+        subFamiDesc: subFamiDesAct,
+        sboTbFamilia: subFamiFami,
+        subFamiEstado: valor
+    };
+    $.ajax({type: "PUT",
+        url: "api/subfamilias",
+        data: JSON.stringify(SboTbSubFamilia),
+        contentType: "application/json",
+        success: ocultarModalActivarSubF,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+function ocultarModalActivarSubF() {
+    buscarSubFamilias();
+    $('#modalActivar').modal('hide');
+
+}
+
+
+function activarArticulo() {
+    var valor = 1;
+    SboTbCatArticulo = {
+        catDesc: catArtDesc,
+        catIdPk: catArtId,
+        artCat_Estado: valor,
+        sboTbSubFamilia: catArtSubF
+    };
+    $.ajax({type: "PUT",
+        url: "api/catArticulos",
+        data: JSON.stringify(SboTbCatArticulo),
+        contentType: "application/json",
+        success: ocultarModalActivarCatArt,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+function ocultarModalActivarCatArt() {
+    buscarCatArticulos();
+    $('#modalActivar').modal('hide');
+
+}

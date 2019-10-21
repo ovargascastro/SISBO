@@ -31,6 +31,21 @@ public class catalogosDAO {
         }
 
     }
+    
+    private SboTbCatContable CatContable(ResultSet rs){
+        
+         try {
+            SboTbCatContable ob = new SboTbCatContable();
+            ob.setCntDesc(rs.getString("Cnt_Desc"));
+            ob.setCntIdPk(rs.getInt("Cnt_Id_PK"));
+            ob.setCntEst(rs.getString("Cnt_Est")); 
+            ob.setCntNivel(rs.getInt("Cnt_Nivel"));
+            ob.setCntCodi(rs.getString("Cnt_Codi"));
+            return ob;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
 
     private SboTbCatArticulo catArticulo(ResultSet rs) {
         try {
@@ -60,20 +75,7 @@ public class catalogosDAO {
 
     }
     
-    private SboTbCatContable CatContable(ResultSet rs){
-        
-         try {
-            SboTbCatContable ob = new SboTbCatContable();
-            ob.setCntDesc(rs.getString("Cnt_Desc"));
-            ob.setCntIdPk(rs.getInt("Cnt_Id_PK"));
-            ob.setCntEst(rs.getString("Cnt_Est")); 
-            ob.setCntNivel(rs.getInt("Cnt_Nivel"));
-            ob.setCntCodi(rs.getString("Cnt_Codi"));
-            return ob;
-        } catch (SQLException ex) {
-            return null;
-        }
-    }
+  
 
     public List<SboTbFamilia> listaFamilias(String filtro) {
         List<SboTbFamilia> resultado = new ArrayList<SboTbFamilia>();
@@ -131,7 +133,7 @@ public class catalogosDAO {
         }
         return resultado;
     }
-
+    
     public SboTbCatArticulo getCatArticulo(int filtro) throws Exception {
         String sql = "select * from Sbo_Tb_CatArticulo a inner join Sbo_TB_SubFamilia s on a.Cat_SubF_FK = s.SubFami_Id_Pk"
                 + " where a.Cat_Id_PK ='%s'";
@@ -155,6 +157,18 @@ public class catalogosDAO {
         }
     }
 
+    
+    public SboTbCatContable getSboTbCatContable(int filtro) throws Exception {
+        String sql = "select * from Sbo_TB_CatContable f where f.Cnt_Id_PK ='%s'";
+        sql = String.format(sql, filtro);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return CatContable(rs);
+        } else {
+            throw new Exception("Bien no Existe");
+        }
+    }
+    
     public SboTbSubFamilia getSboTbSubFamilia(String filtro) throws Exception {
         String sql = "select * from Sbo_TB_SubFamilia s inner join Sbo_TB_Familia f on s.SubFami_CodF_Fk = f.Fami_Id_Pk"
                 + " where s.SubFami_Id_Pk ='%s'";
@@ -167,16 +181,7 @@ public class catalogosDAO {
         }
     }
     
-    public SboTbCatContable getSboTbCatContable(int filtro) throws Exception {
-        String sql = "select * from Sbo_TB_CatContable f where f.Cnt_Id_PK ='%s'";
-        sql = String.format(sql, filtro);
-        ResultSet rs = db.executeQuery(sql);
-        if (rs.next()) {
-            return CatContable(rs);
-        } else {
-            throw new Exception("Bien no Existe");
-        }
-    }
+   
     
     public void actualizarCatContable(SboTbCatContable objeto) throws Exception {
         String query = "update Sbo_TB_CatContable set Cnt_Desc = ?, Cnt_Est = ?, Cnt_Nivel = ?, Cnt_Codi = ? where Cnt_Id_PK = ?";
