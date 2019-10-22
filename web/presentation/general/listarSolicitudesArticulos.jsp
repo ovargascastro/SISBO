@@ -100,52 +100,78 @@
   </div>
 </div>
     
+<div role="dialog" tabindex="-1" class="modal fade" id="SolicitudImprimir">
+    <div class="modal-dialog" role="document">
+  <div class="row">
+    <div class="modal-content">
 
-    
-      <div role="dialog" tabindex="-1" class="modal fade" id="SolicitudImprimir">
-            <div class="modal-dialog" role="document">
-               
-                <div class="modal-content">
-                       
-                     <a class="print" href="index.jsp"> <img src="assets/img/Escudo.png" width="100" height="90"> </a>
-                 <h1 class="print">Solicitud de Requisición de Articulo  <br> <br></h1>
-                    <div class="modal-header">
-                          
-                        <div class="col"><label class="print"> Número de Solicitud: </label>  <input class="print" type="text" id="num" size="20"></div>
-                        <div class="col"><label class="print"> Fecha que se realiza Solicitud: </label><input class="print" type="text" id="departa">  </div> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> <br> <br></div>
-                   
-                    <div class="modal-body">
-                      
-                        <div class="table-responsive">
+ 
+      <div id="content">
+         <a> <img src="assets/img/Escudo.png" width="100" height="90"> </a>  <p>Municipalidad de Santo Domingo</p>
+        <p>_________________________________________________________________________________<br></p>
+         <h2 class="text-center"><br><br>Solicitud de Requisición de Articulo  <br></h2>
+        <p>_________________________________________________________________________________<br><br><br><br></p>
+     
+        <div>
+          <button class="btn btn-success" id="export">Imprimir</button>
+        </div>
+          <br>  <br>
+       
+       
+     <div class="table-responsive">
                             
                          <table class="print">
                                         <thead >
                                             <tr>
-                                                <th >Artículo       <br><br></th>
-                                                <th>Cantidad        <br><br></th>
+                                                <th>No. Solicitud     <br><br></th>
+                                                <th>Fecha de Solicitud        <br><br></th>
+                                                 <th>Departamento       <br><br></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="listaInformacion">
+                                            
+                                                  
+                                        </tbody>
+                                    </table>
+          <p>______________________________________________________________________________________ <br><br><br><br><p>
+       
+           
+               
+               
+        <table id="demo" class="table table-bordered">
+       <thead >
+                                            <tr>
+                                              <th >Artículo       <br><br></th>
+                                              <th>Cantidad        <br><br></th>
                                             </tr>
                                         </thead>
                                         <tbody id="listaArticulosSolicitudIMP">
                                             
                                                   
                                         </tbody>
-                                    </table>
-             </div>
-                    </div>
-                    <div class="modal-footer"><div class="printFirma">
-          <br> <br><br><br><br><br><br>
-          <div class="print"> <p class="print">Firma de Solicitante</p>
-           <p class="print" >  __________________________ </p>   
-         
+        </table>
+    
+      
+
+        <br>
+        <footer class="footer">Firma de Solicitante
+           <p>  __________________________ </p>  </footer>
       </div>
-           </div>
-                 <button onClick="window.print()">Imprimir Solicitud</button> 
-                    </div>
-                </div>
-            </div>
-        </div>
+
+
+    </div>
+  </div>
+  </div>
+</div>
+<br>
+
+    
+    
+    
+    
 
     <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jspdf.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/solicitudArticulo.js" type="text/javascript"></script>
 </body>
@@ -209,6 +235,27 @@
         tr.html(
                 "<td>" + objeto.sboTbArticulo.artDesc + "</td>"
                 + "<td>" + objeto.solArtiCant + "</td>");
+
+        listado.append(tr);
+
+    }
+    
+    function listaInformacionSol(personas) {
+        var listado = $("#listaInformacion");
+        listado.html("");
+        personas.forEach((p) => {
+            filaInformaSol(listado, p);
+        });
+    }
+    
+    
+
+    function filaInformaSol(listado, objeto) {
+        var tr = $("<tr />");
+        tr.html(
+                "<td>" + objeto.solArtiIdPk + "</td>"
+                + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
+                + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>");
 
         listado.append(tr);
 

@@ -532,8 +532,8 @@ function imprimir(filtro) {
     
     
      $.ajax({type: "GET",
-            url:"api/solicitudArticulo/" + filtro,
-            success: mostrarsoli,
+            url:"api/solicitudArticulo?filtro=" + filtro,
+            success: listaInformacionSol,
             error: function (jqXHR) {
                 alert(errorMessage(jqXHR.status));
             }
@@ -547,15 +547,17 @@ function imprimir(filtro) {
         }
 
     });
-    
+  
+     $('#SolicitudImprimir').modal('show');
 }   
 
 var a;
 function mostrarsoli(soli) {
     
-  console.log(soli);
+  console.log(a);
+  a=soli.solArtiIdPk;
     $('#SolicitudImprimir').modal('show');
-   
+//   
    $("#num").val(soli.solArtiIdPk);  
    $("#departa").val(formatDate(soli.solArtiFechSoli));  
 //    console.log(soli.abaaTbDepartamento.deptoNomb);
@@ -693,3 +695,55 @@ function eliminaArt(id){
         }); 
     }
   }
+  
+  
+  //imprimir JS trabajar desde aqui
+  
+ document.getElementById('export').addEventListener('click',
+  exportPDF);
+
+var specialElementHandlers = {
+  // element with id of "bypass" - jQuery style selector
+  '.no-export': function(element, renderer) {
+    // true = "handled elsewhere, bypass text extraction"
+    return true;
+  }
+};
+
+function exportPDF() {
+
+    
+    
+
+  var doc = new jsPDF('p', 'pt', 'a4');
+  //A4 - 595x842 pts
+  //https://www.gnu.org/software/gv/manual/html_node/Paper-Keywords-and-paper-size-in-points.html
+
+
+  //Html source 
+  var source = document.getElementById('content').innerHTML;
+
+  var margins = {
+    top: 10,
+    bottom: 10,
+    left: 10,
+    width: 595
+  };
+
+  doc.fromHTML(
+    source, // HTML string or DOM elem ref.
+    margins.left,
+    margins.top, {
+      'width': margins.width,
+      'elementHandlers': specialElementHandlers
+    },
+
+    function(dispose) {
+        
+   
+    
+      // dispose: object with X, Y of the last line add to the PDF 
+      //          this allow the insertion of new lines after html
+      doc.save('solicitud.pdf');
+    }, margins);
+}
