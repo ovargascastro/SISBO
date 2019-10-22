@@ -60,6 +60,16 @@ function limpiar(){
     $("#cantidad").val('');
 }
 
+function eliminaArt(id){
+   if(confirm("Desea eliminar el articulo?") ){
+           $.ajax({type: "DELETE", 
+          url:"api/artSolTemp/"+id, 
+          success: buscar,
+          error: function(status){ alert(errorMessage(status));}                 
+        }); 
+    }
+  }
+  
 function agregarSolicitudArticulo() {
     var depto = document.getElementById("selectDeptos").value;
     var f = new Date();
@@ -81,7 +91,7 @@ function agregarSolicitudArticulo() {
         contentType: "application/json",
         success: agregarSoliXart,
         error: function (jqXHR) {
-            alert(errorMessage(jqXHR.status));
+            alert("Seleccione los artículos que requiere antes de enviar la solicitud");
         }
     });
 }

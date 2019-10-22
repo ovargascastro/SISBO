@@ -315,8 +315,13 @@ public class Model {
     }
 
     public void agregarSolicitudArticulo(SboTbSoliArti solArti) throws Exception {
-        solArtdao.agregarSolicitudArticulo(solArti);
-        numSoliArti = solArtdao.getLastInsertSolicitudArticulo();
+        if(!artXsolTemp.isEmpty()){
+            solArtdao.agregarSolicitudArticulo(solArti);
+            numSoliArti = solArtdao.getLastInsertSolicitudArticulo();
+        }
+        else{
+            throw new Exception("Seleccione los artículos que requiere antes de enviar la solicitud");
+        }
     }
 
     public void agregarSoliXArti() throws Exception {
