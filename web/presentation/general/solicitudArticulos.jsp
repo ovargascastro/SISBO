@@ -1,4 +1,4 @@
-<%--
+<%-- 
     Document   : solicitudArticulos
     Created on : 03/10/2019, 10:39:59 PM
     Author     : oscar
@@ -8,7 +8,8 @@
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html>
-
+    
+    
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -28,7 +29,7 @@
             </div>
         </div>
 
-        <form action="javascript:agregarArtTemp()">
+        <form id="formSolicitudArt" action="javascript:agregarArtTemp()">
             <div class="card" id="formulario">
                 <div class="card-body">
                     <h5 class="text-center">Seleccione el artículo y la cantidad deseada</h5>
@@ -176,11 +177,7 @@
                                     }
 
                                     function limpiaEspacios() {
-                                        $("#cantidad").val('');
-                                        $('#selectArt option').prop('selected', function () {
-                                            return this.defaultSelected;
-                                        });
-                                        $("#cantidadExist").val('');
+                                        $('#formSolicitudArt').trigger("reset");
                                     }
 
 

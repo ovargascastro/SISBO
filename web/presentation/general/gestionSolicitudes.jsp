@@ -24,7 +24,7 @@
 
     <div id="titulo">
         <div class="jumbotron">
-            <h1>Solicitudes de Requisición de Articulos</h1>
+            <h1> Gestión de Solicitudes de Requisición de Articulos</h1>
             <p></p>
             <p></p>
         </div>
@@ -45,6 +45,7 @@
                         </form>
                     </div>
                 </div>
+                <br>
                 <div class="row">
                     <div class="col text-center" id="tablaSolicitudes">
                         <div class="table-responsive">
@@ -105,7 +106,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Aprobación de Solitudes</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                        <h4 class="modal-title">Aprobación de Solicitudes</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                     <div class="modal-body">
                         <p>Si lo necesita solicite el visto bueno necesario</p>
                     
@@ -115,7 +116,79 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary bg-danger" type="button" data-dismiss="modal" onclick="javascript:abrirModalRechazar()">Rechazar</button>  
-                        <button class="btn btn-success" type="button" onclick="javascript:actualizarEstadoAprobacion()">Aprobar</button></div>
+                        <button class="btn btn-success" type="button" onclick="javascript:actualizarExistenciaEstado()">Aprobar</button></div>
+                </div>
+            </div>
+        </div>
+    
+        <div role="dialog" tabindex="-1" class="modal fade" id="modalAprobarJEFE">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Aprobación de Solicitudes TI</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <p>Si lo necesita solicite el visto bueno del departamento de TI</p>
+                    
+                    <button class="btn btn-light" type="button" onclick="javascript:actualizarEstadoTI()">Visto Bueno TI</button>
+                    
+                    <p><br>¿Desea Aprobar la solicitud seleccionada?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary bg-danger" type="button" data-dismiss="modal" onclick="javascript:abrirModalRechazar()">Rechazar</button>  
+                        <button class="btn btn-success" type="button" onclick="javascript:actualizarExistenciaEstado()">Aprobar</button></div>
+                </div>
+            </div>
+        </div>
+    
+      <div role="dialog" tabindex="-1" class="modal fade" id="modalAprobarTI">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Aprobación de Solicitudes TI</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <p>Si lo necesita solicite el visto bueno del Jefe de departamento</p>
+                    
+                    <button class="btn btn-light" type="button" onclick="javascript:actualizarEstadoJefe()">Visto Bueno Jefe</button> 
+                    
+                    <p><br>¿Desea Aprobar la solicitud seleccionada?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary bg-danger" type="button" data-dismiss="modal" onclick="javascript:abrirModalRechazar()">Rechazar</button>  
+                        <button class="btn btn-success" type="button" onclick="javascript:actualizarExistenciaEstado()">Aprobar</button></div>
+                </div>
+            </div>
+        </div>
+    
+     <div role="dialog" tabindex="-1" class="modal fade" id="modalAprobarAmbas">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Aprobación de Solicitudes</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <p>Esta solicitud ya cuenta con los vistos buenos del Jefe de departamento y del departamento de TI</p>
+                   
+                    <p><br>¿Desea Aprobar la solicitud seleccionada?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary bg-danger" type="button" data-dismiss="modal" onclick="javascript:abrirModalRechazar()">Rechazar</button>  
+                        <button class="btn btn-success" type="button" onclick="javascript:actualizarExistenciaEstado()">Aprobar</button></div>
+                </div>
+            </div>
+        </div>
+    
+     <div role="dialog" tabindex="-1" class="modal fade" id="modalPendiente">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Aprobación de Solicitudes</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <p>Esta solicitud esta a la espera del  visto bueno solicitado</p>
+                   
+                   
+                    </div>
+                    <div class="modal-footer">
+                         
+                        <button class="btn btn-success" type="button" onclick="javascript:cerrarPendiente()">Aceptar</button></div>
                 </div>
             </div>
         </div>
@@ -128,7 +201,7 @@
                         <h4 class="modal-title">Rechazar la Solitudes</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                     <div class="modal-body">
                         <p>Motivo del rechazo de la solicitud</p>
-                        <div class="col"><input class="form-control" type="text" id="motivo"></div>
+                        <div class="col"><input class="form-control" type="text" placeholder="Digite el motivo"  id="motivo"></div>
                     </div>
                     <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>  <button class="btn btn-primary bg-danger" type="button" onclick="javascript:actualizarEstadoRechazo()">Rechazar</button></div>
                 </div>

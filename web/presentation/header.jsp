@@ -43,9 +43,8 @@
                                 <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
                                 <a class="dropdown-item" href="presentation/general/listarSolicitudesArticulos.jsp">Listado de solicitudes</a>
                                 <a class="dropdown-item" href="presentation/general/gestionSolicitudes.jsp">Gestión de Solitudes</a>
-                                <a class="dropdown-item" href="presentation/general/SolicitudesJefe.jsp">Visto bueno de Jefe</a>
-                                <a class="dropdown-item" href="presentation/general/SolicitudesTI.jsp">Visto bueno de TI</a>
-                            </div>
+                                <a class="dropdown-item" href="presentation/general/vistoBuenoJefe.jsp">Visto bueno de Jefe</a>
+                                <a class="dropdown-item" href="presentation/general/vistoBuenoTI.jsp">Visto bueno de TI</a>                            </div>
                         </div>
                         <li class="nav-item" role="presentation"><a class="nav-link active" href="presentation/catalogos/administracionCatalogos.jsp">Administración de Catálogos</a></li>
                     </ul>
@@ -62,3 +61,4 @@
         $(".dropdown-toggle").dropdown();
     });
 </script>
+
