@@ -277,6 +277,59 @@ function mostraraprobarTI(soli) {
 }
 
 
+//function AprobacionBodega(filtro) {
+//    
+//    $.ajax({type: "GET",
+//        url: "api/artPorSol?filtro=" + filtro,
+//        success: mostrarExistencia,
+//        error: function (jqXHR) {
+//            alert(errorMessage(jqXHR.status));
+//        }
+//
+//    });
+//  
+//}
+var artIdEx;
+var cantExist;
+var SoliEx;
+function mostrarExistencia(soli) {
+     
+    artIdEx=soli.sboTbArticulo.artIdPk;
+    SoliEx=soli.sboTbSoliArti.solArtiIdPk;
+    cantExist=soli.solArtiCant;
+   console.log("existencias funciona");
+    console.log(artIdEx);
+    console.log(SoliEx);
+}
+
+function actualizarExistenciaEstado() {
+ console.log(artIdEx);   
+ console.log(SoliEx);
+    SboTbSolixArti = {
+        sboTbArticulo:{ 
+            artIdPk:artIdEx},
+        sboTbSoliArti:{
+            solArtiIdPk:SoliEx
+        } ,
+        solArtiCant: cantExist 
+    };
+    $.ajax({type: "PUT",
+        url: "api/artPorSol",
+        data: JSON.stringify(SboTbSolixArti),
+        contentType: "application/json",
+        success: afterUpdateApE,
+        error: function (jqXHR) {
+            alert('Error');
+        }
+    });
+
+}
+
+
+
+
+
+
 function abrirModalAprobar(filtro){
     console.log(filtro);
  $.ajax({type: "GET",
@@ -286,6 +339,15 @@ function abrirModalAprobar(filtro){
                 alert(errorMessage(jqXHR.status));
             }
         });
+        
+         $.ajax({type: "GET",
+         url: "api/artPorSol/" + filtro,
+        success: mostrarExistencia,
+        error: function (jqXHR) {
+            alert(errorMessage(jqXHR.status));
+        }
+
+    });
     
 }
 var VBJF;
@@ -293,28 +355,37 @@ var VBTI;
 var solIdActual;
 var solFecha;
 var solDeparta;
+var EstAc;
 function mostrarXaprobar(soli) {
  solIdActual = soli.solArtiIdPk;
  solFecha= soli.solArtiFechSoli;
  solDeparta= soli.abaaTbDepartamento;
  VBJF=soli.solArtiVistJefe;
  VBTI=soli.solArtiVistTi;
+ EstAc=soli.solArtiEsta;
    // solEstado= soli.c;
      console.log(VBJF);
      console.log(VBTI);
-     if(VBJF===true && VBTI===false){
+     if(VBJF===true && VBTI===false && EstAc==='VBJefeAprobado'){
          $('#modalAprobarJEFE').modal('show');     
      }
-     else if(VBJF===false && VBTI===true){
+     else if(VBJF===false && VBTI===true && EstAc==='VBTIAprobado'){
          $('#modalAprobarTI').modal('show');     
      }
      else if(VBJF===true && VBTI===true){
          $('#modalAprobarAmbas').modal('show');
       }
-     else
-        $('#modalAprobar').modal('show');
+      
+     else if(EstAc==='PendienteVBJefe'||EstAc==='PendienteVBTI'){
+        $('#modalPendiente').modal('show');}
+    else 
+       $('#modalAprobar').modal('show');
         console.log(soli.solArtiIdPk);
+        console.log(EstAc);
+}
 
+function cerrarPendiente(){
+     $('#modalPendiente').modal('hide');
 }
 
    var solEstado="Aprobada";     
@@ -460,8 +531,8 @@ function imprimir(filtro) {
     
     
      $.ajax({type: "GET",
-            url:"api/solicitudArticulo/" + filtro,
-            success: mostrarsoli,
+            url:"api/solicitudArticulo?filtro=" + filtro,
+            success: listaInformacionSol,
             error: function (jqXHR) {
                 alert(errorMessage(jqXHR.status));
             }
@@ -475,15 +546,17 @@ function imprimir(filtro) {
         }
 
     });
-    
+  
+     $('#SolicitudImprimir').modal('show');
 }   
 
 var a;
 function mostrarsoli(soli) {
     
-  console.log(soli);
+  console.log(a);
+  a=soli.solArtiIdPk;
     $('#SolicitudImprimir').modal('show');
-   
+//   
    $("#num").val(soli.solArtiIdPk);  
    $("#departa").val(formatDate(soli.solArtiFechSoli));  
 //    console.log(soli.abaaTbDepartamento.deptoNomb);
@@ -621,3 +694,55 @@ function eliminaArt(id){
         }); 
     }
   }
+  
+  
+  //imprimir JS trabajar desde aqui
+  
+ document.getElementById('export').addEventListener('click',
+  exportPDF);
+
+var specialElementHandlers = {
+  // element with id of "bypass" - jQuery style selector
+  '.no-export': function(element, renderer) {
+    // true = "handled elsewhere, bypass text extraction"
+    return true;
+  }
+};
+
+function exportPDF() {
+
+    
+    
+
+  var doc = new jsPDF('p', 'pt', 'a4');
+  //A4 - 595x842 pts
+  //https://www.gnu.org/software/gv/manual/html_node/Paper-Keywords-and-paper-size-in-points.html
+
+
+  //Html source 
+  var source = document.getElementById('content').innerHTML;
+
+  var margins = {
+    top: 10,
+    bottom: 10,
+    left: 10,
+    width: 595
+  };
+
+  doc.fromHTML(
+    source, // HTML string or DOM elem ref.
+    margins.left,
+    margins.top, {
+      'width': margins.width,
+      'elementHandlers': specialElementHandlers
+    },
+
+    function(dispose) {
+        
+   
+    
+      // dispose: object with X, Y of the last line add to the PDF 
+      //          this allow the insertion of new lines after html
+      doc.save('solicitud.pdf');
+    }, margins);
+}

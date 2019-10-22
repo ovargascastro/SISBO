@@ -263,7 +263,13 @@ public class Model {
         SboTbSoliArti ob = solArtdao.getSboTbSoliArti(filtro);
         return ob;
     }
+     
+       public SboTbSolixArti getSboTbSolixArti(int filtro) throws Exception {
+        SboTbSolixArti ob = solArtdao.getSboTbSolixArti(filtro);
+        return ob;
+    }
     
+     
 
     public void actualizarCatContable(SboTbCatContable cont) throws Exception {
         catdao.actualizarCatContable(cont);
@@ -392,5 +398,9 @@ public class Model {
      public void actualizarEstSolicitudTI(SboTbSoliArti cont) throws Exception {
         solArtdao.actualizarEstSolicitudTI(cont);
         
+    }
+     
+     public void disminuyeExistencias(SboTbSolixArti objeto) throws Exception {
+        solArtdao.disminuyeExistencias(objeto);
     }
 }
