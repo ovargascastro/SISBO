@@ -21,18 +21,6 @@
                 <h1>Bienvenido al Sistema de Bodega</h1>
             </div>
         </div>
-        
-        <%--
-        <a href="presentation/proveeduria/ordenDeCompra.jsp">Orden de Compra</a>
-        <br>
-        <a href="presentation/proveeduria/listarOrdenes.jsp">Listado Órdenes de Compra</a>
-        <br>
-        <a href="presentation/proveeduria/asignarCodContable.jsp">Código Contable</a>
-        <br>
-        <a href="presentation/bodega/ingresoArticulosNuevos.jsp">Ingreso de Artículos Nuevos</a>
-        <br>
-        <a href="presentation/catalogos/administracionCatalogos.jsp">Administración de Catálogos</a>
-        --%>
     </body> 
     
 </html>
