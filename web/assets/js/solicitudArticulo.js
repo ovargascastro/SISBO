@@ -709,7 +709,7 @@ function eliminaArt(id){
   //imprimir JS trabajar desde aqui
   
  document.getElementById('export').addEventListener('click',
-  exportPDF);
+  PDF);
 
 var specialElementHandlers = {
   // element with id of "bypass" - jQuery style selector
@@ -719,25 +719,34 @@ var specialElementHandlers = {
   }
 };
 
-function exportPDF() {
+var getImageFromUrl = function(url, callback) {
+    var img = new Image();
+
+    img.onError = function() {
+        alert('Cannot load image: "'+url+'"');
+    };
+    img.onload = function() {
+        callback(img);
+    };
+    img.src = url;
+}
+
+function exportPDF(imgData) {
 
     
-    
+    var doc = new jsPDF('p', 'pt', 'a4');
 
-  var doc = new jsPDF('p', 'pt', 'a4');
-  //A4 - 595x842 pts
-  //https://www.gnu.org/software/gv/manual/html_node/Paper-Keywords-and-paper-size-in-points.html
+    doc.addImage(imgData, 'JPEG', 0, 0, 100, 90);
 
-
-  //Html source 
   var source = document.getElementById('content').innerHTML;
 
   var margins = {
-    top: 10,
+    top: 80,
     bottom: 10,
     left: 10,
     width: 595
   };
+
 
   doc.fromHTML(
     source, // HTML string or DOM elem ref.
@@ -748,11 +757,10 @@ function exportPDF() {
     },
 
     function(dispose) {
-        
-   
-    
-      // dispose: object with X, Y of the last line add to the PDF 
-      //          this allow the insertion of new lines after html
       doc.save('solicitud.pdf');
     }, margins);
+}
+
+function PDF(){
+getImageFromUrl('assets/img/Escudo.png', exportPDF);
 }

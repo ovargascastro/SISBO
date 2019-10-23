@@ -101,25 +101,28 @@
   </div>
 </div>
     
-<div role="dialog" tabindex="-1" class="modal fade" id="SolicitudImprimir">
-    <div class="modal-dialog" role="document">
+<div role="dialog" tabindex="-1" class="modal fade" id="SolicitudImprimir" align="center">
+    <div class="modal-dialog" role="document" align="center">
   <div class="row">
-    <div class="modal-content">
-
- 
+    <div class="modal-content"> 
       <div id="content">
-         <a> <img src="assets/img/Escudo.png" width="100" height="90"> </a>  <p>Municipalidad de Santo Domingo</p>
+          <br>
+          <br>
+          <br>
+          <br>
         <p>_________________________________________________________________________________<br></p>
+        <br>
+        <p>Municipalidad de Santo Domingo</p>
          <h2 class="text-center"><br><br>Solicitud de Requisición de Articulo  <br></h2>
         <p>_________________________________________________________________________________<br><br><br><br></p>
-     
+  
         <div>
           <button class="btn btn-success" id="export">Imprimir</button>
         </div>
           <br>  <br>
        
        
-     <div class="table-responsive">
+     <div class="table-responsive" align="center">
                             
                          <table class="print">
                                         <thead >
@@ -139,7 +142,7 @@
            
                
                
-        <table id="demo" class="table table-bordered">
+        <table id="demo" class="table table-bordered" align="center">
        <thead >
                                             <tr>
                                               <th >Artículo       <br><br></th>
@@ -164,6 +167,7 @@
   </div>
   </div>
 </div>
+</div>
 <br>
 
     
@@ -175,7 +179,11 @@
     <script src="assets/js/jspdf.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/solicitudArticulo.js" type="text/javascript"></script>
+
 </body>
+
+
+
 <script>
     function listSoliArt(personas) {
         var listado = $("#listSolArt");

@@ -137,8 +137,7 @@ function agregarArticulos() {
 
 
 function salirOrden() {
-    var ruta = "index.jsp";
-    window.location = ruta;
+    location.href = "index.jsp"; 
 }
 
 String.prototype.toDate = function (format)
