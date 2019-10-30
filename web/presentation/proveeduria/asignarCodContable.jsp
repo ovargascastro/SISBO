@@ -111,6 +111,7 @@
     <script src="assets/js/ordenCompra.js" type="text/javascript"></script>
 </body>
 <script>
+    document.getElementById("ordenCompraMenu").style.color = "white";
                                         function listaOrdenes(personas) {
                                             var listado = $("#listaordenesc");
                                             listado.html("");

@@ -70,3 +70,6 @@
 </body>
 
 </html>
+<script>
+    document.getElementById("ArticulosMenu").style.color = "white";
+    </script>

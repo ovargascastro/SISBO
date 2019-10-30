@@ -215,6 +215,7 @@
     <script src="assets/js/solicitudArticulo.js" type="text/javascript"></script>
 </body>
 <script>
+    document.getElementById("solicitudArtMenu").style.color = "white";
     function listSoliArt(personas) {
         var listado = $("#listSolArt");
         listado.html("");

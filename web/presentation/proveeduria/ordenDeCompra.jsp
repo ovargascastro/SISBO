@@ -237,6 +237,7 @@
 </html>
 
 <script>
+      document.getElementById("solicitudArtMenu").style.color = "white";
 
                                 function abrirModalEliminar() {
                                     $('#modalEliminar').modal('show');

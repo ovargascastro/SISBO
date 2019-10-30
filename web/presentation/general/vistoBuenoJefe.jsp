@@ -180,6 +180,7 @@
 
 
 <script>
+    document.getElementById("solicitudArtMenu").style.color = "white";
     function listSoliArtJF(personas) {
         var listado = $("#listSolArtJF");
         listado.html("");

@@ -185,6 +185,7 @@
 
 
 <script>
+    document.getElementById("solicitudArtMenu").style.color = "white";
     function listSoliArt(personas) {
         var listado = $("#listSolArt");
         listado.html("");
