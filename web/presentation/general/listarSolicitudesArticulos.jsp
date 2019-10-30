@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
       <link rel="stylesheet" type="text/css" href="assets/css/Imprimir.css" media="print" />
-    <title>Lista Órdenes de Compra</title>
+    <title>Lista solicitudes de artículos</title>
 
 </head>
 
