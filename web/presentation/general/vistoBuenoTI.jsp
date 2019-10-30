@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<html>
+<html id="body">
 
 
 
@@ -46,6 +46,13 @@
                                         <div class="form-row">
                                             <div class="col"><input class="form-control" type="text" id="filtro"></div>
                                             <div class="col"><button class="btn btn-primary" type="button" onclick="javascript:buscarSolicitudVbTI()">Buscar</button></div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col">
+                                                <p class="font-italic">Digite un número de solicitud y haga clic en el botón Buscar.<br>
+                                                    De no digitar un número se listarán todas las solicitudes.
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
@@ -184,49 +191,50 @@
 
 
     <script>
-                            function listSoliArtTI(personas) {
-                                var listado = $("#listSolArtTI");
-                                listado.html("");
-                                personas.forEach((p) => {
-                                    filaSolArtTI(listado, p);
-                                });
-                            }
+                                        document.getElementById("solicitudArtMenu").style.color = "white";
+                                        function listSoliArtTI(personas) {
+                                            var listado = $("#listSolArtTI");
+                                            listado.html("");
+                                            personas.forEach((p) => {
+                                                filaSolArtTI(listado, p);
+                                            });
+                                        }
 
-                            function filaSolArtTI(listado, objeto) {
-                                var tr = $("<tr />");
-                                tr.html(
-                                        "<td>" + objeto.solArtiIdPk + "</td>"
-                                        + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
-                                        + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
-                                        + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'></td>"
-                                        + "<td><img src='assets/img/edit.png' onclick='AprobarTI(\"" + objeto.solArtiIdPk + "\");'></td>"
-                                        );
-                                listado.append(tr);
+                                        function filaSolArtTI(listado, objeto) {
+                                            var tr = $("<tr />");
+                                            tr.html(
+                                                    "<td>" + objeto.solArtiIdPk + "</td>"
+                                                    + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
+                                                    + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
+                                                    + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'></td>"
+                                                    + "<td><img src='assets/img/edit.png' onclick='AprobarTI(\"" + objeto.solArtiIdPk + "\");'></td>"
+                                                    );
+                                            listado.append(tr);
 
-                            }
+                                        }
 
-                            //onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'
-
-
-                            function listaArticulosxSol(personas) {
-                                var listado = $("#listaArticulosSolicitud");
-                                listado.html("");
-                                personas.forEach((p) => {
-                                    filaArticulos(listado, p);
-                                });
-                            }
+                                        //onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'
 
 
+                                        function listaArticulosxSol(personas) {
+                                            var listado = $("#listaArticulosSolicitud");
+                                            listado.html("");
+                                            personas.forEach((p) => {
+                                                filaArticulos(listado, p);
+                                            });
+                                        }
 
-                            function filaArticulos(listado, objeto) {
-                                var tr = $("<tr />");
-                                tr.html(
-                                        "<td>" + objeto.sboTbArticulo.artDesc + "</td>"
-                                        + "<td>" + objeto.solArtiCant + "</td>");
 
-                                listado.append(tr);
 
-                            }
+                                        function filaArticulos(listado, objeto) {
+                                            var tr = $("<tr />");
+                                            tr.html(
+                                                    "<td>" + objeto.sboTbArticulo.artDesc + "</td>"
+                                                    + "<td>" + objeto.solArtiCant + "</td>");
+
+                                            listado.append(tr);
+
+                                        }
     </script>
 
 </html>

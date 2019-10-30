@@ -6,7 +6,7 @@
 <%@page import="logic.Model"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html id="body">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
@@ -242,6 +242,7 @@
 </html>
 
 <script>
+      document.getElementById("ordenCompraMenu").style.color = "white";
 
                                 function abrirModalEliminar() {
                                     $('#modalEliminar').modal('show');

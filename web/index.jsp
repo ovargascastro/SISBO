@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html id="body">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -21,6 +21,10 @@
                 <h1>Bienvenido al Sistema de Bodega</h1>
             </div>
         </div>
+
     </body> 
     
 </html>
+<script>
+document.getElementById("index").style.color = "white";
+</script>

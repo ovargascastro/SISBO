@@ -33,6 +33,9 @@ function resetearSelectArt(selectbox)
     selecArt();
 }
 
+
+
+
 function agregarArtTemp() {
 
     var art = document.getElementById("selectArt").value;

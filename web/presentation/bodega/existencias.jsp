@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html id="body">
 
     <head>
         <meta charset="utf-8">
@@ -70,58 +70,6 @@
     </body>
 
 </html>
-
 <script>
-    function cargarSelects() {
-        selectCatArticulos();
-        selectDepartamentos();
-    }
-
-    function selectDepartamentos() {
-        $.ajax({type: "GET",
-            url: "api/departamentos",
-            success: function (data) {
-                $.each(data, function (key, dpto) {
-                    $("#SelectDepartamentos").append('<option value=' + dpto.deptoIdPk + '>' + dpto.deptoNomb + '</option>');
-                });
-            },
-            error: function (data) {
-                alert('error');
-            }
-        });
-    }
-
-    function selectCatArticulos() {
-        $.ajax({type: "GET",
-            url: "api/catArticulos?filtro=" + " ",
-            success: function (data) {
-                $.each(data, function (key, catArt) {
-                    $("#SelectCatArticulos").append('<option value=' + catArt.catIdPk + '>' + catArt.catDesc + '</option>');
-                });
-            },
-            error: function (data) {
-                alert('error');
-            }
-        });
-    }
-
-    function buscarExistencia() {
-        $.ajax({
-            type: "GET",
-            url: "api/ListadoExistencias/" + $("#SelectDepartamentos").val() + "/" + $("#SelectCatArticulos").val(),
-            success: listaExistencias
-        });
-    }
-
-    function listaExistencias(existencia) {
-        var listado = $("#listadoExistencias");
-        listado.html("");
-        var tr = $("<tr />");
-        tr.html(
-                "<td>" + existencia.sboTbBodega.bodeDesc + "</td>"
-                + "<td>" + existencia.exisCant + "</td>");
-        listado.append(tr);
-    }
-
-</script>
-
+    document.getElementById("ArticulosMenu").style.color = "white";
+    </script>
