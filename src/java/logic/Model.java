@@ -296,12 +296,17 @@ public class Model {
         int suma = sumaExistencias(idDep, idCatArt);
         
         if(art.getCantSolArt()<=suma){
-            artXsolTemp.put(art.getArtIdPk(), art);
+            if(  artXsolTemp.containsKey(idArt )){
+                int nuevaCantidad = artXsolTemp.get(art.getArtIdPk()).getCantSolArt()+ art.getCantSolArt();
+                artXsolTemp.get(art.getArtIdPk()).setCantSolArt(nuevaCantidad);
+            }
+            else{
+                artXsolTemp.put(art.getArtIdPk(), art);
+            }
         }
         else{
             throw new Exception("Cantidad ingresada es mayor a la existente en bodega. Ingrese una cantida válida.");
         }
-        
     }
 
     public SboTbArticulo getArtxSolTemp(int id) {

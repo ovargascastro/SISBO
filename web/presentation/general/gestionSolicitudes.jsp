@@ -55,6 +55,7 @@
                     <br>
                     <div class="row">
                         <div class="col text-center" id="tablaSolicitudes">
+                            <div class="table-responsive " style="max-height: 350px; overflow: auto">
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>

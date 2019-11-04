@@ -53,6 +53,7 @@
                     </div>
                     <div class="row">
                         <div class="col text-center" id="tablaOrdenes">
+                            <div class="table-responsive " style="max-height: 350px; overflow: auto">
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
@@ -67,6 +68,7 @@
                                     <tbody id="listaordenesc">
                                     </tbody>
                                 </table>
+                            </div>
                             </div>
                         </div>
                     </div>

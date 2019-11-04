@@ -319,7 +319,7 @@
                         if (fecha.length > 0) {
                             fecha2 = fecha.toDate("yyyy-mm-dd");
                         } else {
-                            fecha2 = "";
+                            fecha2 = null;
                         }
                         return fecha2;
                     }

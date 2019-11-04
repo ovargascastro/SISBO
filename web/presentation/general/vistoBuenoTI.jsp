@@ -62,6 +62,7 @@
 
                         <div class="form-row">
                             <div class="col text-center">
+                                <div class="table-responsive " style="max-height: 350px; overflow: auto">
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
@@ -78,6 +79,7 @@
 
                                         </tbody>
                                     </table>
+                                </div>
                                 </div>
                             </div>
                         </div>
