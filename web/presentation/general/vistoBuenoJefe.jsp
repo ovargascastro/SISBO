@@ -46,9 +46,8 @@
                                         </div>
                                         <div class="form-row">
                                             <div class="col">
-                                                <p class="font-italic">Digite un número de solicitud y haga clic en el botón Buscar.<br>
-                                                    De no digitar un número se listarán todas las solicitudes.
-                                                </p>
+                                            <br>
+                                            <img src="assets/img/information.png" onclick="$('#information').modal('show');"> 
                                             </div>
                                         </div>
                                     </div>
@@ -182,6 +181,32 @@
                 </div>
             </div>
         </form>
+        
+    <div class="modal fade" role="dialog" tabindex="-1" id="information">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Información/Ayuda</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                <div class="modal-body">
+                    <form>
+                        <div class="container">
+                            <div class="form-row">
+                                <div class="col">
+                                           <p class="font-italic">
+                                               Digite un número de solicitud y haga clic en el botón Buscar.<br>
+                                               De no digitar un número se listarán todas las solicitudes.
+                                           </p>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button></div>
+            </div>
+        </div>
+    </div>
+        
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/solicitudArticulo.js" type="text/javascript"></script>
