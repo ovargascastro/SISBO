@@ -332,13 +332,15 @@ public class solicitudArtDAO {
         }
     }
     
+ 
+    
     
     public List<SboTbSoliArti> listadoSolicitudxAprobar(String filtro) {
         List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
         try {
                 String sql = "select * from Sbo_TB_Soli_Arti sa, ABAA_TB_Departamento dep "
                     + "where sa.Sol_Arti_Id_PK like '%%%s%%'"
-                    + "and (sa.Sol_Arti_Esta = 'pendiente' or sa.Sol_Arti_Esta = 'VBJefeAprobado' or sa.Sol_Arti_Esta = 'VBTIAprobado')"
+                    + "and (sa.Sol_Arti_Esta = 'pendiente' or sa.Sol_Arti_Esta = 'VBJefeAprobado' or sa.Sol_Arti_Esta = 'VBTIAprobado' or sa.Sol_Arti_Esta = 'PendienteVBJefe' or sa.Sol_Arti_Esta = 'PendienteVBTI')"
                     + "and sa.Sol_Arti_Id_Depa_Fk=dep.Depto_Id_PK";
 //            String sql = "select * from Sbo_TB_Soli_Arti o where o.Sol_Arti_Esta='pendiente' and o.Sol_Arti_Id_PK like '%%%s%%'";
             sql = String.format(sql, filtro);
@@ -367,6 +369,19 @@ public class solicitudArtDAO {
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
             return soliArti(rs);
+        } else {
+            throw new Exception("Bien no Existe");
+        }
+    }
+     
+      
+     public SboTbSolixArti getSboTbSolixArti(int filtro) throws Exception {
+        String sql = "select * from Sbo_TB_SolixArti s inner join Sbo_TB_Articulo a on s.SolixArti_Id_Arti_PK = a.Art_Id_PK inner join Sbo_TB_Soli_Arti sa on s.SolixArti_Id_Soli_Arti_PK = sa.Sol_Arti_Id_PK"
+          + " where s.SolixArti_Id_Soli_Arti_PK ='%s'";
+        sql = String.format(sql, filtro);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return solixArti(rs);
         } else {
             throw new Exception("Bien no Existe");
         }
@@ -428,6 +443,16 @@ public class solicitudArtDAO {
         preparedStmt.executeUpdate();
         db.getConnection().close();
 
+    }
+        
+       public void disminuyeExistencias(SboTbSolixArti objeto) throws Exception {
+        String query = "execute DisminuyeExistencias ?,?,?;";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setInt(1, objeto.getSboTbArticulo().getArtIdPk());
+        preparedStmt.setInt(2, objeto.getSolArtiCant());
+        preparedStmt.setInt(3, objeto.getSboTbSoliArti().getSolArtiIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
     }
           
           

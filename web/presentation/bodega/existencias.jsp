@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html id="body">
 
 <head>
     <meta charset="utf-8">
@@ -70,3 +70,6 @@
 </body>
 
 </html>
+<script>
+    document.getElementById("ArticulosMenu").style.color = "white";
+    </script>

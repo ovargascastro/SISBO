@@ -7,8 +7,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!DOCTYPE html>
-<html>
-
+<html id="body">
+    
+    
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -28,7 +29,7 @@
             </div>
         </div>
 
-        <form action="javascript:agregarArtTemp()">
+        <form id="formSolicitudArt" action="javascript:agregarArtTemp()">
             <div class="card" id="formulario">
                 <div class="card-body">
                     <h5 class="text-center">Seleccione el artículo y la cantidad deseada</h5>
@@ -53,6 +54,7 @@
                                 <label>Cantidad</label>
                                 <input class="form-control" type="number" placeholder="Cantidad" id="cantidad" required>
                             </div>
+<<<<<<< HEAD (710dc37) - Correccion
                         </div>
                         <div class="form-row text-center" id="rowBtnAgregar">
                             <br>
@@ -92,9 +94,12 @@
                                 <label>Cantidad</label>
                                 <input class="form-control" type="number" placeholder="Cantidad" id="cantidad">
                             </div>
+=======
+>>>>>>> origin/oscarTmp (6bc1991) - respaldo
                         </div>
                         <div class="form-row text-center" id="rowBtnAgregar">
                             <br>
+<<<<<<< HEAD (710dc37) - Correccion
                             <br>
                             <div class="col">
                                 <button class="btn btn-primary text-center" id="btnAgregarArt" type="button" onclick="javascript:agregarArtTemp()">Agregar Articulo</button>
@@ -103,11 +108,27 @@
                         --%>
                         <%--
                         <div class="form-row" id="linea">
+=======
+>>>>>>> origin/oscarTmp (6bc1991) - respaldo
                             <div class="col">
-                                <hr>
+                                <button class="btn btn-primary text-center" id="btnAgregarArt" type="submit" >Agregar Articulo</button>
                             </div>
                         </div>
+<<<<<<< HEAD (710dc37) - Correccion
                         --%>
+=======
+                </div>
+            </div>
+        </form>
+        <form action="javascript:agregarSolicitudArticulo()">
+            <div class="card" id="formulario">
+                <div class="card-body">
+                    
+                    <h5 class="text-center">Artículos a solicitar</h5>
+                    
+                    <div class="container" id="contenedorEncabezado">
+
+>>>>>>> origin/oscarTmp (6bc1991) - respaldo
                         <div class="form-row">
                             <div class="col text-center">
                                 <div class="table-responsive">
@@ -151,6 +172,7 @@
 </html>
 
 <script>
+<<<<<<< HEAD (710dc37) - Correccion
                                     function cargarSelectsSolArt() {
                                         selectDeptos();
                                     }
@@ -181,6 +203,35 @@
                                             return this.defaultSelected;
                                         });
                                         $("#cantidadExist").val('');
+=======
+   document.getElementById("solicitudArtMenu").style.color = "white";
+                                    function cargarSelectsSolArt() {
+                                        selectDeptos();
+                                    }
+
+                                    function listaArtTemp(art) {
+                                        var listado = $("#listArt");
+                                        listado.html("");
+                                        art.forEach((a) => {
+                                            filaArtTemp(listado, a);
+                                        });
+                                        limpiaEspacios();
+                                    }
+
+                                    var array = [];
+                                    var x;
+                                    function filaArtTemp(listado, articulo) {
+                                        var tr = $("<tr />");
+                                        tr.html(
+                                                "<td>" + articulo.artDesc + "</td>"
+                                                + "<td>" + articulo.cantSolArt + "</td>"
+                                                + "<td><img src='assets/img/trash-delete.png' onclick='eliminaArt(\"" + articulo.artIdPk + "\");'></td>");
+                                        listado.append(tr);
+                                    }
+
+                                    function limpiaEspacios() {
+                                        $('#formSolicitudArt').trigger("reset");
+>>>>>>> origin/oscarTmp (6bc1991) - respaldo
                                     }
 
 

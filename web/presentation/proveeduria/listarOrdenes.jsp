@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
+<html id="body">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -106,6 +106,7 @@
     <script src="assets/js/ordenCompra.js" type="text/javascript"></script>
 </body>
 <script>
+      document.getElementById("ordenCompraMenu").style.color = "white";
     function listaOrdenes(personas) {
         var listado = $("#listaordenesc");
         listado.html("");

@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<html>
+<html id="body">
 
 <head>
     <meta charset="utf-8">
@@ -180,6 +180,7 @@
 
 
 <script>
+    document.getElementById("solicitudArtMenu").style.color = "white";
     function listSoliArtJF(personas) {
         var listado = $("#listSolArtJF");
         listado.html("");

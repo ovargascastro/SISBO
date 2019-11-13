@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html id="body">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -21,18 +21,10 @@
                 <h1>Bienvenido al Sistema de Bodega</h1>
             </div>
         </div>
-        
-        <%--
-        <a href="presentation/proveeduria/ordenDeCompra.jsp">Orden de Compra</a>
-        <br>
-        <a href="presentation/proveeduria/listarOrdenes.jsp">Listado Órdenes de Compra</a>
-        <br>
-        <a href="presentation/proveeduria/asignarCodContable.jsp">Código Contable</a>
-        <br>
-        <a href="presentation/bodega/ingresoArticulosNuevos.jsp">Ingreso de Artículos Nuevos</a>
-        <br>
-        <a href="presentation/catalogos/administracionCatalogos.jsp">Administración de Catálogos</a>
-        --%>
+
     </body> 
     
 </html>
+<script>
+document.getElementById("index").style.color = "white";
+</script>

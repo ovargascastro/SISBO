@@ -53,28 +53,7 @@ function exito() {
 }
 
 function limpiar() {
-    $("#Descripcion").val('');
-    $("#Modelo").val('');
-    $("#Cantidad").val(''),
-            $('#selectUnidadMedida option').prop('selected', function () {
-        return this.defaultSelected;
-    });
-    $("#codPresupuestario").val('');
-    $("#Marca").val('');
-    $("#Serie").val('');
-    $("#Precio").val('');
-    $('#selectDeptos option').prop('selected', function () {
-        return this.defaultSelected;
-    });
-    $('#selectCatalogoArticulos option').prop('selected', function () {
-        return this.defaultSelected;
-    });
-    $('#selectProyectos option').prop('selected', function () {
-        return this.defaultSelected;
-    });
-    $('#proyectoCheck').prop('checked', false);
-    $('#comboProy').hide();
-    
+    $('#articulosOrden').trigger("reset");
 }
 
 function buscar2() {
@@ -158,8 +137,7 @@ function agregarArticulos() {
 
 
 function salirOrden() {
-    var ruta = "index.jsp";
-    window.location = ruta;
+    location.href = "index.jsp"; 
 }
 
 String.prototype.toDate = function (format)

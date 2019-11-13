@@ -6,7 +6,7 @@
 <%@page import="logic.Model"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html id="body">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <base href="http://localhost:8084/SISBO/" >
@@ -141,7 +141,7 @@
 
         <div class="modal fade" role="dialog" tabindex="-1" id="modalArticulo" data-backdrop="static">
             <div class="modal-dialog" role="document">
-                <form action="javascript:agregarArticuloTemporal()">
+                <form id="articulosOrden" action="javascript:agregarArticuloTemporal()">
                     <div class="modal-content">
 
                         <div class="modal-header">
@@ -237,6 +237,7 @@
 </html>
 
 <script>
+      document.getElementById("ordenCompraMenu").style.color = "white";
 
                                 function abrirModalEliminar() {
                                     $('#modalEliminar').modal('show');

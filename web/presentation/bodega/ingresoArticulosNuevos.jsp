@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html id="body">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <base href="http://localhost:8084/SISBO/" >
@@ -160,6 +160,8 @@
 </html>
 
 <script>
+    document.getElementById("ArticulosMenu").style.color = "white";
+    
                         var articuloActual;
                         
                         function abrirModalListarArticulos(id) {
@@ -359,7 +361,13 @@
                         function refresca(){
                             $('#agregarArticulo').modal('hide');
                             $('#listadoOCxArt').empty();
+<<<<<<< HEAD (710dc37) - Correccion
                             abrirModalListarArticulos(articuloActual);
+=======
+                            buscarArtxOc(articuloActual);
+
+                            $('#listaArticulos').modal('show');
+>>>>>>> origin/oscarTmp (6bc1991) - respaldo
                         }
 
                         String.prototype.toDate = function (format)
