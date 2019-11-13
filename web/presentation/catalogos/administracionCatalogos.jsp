@@ -14,7 +14,7 @@
 <html id="body">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <base href="http://localhost:8084/SISBO/" >
+        <%@ include file="/presentation/base.jsp" %>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
         <title>Administración de Catalogos</title>
