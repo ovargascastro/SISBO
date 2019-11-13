@@ -118,6 +118,7 @@
    document.getElementById("solicitudArtMenu").style.color = "white";
                                     function cargarSelectsSolArt() {
                                         selectDeptos();
+                                        <%Model.instance().reiniciaListaSolart();%>
                                     }
 
                                     function listaArtTemp(art) {

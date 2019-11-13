@@ -64,6 +64,16 @@ function buscar() {
 
 
 
+function eliminaArt(id){
+   if(confirm("Desea eliminar el articulo?") ){
+           $.ajax({type: "DELETE", 
+          url:"api/artSolTemp/"+id, 
+          success: buscar,
+          error: function(status){ alert(errorMessage(status));}                 
+        }); 
+    }
+  }
+  
 function agregarSolicitudArticulo() {
     var depto = document.getElementById("selectDeptos").value;
     var f = new Date();
