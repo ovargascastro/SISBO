@@ -9,7 +9,7 @@
 <html id="body">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <base href="http://10.28.171.143:8084/SISBO/" >
+        <base href="http://localhost:8084/SISBO/" >
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
         <title>Orden de Compra</title>
