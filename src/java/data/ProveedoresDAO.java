@@ -36,7 +36,6 @@ public class ProveedoresDAO {
         } catch (SQLException ex) {
             return null;
         }
-
     }
     public List<AbaaTbProveedor> listaProveedor() {
         List<AbaaTbProveedor> resultado = new ArrayList<AbaaTbProveedor>();
