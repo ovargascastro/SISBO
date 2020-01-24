@@ -4,4 +4,4 @@
     Author     : oscar
 --%>
 
-<base href="http://192.168.0.8:8084/SISBO/">
+<base href="http://localhost:8084/SISBO/">

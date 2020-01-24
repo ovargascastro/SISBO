@@ -15,7 +15,6 @@
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
         <title>Lista Órdenes de Compra</title>
-
     </head>
 
     <body style="background-color: rgb(255,255,255);">

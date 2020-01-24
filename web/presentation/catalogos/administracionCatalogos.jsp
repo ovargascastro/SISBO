@@ -325,7 +325,7 @@
         <script src="assets/js/catalogos.js" type="text/javascript"></script>
     </body>
     <script>
-
+ document.getElementById("CatalogosMenu").style.color = "white";
 
                         function listaFam(personas) {
                             var listado = $("#listado");
