@@ -419,115 +419,129 @@
                         return new Date(year, month, day);
                     };
 
-                        function solicitarDatosArticulo(id) {
-                            $.ajax({type: "GET",
-                                url: "api/ListaOCxArt/" + id,
-                                success: mostrarDatosArt
-                            });
-                        }
+                    function buscarOrdenes() {
+                        $.ajax({type: "GET",
+                            url: "api/listadoOCArtNuevos?numeroOC=" + $("#numeroOC").val(),
+                            success: listaOC
+                        });
+                    }
 
-                        function mostrarDatosArt(objeto) {
-                            $("#AddArtId").val(objeto.artIdPk);
-                            $("#OCId").val(objeto.sboTbOrdenCompra.ocIdPk);
-                            $("#AddArtArticulo").val(objeto.sboTbCatArticulo.catDesc);
-                            $("#AddArtDescripcion").val(objeto.artDesc);
-                            $("#AddArtModelo").val(objeto.artMode);
-                            $("#AddArtMarca").val(objeto.artMarc);
-                            $("#AddArtNSerie").val(objeto.artNumeSeri);
-                            $("#AddArtUniUsuaria").val(objeto.abaaTbDepartamento.deptoNomb);
-                            cargarBotonInfo(objeto.sboTbCatArticulo.catIdPk);
-                        }
+                    function buscarArtxOc(id) {
+                        $.ajax({type: "GET",
+                            url: "api/ListaOCxArt?numeroOCArt=" + id,
+                            success: listaArtxOC
+                        });
+                    }
 
-                        function solicitarDatosCatalogosArticulo(id) {
-                            $.ajax({type: "GET",
-                                url: "api/descCatsArticulo/" + id,
-                                success: mostrarDatosCatsArt
-                            });
-                        }
+                    function solicitarDatosArticulo(id) {
+                        $.ajax({type: "GET",
+                            url: "api/ListaOCxArt/" + id,
+                            success: mostrarDatosArt
+                        });
+                    }
 
-                        function mostrarDatosCatsArt(objeto) {
-                            $("#codArtInfo").val(objeto.sboTbCatArticulo.catIdPk);
-                            $("#articuloInfo").val(objeto.sboTbCatArticulo.catDesc);
-                            $("#subfamInfo").val(objeto.sboTbCatArticulo.sboTbSubFamilia.subFamiDesc);
-                            $("#famInfo").val(objeto.sboTbCatArticulo.sboTbSubFamilia.sboTbFamilia.famiDesc);
-                        }
+                    function mostrarDatosArt(objeto) {
+                        $("#AddArtId").val(objeto.artIdPk);
+                        $("#OCId").val(objeto.sboTbOrdenCompra.ocIdPk);
+                        $("#AddArtArticulo").val(objeto.sboTbCatArticulo.catDesc);
+                        $("#AddArtDescripcion").val(objeto.artDesc);
+                        $("#AddArtModelo").val(objeto.artMode);
+                        $("#AddArtMarca").val(objeto.artMarc);
+                        $("#AddArtNSerie").val(objeto.artNumeSeri);
+                        $("#AddArtUniUsuaria").val(objeto.abaaTbDepartamento.deptoNomb);
+                        cargarBotonInfo(objeto.sboTbCatArticulo.catIdPk);
+                    }
 
-                        function cargarBotonInfo(catalogoID) {
-                            var linea = "<img src='assets/img/info(1).png' onclick='abrirModalInfoArticulo(\"" + catalogoID + "\")'>";
-                            $("#botonArticuloInfo").empty().append(linea);
-                        }
+                    function solicitarDatosCatalogosArticulo(id) {
+                        $.ajax({type: "GET",
+                            url: "api/descCatsArticulo/" + id,
+                            success: mostrarDatosCatsArt
+                        });
+                    }
 
-                        function listaOC(ordenes) {
-                            var listado = $("#listadoOC");
-                            listado.html("");
-                            ordenes.forEach((p) => {
-                                filaOC(listado, p);
-                            });
-                        }
+                    function mostrarDatosCatsArt(objeto) {
+                        $("#codArtInfo").val(objeto.sboTbCatArticulo.catIdPk);
+                        $("#articuloInfo").val(objeto.sboTbCatArticulo.catDesc);
+                        $("#subfamInfo").val(objeto.sboTbCatArticulo.sboTbSubFamilia.subFamiDesc);
+                        $("#famInfo").val(objeto.sboTbCatArticulo.sboTbSubFamilia.sboTbFamilia.famiDesc);
+                    }
 
-                        function listaArtxOC(ordenes) {
-                            var listado = $("#listadoOCxArt");
-                            listado.html("");
-                            ordenes.forEach((p) => {
-                                filaOCxArt(listado, p);
-                            });
-                        }
+                    function cargarBotonInfo(catalogoID) {
+                        var linea = "<img src='assets/img/info(1).png' onclick='abrirModalInfoArticulo(\"" + catalogoID + "\")'>";
+                        $("#botonArticuloInfo").empty().append(linea);
+                    }
 
-                        function formatDate(fecha) {
-                            var dia = fecha.substring(8, 10);
-                            var mes = fecha.substring(5, 7);
-                            var annio = fecha.substring(0, 4);
-                            var newFecha = dia + "/" + mes + "/" + annio;
-                            return newFecha;
-                        }
+                    function listaOC(ordenes) {
+                        var listado = $("#listadoOC");
+                        listado.html("");
+                        ordenes.forEach((p) => {
+                            filaOC(listado, p);
+                        });
+                    }
 
-                        function filaOC(listado, objeto) {
-                            var tr = $("<tr />");
-                            tr.html(
-                                    "<td>" + objeto.ocIdPk + "</td>"
-                                    + "<td>" + formatDate(objeto.ocFecha) + "</td>"
-                                    + "<td>" + objeto.ocPrecTota + "</td>"
-                                    + "<td>" + objeto.ocEsta + "</td>"
-                                    + "<td><img src='assets/img/delivery-cart.png' onclick='abrirModalListarArticulos(\"" + objeto.ocIdPk + "\");'></td>");
-                            listado.append(tr);
-                        }
+                    function listaArtxOC(ordenes) {
+                        var listado = $("#listadoOCxArt");
+                        listado.html("");
+                        ordenes.forEach((p) => {
+                            filaOCxArt(listado, p);
+                        });
+                    }
 
-                        function filaOCxArt(listado, objeto) {
-                            var tr = $("<tr />");
-                            tr.html(
-                                    "<td>" + objeto.artDesc + "</td>"
-                                    + "<td>" + objeto.artCant + "</td>"
-                                    + "<td>" + objeto.artCantRest + "</td>"
-                                    + "<td><img class='small-img' src='assets/img/plus.png' onclick='abrirModalAgregarArticulos(\"" + objeto.artIdPk + "\");'></td>");
-                            listado.append(tr);
-                        }
+                    function formatDate(fecha) {
+                        var dia = fecha.substring(8, 10);
+                        var mes = fecha.substring(5, 7);
+                        var annio = fecha.substring(0, 4);
+                        var newFecha = dia + "/" + mes + "/" + annio;
+                        return newFecha;
+                    }
 
-                        function selectBodegas() {
-                            var vacio = "";
-                            $.ajax({type: "GET",
-                                url: "api/BodegaListaOC?filtro=" + vacio,
-                                success: function (data) {
-                                    $.each(data, function (key, bod) {
-                                        $("#AddArtBodega").append('<option value=' + bod.bodeIdPk + '>' + bod.bodeIdPk + ' - ' + bod.bodeDesc + '</option>');
-                                    });
-                                },
-                                error: function (data) {
-                                    alert('error');
-                                }
-                            });
+                    function filaOC(listado, objeto) {
+                        var tr = $("<tr />");
+                        tr.html(
+                                "<td>" + objeto.ocIdPk + "</td>"
+                                + "<td>" + formatDate(objeto.ocFecha) + "</td>"
+                                + "<td>" + objeto.ocPrecTota + "</td>"
+                                + "<td>" + objeto.ocEsta + "</td>"
+                                + "<td><img src='assets/img/delivery-cart.png' onclick='abrirModalListarArticulos(\"" + objeto.ocIdPk + "\");'></td>");
+                        listado.append(tr);
+                    }
 
-                        }
+                    function filaOCxArt(listado, objeto) {
+                        var tr = $("<tr />");
+                        tr.html(
+                                "<td>" + objeto.artDesc + "</td>"
+                                + "<td>" + objeto.artCant + "</td>"
+                                + "<td>" + objeto.artCantRest + "</td>"
+                                + "<td><img class='small-img' src='assets/img/plus.png' onclick='abrirModalAgregarArticulos(\"" + objeto.artIdPk + "\");'></td>");
+                        listado.append(tr);
+                    }
 
-                        function parseaFecha(fechaOriginal) {
-                            var fecha = fechaOriginal;
-                            var fecha2;
-                            if (fecha.length > 0) {
-                                fecha2 = fecha.toDate("yyyy-mm-dd");
-                            } else {
-                                fecha2 = "";
+                    function selectBodegas() {
+                        var vacio = "";
+                        $.ajax({type: "GET",
+                            url: "api/BodegaListaOC?filtro=" + vacio,
+                            success: function (data) {
+                                $.each(data, function (key, bod) {
+                                    $("#AddArtBodega").append('<option value=' + bod.bodeIdPk + '>' + bod.bodeIdPk + ' - ' + bod.bodeDesc + '</option>');
+                                });
+                            },
+                            error: function (data) {
+                                alert('error');
                             }
-                            return fecha2;
+                        });
+
+                    }
+
+                    function parseaFecha(fechaOriginal) {
+                        var fecha = fechaOriginal;
+                        var fecha2;
+                        if (fecha.length > 0) {
+                            fecha2 = fecha.toDate("yyyy-mm-dd");
+                        } else {
+                            fecha2 = null;
                         }
+                        return fecha2;
+                    }
 
                         function actualizarArticulo() {
                             aumentarExistencias();
@@ -589,6 +603,62 @@
 
                             return new Date(year, month, day);
                         };
+                        $.ajax({type: "PUT",
+                            url: "api/Existencias",
+                            data: JSON.stringify(existencia),
+                            contentType: "application/json"});
+                    }
+
+                    function disminuirRestantes() {
+                        articulo = {
+                            artIdPk: $("#AddArtId").val(),
+                            artDesc: $("#AddArtDescripcion").val(),
+                            artMode: $("#AddArtModelo").val(),
+                            artMarc: $("#AddArtMarca").val(),
+                            artNumeSeri: $("#AddArtNSerie").val(),
+                            artFingr: parseaFecha($("#AddArtFIngreso").val()),
+                            artFvenc: parseaFecha($("#AddArtFVencimiento").val()),
+                            sboTbOrdenCompra: [{ocIdPk: $("#OCId").val()}],
+                            artCantRest: $("#AddArtCant").val()
+                        };
+                        $.ajax({type: "PUT",
+                            url: "api/ListaOCxArt",
+                            data: JSON.stringify(articulo),
+                            contentType: "application/json"})
+                                .then(function () {
+                                    buscarArtxOc($("#OCId").val());
+                                    buscarOrdenes();
+                                });
+                        refresca();
+                    }
+
+                    function refresca() {
+                        $('#agregarArticulo').modal('hide');
+                        $('#listadoOCxArt').empty();
+                        buscarArtxOc(articuloActual);
+
+                        $('#listaArticulos').modal('show');
+                    }
+
+                    String.prototype.toDate = function (format)
+                    {
+                        var normalized = this.replace(/[^a-zA-Z0-9]/g, '-');
+                        var normalizedFormat = format.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-');
+                        var formatItems = normalizedFormat.split('-');
+                        var dateItems = normalized.split('-');
+
+                        var monthIndex = formatItems.indexOf("mm");
+                        var dayIndex = formatItems.indexOf("dd");
+                        var yearIndex = formatItems.indexOf("yyyy");
+
+                        var today = new Date();
+
+                        var year = yearIndex > -1 ? dateItems[yearIndex] : today.getFullYear();
+                        var month = monthIndex > -1 ? dateItems[monthIndex] - 1 : today.getMonth() - 1;
+                        var day = dayIndex > -1 ? dateItems[dayIndex] : today.getDate();
+
+                        return new Date(year, month, day);
+                    };
 
                         function solicitarDatosArticulo(id) {
                             $.ajax({type: "GET",
