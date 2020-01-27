@@ -43,7 +43,7 @@ public class ArticuloOCDAO {
             arti.setAbaaTbDepartamento(dpto);
             oc.setOcIdPk(rs.getInt("OC_Id_PK"));
             arti.setSboTbOrdenCompra(oc);
-            
+
             return arti;
         } catch (SQLException ex) {
             return null;
@@ -111,9 +111,15 @@ public class ArticuloOCDAO {
         java.util.Date utilStartDate = articulo.getArtFingr();
         java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
         preparedStmt.setDate(5, sqlStartDate);
-        utilStartDate = articulo.getArtFvenc();
-        sqlStartDate = new java.sql.Date(utilStartDate.getTime());
-        preparedStmt.setDate(6, sqlStartDate);
+        if (articulo.getArtFvenc() != null) {
+            utilStartDate = articulo.getArtFvenc();
+            sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+            preparedStmt.setDate(6, sqlStartDate);
+        }
+        else{
+            preparedStmt.setDate(6, null);
+        }
+
         preparedStmt.setInt(7, articulo.getArtCantRest());
         preparedStmt.setInt(8, articulo.getArtIdPk());
         preparedStmt.executeUpdate();

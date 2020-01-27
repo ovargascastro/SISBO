@@ -7,13 +7,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!DOCTYPE html>
-<html>
-
+<html id="body">
+    
+    
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
         <title>Solicitud de Articulos</title>
-        <base href="http://localhost:8084/SISBO/" >
+        <%@ include file="/presentation/base.jsp" %>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
     </head>
@@ -70,44 +71,7 @@
                     <h5 class="text-center">Artículos a solicitar</h5>
                     
                     <div class="container" id="contenedorEncabezado">
-                        <%--
-                        <div class="form-row">
-                            <div class="col">
-                                <label>Unidad Usuaria</label>
-                                <select class="form-control" id="selectDeptos" onchange="selecArt()">
-                                    <option values="0" selected disabled = "true">Seleccione una opcion</option>
-                                </select>
-                            </div>
-                            <div class="col">
-                                <label>Artículo</label>
-                                <select class="form-control" id="selectArt" onchange="getExistencias()">
-                                    <option values="0" selected disabled = "true">Seleccione una opcion</option>
-                                </select>
-                            </div>
-                            <div class="col">
-                                <label>Existencias</label>
-                                <input class="form-control" type="text" placeholder="Existencias" readonly="readonly" id="cantidadExist">
-                            </div>
-                            <div class="col">
-                                <label>Cantidad</label>
-                                <input class="form-control" type="number" placeholder="Cantidad" id="cantidad">
-                            </div>
-                        </div>
-                        <div class="form-row text-center" id="rowBtnAgregar">
-                            <br>
-                            <br>
-                            <div class="col">
-                                <button class="btn btn-primary text-center" id="btnAgregarArt" type="button" onclick="javascript:agregarArtTemp()">Agregar Articulo</button>
-                            </div>
-                        </div>
-                        --%>
-                        <%--
-                        <div class="form-row" id="linea">
-                            <div class="col">
-                                <hr>
-                            </div>
-                        </div>
-                        --%>
+
                         <div class="form-row">
                             <div class="col text-center">
                                 <div class="table-responsive">
@@ -151,8 +115,10 @@
 </html>
 
 <script>
+   document.getElementById("solicitudArtMenu").style.color = "white";
                                     function cargarSelectsSolArt() {
                                         selectDeptos();
+                                        <%Model.instance().reiniciaListaSolart();%>
                                     }
 
                                     function listaArtTemp(art) {

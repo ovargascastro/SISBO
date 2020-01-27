@@ -11,13 +11,23 @@
     </head>
     <body>
         <nav class="navbar navbar-dark navbar-expand-sm bg-primary">
-            <div class="container-fluid"><a class="navbar-brand" href="index.jsp"> <img src="assets/img/Escudo.png" width="70" height="60"> </a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse"
-                     id="navcol-1">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.jsp"> <img src="assets/img/Escudo.png" width="70" height="60"> </a>
+                <a class="navbar-brand" id="font"><img src="assets/img/increase.png" onclick="javascript:increaseFontSizeBy1px()"></a>
+                <a class="navbar-brand" id="font"><img src="assets/img/decrease.png" onclick="javascript:decreaseFontSizeBy1px()"></a>
+                <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item" role="presentation"><a class="nav-link active" href="index.jsp">Inicio</a></li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.jsp" id="index">Inicio</a>
+
+                        </li>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="ordenCompraMenu" data-toggle="dropdown">
                                 Orden de Compra
                             </a>
                             <div class="dropdown-menu">
@@ -27,16 +37,16 @@
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="ArticulosMenu" data-toggle="dropdown">
                                 Artículos
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/bodega/ingresoArticulosNuevos.jsp">Ingreso de Artículos Nuevos</a>
-                                <a class="dropdown-item" href="presentation/bodega/existencias.jsp">Existencias</a>
+                                <%--<a class="dropdown-item" href="presentation/bodega/existencias.jsp">Existencias</a>--%>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown">
                                 Solicitud de artículos
                             </a>
                             <div class="dropdown-menu">
@@ -47,18 +57,32 @@
                                 <a class="dropdown-item" href="presentation/general/vistoBuenoTI.jsp">Visto bueno de TI</a>
                             </div>
                         </div>
-                        <li class="nav-item" role="presentation"><a class="nav-link active" href="presentation/catalogos/administracionCatalogos.jsp">Administración de Catálogos</a></li>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown">
+                                Catálogos
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/catalogos/administracionCatalogos.jsp">Administración de Catálogos</a>
+                                <a class="dropdown-item" href="presentation/proveeduria/proveedores.jsp">Catálogo de Proveedores</a>
+       
+                            </div>
+                        </div>
+
+
+                        
                     </ul>
                 </div>
             </div>
         </nav>
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/funciones.js" type="text/javascript"></script>
     </body>
 </html>
 
 <script>
-    $(document).ready(function () {
-        $(".dropdown-toggle").dropdown();
-    });
+                    $(document).ready(function () {
+                        $(".dropdown-toggle").dropdown();
+                    });
 </script>
+

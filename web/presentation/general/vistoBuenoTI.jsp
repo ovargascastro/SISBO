@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<html>
+<html id="body">
 
 
 
@@ -16,7 +16,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <base href="http://localhost:8084/SISBO/" >
+        <%@ include file="/presentation/base.jsp" %>
         <title>Recepcion Solicitud TI</title>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
@@ -47,6 +47,12 @@
                                             <div class="col"><input class="form-control" type="text" id="filtro"></div>
                                             <div class="col"><button class="btn btn-primary" type="button" onclick="javascript:buscarSolicitudVbTI()">Buscar</button></div>
                                         </div>
+                                        <div class="form-row">
+                                            <div class="col">
+                                            <br>
+                                            <img src="assets/img/information.png" onclick="$('#information').modal('show');"> 
+                                            </div>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -55,6 +61,7 @@
 
                         <div class="form-row">
                             <div class="col text-center">
+                                <div class="table-responsive " style="max-height: 350px; overflow: auto">
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
@@ -71,6 +78,7 @@
 
                                         </tbody>
                                     </table>
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -177,6 +185,31 @@
                 </div>
             </div>
         </form>
+        
+            <div class="modal fade" role="dialog" tabindex="-1" id="information">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Información/Ayuda</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                <div class="modal-body">
+                    <form>
+                        <div class="container">
+                            <div class="form-row">
+                                <div class="col">
+                                           <p class="font-italic">
+                                               Digite un número de solicitud y haga clic en el botón Buscar.<br>
+                                               De no digitar un número se listarán todas las solicitudes.
+                                           </p>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button></div>
+            </div>
+        </div>
+    </div>
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/solicitudArticulo.js" type="text/javascript"></script>
@@ -184,49 +217,50 @@
 
 
     <script>
-                            function listSoliArtTI(personas) {
-                                var listado = $("#listSolArtTI");
-                                listado.html("");
-                                personas.forEach((p) => {
-                                    filaSolArtTI(listado, p);
-                                });
-                            }
+                                        document.getElementById("solicitudArtMenu").style.color = "white";
+                                        function listSoliArtTI(personas) {
+                                            var listado = $("#listSolArtTI");
+                                            listado.html("");
+                                            personas.forEach((p) => {
+                                                filaSolArtTI(listado, p);
+                                            });
+                                        }
 
-                            function filaSolArtTI(listado, objeto) {
-                                var tr = $("<tr />");
-                                tr.html(
-                                        "<td>" + objeto.solArtiIdPk + "</td>"
-                                        + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
-                                        + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
-                                        + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'></td>"
-                                        + "<td><img src='assets/img/edit.png' onclick='AprobarTI(\"" + objeto.solArtiIdPk + "\");'></td>"
-                                        );
-                                listado.append(tr);
+                                        function filaSolArtTI(listado, objeto) {
+                                            var tr = $("<tr />");
+                                            tr.html(
+                                                    "<td>" + objeto.solArtiIdPk + "</td>"
+                                                    + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
+                                                    + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
+                                                    + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'></td>"
+                                                    + "<td><img src='assets/img/edit.png' onclick='AprobarTI(\"" + objeto.solArtiIdPk + "\");'></td>"
+                                                    );
+                                            listado.append(tr);
 
-                            }
+                                        }
 
-                            //onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'
-
-
-                            function listaArticulosxSol(personas) {
-                                var listado = $("#listaArticulosSolicitud");
-                                listado.html("");
-                                personas.forEach((p) => {
-                                    filaArticulos(listado, p);
-                                });
-                            }
+                                        //onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'
 
 
+                                        function listaArticulosxSol(personas) {
+                                            var listado = $("#listaArticulosSolicitud");
+                                            listado.html("");
+                                            personas.forEach((p) => {
+                                                filaArticulos(listado, p);
+                                            });
+                                        }
 
-                            function filaArticulos(listado, objeto) {
-                                var tr = $("<tr />");
-                                tr.html(
-                                        "<td>" + objeto.sboTbArticulo.artDesc + "</td>"
-                                        + "<td>" + objeto.solArtiCant + "</td>");
 
-                                listado.append(tr);
 
-                            }
+                                        function filaArticulos(listado, objeto) {
+                                            var tr = $("<tr />");
+                                            tr.html(
+                                                    "<td>" + objeto.sboTbArticulo.artDesc + "</td>"
+                                                    + "<td>" + objeto.solArtiCant + "</td>");
+
+                                            listado.append(tr);
+
+                                        }
     </script>
 
 </html>

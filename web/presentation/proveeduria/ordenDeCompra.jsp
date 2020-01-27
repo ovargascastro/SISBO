@@ -6,10 +6,10 @@
 <%@page import="logic.Model"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html id="body">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <base href="http://localhost:8084/SISBO/" >
+        <%@ include file="/presentation/base.jsp" %>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
         <title>Orden de Compra</title>
@@ -55,10 +55,10 @@
                             <div class="col">
                                 <label>Identificación</label>
                                 <input class="form-control" type="text" placeholder="Identificación" id="Cedula" readonly="readonly">
-                                
+
                                 <label>Correo electrónico</label> 
                                 <input class="form-control" type="email" placeholder="email" id="email" readonly="readonly">
-                                
+
                                 <label>Teléfono</label>
                                 <input class="form-control" type="text" placeholder="Teléfono" id="Telefono" readonly="readonly">
 
@@ -66,7 +66,7 @@
                                 <input class="form-control" type="text" placeholder="Fax" id="Fax" readonly="readonly">
                             </div>
                         </div>
-                            <div class="form-row">
+                        <div class="form-row">
                             <div class="col text-center">
                                 <div class="table-responsive">
                                     <table class="table">
@@ -192,7 +192,7 @@
 
                                         <label>Modelo</label>
                                         <input class="form-control" type="text" placeholder="Modelo" id="Modelo">
-                                        
+
                                         <label>Precio</label>
                                         <input class="form-control" type="number" placeholder="Precio" id="Precio" required>
                                         
@@ -223,20 +223,23 @@
 
 
 
-
+        
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-
+        
         <script src="assets/js/departamentos.js" type="text/javascript"></script>
         <script src="assets/js/catalogos.js" type="text/javascript"></script>
         <script src="assets/js/proyectos.js" type="text/javascript"></script>
         <script src="assets/js/proveedores.js" type="text/javascript"></script>
         <script src="assets/js/ordenCompra.js" type="text/javascript"></script>
+        
+        
     </body>
 
 </html>
 
 <script>
+      document.getElementById("ordenCompraMenu").style.color = "white";
 
                                 function abrirModalEliminar() {
                                     $('#modalEliminar').modal('show');
@@ -275,7 +278,7 @@
                                     selectDeptos();
                                     selectProyectos();
                                     selectCatArticulos();
-                                    <%Model.instance().reiniciaLista();%>
+    <%Model.instance().reiniciaLista();%>
                                 }
 
                                 function listaArticulosTemporales(art) {
@@ -302,7 +305,7 @@
                                             + "<td>" + (articulo.artPrecio * articulo.artCant) + "</td>"
                                             + "<td><img src='assets/img/trash-delete.png' onclick='eliminarArt(\"" + articulo.artIdPk + "\");'></td>");
                                     listado.append(tr);
-                                    
+
                                 }
 
 </script>
