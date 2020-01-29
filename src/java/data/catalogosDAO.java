@@ -109,7 +109,7 @@ public class catalogosDAO {
         List<SboTbCatArticulo> resultado = new ArrayList<SboTbCatArticulo>();
         try {
             String sql = "select * from Sbo_Tb_CatArticulo a inner join Sbo_TB_SubFamilia s on a.Cat_SubF_FK = s.SubFami_Id_Pk"
-                    + " inner join Sbo_TB_Familia f on s.SubFami_CodF_Fk = f.Fami_Id_Pk where a.Cat_Desc like '%%%s%%'";
+                    + " inner join Sbo_TB_Familia f on s.SubFami_CodF_Fk = f.Fami_Id_Pk where a.Cat_Desc like '%%%s%%' order by Cat_Desc";
             sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {

@@ -37,8 +37,8 @@ public class ArticuloOCDAO {
             arti.setArtNumeSeri(rs.getString("Art_Nume_Seri"));
             cat.setCatIdPk(rs.getInt("Cat_Id_PK"));
             cat.setCatDesc(rs.getString("Cat_Desc"));
-            dpto.setDeptoIdPk(rs.getString("Depto_Id_PK"));
-            dpto.setDeptoNomb(rs.getString("Depto_Nomb"));
+            dpto.setDeptoIdPk(rs.getString("Cata_Depa_id_PK"));
+            dpto.setDeptoNomb(rs.getString("Cata_Depa_nomb"));
             arti.setSboTbCatArticulo(cat);
             arti.setAbaaTbDepartamento(dpto);
             oc.setOcIdPk(rs.getInt("OC_Id_PK"));
@@ -73,9 +73,9 @@ public class ArticuloOCDAO {
 
     public SboTbArticulo datosArticulo(String filtro) throws Exception {
         String sql = "select art.Art_Id_PK, art.Art_Desc,art.Art_Mode,art.Art_Marc,art.Art_Nume_Seri,\n"
-                + "carArt.Cat_Id_PK,carArt.Cat_Desc,dpto.Depto_Id_PK,dpto.Depto_Nomb,oc.OC_Id_PK\n"
-                + "from Sbo_TB_CatArticulo carArt, ABAA_TB_Departamento dpto, Sbo_TB_Articulo art, Sbo_TB_OrdenCompra oc\n"
-                + "where art.Art_Codi_Cat_Arti_FK=carArt.Cat_Id_PK and art.Art_Depa_FK=dpto.Depto_Id_PK\n"
+                + "carArt.Cat_Id_PK,carArt.Cat_Desc,dpto.Cata_Depa_id_PK,dpto.Cata_Depa_nomb,oc.OC_Id_PK\n"
+                + "from Sbo_TB_CatArticulo carArt, ABAA_TB_Catalogo_Departamento dpto, Sbo_TB_Articulo art, Sbo_TB_OrdenCompra oc\n"
+                + "where art.Art_Codi_Cat_Arti_FK=carArt.Cat_Id_PK and art.Art_Cat_DepaFK=dpto.Cata_Depa_id_PK\n"
                 + "and art.Art_Orde_Comp_FK = oc.OC_Id_PK and art.Art_Id_PK=" + filtro + ";";
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
