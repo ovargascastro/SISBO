@@ -711,7 +711,7 @@ function eliminaArt(id){
   
   //imprimir JS trabajar desde aqui
   
- document.getElementById('export').addEventListener('click',
+document.getElementById('export').addEventListener('click',
   PDF);
 
 var specialElementHandlers = {
