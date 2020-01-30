@@ -1,4 +1,5 @@
 
+<%@page import="logic.AbaaTbPersona"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -10,6 +11,8 @@
         <link rel="stylesheet" href="assets/css/styles.css">
     </head>
     <body>
+        <% AbaaTbPersona logged = (AbaaTbPersona) session.getAttribute("logged");%>
+
         <nav class="navbar navbar-dark navbar-expand-sm bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.jsp"> <img src="assets/img/Escudo.png" width="70" height="60"> </a>
@@ -21,10 +24,14 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav ml-auto">
-
+                        <% if (logged == null) {%>
+                        <li class="nav-item">
+                            <a class="nav-link" href="presentation/login.jsp" id="loginP">LogIn</a>
+                        </li>
+                        <% } else {%>
                         <li class="nav-item">
                             <a class="nav-link" href="index.jsp" id="index">Inicio</a>
-                           
+
                         </li>
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="ordenCompraMenu" data-toggle="dropdown">
@@ -54,9 +61,31 @@
                                 <a class="dropdown-item" href="presentation/general/listarSolicitudesArticulos.jsp">Listado de solicitudes</a>
                                 <a class="dropdown-item" href="presentation/general/gestionSolicitudes.jsp">Gestión de Solitudes</a>
                                 <a class="dropdown-item" href="presentation/general/vistoBuenoJefe.jsp">Visto bueno de Jefe</a>
-                                <a class="dropdown-item" href="presentation/general/vistoBuenoTI.jsp">Visto bueno de TI</a>                            </div>
+                                <a class="dropdown-item" href="presentation/general/vistoBuenoTI.jsp">Visto bueno de TI</a>
+                            </div>
                         </div>
-                        <li class="nav-item"><a class="nav-link" href="presentation/catalogos/administracionCatalogos.jsp">Administración de Catálogos</a></li>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown">
+                                Catálogos
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/catalogos/administracionCatalogos.jsp">Administración de Catálogos</a>
+                                <a class="dropdown-item" href="presentation/proveeduria/proveedores.jsp">Catálogo de Proveedores</a>
+
+                            </div>
+                        </div>
+
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="UsuarioActual" data-toggle="dropdown">
+                                <%= logged.getPersNomb()%>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="SISBO/logout/cerrarsesion">Cerrar Sesión</a>
+                            </div>
+                        </div>
+
+                        <% }%>
+
                     </ul>
                 </div>
             </div>
@@ -68,8 +97,8 @@
 </html>
 
 <script>
-    $(document).ready(function () {
-        $(".dropdown-toggle").dropdown();
-    });
+                    $(document).ready(function () {
+                        $(".dropdown-toggle").dropdown();
+                    });
 </script>
 

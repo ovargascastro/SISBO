@@ -11,11 +11,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <base href="http://localhost:8084/SISBO/" >
+        <%@ include file="/presentation/base.jsp" %>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
         <title>Lista Órdenes de Compra</title>
-
     </head>
 
     <body style="background-color: rgb(255,255,255);">
@@ -42,9 +41,8 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="col">
-                                            <p class="font-italic">Digite un número de orden de compra y haga clic en el botón Buscar.<br>
-                                                De no digitar un número se listarán todas las órdenes de compra.
-                                            </p>
+                                            <br>
+                                            <img src="assets/img/information.png" onclick="$('#information').modal('show');"> 
                                         </div>
                                     </div>
                                 </div>
@@ -108,6 +106,31 @@
                 </div>
             </div>
         </div>
+        
+            <div class="modal fade" role="dialog" tabindex="-1" id="information">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Información/Ayuda</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                <div class="modal-body">
+                    <form>
+                        <div class="container">
+                            <div class="form-row">
+                                <div class="col">
+                                           <p class="font-italic">
+                                               Digite un número de solicitud y haga clic en el botón Buscar.<br>
+                                               De no digitar un número se listarán todas las solicitudes.
+                                           </p>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button></div>
+            </div>
+        </div>
+    </div>
 
 
         <script src="assets/js/jquery.min.js"></script>

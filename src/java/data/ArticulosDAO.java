@@ -92,8 +92,8 @@ public class ArticulosDAO {
     private AbaaTbDepartamento departamento(ResultSet rs) {
         try {
             AbaaTbDepartamento ob = new AbaaTbDepartamento();
-            ob.setDeptoIdPk(rs.getString("Depto_Id_Pk"));
-            ob.setDeptoNomb(rs.getString("Depto_Nomb"));
+            ob.setDeptoIdPk(rs.getString("Cata_Depa_id_PK"));
+            ob.setDeptoNomb(rs.getString("Cata_Depa_nomb"));
             return ob;
         } catch (SQLException ex) {
             return null;
@@ -135,7 +135,7 @@ public class ArticulosDAO {
     public void agregarArticulo(SboTbArticulo objeto) throws Exception {
         String query = "insert into Sbo_TB_Articulo(Art_Precio,Art_Cant,Art_Cant_Rest,Art_Desc,"
                 + "Art_Mode,Art_Nume_Seri,Art_Marc,Art_Codi_Presup,"
-                + "Art_Codi_Cat_Arti_FK,Art_Depa_FK,Art_Unid_Medi,Art_Orde_Comp_FK)"
+                + "Art_Codi_Cat_Arti_FK,Art_Cat_DepaFK,Art_Unid_Medi,Art_Orde_Comp_FK)"
                 + "values(?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setDouble(1, objeto.getArtPrecio());
@@ -157,7 +157,7 @@ public class ArticulosDAO {
     public void agregarArticuloConProyecto(SboTbArticulo objeto) throws Exception {
         String query = "insert into Sbo_TB_Articulo(Art_Precio,Art_Cant,Art_Cant_Rest,Art_Desc,"
                 + "Art_Mode,Art_Nume_Seri,Art_Marc,Art_Codi_Presup,"
-                + "Art_Codi_Cat_Arti_FK,Art_Proy_FK,Art_Depa_FK,Art_Unid_Medi,"
+                + "Art_Codi_Cat_Arti_FK,Art_Proy_FK,Art_Cat_DepaFK,Art_Unid_Medi,"
                 + "Art_Orde_Comp_FK)"
                 + "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -202,7 +202,7 @@ public class ArticulosDAO {
     public List<SboTbArticulo> listadoArticulosPorOrden(int filtro) {
         List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
         try {
-            String sql = "select * from Sbo_TB_Articulo a inner join ABAA_TB_Departamento d on a.Art_Depa_FK=d.Depto_Id_PK"
+            String sql = "select * from Sbo_TB_Articulo a inner join ABAA_TB_Catalogo_Departamento d on a.Art_Cat_DepaFK=d.Cata_Depa_id_PK"
                     + " inner join Sbo_TB_CatArticulo ca on a.Art_Codi_Cat_Arti_Fk=ca.Cat_Id_PK where a.Art_Orde_Comp_FK = '%s'";
             sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
