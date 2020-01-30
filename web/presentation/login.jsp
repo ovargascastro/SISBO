@@ -53,3 +53,7 @@
     </body>
 
 </html>
+<script>
+document.getElementById("loginP").style.color = "white";
+</script>
+    

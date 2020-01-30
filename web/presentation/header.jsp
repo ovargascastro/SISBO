@@ -26,7 +26,7 @@
                     <ul class="nav navbar-nav ml-auto">
                         <% if (logged == null) {%>
                         <li class="nav-item">
-                            <a class="nav-link" href="presentation/login.jsp" id="index">LogIn</a>
+                            <a class="nav-link" href="presentation/login.jsp" id="loginP">LogIn</a>
                         </li>
                         <% } else {%>
                         <li class="nav-item">
