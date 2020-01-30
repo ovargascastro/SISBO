@@ -21,6 +21,7 @@ public class Model {
     private final ArticulosDAO articulodao;
     private final OCxProyectoDAO ordenXdao;
     private final solicitudArtDAO solArtdao;
+    private final loginDAO logindao;
     public int numOrden;
     public int numSoliArti;
     public int numArticulo;
@@ -49,6 +50,7 @@ public class Model {
         articulodao = new ArticulosDAO();
         ordenXdao = new OCxProyectoDAO();
         solArtdao = new solicitudArtDAO();
+        logindao = new loginDAO();
     }
     
     public List<SboTbFamilia> listaFamilias(String filtro) throws ClassNotFoundException, SQLException {
@@ -425,5 +427,11 @@ public class Model {
     
     public void disminuyeExistencias(SboTbSolixArti objeto) throws Exception {
         solArtdao.disminuyeExistencias(objeto);
+    }
+    
+    
+    public AbaaTbPersona login(String user, String password) throws Exception{
+    
+        return logindao.logged(user, password);
     }
 }
