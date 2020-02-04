@@ -20,7 +20,7 @@ import logic.SboTbSubFamilia;
 public class ProveedoresDAO {
     RelDatabase db;
     
-    public ProveedoresDAO() {
+   public ProveedoresDAO() {
         db = new RelDatabase();
     }
     

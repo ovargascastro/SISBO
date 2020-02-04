@@ -16,7 +16,7 @@ import logic.SboTbBodega;
 
 public class BodegaDAO {
 
-    RelDatabase db;
+       RelDatabase db;
 
     public BodegaDAO() {
         db = new RelDatabase();
@@ -38,7 +38,7 @@ public class BodegaDAO {
         List<SboTbBodega> resultado = new ArrayList<SboTbBodega>();
         try {
             String sql = "select bod.Bode_Id_PK,bod.Bode_Ubic,bod.Bode_Desc\n"
-                    + "from Sbo_TB_Bodega bod\n"
+                    + "from SIBO_TB_Bode bod\n"
                     + "where bod.Bode_Id_PK like '%%%s%%';";
             sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
@@ -49,5 +49,6 @@ public class BodegaDAO {
         }
         return resultado;
     }
+    //....
 
 }

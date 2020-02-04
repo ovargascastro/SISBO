@@ -40,7 +40,7 @@ public class ArticulosDAO {
         try {
             SboTbFamilia ob = new SboTbFamilia();
             ob.setFamiDesc(rs.getString("Fami_Desc"));
-            ob.setFamiIdPk(rs.getString("Fami_Id_Pk"));
+            ob.setFamiIdPk(rs.getString("Fami_Id_PK"));
             ob.setFamiEstado(rs.getString("Fami_Estado"));
             return ob;
         } catch (SQLException ex) {
@@ -52,9 +52,9 @@ public class ArticulosDAO {
     private SboTbCatArticulo catArticulo(ResultSet rs) {
         try {
             SboTbCatArticulo ob = new SboTbCatArticulo();
-            ob.setCatIdPk(rs.getInt("Cat_Id_Pk"));
-            ob.setCatDesc(rs.getString("Cat_Desc"));
-            ob.setArtCat_Estado(rs.getString("Cat_Estado"));
+            ob.setCatIdPk(rs.getInt("Cata_Id_PK"));
+            ob.setCatDesc(rs.getString("Cata_Desc"));
+            ob.setArtCat_Estado(rs.getString("Cata_Esta"));
             ob.setSboTbSubFamilia(Subfamilia(rs));
             return ob;
         } catch (SQLException ex) {
@@ -66,10 +66,10 @@ public class ArticulosDAO {
     private SboTbSubFamilia Subfamilia(ResultSet rs) {
         try {
             SboTbSubFamilia ob = new SboTbSubFamilia();
-            ob.setSubFamiIdPk(rs.getString("SubFami_Id_Pk"));
+            ob.setSubFamiIdPk(rs.getString("Sub_Fami_Id_PK"));
             ob.setSboTbFamilia(familia(rs));
-            ob.setSubFamiDesc(rs.getString("SubFami_Desc"));
-            ob.setSubFamiEstado(rs.getString("SubFami_Estado"));
+            ob.setSubFamiDesc(rs.getString("Sub_Fami_Desc"));
+            ob.setSubFamiEstado(rs.getString("Sub_Fami_Estado"));
             return ob;
         } catch (SQLException ex) {
             return null;
@@ -80,8 +80,8 @@ public class ArticulosDAO {
     private AbaaProyectos proyecto(ResultSet rs) {
         try {
             AbaaProyectos ob = new AbaaProyectos();
-            ob.setProyIdPk(Integer.parseInt(rs.getString("Proy_Id_PK")));
-            ob.setProyDesc(rs.getString("Proy_Desc"));
+            ob.setProyIdPk(Integer.parseInt(rs.getString("Proy_id_PK")));
+            ob.setProyDesc(rs.getString("Proy_desc"));
             return ob;
         } catch (SQLException ex) {
             return null;
@@ -108,8 +108,8 @@ public class ArticulosDAO {
             oc.setOcPrecTota(rs.getDouble("OC_Prec_Tota"));
             oc.setOcEsta(rs.getString("OC_Esta"));
             oc.setAbaaTbProveedor(Proveedor(rs));
-            oc.setOcPlazoEntrega(rs.getString("OC_PlazoEntrega"));
-            oc.setOcEntregarA(rs.getString("OC_EntregarA"));
+            oc.setOcPlazoEntrega(rs.getString("OC_Plaz_Entr"));
+            oc.setOcEntregarA(rs.getString("OC_Entr_A"));
             return oc;
         } catch (SQLException ex) {
             return null;
@@ -120,10 +120,10 @@ public class ArticulosDAO {
         try {
             AbaaTbProveedor pro = new AbaaTbProveedor();
             pro.setProveIdProvePk(rs.getInt("Prove_Id_Prove_PK"));
-            pro.setProveCodigo(rs.getString("Prove_Codigo"));
-            pro.setProveCedula(rs.getString("Prove_Cedula"));
-            pro.setProveTelefono(rs.getInt("Prove_Telefono"));
-            pro.setProveCorreo(rs.getString("Prove_Correo"));
+            pro.setProveCodigo(rs.getString("Prove_Codi"));
+            pro.setProveCedula(rs.getString("Prove_Cedu"));
+            pro.setProveTelefono(rs.getInt("Prove_Tele"));
+            pro.setProveCorreo(rs.getString("Prove_Corre"));
             pro.setProveFax(rs.getString("Prove_Fax"));
             pro.setProveNomb(rs.getString("Prove_Nomb"));
             return pro;
@@ -133,9 +133,9 @@ public class ArticulosDAO {
     }
 
     public void agregarArticulo(SboTbArticulo objeto) throws Exception {
-        String query = "insert into Sbo_TB_Articulo(Art_Precio,Art_Cant,Art_Cant_Rest,Art_Desc,"
-                + "Art_Mode,Art_Nume_Seri,Art_Marc,Art_Codi_Presup,"
-                + "Art_Codi_Cat_Arti_FK,Art_Cat_DepaFK,Art_Unid_Medi,Art_Orde_Comp_FK)"
+        String query = "insert into SIBO_TB_Articulo(Arti_Prec,Arti_Cant,Arti_Cant_Rest,Arti_Desc,"
+                + "Arti_Mode,Arti_Nume_Seri,Arti_Marc,Arti_Codi_Pres,"
+                + "Arti_Codi_Cata_Arti_FK,Arti_Cata_Depa_FK,Arti_Unid_Medi,Arti_Orde_Comp_FK) "
                 + "values(?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setDouble(1, objeto.getArtPrecio());
@@ -155,10 +155,10 @@ public class ArticulosDAO {
     }
 
     public void agregarArticuloConProyecto(SboTbArticulo objeto) throws Exception {
-        String query = "insert into Sbo_TB_Articulo(Art_Precio,Art_Cant,Art_Cant_Rest,Art_Desc,"
-                + "Art_Mode,Art_Nume_Seri,Art_Marc,Art_Codi_Presup,"
-                + "Art_Codi_Cat_Arti_FK,Art_Proy_FK,Art_Cat_DepaFK,Art_Unid_Medi,"
-                + "Art_Orde_Comp_FK)"
+        String query = "insert into SIBO_TB_Articulo(Arti_Prec,Arti_Cant,Arti_Cant_Rest,"
+                + "Arti_Desc,Arti_Mode,Arti_Nume_Seri,Arti_Marc,Arti_Codi_Pres,"
+                + "Arti_Codi_Cata_Arti_FK,Arti_Proy_FK,Arti_Cata_Depa_FK,"
+                + "Arti_Unid_Medi,Arti_Orde_Comp_FK)"
                 + "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setDouble(1, objeto.getArtPrecio());
@@ -179,7 +179,7 @@ public class ArticulosDAO {
     }
 
     public int getLastInsertArticulo() throws Exception {
-        String sql = " select IDENT_CURRENT( 'Sbo_TB_Articulo' ) as seq ";
+        String sql = " select IDENT_CURRENT( 'SIBO_TB_Articulo' ) as seq ";
         sql = String.format(sql);
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
@@ -202,8 +202,8 @@ public class ArticulosDAO {
     public List<SboTbArticulo> listadoArticulosPorOrden(int filtro) {
         List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
         try {
-            String sql = "select * from Sbo_TB_Articulo a inner join ABAA_TB_Catalogo_Departamento d on a.Art_Cat_DepaFK=d.Cata_Depa_id_PK"
-                    + " inner join Sbo_TB_CatArticulo ca on a.Art_Codi_Cat_Arti_Fk=ca.Cat_Id_PK where a.Art_Orde_Comp_FK = '%s'";
+            String sql = "select * from SIBO_TB_Articulo a inner join ABAA_TB_Catalogo_Departamento d on a.Arti_Cata_Depa_FK=d.Cata_Depa_id_PK"
+                    + " inner join SIBO_TB_Cata_Arti ca on a.Arti_Codi_Cata_Arti_FK=ca.Cata_Id_PK where a.Arti_Orde_Comp_FK = '%s'";
             sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
@@ -217,10 +217,10 @@ public class ArticulosDAO {
     public List<SboTbArticulo> listadoArticulosPorOrdenConta(int filtro) {
         List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
         try {
-            String sql = "select * from Sbo_TB_Articulo a inner join Sbo_TB_CatArticulo c on a.Art_Codi_Cat_Arti_FK=c.Cat_Id_Pk"
-                    + " inner join Sbo_TB_SubFamilia sf on c.Cat_SubF_FK=sf.SubFami_Id_Pk"
-                    + " inner join Sbo_TB_OrdenCompra o on a.Art_Orde_Comp_FK=o.OC_Id_PK"
-                    + " where a.Art_Orde_Comp_FK = '%s'";
+            String sql = "select * from SIBO_TB_Articulo a inner join SIBO_TB_Cata_Arti c on a.Arti_Codi_Cata_Arti_FK=c.Cata_Id_PK"
+                    + " inner join SIBO_TB_Sub_Fami sf on c.Cata_SubF_FK=sf.Sub_Fami_Id_PK"
+                    + " inner join SIBO_TB_Orde_Comp o on a.Arti_Orde_Comp_FK=o.OC_Id_PK"
+                    + " where a.Arti_Orde_Comp_FK = '%s'";
             sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
@@ -234,24 +234,24 @@ public class ArticulosDAO {
     private SboTbArticulo articulo(ResultSet rs) {
         try {
             SboTbArticulo ar = new SboTbArticulo();
-            ar.setArtIdPk(rs.getInt("Art_Id_Pk"));
-            ar.setArtPrecio(rs.getDouble("Art_Precio"));
-            ar.setArtCant(rs.getInt("Art_Cant"));
-            ar.setArtCantRest(rs.getInt("Art_Cant_Rest"));
-            ar.setArtFingr(rs.getDate("Art_FIngr"));
-            ar.setArtFvenc(rs.getDate("Art_FVenc"));
-            ar.setArtDesc(rs.getString("Art_Desc"));
-            ar.setArtMode(rs.getString("Art_Mode"));
-            ar.setArtCodiPresup(rs.getString("Art_Codi_Presup"));
-            ar.setArtNumeSeri(rs.getString("Art_Nume_Seri"));
-            ar.setArtMarc(rs.getString("Art_Marc"));
-            ar.setArtNumeFact(rs.getString("Art_Nume_Fact"));
-            ar.setArtEsAc(rs.getBoolean("Art_EsAc"));
-            ar.setArtCodiCont(rs.getString("Art_Codi_Cont"));
+            ar.setArtIdPk(rs.getInt("Arti_Id_PK"));
+            ar.setArtPrecio(rs.getDouble("Arti_Prec"));
+            ar.setArtCant(rs.getInt("Arti_Cant"));
+            ar.setArtCantRest(rs.getInt("Arti_Cant_Rest"));
+            ar.setArtFingr(rs.getDate("Arti_Fech_Ingr"));
+            ar.setArtFvenc(rs.getDate("Arti_Fech_Venc"));
+            ar.setArtDesc(rs.getString("Arti_Desc"));
+            ar.setArtMode(rs.getString("Arti_Mode"));
+            ar.setArtCodiPresup(rs.getString("Arti_Codi_Pres"));
+            ar.setArtNumeSeri(rs.getString("Arti_Nume_Seri"));
+            ar.setArtMarc(rs.getString("Arti_Marc"));
+            ar.setArtNumeFact(rs.getString("Arti_Nume_Fact"));
+            ar.setArtEsAc(rs.getBoolean("Arti_EsAc"));
+            ar.setArtCodiCont(rs.getString("Arti_Codi_Cont"));
             ar.setSboTbCatArticulo(catArticulo(rs));
             ar.setAbaaProyectos(proyecto(rs));
             ar.setAbaaTbDepartamento(departamento(rs));
-            ar.setArtUnidadMedida(rs.getString("Art_Unid_Medi"));
+            ar.setArtUnidadMedida(rs.getString("Arti_Unid_Medi"));
             ar.setSboTbOrdenCompra(OrdenCompra(rs));
             return ar;
         } catch (SQLException ex) {
@@ -260,7 +260,7 @@ public class ArticulosDAO {
     }
 
     public void actualizarCodigCont(SboTbArticulo objeto) throws Exception {
-        String query = "update Sbo_TB_Articulo set Art_Codi_Cont = ? where Art_Id_Pk = ?";
+        String query = "update SIBO_TB_Articulo set Arti_Codi_Cont = ? where Arti_Id_PK = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getArtCodiCont());
         preparedStmt.setInt(2, objeto.getArtIdPk());
@@ -269,7 +269,7 @@ public class ArticulosDAO {
     }
     
     public SboTbArticulo getArticulo(int id) throws Exception {
-        String sql = "select * from Sbo_TB_Articulo where Art_Id_PK='%s'";
+        String sql = "select * from SIBO_TB_Articulo where Arti_Id_PK='%s'";
         sql = String.format(sql, id);
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
@@ -281,9 +281,9 @@ public class ArticulosDAO {
     
     public SboTbArticulo getArticulo2(int id) throws Exception {
         String sql = "select * "
-                + "from Sbo_TB_Articulo art, ABAA_TB_Departamento dpto, Sbo_TB_CatArticulo cat "
-                + "where art.Art_Depa_FK = dpto.Depto_Id_PK and cat.Cat_Id_PK=art.Art_Codi_Cat_Arti_FK "
-                + "and art.Art_Id_PK="+id+";";
+                + "from SIBO_TB_Articulo art, ABAA_TB_Catalogo_Departamento dpto, SIBO_TB_Cata_Arti cat "
+                + "where art.Arti_Cata_Depa_FK = dpto.Cata_Depa_id_PK and cat.Cata_Id_PK=art.Arti_Codi_Cata_Arti_FK "
+                + "and art.Arti_Id_PK="+id+";";
         sql = String.format(sql);
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
