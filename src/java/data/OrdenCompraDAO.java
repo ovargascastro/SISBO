@@ -204,5 +204,6 @@ public class OrdenCompraDAO {
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
+    //..
 
 }
