@@ -25,8 +25,8 @@ public class ProyectoDAO {
     private AbaaProyectos proyecto(ResultSet rs) {
         try {
             AbaaProyectos ob = new AbaaProyectos();
-            ob.setProyIdPk(Integer.parseInt(rs.getString("Proy_Id_PK")));
-            ob.setProyDesc(rs.getString("Proy_Desc"));
+            ob.setProyIdPk(Integer.parseInt(rs.getString("Proy_id_PK")));
+            ob.setProyDesc(rs.getString("Proy_desc"));
             return ob;
         } catch (SQLException ex) {
             return null;
@@ -36,7 +36,7 @@ public class ProyectoDAO {
     public List<AbaaProyectos> listaProyecto() {
         List<AbaaProyectos> resultado = new ArrayList<AbaaProyectos>();
         try {
-            String sql = "select * from ABAA_Proyectos";
+            String sql = "select * from ABAA_TB_Proyecto";
             sql = String.format(sql);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {

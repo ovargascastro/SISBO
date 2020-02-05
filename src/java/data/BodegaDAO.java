@@ -16,7 +16,7 @@ import logic.SboTbBodega;
 
 public class BodegaDAO {
 
-    RelDatabase db;
+       RelDatabase db;
 
     public BodegaDAO() {
         db = new RelDatabase();
@@ -49,5 +49,6 @@ public class BodegaDAO {
         }
         return resultado;
     }
+    //....
 
 }

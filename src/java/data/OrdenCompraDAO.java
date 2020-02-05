@@ -37,8 +37,9 @@ public class OrdenCompraDAO {
             oc.setOcPrecTota(rs.getDouble("OC_Prec_Tota"));
             oc.setOcEsta(rs.getString("OC_Esta"));
             oc.setAbaaTbProveedor(Proveedor(rs));
-            oc.setOcPlazoEntrega(rs.getString("OC_PlazoEntrega"));
-            oc.setOcEntregarA(rs.getString("OC_EntregarA"));
+            oc.setOcPlazoEntrega(rs.getString("OC_Plaz_Entr"));
+            //oc.setOcEsta(rs.getString("OC_Esta_FK"));
+            oc.setOcEntregarA(rs.getString("OC_Entr_A"));
             return oc;
         } catch (SQLException ex) {
             return null;
@@ -47,15 +48,15 @@ public class OrdenCompraDAO {
 
     private AbaaTbProveedor Proveedor(ResultSet rs) {
         try {
-            AbaaTbProveedor pro = new AbaaTbProveedor();
-            pro.setProveIdProvePk(rs.getInt("Prove_Id_Prove_PK"));
-            pro.setProveCodigo(rs.getString("Prove_Codigo"));
-            pro.setProveCedula(rs.getString("Prove_Cedula"));
-            pro.setProveTelefono(rs.getInt("Prove_Telefono"));
-            pro.setProveCorreo(rs.getString("Prove_Correo"));
-            pro.setProveFax(rs.getString("Prove_Fax"));
-            pro.setProveNomb(rs.getString("Prove_Nomb"));
-            return pro;
+            AbaaTbProveedor ob = new AbaaTbProveedor();
+            ob.setProveIdProvePk(Integer.parseInt(rs.getString("Prove_Id_Prove_PK")));
+            ob.setProveCodigo(rs.getString("Prove_Codi"));
+            ob.setProveCedula(rs.getString("Prove_Cedu"));
+            ob.setProveTelefono(Integer.parseInt(rs.getString("Prove_Tele")));
+            ob.setProveCorreo(rs.getString("Prove_Corre"));
+            ob.setProveFax(rs.getString("Prove_Fax"));
+            ob.setProveNomb(rs.getString("Prove_Nomb"));
+            return ob;
         } catch (SQLException ex) {
             return null;
         }
@@ -64,10 +65,10 @@ public class OrdenCompraDAO {
     private SboTbArticulo ObtenerArticulo(ResultSet rs) {
         try {
             SboTbArticulo art = new SboTbArticulo();
-            art.setArtIdPk(rs.getInt("Art_Id_PK"));
-            art.setArtDesc(rs.getString("Art_Desc"));
-            art.setArtCant(rs.getInt("Art_Cant"));
-            art.setArtCantRest(rs.getInt("Art_Cant_Rest"));
+            art.setArtIdPk(rs.getInt("Arti_Id_PK"));
+            art.setArtDesc(rs.getString("Arti_Desc"));
+            art.setArtCant(rs.getInt("Arti_Cant"));
+            art.setArtCantRest(rs.getInt("Arti_Cant_Rest"));
             return art;
         } catch (SQLException ex) {
             return null;
@@ -77,10 +78,10 @@ public class OrdenCompraDAO {
     public List<SboTbArticulo> listaOCxArt(String filtro) {
         List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
         try {
-            String sql = "select Sbo_TB_Articulo.Art_Id_PK,Sbo_TB_Articulo.Art_Desc, Sbo_TB_Articulo.Art_Cant,Sbo_TB_Articulo.Art_Cant_Rest\n"
-                    + "from Sbo_TB_Articulo, Sbo_TB_OrdenCompra\n"
-                    + "where Sbo_TB_Articulo.Art_Orde_Comp_FK = Sbo_TB_OrdenCompra.OC_Id_PK \n"
-                    + "and Sbo_TB_Articulo.Art_Orde_Comp_FK=" + filtro + ";";
+            String sql = "select SIBO_TB_Articulo.Arti_Id_PK,SIBO_TB_Articulo.Arti_Desc,SIBO_TB_Articulo.Arti_Cant,SIBO_TB_Articulo.Arti_Cant_Rest\n"
+                    + "FROM SIBO_TB_Articulo,SIBO_TB_Orde_Comp\n"
+                    + "where SIBO_TB_Articulo.Arti_Orde_Comp_FK=SIBO_TB_Orde_Comp.OC_Id_PK\n"
+                    + "AND SIBO_TB_Articulo.Arti_Orde_Comp_FK=" + filtro + ";";
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
                 resultado.add(ObtenerArticulo(rs));
@@ -93,10 +94,10 @@ public class OrdenCompraDAO {
     public List<SboTbOrdenCompra> listaOrdenesCompra(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {
-            String sql = "select distinct oc.OC_Id_PK, oc.OC_Fecha, OC_Prec_Tota, oc.OC_Esta,OC_Prove_FK,OC_PlazoEntrega,OC_EntregarA\n"
-                    + "from Sbo_TB_OrdenCompra oc, Sbo_TB_Articulo art\n"
-                    + "where art.Art_Orde_Comp_Fk=oc.OC_Id_PK \n"
-                    + "and (oc.OC_Esta='No Procesada' or oc.OC_Esta='Parcialmente Procesada') \n"
+            String sql = "select distinct oc.OC_Id_PK, oc.OC_Fecha, oc.OC_Prec_Tota, oc.OC_Esta,oc.OC_Prove_FK,oc.OC_Plaz_Entr,oc.OC_Entr_A\n"
+                    + "from SIBO_TB_Orde_Comp oc, SIBO_TB_Articulo art\n"
+                    + "where art.Arti_Orde_Comp_Fk=oc.OC_Id_PK \n"
+                    + "and (oc.OC_Esta='No Procesada' or oc.OC_Esta='Parcialmente Procesada')\n"
                     + "and oc.OC_Id_PK like '%%%s%%';";
             sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
@@ -109,9 +110,8 @@ public class OrdenCompraDAO {
     }
 
     // ------------------ A partir de aquí, está todo lo de Oscar/Orlando ------------------
-    
     public int getLastInsertOrdenesCompra() throws Exception {
-        String sql = " select IDENT_CURRENT( 'Sbo_TB_OrdenCompra' ) as seq ";
+        String sql = "select IDENT_CURRENT( 'SIBO_TB_Orde_Comp' ) as seq;";
         sql = String.format(sql);
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
@@ -132,9 +132,9 @@ public class OrdenCompraDAO {
     }
 
     public void agregarOrdenCompra(SboTbOrdenCompra objeto) throws Exception {
-        String query = "insert into Sbo_TB_OrdenCompra(OC_Fecha,OC_Prec_Tota,"
-                + "OC_Esta,OC_Prove_FK,OC_PlazoEntrega,OC_EntregarA)"
-                + "values(?,?,?,?,?,?)";
+        String query = "insert into SIBO_TB_Orde_Comp(OC_Fecha,OC_Prec_Tota,"
+                + "OC_Esta,OC_Prove_FK,OC_Plaz_Entr,OC_Entr_A)"
+                + "values(?,?,?,?,?,?);";
 
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         java.util.Date utilStartDate = objeto.getOcFecha();
@@ -145,7 +145,6 @@ public class OrdenCompraDAO {
         preparedStmt.setString(3, objeto.getOcEsta());
         preparedStmt.setInt(4, objeto.getAbaaTbProveedor().getProveIdProvePk());
 
-        
         preparedStmt.setString(5, objeto.getOcPlazoEntrega());
 
         preparedStmt.setString(6, objeto.getOcEntregarA());
@@ -156,9 +155,9 @@ public class OrdenCompraDAO {
     public List<SboTbOrdenCompra> listaOrdenes(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {
-            String sql = "select oc.OC_Id_PK, oc.OC_Fecha, OC_Prec_Tota, oc.OC_Esta,OC_Prove_FK,OC_PlazoEntrega,OC_EntregarA\n"
-                    + "from Sbo_TB_OrdenCompra oc, Sbo_TB_Articulo art\n"
-                    + "where art.Art_Orde_Comp_Fk=oc.OC_Id_PK and oc.OC_Id_PK like '%%%s%%';";
+            String sql = "select oc.OC_Id_PK, oc.OC_Fecha, oc.OC_Prec_Tota, oc.OC_Esta,oc.OC_Prove_FK,oc.OC_Plaz_Entr,oc.OC_Entr_A\n"
+                    + "from SIBO_TB_Orde_Comp oc, SIBO_TB_Articulo art\n"
+                    + "where art.Arti_Orde_Comp_FK=oc.OC_Id_PK and oc.OC_Id_PK like '%%%s%%';";
             sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
@@ -172,7 +171,7 @@ public class OrdenCompraDAO {
     public List<SboTbOrdenCompra> listadoOrdenesC(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {
-            String sql = "select * from Sbo_TB_OrdenCompra o where o.OC_Id_Pk like '%%%s%%'";
+            String sql = "select * from SIBO_TB_Orde_Comp o where o.OC_Id_Pk like '%%%s%%'";
             sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
@@ -186,7 +185,7 @@ public class OrdenCompraDAO {
     public List<SboTbOrdenCompra> listadoOrdenesCompraConta(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {
-            String sql = "select * from Sbo_TB_OrdenCompra o where o.OC_Esta='asignar codigos' and o.OC_Id_Pk like '%%%s%%'";
+            String sql = "select * from SIBO_TB_Orde_Comp o where o.OC_Esta='asignar codigos' and o.OC_Id_Pk like '%%%s%%'";
             sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
@@ -198,13 +197,13 @@ public class OrdenCompraDAO {
     }
 
     public void actualizaEstadoOC(SboTbOrdenCompra objeto) throws SQLException {
-        String query = "update Sbo_TB_OrdenCompra set OC_Esta = ? where OC_Id_PK = ?";
+        String query = "update SIBO_TB_Orde_Comp set OC_Esta = ? where OC_Id_PK = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getOcEsta());
         preparedStmt.setInt(2, objeto.getOcIdPk());
         preparedStmt.executeUpdate();
         db.getConnection().close();
-
     }
+    //..
 
 }
