@@ -51,10 +51,10 @@ function fila(listado, objeto) {
 
 }
 
-function modalEditarSicop(obj){
-     $("#codClas").val(obj.sicopCodiClas);
-     $("#codId").val(obj.sicopCodiInden);
-     $("#desc").val(obj.sicopDesc);
+function modalEditarSicop(obj) {
+    $("#codClas").val(obj.sicopCodiClas);
+    $("#codId").val(obj.sicopCodiInden);
+    $("#desc").val(obj.sicopDesc);
     $('#modalEditarSicop').modal('show');
 }
 
@@ -72,3 +72,83 @@ function infoSicop(id) {
     });
 
 }
+
+
+function actualizarSicop() {
+
+
+    if (confirm("Desea guardar el registro actual?")) {
+        SboSicop = {
+            sicopId: variableSicopActual,
+            sicopCodiInden: $("#codId").val(),
+            sicopCodiClas: $("#codClas").val(),
+            sicopDesc: $("#desc").val()
+        };
+        $.ajax({type: "PUT",
+            url: "api/Sicop;charset=UTF-8",
+            data: JSON.stringify(SboSicop),
+            contentType: "application/json;charset=UTF-8",
+            success: ocultarSicop,
+            error: function (jqXHR) {
+                alert("Error");
+            }
+        });
+    }
+
+}
+
+
+function agregarSicop() {
+
+    if (confirm("Desea agregar el registro actual?")) {
+        SboSicop = {
+            sicopCodiInden: $("#codId2").val(),
+            sicopCodiClas: $("#codClas2").val(),
+            sicopDesc: $("#desc2").val()
+        };
+        $.ajax({type: "POST",
+            url: "api/Sicop;charset=UTF-8",
+            data: JSON.stringify(SboSicop),
+            contentType: "application/json;charset=UTF-8",
+            success: afterCreateSicop,
+            error: function (jqXHR) {
+                alert("Error");
+            }
+        });
+    }
+}
+
+
+function afterCreateSicop() {
+
+    $('#agregaSicop').trigger("reset");
+    $('#modalAgregarSicop').modal('hide');
+    cargar();
+
+}
+
+function ocultarSicop() {
+    $('#actualizaSicop').trigger("reset");
+    $('#modalEditarSicop').modal('hide');
+    cargar();
+
+}
+
+function modalAgregaSicop() {
+
+    $('#modalAgregarSicop').modal('show');
+
+}
+
+function buscarSicopFiltro() {
+    $.ajax({type: "GET",
+//        url:"api/proveedores/api/subfamilias/" + filtro,
+        url: "api/Sicop/filtro?fil=" + $("#filtro").val(),
+        success: listaSicop
+    });
+}
+
+function exitoFiltro(){
+    
+}
+

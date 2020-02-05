@@ -440,7 +440,21 @@ public class Model {
         return sicopDao.getListaSicop(filtro);
     }
 
+    public List<SboSicop> listadoSicopFiltro(String filtro) {
+        return sicopDao.getListaSicopFiltro(filtro);
+    }
+
     public SboSicop obtenerSicop(String filtro) throws Exception {
         return sicopDao.getSboSicop(filtro);
+    }
+
+    public void actualizarSicop(SboSicop s) throws SQLException {
+        sicopDao.actualizarSicop(s);
+
+    }
+
+    public void agregarSicop(SboSicop s) throws SQLException {
+
+        sicopDao.agregarSicop(s);
     }
 }
