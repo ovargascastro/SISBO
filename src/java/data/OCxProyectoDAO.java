@@ -22,7 +22,7 @@ public class OCxProyectoDAO {
     }
     
     public void agregarDatos(AbaaTbOcproyecto objeto) throws Exception{
-        String query = "insert into ABAA_TB_OCProyecto(OCProy_OC_ID,OCProy_Proy_ID,OCProy_Arti_ID)"
+        String query = "insert into ABAA_TB_OCProyecto(Ocpr_OC_id,Ocpr_Proy_id,Ocpr_Arti_id)"
                 + "values(?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setInt(1, objeto.getSboTbOrdenCompra().getOcIdPk());
