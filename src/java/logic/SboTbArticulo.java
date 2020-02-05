@@ -28,6 +28,7 @@ public class SboTbArticulo implements java.io.Serializable {
     private String artCodContSal;
     private Boolean artEsAc;
     private String artUnidadMedida;
+    private SboSicop sboSicop;
     private Set<AbaaTbOcproyecto> abaaTbOcproyectos = new HashSet<AbaaTbOcproyecto>(0);
     private Set<SboTbSolixArti> sboTbSolixArtis = new HashSet<SboTbSolixArti>(0);
     private Set<SboTbExistencia> sboTbExistencias = new HashSet<SboTbExistencia>(0);
@@ -274,5 +275,15 @@ public class SboTbArticulo implements java.io.Serializable {
     public void setCantSolArt(Integer cantSolArt) {
         this.cantSolArt = cantSolArt;
     }
+
+    public SboSicop getSboSicop() {
+        return sboSicop;
+    }
+
+    public void setSboSicop(SboSicop sboSicop) {
+        this.sboSicop = sboSicop;
+    }
+    
+    
     
 }

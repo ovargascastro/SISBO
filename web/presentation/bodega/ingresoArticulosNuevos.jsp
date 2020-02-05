@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="assets/css/styles.css">
         <title>Ingreso de Articulos Nuevos</title>
     </head>
-    <body onload="selectBodegas()">
+    <body onload="selectSicop()">
         <%@ include file="/presentation/header.jsp" %>
         <div id="titulo">
             <div class="jumbotron">
@@ -112,18 +112,30 @@
                                 <div class="col">
                                     <input id="AddArtId" class="form-control" type="hidden">
                                     <input id="OCId" class="form-control" type="hidden">
-                                    <label>Artículo</label><input id="AddArtArticulo" class="form-control" type="text" readonly placeholder="Artículo">
-                                    <label>Descripción</label><input id="AddArtDescripcion" class="form-control" type="text" placeholder="Descripcion">
-                                    <label>Modelo</label><input id="AddArtModelo" class="form-control" type="text" placeholder="Modelo">
-                                    <label>Marca</label><input id="AddArtMarca" class="form-control" type="text" placeholder="Marca">
-                                    <label>N° Serie</label><input id="AddArtNSerie" class="form-control" type="text" placeholder="N° Serie">
+                                    <label>Artículo</label>
+                                    <input id="AddArtArticulo" class="form-control" type="text" readonly placeholder="Artículo">
+                                    <label>Descripción</label>
+                                    <input id="AddArtDescripcion" class="form-control" type="text" placeholder="Descripcion">
+                                    <label>Modelo</label>
+                                    <input id="AddArtModelo" class="form-control" type="text" placeholder="Modelo">
+                                    <label>Marca</label>
+                                    <input id="AddArtMarca" class="form-control" type="text" placeholder="Marca">
+                                    <label>N° Serie</label>
+                                    <input id="AddArtNSerie" class="form-control" type="text" placeholder="N° Serie">
+                                    <label>SICOP</label>
+                                    <select class="form-control" id="selectSicop" required></select>
                                 </div>                       
                                 <div class="col">
-                                    <label>Unidad Usuaria</label><input id="AddArtUniUsuaria" class="form-control" type="text" readonly placeholder="Unidad Usuaria">    
-                                    <label>Bodega</label><select class="form-control" id="AddArtBodega" required></select>
-                                    <label>Fecha de Ingreso</label><input id="AddArtFIngreso" class="form-control" type="date" placeholder="Fecha de Ingreso" required>
-                                    <label>Fecha de Vencimiento</label><input id="AddArtFVencimiento" class="form-control" type="date" placeholder="Fecha de Vencimiento">
-                                    <label>Cantidad a Ingresar</label><input id="AddArtCant" class="form-control" type="number" placeholder="Cantidad a Ingresar" required>    
+                                    <label>Unidad Usuaria</label>
+                                    <input id="AddArtUniUsuaria" class="form-control" type="text" readonly placeholder="Unidad Usuaria">    
+                                    <label>Bodega</label>
+                                    <select class="form-control" id="AddArtBodega" required></select>
+                                    <label>Fecha de Ingreso</label>
+                                    <input id="AddArtFIngreso" class="form-control" type="date" placeholder="Fecha de Ingreso" required>
+                                    <label>Fecha de Vencimiento</label>
+                                    <input id="AddArtFVencimiento" class="form-control" type="date" placeholder="Fecha de Vencimiento">
+                                    <label>Cantidad a Ingresar</label>
+                                    <input id="AddArtCant" class="form-control" type="number" placeholder="Cantidad a Ingresar" required>    
                                     <br>
                                     <div class="col">
                                         <label>Información del Artículo</label>
@@ -188,6 +200,7 @@
     
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/sicop.js" type="text/javascript"></script>
 </body>
 
 </html>
