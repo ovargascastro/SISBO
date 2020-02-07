@@ -78,10 +78,11 @@ public class OrdenCompraDAO {
     public List<SboTbArticulo> listaOCxArt(String filtro) {
         List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
         try {
-            String sql = "select SIBO_TB_Articulo.Arti_Id_PK,SIBO_TB_Articulo.Arti_Desc,SIBO_TB_Articulo.Arti_Cant,SIBO_TB_Articulo.Arti_Cant_Rest\n"
-                    + "FROM SIBO_TB_Articulo,SIBO_TB_Orde_Comp\n"
-                    + "where SIBO_TB_Articulo.Arti_Orde_Comp_FK=SIBO_TB_Orde_Comp.OC_Id_PK\n"
-                    + "AND SIBO_TB_Articulo.Arti_Orde_Comp_FK=" + filtro + ";";
+            String sql = "select SIBO_TB_Articulo.Arti_Id_PK,SIBO_TB_Articulo.Arti_Desc,"
+                    + " SIBO_TB_Articulo.Arti_Cant,SIBO_TB_Articulo.Arti_Cant_Rest\n"
+                    + " FROM SIBO_TB_Articulo,SIBO_TB_Orde_Comp\n"
+                    + " where SIBO_TB_Articulo.Arti_Orde_Comp_FK=SIBO_TB_Orde_Comp.OC_Id_PK\n"
+                    + " AND SIBO_TB_Articulo.Arti_Orde_Comp_FK=" + filtro + ";";
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
                 resultado.add(ObtenerArticulo(rs));
@@ -90,15 +91,15 @@ public class OrdenCompraDAO {
         }
         return resultado;
     }
-
+ 
     public List<SboTbOrdenCompra> listaOrdenesCompra(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {
-            String sql = "select distinct oc.OC_Id_PK, oc.OC_Fecha, oc.OC_Prec_Tota, oc.OC_Esta,oc.OC_Prove_FK,oc.OC_Plaz_Entr,oc.OC_Entr_A\n"
-                    + "from SIBO_TB_Orde_Comp oc, SIBO_TB_Articulo art\n"
-                    + "where art.Arti_Orde_Comp_Fk=oc.OC_Id_PK \n"
-                    + "and (oc.OC_Esta='No Procesada' or oc.OC_Esta='Parcialmente Procesada')\n"
-                    + "and oc.OC_Id_PK like '%%%s%%';";
+            String sql = "select * "
+                    + " from SIBO_TB_Orde_Comp oc, SIBO_TB_Articulo art, ABAA_TB_Prove p \n"
+                    + " where oc.OC_Prove_FK = Prove_Id_Prove_PK and art.Arti_Orde_Comp_Fk=oc.OC_Id_PK \n"
+                    + " and (oc.OC_Esta='No Procesada' or oc.OC_Esta='Parcialmente Procesada')\n"
+                    + " and oc.OC_Id_PK like '%%%s%%';";
             sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
@@ -132,7 +133,7 @@ public class OrdenCompraDAO {
     }
 
     public void agregarOrdenCompra(SboTbOrdenCompra objeto) throws Exception {
-        String query = "insert into SIBO_TB_Orde_Comp(OC_Fecha,OC_Prec_Tota,"
+        String query = "insert into SIBO_TB_Orde_Comp(OC_Fecha,OC_Prec_Tota, "
                 + "OC_Esta,OC_Prove_FK,OC_Plaz_Entr,OC_Entr_A)"
                 + "values(?,?,?,?,?,?);";
 
@@ -155,7 +156,8 @@ public class OrdenCompraDAO {
     public List<SboTbOrdenCompra> listaOrdenes(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {
-            String sql = "select oc.OC_Id_PK, oc.OC_Fecha, oc.OC_Prec_Tota, oc.OC_Esta,oc.OC_Prove_FK,oc.OC_Plaz_Entr,oc.OC_Entr_A\n"
+            String sql = "select oc.OC_Id_PK, oc.OC_Fecha, oc.OC_Prec_Tota, "
+                    + "oc.OC_Esta,oc.OC_Prove_FK,oc.OC_Plaz_Entr,oc.OC_Entr_A\n"
                     + "from SIBO_TB_Orde_Comp oc, SIBO_TB_Articulo art\n"
                     + "where art.Arti_Orde_Comp_FK=oc.OC_Id_PK and oc.OC_Id_PK like '%%%s%%';";
             sql = String.format(sql, filtro);
@@ -171,7 +173,8 @@ public class OrdenCompraDAO {
     public List<SboTbOrdenCompra> listadoOrdenesC(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {
-            String sql = "select * from SIBO_TB_Orde_Comp o where o.OC_Id_Pk like '%%%s%%'";
+            String sql = "select * from SIBO_TB_Orde_Comp o, ABAA_TB_Prove p "
+                    + "where o.OC_Prove_FK = Prove_Id_Prove_PK and o.OC_Id_Pk like '%%%s%%'";
             sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
@@ -185,7 +188,10 @@ public class OrdenCompraDAO {
     public List<SboTbOrdenCompra> listadoOrdenesCompraConta(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {
-            String sql = "select * from SIBO_TB_Orde_Comp o where o.OC_Esta='asignar codigos' and o.OC_Id_Pk like '%%%s%%'";
+            String sql = "select * from SIBO_TB_Orde_Comp o, ABAA_TB_Prove p "
+                    + "where o.OC_Prove_FK = Prove_Id_Prove_PK and "
+                    + "o.OC_Esta='asignar codigos' "
+                    + "and o.OC_Id_Pk like '%%%s%%'";
             sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
