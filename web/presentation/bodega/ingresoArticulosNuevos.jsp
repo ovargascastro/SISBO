@@ -390,6 +390,7 @@
                             artNumeSeri: $("#AddArtNSerie").val(),
                             artFingr: parseaFecha($("#AddArtFIngreso").val()),
                             artFvenc: parseaFecha($("#AddArtFVencimiento").val()),
+                            sboSicop:[{sicopId:$("#selectSicop").val()}],
                             sboTbOrdenCompra: [{ocIdPk: $("#OCId").val()}],
                             artCantRest: $("#AddArtCant").val()
                         };
