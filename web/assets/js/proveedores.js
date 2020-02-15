@@ -158,3 +158,8 @@ function afterCreateProv() {
     
 
 }
+
+    document.getElementById("CatalogosMenu").style.color = "white";
+    
+
+

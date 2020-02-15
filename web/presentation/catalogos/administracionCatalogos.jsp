@@ -38,7 +38,7 @@
                                 <div class="form-row">
                                     <div class="col text-center"><select class="form-control" id="selectcatalogos"><optgroup label="Catalogos"><option value="1" selected="">Familia</option><option value="2">Sub-Familia</option><option value="3">Artículo</option><option value="4">Contables</option></optgroup></select>
                                         <div class="form-row">
-                                            <div class="col"><br><input class="form-control" type="text" id="filtro" placeholder="Filtro"></div>
+                                            <div class="col"><br><input class="form-control" type="text" id="filtro" onkeyup="myFunction()" placeholder="Filtro"></div>
                                         </div>
                                     </div>
                                     <div class="col text-left"><button class="btn btn-primary border-light" type="button" onclick="javascript:concatenarBusqueda()">Buscar &nbsp;<img id="magnifier" src="assets/img/magnifier.png"></button></div>
@@ -60,7 +60,7 @@
                             <div class="table-responsive " style="max-height: 350px; overflow: auto">
                                 <div class="table-responsive">
 
-                                    <table class="table">
+                                    <table class="table" id="myTable">
                                         <thead>
                                             <tr>
                                                 <th>Código</th>
@@ -444,6 +444,26 @@
 
                             }
                         }
+                        
+                        
+function myFunction() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("filtro");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
 
     </script>
 </html>
