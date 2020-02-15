@@ -278,9 +278,11 @@ function actualizarSubFamilia() {
 }
 
 function afterUpdateSubFm() {
-    buscarSubFamilias();
+    alert("ex");
+    $('#busqueda').trigger("reset");
     $('#modalSubFam').modal('hide');
-
+    $('#buscCat').click();
+    
 }
 
 

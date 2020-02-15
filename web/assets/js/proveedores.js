@@ -89,11 +89,7 @@ function mostrarModalInfoProvAgregar() {
     $('#modalProveedorAgreg').modal('show');
 }
 
-function ocultarModalInfoProv() {
-    $('#actualizaProv').trigger("reset");
-    buscarProvs();
-    $('#modalProveedor').modal('hide');
-}
+
 
 
 function actualizarProveedor() {

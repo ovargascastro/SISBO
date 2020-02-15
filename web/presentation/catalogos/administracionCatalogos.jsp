@@ -34,14 +34,27 @@
                     <div class="row">
                         <div class="col text-center">
                             <h4 class="text-center">Desplegar catálogo de</h4>
-                            <form id="busqueda">
+                            <form id="busqueda" action="javascript:concatenarBusqueda()">
                                 <div class="form-row">
-                                    <div class="col text-center"><select class="form-control" id="selectcatalogos"><optgroup label="Catalogos"><option value="1" selected="">Familia</option><option value="2">Sub-Familia</option><option value="3">Artículo</option><option value="4">Contables</option></optgroup></select>
+                                    <div class="col text-center">
+                                        <select class="form-control" id="selectcatalogos">
+                                            <optgroup label="Catalogos">
+                                                <option value="1" selected="">Familia</option>
+                                                <option value="2">Sub-Familia</option>
+                                                <option value="3">Artículo</option>
+                                                <option value="4">Contables</option>
+                                            </optgroup>
+                                        </select>
                                         <div class="form-row">
-                                            <div class="col"><br><input class="form-control" type="text" id="filtro" onkeyup="myFunction()" placeholder="Filtro"></div>
+                                            <div class="col">
+                                                <br>
+                                                <input class="form-control" type="text" id="filtro" onkeyup="myFunction()" placeholder="Filtro">
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col text-left"><button class="btn btn-primary border-light" type="button" onclick="javascript:concatenarBusqueda()">Buscar &nbsp;<img id="magnifier" src="assets/img/magnifier.png"></button></div>
+                                    <div class="col text-left">
+                                        <button class="btn btn-primary border-light" type="submit" id="buscCat">Buscar &nbsp;<img id="magnifier" src="assets/img/magnifier.png"></button>
+                                    </div>
                                 </div>
                             </form>
                         </div>

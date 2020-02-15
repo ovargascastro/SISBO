@@ -181,5 +181,13 @@
         }
     }
 }
+
+function ocultarModalInfoProv() {
+    $('#busqueda').trigger("reset");
+    $('#actualizaProv').trigger("reset");
+    $('#modalProveedor').modal('hide');
+    buscarProvs();
+    
+}
     
 </script>
