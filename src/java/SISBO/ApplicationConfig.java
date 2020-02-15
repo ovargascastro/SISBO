@@ -43,6 +43,7 @@ public class ApplicationConfig extends Application {
         resources.add(SISBO.ordenesCompra.class);
         resources.add(SISBO.proveedores.class);
         resources.add(SISBO.proyectos.class);
+        resources.add(SISBO.sicop.class);
         resources.add(SISBO.solicitudXarticulo.class);
         resources.add(SISBO.solicitudesArticulos.class);
         resources.add(SISBO.solicitudesxAprobar.class);

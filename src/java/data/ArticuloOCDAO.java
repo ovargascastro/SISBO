@@ -30,13 +30,13 @@ public class ArticuloOCDAO {
             AbaaTbDepartamento dpto = new AbaaTbDepartamento();
             SboTbCatArticulo cat = new SboTbCatArticulo();
             SboTbOrdenCompra oc = new SboTbOrdenCompra();
-            arti.setArtIdPk(rs.getInt("Art_Id_PK"));
-            arti.setArtDesc(rs.getString("Art_Desc"));
-            arti.setArtMode(rs.getString("Art_Mode"));
-            arti.setArtMarc(rs.getString("Art_Marc"));
-            arti.setArtNumeSeri(rs.getString("Art_Nume_Seri"));
-            cat.setCatIdPk(rs.getInt("Cat_Id_PK"));
-            cat.setCatDesc(rs.getString("Cat_Desc"));
+            arti.setArtIdPk(rs.getInt("Arti_Id_PK"));
+            arti.setArtDesc(rs.getString("Arti_Desc"));
+            arti.setArtMode(rs.getString("Arti_Mode"));
+            arti.setArtMarc(rs.getString("Arti_Marc"));
+            arti.setArtNumeSeri(rs.getString("Arti_Nume_Seri"));
+            cat.setCatIdPk(rs.getInt("Cata_Id_PK"));
+            cat.setCatDesc(rs.getString("Cata_Desc"));
             dpto.setDeptoIdPk(rs.getString("Cata_Depa_id_PK"));
             dpto.setDeptoNomb(rs.getString("Cata_Depa_nomb"));
             arti.setSboTbCatArticulo(cat);
@@ -57,10 +57,10 @@ public class ArticuloOCDAO {
             SboTbSubFamilia subFami = new SboTbSubFamilia();
             SboTbFamilia fami = new SboTbFamilia();
 
-            catArti.setCatIdPk(rs.getInt("Cat_Id_PK"));
-            catArti.setCatDesc(rs.getString("Cat_Desc"));
+            catArti.setCatIdPk(rs.getInt("Cata_Id_PK"));
+            catArti.setCatDesc(rs.getString("Cata_Desc"));
 
-            subFami.setSubFamiDesc(rs.getString("SubFami_Desc"));
+            subFami.setSubFamiDesc(rs.getString("Sub_Fami_Desc"));
             fami.setFamiDesc(rs.getString("Fami_Desc"));
             subFami.setSboTbFamilia(fami);
             catArti.setSboTbSubFamilia(subFami);
@@ -72,11 +72,11 @@ public class ArticuloOCDAO {
     }
 
     public SboTbArticulo datosArticulo(String filtro) throws Exception {
-        String sql = "select art.Art_Id_PK, art.Art_Desc,art.Art_Mode,art.Art_Marc,art.Art_Nume_Seri,\n"
-                + "carArt.Cat_Id_PK,carArt.Cat_Desc,dpto.Cata_Depa_id_PK,dpto.Cata_Depa_nomb,oc.OC_Id_PK\n"
-                + "from Sbo_TB_CatArticulo carArt, ABAA_TB_Catalogo_Departamento dpto, Sbo_TB_Articulo art, Sbo_TB_OrdenCompra oc\n"
-                + "where art.Art_Codi_Cat_Arti_FK=carArt.Cat_Id_PK and art.Art_Cat_DepaFK=dpto.Cata_Depa_id_PK\n"
-                + "and art.Art_Orde_Comp_FK = oc.OC_Id_PK and art.Art_Id_PK=" + filtro + ";";
+        String sql = "select art.Arti_Id_PK, art.Arti_Desc,art.Arti_Mode,art.Arti_Marc,art.Arti_Nume_Seri,\n"
+    + "carArt.Cata_Id_PK,carArt.Cata_Desc,dpto.Cata_Depa_id_PK,dpto.Cata_Depa_nomb,oc.OC_Id_PK\n"
+    + "from SIBO_TB_Cata_Arti carArt, ABAA_TB_Catalogo_Departamento dpto, SIBO_TB_Articulo art, SIBO_TB_Orde_Comp oc\n"
+    + "where art.Arti_Codi_Cata_Arti_FK=carArt.Cata_Id_PK and art.Arti_Cata_Depa_FK=dpto.Cata_Depa_id_PK\n"
+    + "and art.Arti_Orde_Comp_FK = oc.OC_Id_PK and Arti_Id_PK = " + filtro + ";";
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
             return Articulo2(rs);
@@ -86,10 +86,10 @@ public class ArticuloOCDAO {
     }
 
     public SboTbArticulo DescripcionCatsPorArticulo(String filtro) throws Exception {
-        String sql = "select cat.Cat_Id_PK,cat.Cat_Desc,sub.SubFami_Desc,fam.Fami_Desc\n"
-                + "from Sbo_TB_CatArticulo cat, Sbo_TB_SubFamilia sub,Sbo_TB_Familia fam\n"
-                + "where cat.Cat_SubF_FK=sub.SubFami_Id_PK and sub.SubFami_CodF_Fk=fam.Fami_Id_PK \n"
-                + "and cat.Cat_Id_PK=" + filtro + ";";
+        String sql = "select cat.Cata_Id_PK,cat.Cata_Desc,sub.Sub_Fami_Desc,fam.Fami_Desc\n" +
+                    "from SIBO_TB_Cata_Arti cat, SIBO_TB_Sub_Fami sub,SIBO_TB_Familia fam\n" +
+                    "where cat.Cata_SubF_FK=sub.Sub_Fami_Id_PK and sub.Sub_Fami_CodF_FK=fam.Fami_Id_PK\n" +
+                    "and cat.Cata_Id_PK = " + filtro + ";";
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
             return Articulo3(rs);
@@ -99,9 +99,10 @@ public class ArticuloOCDAO {
     }
 
     public void disminuirCantPendienteArticulo(SboTbArticulo articulo) throws Exception {
-        String query = "update Sbo_TB_Articulo set Art_Desc=?, Art_Mode= ?, Art_Marc=?,\n"
-                + "Art_Nume_Seri=?, Art_FIngr=?, Art_FVenc=?, Art_Cant_Rest=Art_Cant_Rest-?\n"
-                + "where Art_Id_PK=?;";
+        String query = "update SIBO_TB_Articulo set Arti_Desc=?, Arti_Mode= ?, Arti_Marc=?,\n" +
+                       "Arti_Nume_Seri=?, Arti_Fech_Ingr=?, Arti_Fech_Venc=?, Arti_Cant_Rest=Arti_Cant_Rest-?,"
+                        +"Arti_Cod_Sico_FK= ? \n" +
+                       "where Arti_Id_PK=?;";
 
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, articulo.getArtDesc());
@@ -121,7 +122,8 @@ public class ArticuloOCDAO {
         }
 
         preparedStmt.setInt(7, articulo.getArtCantRest());
-        preparedStmt.setInt(8, articulo.getArtIdPk());
+        preparedStmt.setInt(8, articulo.getSboSicop().getSicopId());
+        preparedStmt.setInt(9, articulo.getArtIdPk());
         preparedStmt.executeUpdate();
         verificarEstadoOCs(articulo);
         db.getConnection().close();

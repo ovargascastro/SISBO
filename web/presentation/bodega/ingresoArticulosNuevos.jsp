@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="assets/css/styles.css">
         <title>Ingreso de Articulos Nuevos</title>
     </head>
-    <body onload="selectBodegas()">
+    <body onload="selectSicop()">
         <%@ include file="/presentation/header.jsp" %>
         <div id="titulo">
             <div class="jumbotron">
@@ -53,6 +53,7 @@
                                         <tr>
                                             <th class="text-center">Número<br>de Orden</th>
                                             <th class="text-center">Fecha<br>de Solicitud</th>
+                                            <th class="text-center">Proveedor</th>
                                             <th class="text-center">Precio<br>Total</th>
                                             <th class="text-center">Estado</th>
                                             <th class="text-center">Artículos</th>
@@ -112,18 +113,30 @@
                                 <div class="col">
                                     <input id="AddArtId" class="form-control" type="hidden">
                                     <input id="OCId" class="form-control" type="hidden">
-                                    <label>Artículo</label><input id="AddArtArticulo" class="form-control" type="text" readonly placeholder="Artículo">
-                                    <label>Descripción</label><input id="AddArtDescripcion" class="form-control" type="text" placeholder="Descripcion">
-                                    <label>Modelo</label><input id="AddArtModelo" class="form-control" type="text" placeholder="Modelo">
-                                    <label>Marca</label><input id="AddArtMarca" class="form-control" type="text" placeholder="Marca">
-                                    <label>N° Serie</label><input id="AddArtNSerie" class="form-control" type="text" placeholder="N° Serie">
+                                    <label>Artículo</label>
+                                    <input id="AddArtArticulo" class="form-control" type="text" readonly placeholder="Artículo">
+                                    <label>Descripción</label>
+                                    <input id="AddArtDescripcion" class="form-control" type="text" placeholder="Descripcion">
+                                    <label>Modelo</label>
+                                    <input id="AddArtModelo" class="form-control" type="text" placeholder="Modelo">
+                                    <label>Marca</label>
+                                    <input id="AddArtMarca" class="form-control" type="text" placeholder="Marca">
+                                    <label>N° Serie</label>
+                                    <input id="AddArtNSerie" class="form-control" type="text" placeholder="N° Serie">
+                                    <label>SICOP</label>
+                                    <select class="form-control" id="selectSicop" required></select>
                                 </div>                       
                                 <div class="col">
-                                    <label>Unidad Usuaria</label><input id="AddArtUniUsuaria" class="form-control" type="text" readonly placeholder="Unidad Usuaria">    
-                                    <label>Bodega</label><select class="form-control" id="AddArtBodega" required></select>
-                                    <label>Fecha de Ingreso</label><input id="AddArtFIngreso" class="form-control" type="date" placeholder="Fecha de Ingreso" required>
-                                    <label>Fecha de Vencimiento</label><input id="AddArtFVencimiento" class="form-control" type="date" placeholder="Fecha de Vencimiento">
-                                    <label>Cantidad a Ingresar</label><input id="AddArtCant" class="form-control" type="number" placeholder="Cantidad a Ingresar" required>    
+                                    <label>Unidad Usuaria</label>
+                                    <input id="AddArtUniUsuaria" class="form-control" type="text" readonly placeholder="Unidad Usuaria">    
+                                    <label>Bodega</label>
+                                    <select class="form-control" id="AddArtBodega" required></select>
+                                    <label>Fecha de Ingreso</label>
+                                    <input id="AddArtFIngreso" class="form-control" type="date" placeholder="Fecha de Ingreso" required>
+                                    <label>Fecha de Vencimiento</label>
+                                    <input id="AddArtFVencimiento" class="form-control" type="date" placeholder="Fecha de Vencimiento">
+                                    <label>Cantidad a Ingresar</label>
+                                    <input id="AddArtCant" class="form-control" type="number" placeholder="Cantidad a Ingresar" required>    
                                     <br>
                                     <div class="col">
                                         <label>Información del Artículo</label>
@@ -188,6 +201,7 @@
     
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/sicop.js" type="text/javascript"></script>
 </body>
 
 </html>
@@ -290,6 +304,7 @@
                         tr.html(
                                 "<td>" + objeto.ocIdPk + "</td>"
                                 + "<td>" + formatDate(objeto.ocFecha) + "</td>"
+                                + "<td>" + objeto.abaaTbProveedor.proveNomb + "</td>"
                                 + "<td>" + objeto.ocPrecTota + "</td>"
                                 + "<td>" + objeto.ocEsta + "</td>"
                                 + "<td><img src='assets/img/delivery-cart.png' onclick='abrirModalListarArticulos(\"" + objeto.ocIdPk + "\");'></td>");
@@ -353,6 +368,7 @@
                             artNumeSeri: $("#AddArtNSerie").val(),
                             artFingr: parseaFecha($("#AddArtFIngreso").val()),
                             artFvenc: parseaFecha($("#AddArtFVencimiento").val()),
+                            sboSicop:[{sicopId:$("#selectSicop").val()}],
                             sboTbOrdenCompra: [{ocIdPk: $("#OCId").val()}],
                             artCantRest: $("#AddArtCant").val()
                         };
