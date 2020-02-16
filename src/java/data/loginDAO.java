@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import logic.AbaaTbDepartamento;
+import logic.AbaaTbRolxPermiso;
 
 /**
  *
@@ -43,8 +44,8 @@ public class loginDAO {
         callableStatement.setString(1, user);
         callableStatement.setString(2, password);//use OracleTypes.CURSOR
         callableStatement.execute();
-                //executeUpdate();//execute USER_OUT store procedure
-        
+        //executeUpdate();//execute USER_OUT store procedure
+
         ResultSet rs = (ResultSet) callableStatement.executeQuery();
         while (rs.next()) {
             return persona(rs);
@@ -61,6 +62,7 @@ public class loginDAO {
             ob.setPersApe2(rs.getString("Pers_ape2"));
             ob.setPersCedu(rs.getString("Pers_cedu"));
             ob.setPersNomb(rs.getString("Pers_nomb"));
+            ob.setPers_es_jefe(rs.getInt("Pers_es_jefe"));
             return ob;
         } catch (SQLException ex) {
             return null;
@@ -71,8 +73,18 @@ public class loginDAO {
     private AbaaTbDepartamento departamento(ResultSet rs) {
         try {
             AbaaTbDepartamento ob = new AbaaTbDepartamento();
-            ob.setDeptoIdPk(rs.getString("Cata_Depa_id_PK"));
-            ob.setDeptoNomb(rs.getString("Cata_Depa_nomb"));
+            ob.setDeptoIdPk(rs.getString("Cata_Depa_id_FK"));
+            //ob.setDeptoNomb(rs.getString("Cata_Depa_nomb"));
+            return ob;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+
+    private AbaaTbRolxPermiso RolxPermiso(ResultSet rs) {
+        try {
+            AbaaTbRolxPermiso ob = new AbaaTbRolxPermiso();
+            ob.setRol_x_Perm_id_PK(rs.getInt("Rol_x_Perm_id_FK"));
             return ob;
         } catch (SQLException ex) {
             return null;
