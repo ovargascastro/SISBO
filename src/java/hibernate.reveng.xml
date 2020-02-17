@@ -63,4 +63,5 @@ Contributor(s):
   <table-filter match-name="Sbo_TB_LimiteDpto"/>
   <table-filter match-name="ABAA_TB_Usuario"/>
   <table-filter match-name="Sbo_TB_OrdenCompra"/>
+  <table-filter match-name="ABAA_TB_RolxPermiso"/>
 </hibernate-reverse-engineering>

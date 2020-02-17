@@ -130,11 +130,12 @@ public class ArticuloOCDAO {
     }
 
     public void aumentarExistencias(SboTbExistencia existencia) throws Exception {
-        String query = "execute aumentaExistencias ?,?,?;";
+        String query = "execute aumentaExistencias ?,?,?,?;";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setInt(1, existencia.getSboTbBodega().getBodeIdPk());
-        preparedStmt.setInt(2, existencia.getSboTbArticulo().getArtIdPk());
-        preparedStmt.setDouble(3, existencia.getExisCant());
+        preparedStmt.setString(2, existencia.getAbaaTbDepartamento().getDeptoIdPk());
+        preparedStmt.setInt(3, existencia.getSboTbSicop().getSicopId());
+        preparedStmt.setDouble(4, existencia.getExisCant());
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
