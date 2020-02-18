@@ -20,7 +20,7 @@
         <title>Asignar Codigo Contable</title>
     </head>
 
-    <body style="background-color: rgb(255,255,255);">
+    <body style="background-color: rgb(255,255,255);" onload="javascript:estadoConta()">
         <%@ include file="/presentation/header.jsp" %>
         <div id="titulo">
             <div class="jumbotron">
@@ -35,11 +35,11 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <form>
+                            <form id="buscarCont" action="javascript:estadoConta()">
                                 <div><label>Número Orden de Compra</label>
                                     <div class="form-row">
                                         <div class="col"><input class="form-control" type="text" id="filtro"></div>
-                                        <div class="col"><button class="btn btn-primary" type="button" onclick="javascript:estadoConta()">Buscar</button></div>
+                                        <div class="col"><button class="btn btn-primary" type="submit">Buscar</button></div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col">
@@ -168,7 +168,7 @@
                                                         + "<td>" + objeto.ocEsta + "</td>"
                                                         + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXordenConta(\"" + objeto.ocIdPk + "\");'></td>");
                                                 listado.append(tr);
-
+                                                $('#buscarCont').trigger("reset");
                                             }
 
                                             var num = 0;
