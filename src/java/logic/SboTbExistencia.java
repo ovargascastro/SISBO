@@ -8,24 +8,24 @@ package logic;
  */
 public class SboTbExistencia  implements java.io.Serializable {
 
-
      private SboTbExistenciaId id;
-     private SboTbArticulo sboTbArticulo;
+     private AbaaTbDepartamento abaaTbDepartamento;
      private SboTbBodega sboTbBodega;
+     private SboSicop sboTbSicop;
      private Double exisCant;
 
     public SboTbExistencia() {
     }
 
 	
-    public SboTbExistencia(SboTbExistenciaId id, SboTbArticulo sboTbArticulo, SboTbBodega sboTbBodega) {
+    public SboTbExistencia(SboTbExistenciaId id, AbaaTbDepartamento abaaTbDepartamento, SboTbBodega sboTbBodega) {
         this.id = id;
-        this.sboTbArticulo = sboTbArticulo;
+        this.abaaTbDepartamento = abaaTbDepartamento;
         this.sboTbBodega = sboTbBodega;
     }
-    public SboTbExistencia(SboTbExistenciaId id, SboTbArticulo sboTbArticulo, SboTbBodega sboTbBodega, Double exisCant) {
+    public SboTbExistencia(SboTbExistenciaId id, AbaaTbDepartamento abaaTbDepartamento, SboTbBodega sboTbBodega, Double exisCant) {
        this.id = id;
-       this.sboTbArticulo = sboTbArticulo;
+       this.abaaTbDepartamento = abaaTbDepartamento;
        this.sboTbBodega = sboTbBodega;
        this.exisCant = exisCant;
     }
@@ -37,13 +37,15 @@ public class SboTbExistencia  implements java.io.Serializable {
     public void setId(SboTbExistenciaId id) {
         this.id = id;
     }
-    public SboTbArticulo getSboTbArticulo() {
-        return this.sboTbArticulo;
+
+    public AbaaTbDepartamento getAbaaTbDepartamento() {
+        return abaaTbDepartamento;
     }
-    
-    public void setSboTbArticulo(SboTbArticulo sboTbArticulo) {
-        this.sboTbArticulo = sboTbArticulo;
+
+    public void setAbaaTbDepartamento(AbaaTbDepartamento abaaTbDepartamento) {
+        this.abaaTbDepartamento = abaaTbDepartamento;
     }
+
     public SboTbBodega getSboTbBodega() {
         return this.sboTbBodega;
     }
@@ -51,6 +53,15 @@ public class SboTbExistencia  implements java.io.Serializable {
     public void setSboTbBodega(SboTbBodega sboTbBodega) {
         this.sboTbBodega = sboTbBodega;
     }
+
+    public SboSicop getSboTbSicop() {
+        return sboTbSicop;
+    }
+
+    public void setSboTbSicop(SboSicop sboTbSicop) {
+        this.sboTbSicop = sboTbSicop;
+    }
+    
     public Double getExisCant() {
         return this.exisCant;
     }
@@ -58,8 +69,6 @@ public class SboTbExistencia  implements java.io.Serializable {
     public void setExisCant(Double exisCant) {
         this.exisCant = exisCant;
     }
-
-
 
 
 }

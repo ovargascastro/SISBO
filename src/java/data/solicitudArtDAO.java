@@ -106,7 +106,7 @@ public class solicitudArtDAO {
         try {
             SboTbExistencia existencia = new SboTbExistencia();
             existencia.setSboTbBodega(Bodega(rs));
-            existencia.setSboTbArticulo(articulo(rs));
+            //existencia.setSboTbArticulo(articulo(rs));
             existencia.setExisCant(rs.getDouble("Exis_Cant"));
             return existencia;
         } catch (SQLException ex) {

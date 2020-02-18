@@ -113,6 +113,7 @@
                                 <div class="col">
                                     <input id="AddArtId" class="form-control" type="hidden">
                                     <input id="OCId" class="form-control" type="hidden">
+                                    <input id="DptoId" class="form-control" type="hidden">
                                     <label>Artículo</label>
                                     <input id="AddArtArticulo" class="form-control" type="text" readonly placeholder="Artículo">
                                     <label>Descripción</label>
@@ -220,7 +221,7 @@
                     function abrirModalAgregarArticulos(idArti) {
                         $('#listaArticulos').modal('hide');
                         solicitarDatosArticulo(idArti);
-                        //selectBodegas();
+                        selectBodegas();
                         $('#agregarArticulo').modal('show');
                     }
 
@@ -264,6 +265,7 @@
                     function mostrarDatosArt(objeto) {
                         $("#AddArtId").val(objeto.artIdPk);
                         $("#OCId").val(objeto.sboTbOrdenCompra.ocIdPk);
+                        $("#DptoId").val(objeto.abaaTbDepartamento.deptoIdPk);
                         $("#AddArtArticulo").val(objeto.sboTbCatArticulo.catDesc);
                         $("#AddArtDescripcion").val(objeto.artDesc);
                         $("#AddArtModelo").val(objeto.artMode);
@@ -374,7 +376,8 @@
                     function aumentarExistencias() {
                         existencia = {
                             sboTbBodega: [{bodeIdPk: $("#AddArtBodega").val()}],
-                            sboTbArticulo: [{artIdPk: $("#AddArtId").val()}],
+                            abaaTbDepartamento: [{deptoIdPk: $("#DptoId").val()}],
+                            sboTbSicop: [{sicopId: $("#selectSicop").val()}], 
                             exisCant: $("#AddArtCant").val()
                         };
                         $.ajax({type: "PUT",
