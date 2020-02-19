@@ -21,6 +21,7 @@ public class SboTbSoliArti  implements java.io.Serializable {
      private Date solArtiFechSali;
      private Set<SboTbSolixArti> sboTbSolixArtis = new HashSet<SboTbSolixArti>(0);
      private String solArtiEsta;
+     private String solArtiDesc;
     public SboTbSoliArti() {
     }
 
@@ -28,7 +29,7 @@ public class SboTbSoliArti  implements java.io.Serializable {
     public SboTbSoliArti(int solArtiIdPk) {
         this.solArtiIdPk = solArtiIdPk;
     }
-    public SboTbSoliArti(int solArtiIdPk, AbaaTbDepartamento abaaTbDepartamento, AbaaTbFuncionario abaaTbFuncionario, Boolean solArtiVistJefe, Boolean solArtiVistTi, Date solArtiFechSoli, Date solArtiFechSali, Set<SboTbSolixArti> sboTbSolixArtis) {
+    public SboTbSoliArti(int solArtiIdPk, AbaaTbDepartamento abaaTbDepartamento, AbaaTbFuncionario abaaTbFuncionario, Boolean solArtiVistJefe, Boolean solArtiVistTi, Date solArtiFechSoli, Date solArtiFechSali, Set<SboTbSolixArti> sboTbSolixArtis, String solArtiDesc) {
        this.solArtiIdPk = solArtiIdPk;
        this.abaaTbDepartamento = abaaTbDepartamento;
        this.abaaTbFuncionario = abaaTbFuncionario;
@@ -37,6 +38,8 @@ public class SboTbSoliArti  implements java.io.Serializable {
        this.solArtiFechSoli = solArtiFechSoli;
        this.solArtiFechSali = solArtiFechSali;
        this.sboTbSolixArtis = sboTbSolixArtis;
+       this.solArtiDesc=solArtiDesc;
+       
     }
    
     public int getSolArtiIdPk() {
@@ -102,6 +105,14 @@ public class SboTbSoliArti  implements java.io.Serializable {
 
     public void setSolArtiEsta(String solArtiEsta) {
         this.solArtiEsta = solArtiEsta;
+    }
+
+    public String getSolArtiDesc() {
+        return solArtiDesc;
+    }
+
+    public void setSolArtiDesc(String solArtiDesc) {
+        this.solArtiDesc = solArtiDesc;
     }
 
     

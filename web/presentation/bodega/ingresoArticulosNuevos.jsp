@@ -219,7 +219,7 @@
                     function abrirModalAgregarArticulos(idArti) {
                         $('#listaArticulos').modal('hide');
                         solicitarDatosArticulo(idArti);
-                        //selectBodegas();
+                        selectBodegas();
                         $('#agregarArticulo').modal('show');
                     }
 

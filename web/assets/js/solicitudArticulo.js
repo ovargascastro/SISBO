@@ -87,7 +87,8 @@ function agregarSolicitudArticulo() {
             funcIdPk: 1
         },
         solArtiEsta: "pendiente",
-        solArtiFechSoli: fecha2
+        solArtiFechSoli: fecha2,
+        solArtiDesc:document.getElementById("descripcion").value
     };
     $.ajax({type: "POST",
         url: "api/solicitudArticulo",
