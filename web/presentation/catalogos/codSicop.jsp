@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html id="body">
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -33,16 +33,13 @@
                             <h4 class="text-center">Buscar</h4>
                             <form id="buscarSicop" action="javascript:buscarSicopFiltro()">
                                 <div class="form-row">
-                                    <div class="col text-center"><input class="form-control" type="text" id="filtro"></div>
-                                    <div class="col text-left">
-                                        <button class="btn btn-primary border-light" type="submit">Buscar &nbsp;<img id="magnifier" src="assets/img/magnifier.png"></button>
-                                    </div>
+                                    <div class="col text-center"><input class="form-control" type="text" id="filtro" onkeyup="myFunction()"></div>
                                 </div>
                             </form>
                         </div>
                         <div class="col">
-                            <h4>Agregar Registro a un catálogo</h4>
-                            <br>
+                            <h4>Agregar Registro</h4>
+ 
                             <button class="btn btn-primary" type="button" onclick="modalAgregaSicop()">Registrar</button></div>
                     </div>
                 </div>
@@ -56,7 +53,7 @@
                         <div class="table-responsive " style="max-height: 350px; overflow: auto">
                             <div class="col text-center">
                                 <div class="table-responsive">
-                                    <table class="table">
+                                    <table class="table" id="myTable">
                                         <thead>
                                             <tr>
                                                 <th>Código Clasificación</th>

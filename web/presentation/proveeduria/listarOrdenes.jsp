@@ -17,7 +17,7 @@
         <title>Lista Órdenes de Compra</title>
     </head>
 
-    <body style="background-color: rgb(255,255,255);">
+    <body style="background-color: rgb(255,255,255);" onload="javascript:buscarOrdenes()">
         <%@ include file="/presentation/header.jsp" %>
 
         <div id="titulo">
@@ -33,11 +33,11 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <form>
+                            <form id="busquedaOrden" action="javascript:buscarOrdenes()" >
                                 <div><label>Número Orden de Compra</label>
                                     <div class="form-row">
                                         <div class="col"><input class="form-control" type="text" id="filtro"></div>
-                                        <div class="col"><button class="btn btn-primary" type="button" onclick="javascript:buscarOrdenes()">Buscar</button></div>
+                                        <div class="col"><button class="btn btn-primary" type="submit">Buscar</button></div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col">
@@ -58,6 +58,7 @@
                                         <tr>
                                             <th class="text-center">Número<br>de Orden</th>
                                             <th class="text-center">Fecha</th>
+                                            <th class="text-center">Proveedor</th>
                                             <th class="text-center">Precio<br>Total</th>
                                             <th class="text-center">Estado</th>
                                             <th class="text-center">Artículos</th>
@@ -119,7 +120,7 @@
                                 <div class="col">
                                            <p class="font-italic">
                                                Digite un número de solicitud y haga clic en el botón Buscar.<br>
-                                               De no digitar un número se listarán todas las solicitudes.
+                                               De no digitar un número se listarán todas las órdenes de compra.
                                            </p>
                                 </div>
                                
@@ -152,11 +153,12 @@
                                                 tr.html(
                                                         "<td>" + objeto.ocIdPk + "</td>"
                                                         + "<td>" + formatDate(objeto.ocFecha) + "</td>"
+                                                        + "<td>" + objeto.abaaTbProveedor.proveNomb + "</td>"
                                                         + "<td>" + objeto.ocPrecTota + "</td>"
                                                         + "<td>" + objeto.ocEsta + "</td>"
                                                         + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXorden(\"" + objeto.ocIdPk + "\");'></td>");
                                                 listado.append(tr);
-
+                                                $('#busquedaOrden').trigger("reset");
                                             }
 
 
@@ -180,5 +182,9 @@
                                                 listado.append(tr);
 
                                             }
+                                            
+
+                                            
+                                            
     </script>
 </html>

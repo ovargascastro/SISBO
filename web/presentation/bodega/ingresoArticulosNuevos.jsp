@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="assets/css/styles.css">
         <title>Ingreso de Articulos Nuevos</title>
     </head>
-    <body onload="selectSicop()">
+    <body onload="selectSicop(), buscarOrdenes(), logged()">
         <%@ include file="/presentation/header.jsp" %>
         <div id="titulo">
             <div class="jumbotron">
@@ -29,11 +29,11 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <form>
+                            <form id="buscarOrdArt" action="javascript:buscarOrdenes()">
                                 <div><label>Buscar Orden de Compra</label>
                                     <div class="form-row">
                                         <div class="col"><input class="form-control" type="text" placeholder="Codigo Orden de Compra" id="numeroOC" name="numeroOC"></div>
-                                        <div class="col"><button class="btn btn-primary" type="button" onclick="buscarOrdenes()">Buscar</button></div>
+                                        <div class="col"><button class="btn btn-primary" type="submit">Buscar</button></div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col">
@@ -53,6 +53,7 @@
                                         <tr>
                                             <th class="text-center">Número<br>de Orden</th>
                                             <th class="text-center">Fecha<br>de Solicitud</th>
+                                            <th class="text-center">Proveedor</th>
                                             <th class="text-center">Precio<br>Total</th>
                                             <th class="text-center">Estado</th>
                                             <th class="text-center">Artículos</th>
@@ -112,6 +113,7 @@
                                 <div class="col">
                                     <input id="AddArtId" class="form-control" type="hidden">
                                     <input id="OCId" class="form-control" type="hidden">
+                                    <input id="DptoId" class="form-control" type="hidden">
                                     <label>Artículo</label>
                                     <input id="AddArtArticulo" class="form-control" type="text" readonly placeholder="Artículo">
                                     <label>Descripción</label>
@@ -184,7 +186,7 @@
                                 <div class="col">
                                            <p class="font-italic">
                                                Digite un número de solicitud y haga clic en el botón Buscar.<br>
-                                               De no digitar un número se listarán todas las solicitudes.
+                                               De no digitar un número se listarán todas las órdenes de compra.
                                            </p>
                                 </div>
                                
@@ -263,6 +265,7 @@
                     function mostrarDatosArt(objeto) {
                         $("#AddArtId").val(objeto.artIdPk);
                         $("#OCId").val(objeto.sboTbOrdenCompra.ocIdPk);
+                        $("#DptoId").val(objeto.abaaTbDepartamento.deptoIdPk);
                         $("#AddArtArticulo").val(objeto.sboTbCatArticulo.catDesc);
                         $("#AddArtDescripcion").val(objeto.artDesc);
                         $("#AddArtModelo").val(objeto.artMode);
@@ -320,10 +323,12 @@
                         tr.html(
                                 "<td>" + objeto.ocIdPk + "</td>"
                                 + "<td>" + formatDate(objeto.ocFecha) + "</td>"
+                                + "<td>" + objeto.abaaTbProveedor.proveNomb + "</td>"
                                 + "<td>" + objeto.ocPrecTota + "</td>"
                                 + "<td>" + objeto.ocEsta + "</td>"
                                 + "<td><img src='assets/img/delivery-cart.png' onclick='abrirModalListarArticulos(\"" + objeto.ocIdPk + "\");'></td>");
                         listado.append(tr);
+                        $('#buscarOrdArt').trigger("reset");
                     }
 
                     function filaOCxArt(listado, objeto) {
@@ -372,7 +377,8 @@
                     function aumentarExistencias() {
                         existencia = {
                             sboTbBodega: [{bodeIdPk: $("#AddArtBodega").val()}],
-                            sboTbArticulo: [{artIdPk: $("#AddArtId").val()}],
+                            abaaTbDepartamento: [{deptoIdPk: $("#DptoId").val()}],
+                            sboTbSicop: [{sicopId: $("#selectSicop").val()}], 
                             exisCant: $("#AddArtCant").val()
                         };
                         $.ajax({type: "PUT",
@@ -390,6 +396,7 @@
                             artNumeSeri: $("#AddArtNSerie").val(),
                             artFingr: parseaFecha($("#AddArtFIngreso").val()),
                             artFvenc: parseaFecha($("#AddArtFVencimiento").val()),
+                            sboSicop:[{sicopId:$("#selectSicop").val()}],
                             sboTbOrdenCompra: [{ocIdPk: $("#OCId").val()}],
                             artCantRest: $("#AddArtCant").val()
                         };
@@ -431,6 +438,14 @@
 
                         return new Date(year, month, day);
                     };
+                    
+                     function logged(){
+                        <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+                        <% if (aux == null) { %>
+                        location.href = "presentation/notAccess.jsp";
+                        <%}%>
+                    }
+
 
 
 

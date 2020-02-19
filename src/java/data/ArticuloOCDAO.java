@@ -100,7 +100,8 @@ public class ArticuloOCDAO {
 
     public void disminuirCantPendienteArticulo(SboTbArticulo articulo) throws Exception {
         String query = "update SIBO_TB_Articulo set Arti_Desc=?, Arti_Mode= ?, Arti_Marc=?,\n" +
-                       "Arti_Nume_Seri=?, Arti_Fech_Ingr=?, Arti_Fech_Venc=?, Arti_Cant_Rest=Arti_Cant_Rest-?\n" +
+                       "Arti_Nume_Seri=?, Arti_Fech_Ingr=?, Arti_Fech_Venc=?, Arti_Cant_Rest=Arti_Cant_Rest-?,"
+                        +"Arti_Cod_Sico_FK= ? \n" +
                        "where Arti_Id_PK=?;";
 
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -121,18 +122,20 @@ public class ArticuloOCDAO {
         }
 
         preparedStmt.setInt(7, articulo.getArtCantRest());
-        preparedStmt.setInt(8, articulo.getArtIdPk());
+        preparedStmt.setInt(8, articulo.getSboSicop().getSicopId());
+        preparedStmt.setInt(9, articulo.getArtIdPk());
         preparedStmt.executeUpdate();
         verificarEstadoOCs(articulo);
         db.getConnection().close();
     }
 
     public void aumentarExistencias(SboTbExistencia existencia) throws Exception {
-        String query = "execute aumentaExistencias ?,?,?;";
+        String query = "execute aumentaExistencias ?,?,?,?;";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setInt(1, existencia.getSboTbBodega().getBodeIdPk());
-        preparedStmt.setInt(2, existencia.getSboTbArticulo().getArtIdPk());
-        preparedStmt.setDouble(3, existencia.getExisCant());
+        preparedStmt.setString(2, existencia.getAbaaTbDepartamento().getDeptoIdPk());
+        preparedStmt.setInt(3, existencia.getSboTbSicop().getSicopId());
+        preparedStmt.setDouble(4, existencia.getExisCant());
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }

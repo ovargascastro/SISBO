@@ -17,12 +17,13 @@ public class AbaaTbPersona {
     private String PersApe1;
     private String PersApe2;
     private int PersSfun;
+    private int Pers_es_jefe;
     private AbaaTbDepartamento departamento;
 
     public AbaaTbPersona() {
     }
 
-    public AbaaTbPersona(int PersIdPK, String PersCedu, String PersNomb, String PersApe1, String PersApe2, int PersSfun, AbaaTbDepartamento departamento) {
+    public AbaaTbPersona(int PersIdPK, String PersCedu, String PersNomb, String PersApe1, String PersApe2, int PersSfun, int Pers_es_jefe, AbaaTbDepartamento departamento) {
         this.PersIdPK = PersIdPK;
         this.PersCedu = PersCedu;
         this.PersNomb = PersNomb;
@@ -30,6 +31,7 @@ public class AbaaTbPersona {
         this.PersApe2 = PersApe2;
         this.PersSfun = PersSfun;
         this.departamento = departamento;
+        this.Pers_es_jefe = Pers_es_jefe;
     }
 
     public int getPersIdPK() {
@@ -87,8 +89,14 @@ public class AbaaTbPersona {
     public void setDepartamento(AbaaTbDepartamento departamento) {
         this.departamento = departamento;
     }
-    
-    
-    
+
+    public int getPers_es_jefe() {
+        return Pers_es_jefe;
+    }
+
+    public void setPers_es_jefe(int Pers_es_jefe) {
+        this.Pers_es_jefe = Pers_es_jefe;
+    }
+
     
 }

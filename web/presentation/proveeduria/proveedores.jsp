@@ -17,7 +17,7 @@
         <title>Catalogo de Proveedores</title>
     </head>
 
-<body style="background-color: rgb(255,255,255);">
+<body style="background-color: rgb(255,255,255);" onload="javascript:buscarProvs()">
            <%@ include file="/presentation/header.jsp" %>
     <div id="titulo">
         <div class="jumbotron">
@@ -39,25 +39,21 @@
                                     <label class="col-form-label">Buscar</label>
                                 </div>
                             </div>
-                            <input id="filtro" class="form-control" type="text">
-                        <br>
-                        <button class="btn btn-primary" id="bProv" type="submit">Buscar</button>
+                            <input id="filtro" class="form-control" type="text" placeholder="Nombre de Proveedor" onkeyup="myFunction()">
                         </div>
-                        <div class="col" id="colBtn"><label></label><br><br></div>
+
                          </form>
                     </div>
                     <div class="form-row text-center" id="rowBtnAgregar">
                         <div class="col"><button class="btn btn-primary" type="button" onclick="mostrarModalInfoProvAgregar()">Registrar</button></div>
                     </div>
                     <div class="form-row" id="linea">
-                        <div class="col">
-                            <hr>
-                        </div>
+
                     </div>
                     <div class="form-row">
                         <div class="col text-center">
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table" id="myTable">
                                     <thead>
                                         <tr>
                                             <th>Código</th>
@@ -122,11 +118,11 @@
                     <div class="modal-body">
                         <div class="container">
                             <div class="form-row">
-                                <div class="col"><label>Nombre</label><input class="form-control" type="text" id="nombProv2" placeholder="Nombre"></div>
+                                <div class="col"><label>Nombre</label><input class="form-control" type="text" id="nombProv2" placeholder="Nombre" required></div>
                             </div>
                             <div class="form-row">
                                 <div class="col">
-                                    <label>Código</label><input class="form-control" type="text" placeholder="Codigo Proveedor" id="codProv2">
+                                    <label>Código</label><input class="form-control" type="text" placeholder="Codigo Proveedor" id="codProv2" required>
                                     <label>Teléfono</label><input class="form-control" type="text" placeholder="Telefono" id="telProv2">
                                     <label>Fax</label><input class="form-control" type="text" placeholder="Fax" id="faxProv2"></div>
                                 <div class="col">
@@ -149,9 +145,6 @@
 
 </html>
 <script>
-    document.getElementById("CatalogosMenu").style.color = "white";
-    
-
      function listaProvs(personas){
         var listado=$("#listado");
         listado.html("");
@@ -168,5 +161,33 @@
             +"<td align='center' ><img src='assets/img/edit.png' onclick='infoProveedor(\""+proveedor.proveIdProvePk+"\");'></td>");
         listado.append(tr);
     }
+    
+    
+    function myFunction() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("filtro");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+
+function ocultarModalInfoProv() {
+    $('#busqueda').trigger("reset");
+    $('#actualizaProv').trigger("reset");
+    $('#modalProveedor').modal('hide');
+    buscarProvs();
+    
+}
     
 </script>
