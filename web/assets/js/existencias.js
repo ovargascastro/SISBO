@@ -67,7 +67,7 @@ function getExistencias() {
 
 
     $.ajax({type: "GET",
-        url: "api/Existencias/"+bodeg+"/"+depto+"/"+arti,
+        url: "api/Existencias/" + bodeg + "/" + depto + "/" + arti,
         success: listaExist
     });
 }
@@ -91,4 +91,66 @@ function fila(listado, objeto) {
             + "<td>" + objeto.exisCant + "</td>");
     listado.append(tr);
 
+}
+
+
+//function myFunction() {
+//    var input, filter, filter2, table, tr, td2, td3, td, i, txtValue, txtValue2, txtValue3;
+//    input = document.getElementById("filtro");
+//
+//    // var depto = document.getElementById("SelectDptos").value;
+//    // var arti = document.getElementById("selectSicop").value;
+//    // var bodeg = document.getElementById("SelectBodegas").value;
+//
+//    var bodeg = $('#SelectBodegas option:selected').text();
+//    var depto = $('#SelectDptos option:selected').text();
+//
+//
+//
+//    filter = bodeg.value.toUpperCase();
+//    filter2 = depto.value.toUpperCase();
+//
+//
+//
+//
+//    table = document.getElementById("myTable");
+//    tr = table.getElementsByTagName("tr");
+//
+//
+//    for (i = 0; i < tr.length; i++) {
+//        td = tr[i].getElementsByTagName("td")[0];
+//        td2 = tr[i].getElementsByTagName("td")[1];
+//        td3 = tr[i].getElementsByTagName("td")[2];
+//
+//        if (td, td2, td3) {
+//            txtValue = td.textContent || td.innerText;
+//            txtValue2 = td2.textContent || td2.innerText;
+//            if (txtValue.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter2) > -1) {
+//                tr[i].style.display = "";
+//            } else {
+//                tr[i].style.display = "none";
+//            }
+//        }
+//    }
+//}
+
+
+
+function myFunction() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = $('#selectSicop option:selected').text();
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
 }

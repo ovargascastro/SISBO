@@ -87,9 +87,10 @@ public class ExistenciasDAO {
                     + "where exis.Exis_Id_Bode_PK=bode.Bode_Id_PK\n"
                     + "and exis.Exist_Depa_PK=dpto.Cata_Depa_id_PK\n"
                     + "and exis.Exis_Id_Sico_PK=sicop.Sico_Id_PK\n"
-                    + "and exis.Exis_Id_Bode_PK like '%%%s%%'\n"
-                    + "and exis.Exist_Depa_PK like '%%%s%%'\n"
-                    + "and exis.Exis_Id_Sico_PK like '%%%s%%';";
+                    + "and exis.Exis_Id_Bode_PK="+bodega+"\n"
+                    + "and exis.Exist_Depa_PK="+departamento+"\n"
+                    + "and exis.Exis_Id_Sico_PK="+articulo+";";
+            
             sql = String.format(sql,bodega,departamento,articulo);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {

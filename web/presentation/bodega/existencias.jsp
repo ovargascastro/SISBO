@@ -39,8 +39,7 @@
                                     <select class="form-control" id="SelectDptos">
                                     </select>
                                     <label>Artículo</label>
-                                    <select id="selectSicop" class="form-control">
-                                     <option selected="selected" disabled value="">Artículo</option> 
+                                    <select id="selectSicop" class="form-control" >
                                     </select>
                                 </div>
                                 <div class="col text-center">
@@ -57,7 +56,7 @@
             <div class="row">
                 <div class="col text-center" id="tablaOrdenes">
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table" id="myTable">
                             <thead>
                                 <tr>
                                     <th class="text-center">Bodega</th>
