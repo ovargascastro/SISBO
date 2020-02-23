@@ -22,6 +22,7 @@ import logic.SboTbOrdenCompra;
 import logic.SboTbSoliArti;
 import logic.SboTbSolixArti;
 import logic.SboTbSolixArtiId;
+import logic.SboSicop;
 import logic.SboTbSubFamilia;
 
 /**
@@ -320,10 +321,10 @@ public class solicitudArtDAO {
         return resultado;
     }
     
-    private SboTbSolixArti solixArti(ResultSet rs) {
+    private SboSicop solixArti(ResultSet rs) {
         try {
             SboTbSolixArti solxArt = new SboTbSolixArti();
-            solxArt.setSboTbArticulo(articulo(rs));
+            solxArt.setSboSicop(articulo(rs));
             solxArt.setSboTbSoliArti(soliArti(rs));
             solxArt.setSolArtiCant(rs.getInt("Soli_Arti_X_Cant"));
             return solxArt;
@@ -448,7 +449,7 @@ public class solicitudArtDAO {
        public void disminuyeExistencias(SboTbSolixArti objeto) throws Exception {
         String query = "execute DisminuyeExistencias ?,?,?;";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
-        preparedStmt.setInt(1, objeto.getSboTbArticulo().getArtIdPk());
+        preparedStmt.setInt(1, objeto.getSboSicop().getSicopId());
         preparedStmt.setInt(2, objeto.getSolArtiCant());
         preparedStmt.setInt(3, objeto.getSboTbSoliArti().getSolArtiIdPk());
         preparedStmt.executeUpdate();

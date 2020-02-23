@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -213,7 +213,7 @@ public class ArticulosDAO {
         preparedStmt.setInt(10, objeto.getAbaaProyectos().getProyIdPk());
         preparedStmt.setString(11, objeto.getAbaaTbDepartamento().getDeptoIdPk());
         preparedStmt.setString(12, objeto.getArtUnidadMedida());
-        preparedStmt.setInt(13, objeto.getSboTbOrdenCompra().getOcIdPk());
+        preparedStmt.setInt(13, objeto.getSboSicop().getSicopId());
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
@@ -310,7 +310,7 @@ public class ArticulosDAO {
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
-    
+
     public SboTbArticulo getArticulo(int id) throws Exception {
         String sql = "select * from SIBO_TB_Articulo where Arti_Id_PK='%s'";
         sql = String.format(sql, id);
@@ -321,12 +321,12 @@ public class ArticulosDAO {
             throw new Exception("Solicitud no Existe");
         }
     }
-    
+
     public SboTbArticulo getArticulo2(int id) throws Exception {
         String sql = "select * "
                 + "from SIBO_TB_Articulo art, ABAA_TB_Catalogo_Departamento dpto, SIBO_TB_Cata_Arti cat "
                 + "where art.Arti_Cata_Depa_FK = dpto.Cata_Depa_id_PK and cat.Cata_Id_PK=art.Arti_Codi_Cata_Arti_FK "
-                + "and art.Arti_Id_PK="+id+";";
+                + "and art.Arti_Id_PK=" + id + ";";
         sql = String.format(sql);
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
@@ -336,29 +336,40 @@ public class ArticulosDAO {
         }
     }
 
-    //crear consulta para mostrar los articulos en existencia por departamento
-//     select * from SIBO_TB_Articulo arti inner join SIBO_TB_Sicop sicop on arti.Arti_Cod_Sico_FK=sicop.Sico_Id_PK
-//                    inner join  SIBO_TB_Exis exis on sicop.Sico_Id_PK=exis.Exis_Id_Sico_PK
-//                    inner join SIBO_TB_Bode bode  on exis.Exis_Id_Bode_PK=bode.Bode_Id_PK
-//                     where exis.Exist_Depa_PK = 17
-public List<SboTbArticulo> listaExistenciasDepartamento(String depa){
-  List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
-        try {
-          String sql = "select * from SIBO_TB_Articulo arti inner join SIBO_TB_Sicop sicop on arti.Arti_Cod_Sico_FK=sicop.Sico_Id_PK\n"
-
-                    + "inner join  SIBO_TB_Exis exis on sicop.Sico_Id_PK=exis.Exis_Id_Sico_PK\n"
-
-                    + "inner join SIBO_TB_Bode bode  on exis.Exis_Id_Bode_PK=bode.Bode_Id_PK\n"
-
-                    + " where exis.Exist_Depa_PK="+depa;
-            sql = String.format(sql,depa);
-            ResultSet rs = db.executeQuery(sql);
-            while (rs.next()) {
-                resultado.add(articulo(rs));
-            }
-        } catch (SQLException ex) {
+    public void agregarArticuloSinOrden(SboTbArticulo objeto) throws Exception {
+        String query = "insert into SIBO_TB_Articulo(Arti_Prec,Arti_Cant,Arti_Cant_Rest,Arti_Desc,"
+                + "Arti_Mode,Arti_Nume_Seri,Arti_Marc,"
+                + "Arti_Codi_Cata_Arti_FK,Arti_Cata_Depa_FK,Arti_Unid_Medi, "
+                + "Arti_Cod_Sico_FK, Arti_Fech_Ingr, Arti_Fech_Venc) "
+                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setDouble(1, objeto.getArtPrecio());
+        preparedStmt.setInt(2, objeto.getArtCant());
+        preparedStmt.setInt(3, objeto.getArtCant());
+        preparedStmt.setString(4, objeto.getArtDesc());
+        preparedStmt.setString(5, objeto.getArtMode());
+        preparedStmt.setString(6, objeto.getArtNumeSeri());
+        preparedStmt.setString(7, objeto.getArtMarc());
+        preparedStmt.setInt(8, objeto.getSboTbCatArticulo().getCatIdPk());
+        preparedStmt.setString(9, objeto.getAbaaTbDepartamento().getDeptoIdPk());
+        preparedStmt.setString(10, objeto.getArtUnidadMedida());
+        preparedStmt.setInt(11, objeto.getSboSicop().getSicopId());
+        
+        java.util.Date utilStartDate = objeto.getArtFingr();
+        java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+        preparedStmt.setDate(12, sqlStartDate);
+        
+        if (objeto.getArtFvenc() != null) {
+            utilStartDate = objeto.getArtFvenc();
+            sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+            preparedStmt.setDate(13, sqlStartDate);
         }
-        return resultado;
- }
-    
+        else{
+            preparedStmt.setDate(13, null);
+        }
+        
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
+
 }

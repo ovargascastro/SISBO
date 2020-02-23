@@ -12,13 +12,13 @@
         <%@ include file="/presentation/base.jsp" %>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
-        <title>Ingreso de Articulos Nuevos</title>
+        <title>Ingreso de Articulos por OC</title>
     </head>
     <body onload="selectSicop(), buscarOrdenes(), logged()">
         <%@ include file="/presentation/header.jsp" %>
         <div id="titulo">
             <div class="jumbotron">
-                <h1>Ingresar Artículos Nuevos</h1>
+                <h1>Ingresar Artículos por Orden de Compra</h1>
                 <p></p>
                 <p></p>
             </div>

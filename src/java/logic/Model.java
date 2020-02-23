@@ -955,5 +955,9 @@ public class Model {
        return existdao.getSboTbExistencia(depa,Arti);
 
     }
+    
+    public void agregarArticuloSinOrden(SboTbArticulo art) throws Exception {
+        articulodao.agregarArticuloSinOrden(art);
+    }
 
 }
