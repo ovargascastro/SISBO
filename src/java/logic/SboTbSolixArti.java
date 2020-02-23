@@ -1,6 +1,9 @@
 package logic;
 // Generated 22-sep-2019 1:11:19 by Hibernate Tools 4.3.1
 
+import java.util.Date;
+
+
 
 
 /**
@@ -13,8 +16,8 @@ public class SboTbSolixArti  implements java.io.Serializable {
      private SboSicop sboSicop;
      private SboTbSoliArti sboTbSoliArti;
      private Integer solArtiCant;
-     private String solArtiSali;
-
+     private Date solArtiSali;
+     private String solArtiDeta;
     public SboTbSolixArti() {
     }
 
@@ -24,12 +27,13 @@ public class SboTbSolixArti  implements java.io.Serializable {
         this.sboSicop = sboSicop;
         this.sboTbSoliArti = sboTbSoliArti;
     }
-    public SboTbSolixArti(SboTbSolixArtiId id, SboSicop sboSicop, SboTbSoliArti sboTbSoliArti, Integer solArtiCant, String solArtiSali) {
+    public SboTbSolixArti(SboTbSolixArtiId id, SboSicop sboSicop, SboTbSoliArti sboTbSoliArti, Integer solArtiCant, Date solArtiSali, String solArtiDeta) {
        this.id = id;
        this.sboSicop = sboSicop;
        this.sboTbSoliArti = sboTbSoliArti;
        this.solArtiCant = solArtiCant;
        this.solArtiSali = solArtiSali;
+       this.solArtiDeta = solArtiDeta;
     }
    
     public SboTbSolixArtiId getId() {
@@ -61,13 +65,23 @@ public class SboTbSolixArti  implements java.io.Serializable {
         this.solArtiCant = solArtiCant;
     }
 
-    public String getSolArtiSali() {
+    public Date getSolArtiSali() {
         return solArtiSali;
     }
 
-    public void setSolArtiSali(String solArtiSali) {
+    public void setSolArtiSali(Date solArtiSali) {
         this.solArtiSali = solArtiSali;
     }
+
+    public String getSolArtiDeta() {
+        return solArtiDeta;
+    }
+
+    public void setSolArtiDeta(String solArtiDeta) {
+        this.solArtiDeta = solArtiDeta;
+    }
+    
+    
 
 }
 
