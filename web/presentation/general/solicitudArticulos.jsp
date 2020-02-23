@@ -19,8 +19,9 @@
         <link rel="stylesheet" href="assets/css/styles.css">
     </head>
     <body style="background-color: rgb(255,255,255);" onload="cargarSelectsSolArt()">
+       
         <%@ include file="/presentation/header.jsp" %>
-
+  
         <div id="titulo">
             <div class="jumbotron">
                 <h1>Solicitud de Artículos</h1>
@@ -34,7 +35,14 @@
                 <div class="card-body">
                     <h5 class="text-center">Seleccione el artículo y la cantidad deseada</h5>
                     <div class="form-row">
+                        
+                          <div class="col">
+                                <label>Departamento</label>
+                               
+                                <input class="form-control" type="text" placeholder="departamento" id="departamento"  readonly="readonly">
                        
+                                  <%= logged.getDepartamento().getDeptoIdPk()%>
+                            </div>
                           <div class="col">
                                     <label>Unidad Usuaria</label>
                                     <select class="form-control" id="selectDeptos" onchange="selecArt()">
@@ -124,6 +132,7 @@
    document.getElementById("solicitudArtMenu").style.color = "white";
                                     function cargarSelectsSolArt() {
                                         selectDeptos();
+                                        mostrardepa();
                                         <%Model.instance().reiniciaListaSolart();%>
                                     }
 
@@ -150,6 +159,12 @@
                                     function limpiaEspacios() {
                                         $('#formSolicitudArt').trigger("reset");
                                     }
+                                     function mostrardepa(){
+                                         
+                                         $("#departamento").val(logged.getDepartamento().getDeptoIdPk());
+                                         
+                                     }
 
+          
 
 </script>

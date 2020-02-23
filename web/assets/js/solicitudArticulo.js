@@ -5,23 +5,31 @@
  */
 
 
-
-
+ 
+function mostrarUnidadUsuaria(usuario){
+   
+    
+     $("#departamento").val(usuario);
+}
 function selecArt() {
 
     var filtro = document.getElementById("selectDeptos").value;
     $.ajax({type: "GET",
-        url: "api/Existencias?filtro=" + filtro,
+        url: "api/ExistenciasTemp?filtro=" + filtro,
         success: function (data) {
             $.each(data, function (key, art) {
-                $("#selectArt").append('<option value=' + art.artIdPk + '>' + art.artDesc + '</option>');
+                $("#selectArt").append('<option value=' + art.sboTbSicop.sicopId + '>' + art.sboTbSicop.sicopDesc + '</option>');
+                
             });
+          
         },
         error: function (jqXHR) {
             alert(errorMessage(jqXHR.status));
         }
     });
+
 }
+
 
 function resetearSelectArt(selectbox)
 {
@@ -172,10 +180,11 @@ function articulosXSolicitud(filtro) {
 }
 
 function getExistencias() {
-
-    var id = document.getElementById("selectArt").value;
+ var depa = document.getElementById("selectDeptos").value;
+  var arti = document.getElementById("selectArt").value;
+  
     $.ajax({type: "GET",
-        url: "api/cantExist?id="+id,
+        url: "api/ExistenciasTemp/"+depa+"/"+arti,
         success: muestraCantidad,
         error: function (jqXHR) {
             alert("no se pudo");
@@ -183,9 +192,10 @@ function getExistencias() {
     });
 }
 
-function muestraCantidad(cant){
+function muestraCantidad(can){
     //alert("prueba");
-    $("#cantidadExist").val(cant);
+    console.log(can);
+    $("#cantidadExist").val(can.exisCant);
 }
 
 function buscarSolicitudxAprobar() {

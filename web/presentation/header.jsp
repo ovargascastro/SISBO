@@ -144,7 +144,7 @@
                         <%}%>
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="UsuarioActual" data-toggle="dropdown">
-                                <%= logged.getPersNomb() + " " + logged.getPersApe1()%>
+                                <%= logged.getPersNomb() + " " + logged.getPersApe1()+logged.getDepartamento().getDeptoIdPk()%>
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="SISBO/logout/cerrarsesion">Cerrar Sesión</a>
