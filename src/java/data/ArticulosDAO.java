@@ -18,11 +18,14 @@ import java.util.List;
 import logic.AbaaProyectos;
 import logic.AbaaTbDepartamento;
 import logic.AbaaTbProveedor;
+import logic.SboSicop;
 import logic.SboTbArticulo;
+import logic.SboTbBodega;
 import logic.SboTbCatArticulo;
 import logic.SboTbFamilia;
 import logic.SboTbOrdenCompra;
 import logic.SboTbSubFamilia;
+import logic.SboTbExistencia;
 
 /**
  *
@@ -131,6 +134,43 @@ public class ArticulosDAO {
             return null;
         }
     }
+       private SboTbExistencia existencia(ResultSet rs) {
+        try {
+            SboTbExistencia ob = new SboTbExistencia();
+            ob.setSboTbBodega(Bodega(rs));
+            ob.setExisCant(rs.getDouble("Exis_Cant"));
+            ob.setAbaaTbDepartamento(departamento(rs));
+            ob.setSboTbSicop(sicop(rs));
+            return ob;
+        } catch (SQLException ex) {
+            return null;
+        }
+
+    }
+       private SboTbBodega Bodega(ResultSet rs) {
+        try {
+            SboTbBodega bodega = new SboTbBodega();
+            //bodega.setBodeIdPk(rs.getInt("Bode_Id_PK"));
+           // bodega.setBodeUbic(rs.getString("Bode_Ubic"));
+            bodega.setBodeDesc(rs.getString("Bode_Desc"));
+            return bodega;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+        private SboSicop sicop(ResultSet rs) {
+        try {
+            SboSicop ob = new SboSicop();
+            ob.setSicopId(rs.getInt("Sico_Id_PK"));
+          //  ob.setSicopCodiClas(rs.getString("Sico_Codi_Clas"));
+          //  ob.setSicopCodiInden(rs.getString("Sico_Codi_Iden"));
+            ob.setSicopDesc(rs.getString("Sico_Desc"));
+            return ob;
+        } catch (SQLException ex) {
+            return null;
+        }
+
+    }
 
     public void agregarArticulo(SboTbArticulo objeto) throws Exception {
         String query = "insert into SIBO_TB_Articulo(Arti_Prec,Arti_Cant,Arti_Cant_Rest,Arti_Desc,"
@@ -213,7 +253,9 @@ public class ArticulosDAO {
         }
         return resultado;
     }
-
+    
+    
+    
     public List<SboTbArticulo> listadoArticulosPorOrdenConta(int filtro) {
         List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
         try {
@@ -253,6 +295,7 @@ public class ArticulosDAO {
             ar.setAbaaTbDepartamento(departamento(rs));
             ar.setArtUnidadMedida(rs.getString("Arti_Unid_Medi"));
             ar.setSboTbOrdenCompra(OrdenCompra(rs));
+            ar.setSboSicop(sicop(rs));
             return ar;
         } catch (SQLException ex) {
             return null;
@@ -293,4 +336,29 @@ public class ArticulosDAO {
         }
     }
 
+    //crear consulta para mostrar los articulos en existencia por departamento
+//     select * from SIBO_TB_Articulo arti inner join SIBO_TB_Sicop sicop on arti.Arti_Cod_Sico_FK=sicop.Sico_Id_PK
+//                    inner join  SIBO_TB_Exis exis on sicop.Sico_Id_PK=exis.Exis_Id_Sico_PK
+//                    inner join SIBO_TB_Bode bode  on exis.Exis_Id_Bode_PK=bode.Bode_Id_PK
+//                     where exis.Exist_Depa_PK = 17
+public List<SboTbArticulo> listaExistenciasDepartamento(String depa){
+  List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
+        try {
+          String sql = "select * from SIBO_TB_Articulo arti inner join SIBO_TB_Sicop sicop on arti.Arti_Cod_Sico_FK=sicop.Sico_Id_PK\n"
+
+                    + "inner join  SIBO_TB_Exis exis on sicop.Sico_Id_PK=exis.Exis_Id_Sico_PK\n"
+
+                    + "inner join SIBO_TB_Bode bode  on exis.Exis_Id_Bode_PK=bode.Bode_Id_PK\n"
+
+                    + " where exis.Exist_Depa_PK="+depa;
+            sql = String.format(sql,depa);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(articulo(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+ }
+    
 }

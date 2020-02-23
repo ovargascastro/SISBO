@@ -17,6 +17,14 @@ public class SboTbExistencia  implements java.io.Serializable {
     public SboTbExistencia() {
     }
 
+    public SboTbExistencia(SboTbExistenciaId id, AbaaTbDepartamento abaaTbDepartamento, SboTbBodega sboTbBodega, SboSicop sboTbSicop, Double exisCant) {
+        this.id = id;
+        this.abaaTbDepartamento = abaaTbDepartamento;
+        this.sboTbBodega = sboTbBodega;
+        this.sboTbSicop = sboTbSicop;
+        this.exisCant = exisCant;
+    }
+
 	
     public SboTbExistencia(SboTbExistenciaId id, AbaaTbDepartamento abaaTbDepartamento, SboTbBodega sboTbBodega) {
         this.id = id;

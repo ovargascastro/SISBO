@@ -80,12 +80,6 @@
 </body>
 
 </html>
-<<<<<<< HEAD
-
-=======
-    
-    
->>>>>>> origin/oscarTmp
 <script>
     document.getElementById("ArticulosMenu").style.color = "white";
 

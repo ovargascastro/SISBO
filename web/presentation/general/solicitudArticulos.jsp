@@ -19,8 +19,9 @@
         <link rel="stylesheet" href="assets/css/styles.css">
     </head>
     <body style="background-color: rgb(255,255,255);" onload="cargarSelectsSolArt()">
+       
         <%@ include file="/presentation/header.jsp" %>
-
+  
         <div id="titulo">
             <div class="jumbotron">
                 <h1>Solicitud de Artículos</h1>
@@ -34,18 +35,31 @@
                 <div class="card-body">
                     <h5 class="text-center">Seleccione el artículo y la cantidad deseada</h5>
                     <div class="form-row">
-                            <div class="col">
-                                <label>Unidad Usuaria</label>
-                                <select class="form-control" id="selectDeptos" onchange="selecArt()" required>
-                                    <option values="0" selected disabled = "true">Seleccione una opcion</option>
-                                </select>
+                        
+                          <div class="col">
+                                <label>Departamento</label>
+                               
+                                <input class="form-control" type="text" placeholder="departamento" id="departamento"  readonly="readonly">
+                       
+                                  <%= logged.getDepartamento().getDeptoIdPk()%>
                             </div>
+                          <div class="col">
+                                    <label>Unidad Usuaria</label>
+                                    <select class="form-control" id="selectDeptos" onchange="selecArt()">
+                                        <option values="0" selected disabled = "true">Seleccione una opcion</option>
+                                    </select>
+                                </div>
                             <div class="col">
                                 <label>Artículo</label>
                                 <select class="form-control" id="selectArt" onchange="getExistencias()" required>
                                     <option values="0" selected disabled = "true">Seleccione una opcion</option>
                                 </select>
                             </div>
+                             <div class="col">
+                                <label>Descripción</label>
+                                 <input class="form-control" type="text" placeholder="Descripción" id="descripcion">
+                            </div>
+                        
                             <div class="col">
                                 <label>Existencias</label>
                                 <input class="form-control" type="text" placeholder="Existencias" readonly="readonly" id="cantidadExist">
@@ -118,6 +132,7 @@
    document.getElementById("solicitudArtMenu").style.color = "white";
                                     function cargarSelectsSolArt() {
                                         selectDeptos();
+                                        mostrardepa();
                                         <%Model.instance().reiniciaListaSolart();%>
                                     }
 
@@ -144,6 +159,12 @@
                                     function limpiaEspacios() {
                                         $('#formSolicitudArt').trigger("reset");
                                     }
+                                     function mostrardepa(){
+                                         
+                                         $("#departamento").val(logged.getDepartamento().getDeptoIdPk());
+                                         
+                                     }
 
+          
 
 </script>
