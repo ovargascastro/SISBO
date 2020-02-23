@@ -5,6 +5,8 @@
  */
 package logic;
 
+
+
 /**
  *
  * @author oscar
@@ -19,7 +21,8 @@ public class AbaaTbPersona {
     private int PersSfun;
     private int Pers_es_jefe;
     private AbaaTbDepartamento departamento;
-
+    
+    
     public AbaaTbPersona() {
     }
 
