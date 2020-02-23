@@ -13,7 +13,8 @@ function mostrarUnidadUsuaria(usuario){
 }
 function selecArt() {
 
-    var filtro = document.getElementById("selectDeptos").value;
+    var filtro = $("#departamento").val();
+    console.log(filtro);
     $.ajax({type: "GET",
         url: "api/ExistenciasTemp?filtro=" + filtro,
         success: function (data) {
@@ -83,7 +84,7 @@ function eliminaArt(id){
   }
   
 function agregarSolicitudArticulo() {
-    var depto = document.getElementById("selectDeptos").value;
+    var depto = $("#departamento").val();
     var f = new Date();
     var fecha =f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate();
     var fecha2 = fecha.toDate("yyyy-mm-dd");
@@ -180,7 +181,7 @@ function articulosXSolicitud(filtro) {
 }
 
 function getExistencias() {
- var depa = document.getElementById("selectDeptos").value;
+  var depa = $("#departamento").val();
   var arti = document.getElementById("selectArt").value;
   
     $.ajax({type: "GET",
