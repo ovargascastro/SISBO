@@ -40,6 +40,7 @@
                                 <label>Departamento</label>
                                
                                 <input class="form-control" type="text" placeholder="departamento" id="departamento"  readonly="readonly">
+                                <input id="IdDptoPrueba" class="form-control" type="hidden" value="">
                        
                                   <%= logged.getDepartamento().getDeptoIdPk()%>
                             </div>
