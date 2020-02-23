@@ -23,7 +23,7 @@ function buscar() {
             buscarCatArticulos();
             $("#filtro").val('');
             break;
-         case "4":
+        case "4":
             buscarCatContables();
             $("#filtro").val('');
             break;
@@ -91,8 +91,7 @@ function abrirModalEditar(filtro) {
                 alert(errorMessage(jqXHR.status));
             }
         });
-    }
-    else if (strUser === "4") {
+    } else if (strUser === "4") {
 
 
         $.ajax({type: "GET",
@@ -103,7 +102,7 @@ function abrirModalEditar(filtro) {
             }
         });
     }
-} 
+}
 
 var famEsta;
 function mostrarFamilia(fam) {
@@ -117,7 +116,7 @@ function mostrarFamilia(fam) {
 var contAct;
 var contEsta;
 function mostrarCatCont(cont) {
-    contAct=cont.cntIdPk;
+    contAct = cont.cntIdPk;
     contEsta = cont.cntEst;
     $("#codigoContable").val(cont.cntCodi);
     $("#descripContable").val(cont.cntDesc);
@@ -203,7 +202,7 @@ function selectSubFamilias() {
 }
 
 function selectCatArticulos() {
-   $.ajax({type: "GET",
+    $.ajax({type: "GET",
         url: "api/catArticulos?nombre=" + $("#codigo").val(),
         success: function (data) {
             $.each(data, function (key, catArt) {
@@ -279,18 +278,20 @@ function actualizarSubFamilia() {
 }
 
 function afterUpdateSubFm() {
-    buscarSubFamilias();
+    alert("ex");
+    $('#busqueda').trigger("reset");
     $('#modalSubFam').modal('hide');
-
+    $('#buscCat').click();
+    
 }
 
- 
+
 
 function actualizarCatContable() {
     console.log(contEsta);
     SboTbCatContable = {
         cntEst: contEsta,
-        cntIdPk:contAct,
+        cntIdPk: contAct,
         cntCodi: $("#codigoContable").val(),
         cntNivel: $("#NivelContable").val(),
         cntDesc: $("#descripContable").val()
@@ -369,8 +370,8 @@ function agregarACatalogo() {
         case "3":
             abrirModalAgregaCatArticulo();
             $("#filtro").val('');
-            break;  
-          case "4":
+            break;
+        case "4":
             abrirModalAgregaCodContable();
             $("#filtro").val('');
             break;
@@ -1042,9 +1043,7 @@ function abrirModalDesactivar(filtro) {
                 alert(errorMessage(jqXHR.status));
             }
         });
-    }
-    
-    else if (strUser === "4") {
+    } else if (strUser === "4") {
 
 
         $.ajax({type: "GET",
@@ -1109,7 +1108,7 @@ function desactivarCatArt(articulo) {
     catArtId = articulo.catIdPk;
     catArtDesc = articulo.catDesc;
     catArtSubF = articulo.sboTbSubFamilia;
-   // catArtEst = articulo.artCat_Estado;
+    // catArtEst = articulo.artCat_Estado;
 
     if (articulo.artCat_Estado === '1') {
         $('#modalDesactivar').modal('show');
@@ -1128,8 +1127,8 @@ function desactivarCatConta(cont) {
     catContId = cont.cntIdPk;
     catContDesc = cont.cntDesc;
     catCodi = cont.cntCodi;
-   // catContEst = cont.cntEst;
-    catNivel= cont.cntNivel;
+    // catContEst = cont.cntEst;
+    catNivel = cont.cntNivel;
 
     if (cont.cntEst === '1') {
         $('#modalDesactivar').modal('show');
@@ -1231,7 +1230,7 @@ function actualizarEstadoCatConta() {
         cntIdPk: catContId,
         cntEst: EstadoActual,
         cntCodi: catCodi,
-        cntNivel:catNivel
+        cntNivel: catNivel
     };
     $.ajax({type: "PUT",
         url: "api/contables",
@@ -1282,8 +1281,7 @@ function Desactivar() {
                 alert(errorMessage(jqXHR.status));
             }
         });
-    }
-    else if (strUser === "4") {
+    } else if (strUser === "4") {
 
 
         $.ajax({type: "GET",
@@ -1327,8 +1325,7 @@ function Activar() {
                 alert(errorMessage(jqXHR.status));
             }
         });
-    }
-    else if (strUser === "4") {
+    } else if (strUser === "4") {
 
 
         $.ajax({type: "GET",
@@ -1370,12 +1367,12 @@ function ocultarModalActivarF() {
 function ActivaContables() {
 
     var valor = 1;
-   SboTbCatContable = {
+    SboTbCatContable = {
         cntDesc: catContDesc,
         cntIdPk: catContId,
         cntEst: valor,
         cntCodi: catCodi,
-        cntNivel:catNivel
+        cntNivel: catNivel
     };
     $.ajax({type: "PUT",
         url: "api/contables",
@@ -1448,3 +1445,5 @@ function ocultarModalActivarCatArt() {
     $('#modalActivar').modal('hide');
 
 }
+
+

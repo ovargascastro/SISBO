@@ -33,14 +33,27 @@ public class Existencias {
             throw new NotFoundException();
         }
     }
-    
+
+//    @GET
+//    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+//    public List<SboTbArticulo> getArticulos(@QueryParam("filtro") String filtro) throws ClassNotFoundException, SQLException {
+//        List<SboTbArticulo> lista = Model.instance().listaArticulosExistencia(filtro);
+//        return lista;
+//    }
+
     @GET
+    @Path("{bodeg}/{depto}/{arti}")
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    public List<SboTbArticulo> getArticulos(@QueryParam("filtro") String filtro) throws ClassNotFoundException, SQLException {
-        List<SboTbArticulo> lista = Model.instance().listaArticulosExistencia(filtro);
+    public List<SboTbExistencia> getExistencias(@PathParam("bodeg") String x, @PathParam("depto") String y, @PathParam("arti") String z)
+            throws ClassNotFoundException, SQLException {
+        String bodega = x;
+        String departamento = y;
+        String articulo = z;
+
+        List<SboTbExistencia> lista = Model.instance().listaExistencias(bodega, departamento, articulo);
         return lista;
     }
-    
+
     
     
 

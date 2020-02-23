@@ -3,6 +3,8 @@
     Created on : 15-sep-2019, 21:52:19
     Author     : oscar
 --%>
+<%@page import="logic.SboTbCatArticulo"%>
+<%@page import="java.util.List"%>
 <%@page import="logic.Model"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,9 +14,19 @@
         <%@ include file="/presentation/base.jsp" %>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
+
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+ 
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+ 
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/i18n/defaults-*.min.js"></script>
         <title>Orden de Compra</title>
     </head>
     <body onload="cargarSelectsOrden()">
+        
+        
         <%@ include file="/presentation/header.jsp" %>
 
         <div id="titulo">
@@ -139,6 +151,7 @@
         </form>          
 
 
+
         <div class="modal fade" role="dialog" tabindex="-1" id="modalArticulo" data-backdrop="static">
             <div class="modal-dialog" role="document">
                 <form id="articulosOrden" action="javascript:agregarArticuloTemporal()">
@@ -168,11 +181,13 @@
                                 <div class="form-row">
                                     <div class="col">
                                         <label>Artículo</label>
-                                        <select class="form-control" id="selectCatalogoArticulos" required>
-                                            <option values="0" selected disabled = "true" >Seleccione una opcion</option>
-
+                                        <select id="selectCatalogoArticulos" class="selectpicker form-control" data-live-search="true" data-size="15" required>
+                                        <option values="0" selected disabled = "true" >Seleccione una opcion</option>
                                         </select>
-
+                                            <style>
+                                            div.dropdown-menu.open { width: 150%; }
+                                            ul.dropdown-menu.inner>li>a { white-space: initial; }
+                                            </style>
                                         <label>Marca</label>
                                         <input class="form-control" type="text" placeholder="Marca" id="Marca">
 
@@ -220,13 +235,13 @@
         </div>
 
 
+  
+ 
 
-
-
-        
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    
         <script src="assets/js/departamentos.js" type="text/javascript"></script>
         <script src="assets/js/catalogos.js" type="text/javascript"></script>
         <script src="assets/js/proyectos.js" type="text/javascript"></script>
@@ -277,8 +292,10 @@
                                     selectProveedores();
                                     selectDeptos();
                                     selectProyectos();
-                                    selectCatArticulos();
-    <%Model.instance().reiniciaLista();%>
+                                    selectCatArticulos2();
+                                    
+                                    //picker();
+                                    <%Model.instance().reiniciaLista();%>
                                 }
 
                                 function listaArticulosTemporales(art) {
@@ -307,5 +324,39 @@
                                     listado.append(tr);
 
                                 }
+                                
+                                
+function selectCatArticulos2() {
+    $.ajax({type: "GET",
+        url: "api/catArticulos?filtro=" + " ",
+        success:pb4,
+        error: function (data) {
+            alert('error');
+        }
+    });
+
+}
+
+function pb4(data){
+    
+         var jsonData = JSON.stringify(data);
+        $.each(JSON.parse(jsonData), function (idx, obj) {
+        $("#selectCatalogoArticulos").append('<option value="' + obj.catIdPk + '">' + '➤ ' + obj.catDesc + '</option>');
+
+     });
+        $('#selectCatalogoArticulos').selectpicker('refresh');
+
+}
+
+function picker(){
+    
+$('#selectCatalogoArticulos').addClass('selectpicker');
+$('#selectCatalogoArticulos').attr('data-live-search', 'true');
+
+    
+}
+
+
+
 
 </script>

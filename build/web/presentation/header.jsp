@@ -31,25 +31,12 @@
                         <% } else {%>
                         <li class="nav-item">
                             <a class="nav-link" href="index.jsp" id="index">Inicio</a>
-
                         </li>
+                        <% if ("8".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 1) {%>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="ordenCompraMenu" data-toggle="dropdown">
-                                Orden de Compra
-                            </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="ordenCompraMenu" data-toggle="dropdown"> Orden de Compra</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/proveeduria/ordenDeCompra.jsp">Ingresar Orden de Compra</a>
-                                <a class="dropdown-item" href="presentation/proveeduria/listarOrdenes.jsp">Listado Órdenes de Compra</a>
                                 <a class="dropdown-item" href="presentation/proveeduria/asignarCodContable.jsp">Asignar Código Contable</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="ArticulosMenu" data-toggle="dropdown">
-                                Artículos
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/bodega/ingresoArticulosNuevos.jsp">Ingreso de Artículos Nuevos</a>
-                                <%--<a class="dropdown-item" href="presentation/bodega/existencias.jsp">Existencias</a>--%>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
@@ -58,10 +45,63 @@
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
+                                <a class="dropdown-item" href="presentation/general/vistoBuenoJefe.jsp">Visto bueno de Jefe</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown">
+                                Catálogos
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/catalogos/administracionCatalogos.jsp">Administración de Catálogos</a>
+                            </div>
+                        </div>
+                        <%}%>
+                        <% if ("5".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 1) {%>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="ordenCompraMenu" data-toggle="dropdown"> Orden de Compra </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/proveeduria/listarOrdenes.jsp">Listado Órdenes de Compra</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="ArticulosMenu" data-toggle="dropdown"> Artículos </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/bodega/ingresoArticulosNuevos.jsp">Ingreso de Artículos Nuevos</a>
+                                <a class="dropdown-item" href="presentation/bodega/existencias.jsp">Existencias</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown"> Solicitud de artículos </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
                                 <a class="dropdown-item" href="presentation/general/listarSolicitudesArticulos.jsp">Listado de solicitudes</a>
                                 <a class="dropdown-item" href="presentation/general/gestionSolicitudes.jsp">Gestión de Solitudes</a>
                                 <a class="dropdown-item" href="presentation/general/vistoBuenoJefe.jsp">Visto bueno de Jefe</a>
-                                <a class="dropdown-item" href="presentation/general/vistoBuenoTI.jsp">Visto bueno de TI</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown"> Catálogos </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/catalogos/administracionCatalogos.jsp">Administración de Catálogos</a>
+                                <a class="dropdown-item" href="presentation/proveeduria/proveedores.jsp">Catálogo de Proveedores</a>
+                                <a class="dropdown-item" href="presentation/catalogos/codSicop.jsp">Catálogo de SICOP</a>
+                            </div>
+                        </div>
+                        <%}%>
+                        <!-- Secretaria -->
+                        <% if ("17".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 0) {%>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="ordenCompraMenu" data-toggle="dropdown"> Orden de Compra </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/proveeduria/ordenDeCompra.jsp">Ingresar Orden de Compra</a>
+                                <a class="dropdown-item" href="presentation/proveeduria/listarOrdenes.jsp">Listado Órdenes de Compra</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown"> Solicitud de artículos </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
@@ -71,13 +111,40 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/catalogos/administracionCatalogos.jsp">Administración de Catálogos</a>
                                 <a class="dropdown-item" href="presentation/proveeduria/proveedores.jsp">Catálogo de Proveedores</a>
-
+                                <a class="dropdown-item" href="presentation/catalogos/codSicop.jsp">Catálogo de SICOP</a>
                             </div>
                         </div>
-
+                        <%}%>
+                        <!-- Jefa -->
+                        <% if ("17".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 1) {%>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="ordenCompraMenu" data-toggle="dropdown"> Orden de Compra </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/proveeduria/ordenDeCompra.jsp">Ingresar Orden de Compra</a>
+                                <a class="dropdown-item" href="presentation/proveeduria/listarOrdenes.jsp">Listado Órdenes de Compra</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown"> Solicitud de artículos </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
+                                <a class="dropdown-item" href="presentation/general/vistoBuenoJefe.jsp">Visto bueno de Jefe</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown">
+                                Catálogos
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/catalogos/administracionCatalogos.jsp">Administración de Catálogos</a>
+                                <a class="dropdown-item" href="presentation/proveeduria/proveedores.jsp">Catálogo de Proveedores</a>
+                                <a class="dropdown-item" href="presentation/catalogos/codSicop.jsp">Catálogo de SICOP</a>
+                            </div>
+                        </div>
+                        <%}%>
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="UsuarioActual" data-toggle="dropdown">
-                                <%= logged.getPersNomb()%>
+                                <%= logged.getPersNomb() + " " + logged.getPersApe1()%>
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="SISBO/logout/cerrarsesion">Cerrar Sesión</a>
@@ -100,5 +167,7 @@
                     $(document).ready(function () {
                         $(".dropdown-toggle").dropdown();
                     });
+
+
 </script>
 

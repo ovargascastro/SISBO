@@ -58,7 +58,7 @@ public class solicitudXarticulo {
     }
     
     
-          @GET
+    @GET
     @Path("{filtro}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public SboTbSolixArti get(@PathParam("filtro") int filtro) {

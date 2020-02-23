@@ -177,6 +177,7 @@ function buscarOrdenes() {
         url: "api/ordenes?filtro=" + $("#filtro").val(),
         success: listaOrdenes
     });
+    
 }
 
 function estadoConta() {

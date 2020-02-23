@@ -23,6 +23,7 @@ public class Model {
     private final solicitudArtDAO solArtdao;
     private final sicopDAO sicopDao;
     private final loginDAO logindao;
+    private final ExistenciasDAO existdao;
     public int numOrden;
     public int numSoliArti;
     public int numArticulo;
@@ -53,6 +54,7 @@ public class Model {
         solArtdao = new solicitudArtDAO();
         logindao = new loginDAO();
         sicopDao = new sicopDAO();
+        existdao = new ExistenciasDAO();
     }
 
     public List<SboTbFamilia> listaFamilias(String filtro) throws ClassNotFoundException, SQLException {
@@ -457,5 +459,11 @@ public class Model {
 
         sicopDao.agregarSicop(s);
     }
+
+    public List<SboTbExistencia> listaExistencias(String bodega, String departamento, String articulo) {
+        
+       return existdao.listaExistencias(bodega, departamento, articulo);
+    }
+
 }
 

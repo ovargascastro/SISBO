@@ -9,18 +9,22 @@
 
 <html id="body">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@ include file="/presentation/base.jsp" %>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
 
-
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+ 
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+ 
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/i18n/defaults-*.min.js"></script>
         <title>Asignar Codigo Contable</title>
     </head>
 
-    <body style="background-color: rgb(255,255,255);">
+    <body style="background-color: rgb(255,255,255);" onload="javascript:estadoConta()">
         <%@ include file="/presentation/header.jsp" %>
         <div id="titulo">
             <div class="jumbotron">
@@ -35,11 +39,11 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <form>
+                            <form id="buscarCont" action="javascript:estadoConta()">
                                 <div><label>Número Orden de Compra</label>
                                     <div class="form-row">
                                         <div class="col"><input class="form-control" type="text" id="filtro"></div>
-                                        <div class="col"><button class="btn btn-primary" type="button" onclick="javascript:estadoConta()">Buscar</button></div>
+                                        <div class="col"><button class="btn btn-primary" type="submit">Buscar</button></div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col">
@@ -76,8 +80,8 @@
         </div>
 
 
-        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="listaArticulos">
-            <div class="modal-dialog modal-lg">
+        <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="listaArticulos">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <form action="javascript:asignaCodContable()">
                         <div class="modal-header">
@@ -137,12 +141,18 @@
             </div>
         </div>
     </div>
+                                            <style>
+                                            div.dropdown-menu.open { width: 150%; }
+                                            ul.dropdown-menu.inner>li>a { white-space: initial; }
+
+
+                                            </style>
 
 
 
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
         <script src="assets/js/ordenCompra.js" type="text/javascript"></script>
 
@@ -168,7 +178,7 @@
                                                         + "<td>" + objeto.ocEsta + "</td>"
                                                         + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXordenConta(\"" + objeto.ocIdPk + "\");'></td>");
                                                 listado.append(tr);
-
+                                                $('#buscarCont').trigger("reset");
                                             }
 
                                             var num = 0;
@@ -182,7 +192,7 @@
                                                 });
 
                                             }
-
+                                            var idSelect=[];
                                             var cont = 0;
                                             var articulosArray = [];
                                             function filaArticulos(listado, objeto) {
@@ -193,10 +203,12 @@
                                                         "<td>" + objeto.sboTbCatArticulo.catDesc + "</td>"
                                                         + "<td>" + objeto.sboTbCatArticulo.sboTbSubFamilia.subFamiIdPk + "</td>"
                                                         + "<td>" + objeto.sboTbCatArticulo.sboTbSubFamilia.subFamiDesc + "</td>"
-                                                        + "<td><select class='form-control' id='selectConta" + cont + "' required><option values='0' selected disabled = 'true'>Seleccione una opcion</option></select></td>");
+                                                        + "<td><select id='selectConta" + cont + "' class='selectpicker form-control' data-live-search='true'  data-size='15'  required><option values='0' selected disabled = 'true'>Seleccione una opcion</option></select></td>");
 
                                                 listado.append(tr);
+                                                
                                                 cargarSelectConta("#selectConta" + cont);
+                                               // selectCont2();
                                             }
 
                                             var actual = 1;
@@ -230,17 +242,40 @@
                                             }
 
                                             function cargarSelectConta(conta) {
+                                                idSelect.push(conta);
                                                 $.ajax({type: "GET",
                                                     url: "api/contables?filtro=" + " ",
                                                     success: function (data) {
-                                                        $.each(data, function (key, c) {
-                                                            $(conta).append('<option value=' + c.cntIdPk + '>' + c.cntCodi + ' - ' + c.cntDesc + '</option>');
+                                                         var jsonData = JSON.stringify(data);
+                                                        $.each(JSON.parse(jsonData), function (idx, c) {
+                                                            $(conta).append('<option value=' + c.cntIdPk + '>' + '➤ ' + c.cntCodi + ' - ' + c.cntDesc + '</option>');
                                                         });
+                                                        pb4(idSelect);
                                                     },
                                                     error: function (data) {
                                                         alert('error');
                                                     }
                                                 });
                                             }
+                                            
+
+function pb4(data){
+    
+         var jsonData = JSON.stringify(data);
+        $.each(JSON.parse(jsonData), function (idx, obj) {
+       // $(obj).addClass('selectpicker');
+        //$(obj).attr('data-live-search', 'true');
+        $(obj).selectpicker('refresh');
+        $(obj).selectpicker('toggle');
+
+     });
+
+}
+
+
+
+
+                                            
+
     </script>
 </html>

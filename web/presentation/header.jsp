@@ -68,7 +68,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="ArticulosMenu" data-toggle="dropdown"> Artículos </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/bodega/ingresoArticulosNuevos.jsp">Ingreso de Artículos Nuevos</a>
-                                <%--<a class="dropdown-item" href="presentation/bodega/existencias.jsp">Existencias</a>--%>
+                                <a class="dropdown-item" href="presentation/bodega/existencias.jsp">Existencias</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
@@ -167,5 +167,7 @@
                     $(document).ready(function () {
                         $(".dropdown-toggle").dropdown();
                     });
+
+
 </script>
 
