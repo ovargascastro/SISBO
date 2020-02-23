@@ -10,24 +10,26 @@ public class SboTbSolixArti  implements java.io.Serializable {
 
 
      private SboTbSolixArtiId id;
-     private SboTbArticulo sboTbArticulo;
+     private SboSicop sboSicop;
      private SboTbSoliArti sboTbSoliArti;
      private Integer solArtiCant;
+     private String solArtiSali;
 
     public SboTbSolixArti() {
     }
 
 	
-    public SboTbSolixArti(SboTbSolixArtiId id, SboTbArticulo sboTbArticulo, SboTbSoliArti sboTbSoliArti) {
+    public SboTbSolixArti(SboTbSolixArtiId id, SboSicop sboSicop, SboTbSoliArti sboTbSoliArti) {
         this.id = id;
-        this.sboTbArticulo = sboTbArticulo;
+        this.sboSicop = sboSicop;
         this.sboTbSoliArti = sboTbSoliArti;
     }
-    public SboTbSolixArti(SboTbSolixArtiId id, SboTbArticulo sboTbArticulo, SboTbSoliArti sboTbSoliArti, Integer solArtiCant) {
+    public SboTbSolixArti(SboTbSolixArtiId id, SboSicop sboSicop, SboTbSoliArti sboTbSoliArti, Integer solArtiCant, String solArtiSali) {
        this.id = id;
-       this.sboTbArticulo = sboTbArticulo;
+       this.sboSicop = sboSicop;
        this.sboTbSoliArti = sboTbSoliArti;
        this.solArtiCant = solArtiCant;
+       this.solArtiSali = solArtiSali;
     }
    
     public SboTbSolixArtiId getId() {
@@ -37,12 +39,12 @@ public class SboTbSolixArti  implements java.io.Serializable {
     public void setId(SboTbSolixArtiId id) {
         this.id = id;
     }
-    public SboTbArticulo getSboTbArticulo() {
-        return this.sboTbArticulo;
+    public SboSicop getSboSicop() {
+        return this.sboSicop;
     }
     
-    public void setSboTbArticulo(SboTbArticulo sboTbArticulo) {
-        this.sboTbArticulo = sboTbArticulo;
+    public void setSboSicop(SboSicop sboSicop) {
+        this.sboSicop = sboSicop;
     }
     public SboTbSoliArti getSboTbSoliArti() {
         return this.sboTbSoliArti;
@@ -59,8 +61,13 @@ public class SboTbSolixArti  implements java.io.Serializable {
         this.solArtiCant = solArtiCant;
     }
 
+    public String getSolArtiSali() {
+        return solArtiSali;
+    }
 
-
+    public void setSolArtiSali(String solArtiSali) {
+        this.solArtiSali = solArtiSali;
+    }
 
 }
 
