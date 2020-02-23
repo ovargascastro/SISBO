@@ -115,8 +115,4 @@ public class SboTbSoliArti  implements java.io.Serializable {
         this.solArtiDesc = solArtiDesc;
     }
 
-    
-
-
-
 }

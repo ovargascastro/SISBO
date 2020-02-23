@@ -37,36 +37,21 @@ public class solicitudArtDAO {
         db = new RelDatabase();
     }
 
-    private SboTbArticulo articulo(ResultSet rs) {
+    private SboSicop articulo(ResultSet rs) {
         try {
-            SboTbArticulo ar = new SboTbArticulo();
-            ar.setArtIdPk(rs.getInt("Arti_Id_PK"));
-            ar.setArtPrecio(rs.getDouble("Arti_Prec"));
-            ar.setArtCant(rs.getInt("Arti_Cant"));
-            ar.setArtCantRest(rs.getInt("Arti_Cant_Rest"));
-            ar.setArtFingr(rs.getDate("Arti_Fech_Ingr"));
-            ar.setArtFvenc(rs.getDate("Arti_Fech_Venc"));
-            ar.setArtDesc(rs.getString("Arti_Desc"));
-            ar.setArtMode(rs.getString("Arti_Mode"));
-            ar.setArtCodiPresup(rs.getString("Arti_Codi_Pres"));
-            ar.setArtNumeSeri(rs.getString("Arti_Nume_Seri"));
-            ar.setArtMarc(rs.getString("Arti_Marc"));
-            ar.setArtNumeFact(rs.getString("Arti_Nume_Fact"));
-            ar.setArtEsAc(rs.getBoolean("Arti_EsAc"));
-            ar.setArtCodiCont(rs.getString("Arti_Codi_Cont"));
-            ar.setSboTbCatArticulo(catArticulo(rs));
-            ar.setAbaaProyectos(proyecto(rs));
-            ar.setAbaaTbDepartamento(departamento(rs));
-            ar.setArtUnidadMedida(rs.getString("Arti_Unid_Medi"));
-            ar.setSboTbOrdenCompra(OrdenCompra(rs));
+            SboSicop ar = new SboSicop();
+            ar.setSicopId(rs.getInt("sicopId"));
+            ar.setSicopDesc(rs.getString("sicopDesc"));
+            ar.setSicopCodiInden(rs.getString("sicopCodiInden"));
+            ar.setSicopCodiClas(rs.getString("sicopCodiClas"));
             return ar;
         } catch (SQLException ex) {
             return null;
         }
     }
 
-    public List<SboTbArticulo> getArticuloExistencia(String filtro) {
-        List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
+    public List<SboSicop> getArticuloExistencia(String filtro) {
+        List<SboSicop> resultado = new ArrayList<SboSicop>();
         try {
             String sql = "select *"
                     + "from SIBO_TB_Articulo art, SIBO_TB_Cata_Arti catArt, ABAA_TB_Catalogo_Departamento dpto, "
@@ -266,7 +251,7 @@ public class solicitudArtDAO {
 
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setInt(1, objeto.getSboTbSoliArti().getSolArtiIdPk());
-        preparedStmt.setInt(2, objeto.getSboTbArticulo().getArtIdPk());
+        preparedStmt.setInt(2, objeto.getSboSicop().getSicopId());
         preparedStmt.setInt(3, objeto.getSolArtiCant());
         preparedStmt.executeUpdate();
         db.getConnection().close();
@@ -321,7 +306,7 @@ public class solicitudArtDAO {
         return resultado;
     }
     
-    private SboSicop solixArti(ResultSet rs) {
+    private SboTbSolixArti solixArti(ResultSet rs) {
         try {
             SboTbSolixArti solxArt = new SboTbSolixArti();
             solxArt.setSboSicop(articulo(rs));

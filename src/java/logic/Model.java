@@ -624,11 +624,11 @@ public class Model {
             
     public List<SboTbArticulo> listaExistenciasDepartamento(String filtro) throws ClassNotFoundException, SQLException {
 
-        List result = articulodao.listaExistenciasDepartamento(filtro);
+       // List result = articulodao.listaExistenciasDepartamento(filtro);
 
-        return result;
+   //     return result;
 
-
+    return null;
 
     }
 
@@ -737,7 +737,7 @@ public class Model {
 
         for (SboTbArticulo art : artXsolTemp.values()) {
 
-            solXart.setSboTbArticulo(art);
+    //        solXart.setSboTbArticulo(art);
 
             solXart.setSolArtiCant(art.getCantSolArt());
 
