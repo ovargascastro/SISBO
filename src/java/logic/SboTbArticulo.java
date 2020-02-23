@@ -41,7 +41,7 @@ public class SboTbArticulo implements java.io.Serializable {
         this.artIdPk = artIdPk;
     }
 
-    public SboTbArticulo(int artIdPk, AbaaProyectos abaaProyectos, AbaaTbDepartamento abaaTbDepartamento, SboTbCatArticulo sboTbCatArticulo, SboTbOrdenCompra sboTbOrdenCompra, Double artPrecio, Integer artCant, Integer artCantRest, Date artFingr, Date artFvenc, String artDesc, String artMode, String artNumeSeri, String artMarc, String artNumeFact, String artCodiPresup, String artCodiCont, String artCodContGast, String artCodContExis, String artCodContSal, Boolean artEsAc, Set<AbaaTbOcproyecto> abaaTbOcproyectos, Set<SboTbSolixArti> sboTbSolixArtis, Set<SboTbExistencia> sboTbExistencias) {
+    public SboTbArticulo(int artIdPk, AbaaProyectos abaaProyectos, AbaaTbDepartamento abaaTbDepartamento, SboTbCatArticulo sboTbCatArticulo, SboTbOrdenCompra sboTbOrdenCompra, Double artPrecio, Integer artCant, Integer artCantRest, Date artFingr, Date artFvenc, String artDesc, String artMode, String artNumeSeri, String artMarc, String artNumeFact, String artCodiPresup, String artCodiCont, String artCodContGast, String artCodContExis, String artCodContSal, Boolean artEsAc, String artUnidadMedida, SboSicop sboSicop, Integer cantSolArt) {
         this.artIdPk = artIdPk;
         this.abaaProyectos = abaaProyectos;
         this.abaaTbDepartamento = abaaTbDepartamento;
@@ -63,9 +63,9 @@ public class SboTbArticulo implements java.io.Serializable {
         this.artCodContExis = artCodContExis;
         this.artCodContSal = artCodContSal;
         this.artEsAc = artEsAc;
-        this.abaaTbOcproyectos = abaaTbOcproyectos;
-        this.sboTbSolixArtis = sboTbSolixArtis;
-        this.sboTbExistencias = sboTbExistencias;
+        this.artUnidadMedida = artUnidadMedida;
+        this.sboSicop = sboSicop;
+        this.cantSolArt = cantSolArt;
     }
 
     public int getArtIdPk() {
@@ -133,7 +133,7 @@ public class SboTbArticulo implements java.io.Serializable {
     }
 
     public Date getArtFingr() {
-        return this.artFingr;
+        return artFingr;
     }
 
     public void setArtFingr(Date artFingr) {
@@ -141,12 +141,14 @@ public class SboTbArticulo implements java.io.Serializable {
     }
 
     public Date getArtFvenc() {
-        return this.artFvenc;
+        return artFvenc;
     }
 
     public void setArtFvenc(Date artFvenc) {
         this.artFvenc = artFvenc;
     }
+
+    
 
     public String getArtDesc() {
         return this.artDesc;
@@ -282,8 +284,5 @@ public class SboTbArticulo implements java.io.Serializable {
 
     public void setSboSicop(SboSicop sboSicop) {
         this.sboSicop = sboSicop;
-    }
-    
-    
-    
+    }    
 }
