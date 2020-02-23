@@ -42,14 +42,9 @@
                                 <input class="form-control" type="text" placeholder="departamento" id="departamento"  readonly="readonly">
                                 <input id="IdDptoPrueba" class="form-control" type="hidden" value="">
                        
-                                  <%= logged.getDepartamento().getDeptoIdPk()%>
+                                 
                             </div>
-                          <div class="col">
-                                    <label>Unidad Usuaria</label>
-                                    <select class="form-control" id="selectDeptos" onchange="selecArt()">
-                                        <option values="0" selected disabled = "true">Seleccione una opcion</option>
-                                    </select>
-                                </div>
+                         
                             <div class="col">
                                 <label>Artículo</label>
                                 <select class="form-control" id="selectArt" onchange="getExistencias()" required>
@@ -132,8 +127,9 @@
 <script>
    document.getElementById("solicitudArtMenu").style.color = "white";
                                     function cargarSelectsSolArt() {
-                                        selectDeptos();
+                                       // selectDeptos();
                                         mostrardepa();
+                                        selecArt();
                                         <%Model.instance().reiniciaListaSolart();%>
                                     }
 
@@ -161,8 +157,8 @@
                                         $('#formSolicitudArt').trigger("reset");
                                     }
                                      function mostrardepa(){
-                                         
-                                         $("#departamento").val(logged.getDepartamento().getDeptoIdPk());
+                                         var depa=<%= logged.getDepartamento().getDeptoIdPk()%>
+                                         $("#departamento").val(depa);
                                          
                                      }
 
