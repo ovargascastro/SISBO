@@ -58,7 +58,7 @@ public class Model {
 
     Map<Integer, SboTbArticulo> listaTemp = new HashMap<>();
 
-    Map<Integer, SboTbArticulo> artXsolTemp = new HashMap<>();
+    Map<Integer, SboTbSolixArti> artXsolTemp = new HashMap<>();
 
     Map<Integer, Integer> cantArtTemp = new HashMap<>();
 
@@ -633,49 +633,50 @@ public class Model {
     }
 
 
-    public void agregarArtxSolTemp(SboTbArticulo artSol) throws Exception {
+//    public void agregarArtxSolTemp(SboTbSolixArti artSol) throws Exception {
+//
+//        //int idArt = artSol.getArtIdPk();
+//        int idSicop=artSol.getSboSicop().getSicopId();
+//
+//        SboTbArticulo art = articulodao.getArticulo2(idArt);
+//
+//        art.setCantSolArt(artSol.getCantSolArt());
+//
+//
+//
+//        String idDep = art.getAbaaTbDepartamento().getDeptoIdPk();
+//
+//        int idCatArt = art.getSboTbCatArticulo().getCatIdPk();
+//
+//        int suma = sumaExistencias(idDep, idCatArt);
+//
+//
+//
+//        if (art.getCantSolArt() <= art.getArtCant()) {
+//
+//            if (artXsolTemp.containsKey(idArt)) {
+//
+//                int nuevaCantidad = artXsolTemp.get(art.getArtIdPk()).getCantSolArt() + art.getCantSolArt();
+//
+//                artXsolTemp.get(art.getArtIdPk()).setCantSolArt(nuevaCantidad);
+//
+//            } else {
+//
+//                artXsolTemp.put(art.getArtIdPk(), art);
+//
+//            }
+//
+//        } else {
+//
+//            throw new Exception("Cantidad ingresada es mayor a la existente en bodega. Ingrese una cantida válida.");
+//
+//        }
+//
+//    }
 
-        int idArt = artSol.getArtIdPk();
-
-        SboTbArticulo art = articulodao.getArticulo2(idArt);
-
-        art.setCantSolArt(artSol.getCantSolArt());
 
 
-
-        String idDep = art.getAbaaTbDepartamento().getDeptoIdPk();
-
-        int idCatArt = art.getSboTbCatArticulo().getCatIdPk();
-
-        int suma = sumaExistencias(idDep, idCatArt);
-
-
-
-        if (art.getCantSolArt() <= art.getArtCant()) {
-
-            if (artXsolTemp.containsKey(idArt)) {
-
-                int nuevaCantidad = artXsolTemp.get(art.getArtIdPk()).getCantSolArt() + art.getCantSolArt();
-
-                artXsolTemp.get(art.getArtIdPk()).setCantSolArt(nuevaCantidad);
-
-            } else {
-
-                artXsolTemp.put(art.getArtIdPk(), art);
-
-            }
-
-        } else {
-
-            throw new Exception("Cantidad ingresada es mayor a la existente en bodega. Ingrese una cantida válida.");
-
-        }
-
-    }
-
-
-
-    public SboTbArticulo getArtxSolTemp(int id) {
+    public SboTbSolixArti getArtxSolTemp(int id) {
 
         return artXsolTemp.get(id);
 
@@ -691,7 +692,7 @@ public class Model {
 
 
 
-    public Map<Integer, SboTbArticulo> getListaArtxSolTemp() {
+    public Map<Integer, SboTbSolixArti> getListaArtxSolTemp() {
 
         return artXsolTemp;
 
@@ -699,7 +700,7 @@ public class Model {
 
 
 
-    public void setListaArtxSolTemp(Map<Integer, SboTbArticulo> listaTemp) {
+    public void setListaArtxSolTemp(Map<Integer, SboTbSolixArti> listaTemp) {
 
         this.artXsolTemp = listaTemp;
 
@@ -725,27 +726,27 @@ public class Model {
 
 
 
-    public void agregarSoliXArti() throws Exception {
-
-        int x = 1;
-
-        SboTbSoliArti solArti = new SboTbSoliArti(numSoliArti);
-
-        SboTbSolixArti solXart = new SboTbSolixArti();
-
-        solXart.setSboTbSoliArti(solArti);
-
-        for (SboTbArticulo art : artXsolTemp.values()) {
-
-    //        solXart.setSboTbArticulo(art);
-
-            solXart.setSolArtiCant(art.getCantSolArt());
-
-            solArtdao.agregarSolicitudXArticulo(solXart);
-
-        }
-
-    }
+//    public void agregarSoliXArti() throws Exception {
+//
+//        int x = 1;
+//
+//        SboTbSoliArti solArti = new SboTbSoliArti(numSoliArti);
+//
+//        SboTbSolixArti solXart = new SboTbSolixArti();
+//
+//        solXart.setSboTbSoliArti(solArti);
+//
+//        for (SboTbArticulo art : artXsolTemp.values()) {
+//
+//    //        solXart.setSboTbArticulo(art);
+//
+//            solXart.setSolArtiCant(art.getCantSolArt());
+//
+//            solArtdao.agregarSolicitudXArticulo(solXart);
+//
+//        }
+//
+//    }
 
 
 
@@ -871,11 +872,11 @@ public class Model {
 
 
 
-    public void disminuyeExistencias(SboTbSolixArti objeto) throws Exception {
-
-        solArtdao.disminuyeExistencias(objeto);
-
-    }
+//    public void disminuyeExistencias(SboTbSolixArti objeto) throws Exception {
+//
+//        solArtdao.disminuyeExistencias(objeto);
+//
+//    }
 
 
 

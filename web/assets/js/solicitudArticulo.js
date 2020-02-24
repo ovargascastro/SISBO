@@ -5,12 +5,7 @@
  */
 
 
- 
-function mostrarUnidadUsuaria(usuario){
-   
-    
-     $("#departamento").val(usuario);
-}
+//funcion para mostrar los articulos que hay en el departamento del usuario
 function selecArt() {
 
     var filtro = $("#departamento").val();
@@ -30,7 +25,45 @@ function selecArt() {
     });
 
 }
+//fin
+//funcion para listarArticulos de la solicitud temporales
+function agregarArticuloTemporal() {
+    //var depto = $("#departamento").val();
 
+    var art = document.getElementById("selectArt").value;
+    var cantidad =$("#cantidad").val();
+    var descripcion = $("#descripcion").val();
+    
+//    var e = document.getElementById("selectProyectos");
+//    var descProy = e.options[e.selectedIndex].text;
+    if(descProy==='Seleccione una opcion'){
+        descProy='Proyecto no asignado';
+    }
+    
+    if (document.getElementById("proyectoCheck").checked === true) {
+        proyect = document.getElementById("selectProyectos").value;
+    }
+    
+   SboTbSolixArti = {
+        sboSicop:{ 
+            artIdPk:art},
+        solArtiCant:cantidad,
+        solArtiDeta:descripcion
+    };
+
+    $.ajax({type: "POST",
+        url: "api/artSolTemp",
+        data: JSON.stringify(SboTbArticulo),
+        contentType: "application/json",
+        success: exito,
+        error: function (jqXHR) {
+            alert(errorMessage(jqXHR.status));
+        }
+    });
+
+
+}
+//fin
 
 function resetearSelectArt(selectbox)
 {

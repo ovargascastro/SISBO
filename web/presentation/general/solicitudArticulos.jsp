@@ -89,6 +89,7 @@
                                             <tr>
                                                 <th>Artículo</th>
                                                 <th>Cantidad</th>
+                                                <th>Descripcion</th>
                                                 <th>Eliminar</th>
                                             </tr>
                                         </thead>
