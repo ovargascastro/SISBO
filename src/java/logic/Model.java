@@ -714,7 +714,7 @@ public class Model {
 
             solArtdao.agregarSolicitudArticulo(solArti);
 
-            numSoliArti = solArtdao.getLastInsertSolicitudArticulo();
+            //numSoliArti = solArtdao.getLastInsertSolicitudArticulo();
 
         } else {
 
@@ -877,8 +877,8 @@ public class Model {
 //        solArtdao.disminuyeExistencias(objeto);
 //
 //    }
-
-
+ 
+    
 
     public AbaaTbPersona login(String user, String password) throws Exception {
 
@@ -960,5 +960,12 @@ public class Model {
     public void agregarArticuloSinOrden(SboTbArticulo art) throws Exception {
         articulodao.agregarArticuloSinOrden(art);
     }
+    
+    //agrego la solicitud y en la variable numSoliArti le recupera el ultimo id de la solicitud
+    public void InsertarSoli(SboTbSoliArti soli) throws Exception{
+ solArtdao.InsertarSoli(soli);
+ numSoliArti = solArtdao.getLastInsertSolicitudArticulo();
+ }
+
 
 }

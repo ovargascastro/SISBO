@@ -34,16 +34,16 @@ import logic.SboTbSolixArti;
 public class solicitudXarticulo {
     @Context
     
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void agregarSolXart() {
-        try {
-            Model.instance().agregarSoliXArti();
-            Model.instance().reiniciaListaSolart();
-        } catch (Exception ex) {
-            throw new NotFoundException();
-        }
-    }
+//    @POST
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public void agregarSolXart() {
+//        try {
+//            Model.instance().agregarSoliXArti();
+//            Model.instance().reiniciaListaSolart();
+//        } catch (Exception ex) {
+//            throw new NotFoundException();
+//        }
+//    }
     
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -70,13 +70,13 @@ public class solicitudXarticulo {
         }
     }
     
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void update(SboTbSolixArti SolxArti) {
-        try {
-            Model.instance().disminuyeExistencias(SolxArti);
-        } catch (Exception ex) {
-            throw new NotFoundException();
-        }
-    }
+//    @PUT
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public void update(SboTbSolixArti SolxArti) {
+//        try {
+//            Model.instance().disminuyeExistencias(SolxArti);
+//        } catch (Exception ex) {
+//            throw new NotFoundException();
+//        }
+//    }
 }

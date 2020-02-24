@@ -6,80 +6,34 @@
 
 
 //funcion para mostrar los articulos que hay en el departamento del usuario
-function selecArt() {
 
+function selecArt() {
     var filtro = $("#departamento").val();
-    console.log(filtro);
     $.ajax({type: "GET",
         url: "api/ExistenciasTemp?filtro=" + filtro,
         success: function (data) {
             $.each(data, function (key, art) {
-                $("#selectArt").append('<option value=' + art.sboTbSicop.sicopId + '>' + art.sboTbSicop.sicopDesc + '</option>');
-                
-            });
-          
+                $("#selectArt").append('<option value=' + art.sboTbSicop.sicopId + '>' + art.sboTbSicop.sicopDesc + '</option>');    
+            });         
         },
         error: function (jqXHR) {
             alert(errorMessage(jqXHR.status));
         }
     });
-
 }
 //fin
 //funcion para listarArticulos de la solicitud temporales
-function agregarArticuloTemporal() {
-    //var depto = $("#departamento").val();
-
-    var art = document.getElementById("selectArt").value;
-    var cantidad =$("#cantidad").val();
-    var descripcion = $("#descripcion").val();
-    
-//    var e = document.getElementById("selectProyectos");
-//    var descProy = e.options[e.selectedIndex].text;
-    if(descProy==='Seleccione una opcion'){
-        descProy='Proyecto no asignado';
-    }
-    
-    if (document.getElementById("proyectoCheck").checked === true) {
-        proyect = document.getElementById("selectProyectos").value;
-    }
-    
-   SboTbSolixArti = {
-        sboSicop:{ 
-            artIdPk:art},
-        solArtiCant:cantidad,
-        solArtiDeta:descripcion
-    };
-
-    $.ajax({type: "POST",
-        url: "api/artSolTemp",
-        data: JSON.stringify(SboTbArticulo),
-        contentType: "application/json",
-        success: exito,
-        error: function (jqXHR) {
-            alert(errorMessage(jqXHR.status));
-        }
-    });
 
 
-}
-//fin
-
-function resetearSelectArt(selectbox)
-{
+function resetearSelectArt(selectbox){
     var i;
-    for (i = selectbox.options.length - 1; i >= 0; i--)
-    {
+    for (i = selectbox.options.length - 1; i >= 0; i--){
         selectbox.remove(i);
     }
     selecArt();
 }
 
-
-
-
 function agregarArtTemp() {
-
     var art = document.getElementById("selectArt").value;
     SboTbArticulo = {
         artIdPk: art,
@@ -116,6 +70,34 @@ function eliminaArt(id){
     }
   }
   
+  //funcion para crear la solicitud que va a recibir ArtixSoli
+  
+  function creaSolicitud(){
+       var depto = $("#departamento").val();
+       var idUsu = $("#idusuario").val();
+       SboTbSoliArti = {
+           abaaTbDepartamento: {
+            deptoIdPk: depto
+        },
+         abaaTbFuncionario: {
+            funcIdPk: idUsu
+        }
+       };
+       $.ajax({type: "POST",
+        url: "api/solicitudArticulo",
+        data: JSON.stringify(SboTbSoliArti),
+        contentType: "application/json",
+        success: termine,
+        error: function (jqXHR) {
+            alert("Seleccione los artículos que requiere antes de enviar la solicitud");
+        }
+    });
+      
+  }
+  function termine(){
+      console.log("hola");
+      alert("ya hice la solicitud en el model hay una varible numSoliArti donde guardo el id de la solicitud");
+  }
 function agregarSolicitudArticulo() {
     var depto = $("#departamento").val();
     var f = new Date();
@@ -756,8 +738,8 @@ function eliminaArt(id){
   
   //imprimir JS trabajar desde aqui
   
-document.getElementById('export').addEventListener('click',
-  PDF);
+//document.getElementById('export').addEventListener('click',
+//  PDF);
 
 var specialElementHandlers = {
   // element with id of "bypass" - jQuery style selector

@@ -62,16 +62,16 @@ public class ArituculoXSolicitudTemporal {
 //        }
 //    }
     
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces({MediaType.APPLICATION_JSON})
-    public void agregarArticulo(SboTbSolixArti articulo) {
-        try {
-            Model.instance().agregarArtxSolTemp(articulo);
-        } catch (Exception ex) {
-            throw new NotFoundException();
-        }
-    }
+//    @POST
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces({MediaType.APPLICATION_JSON})
+//    public void agregarArticulo(SboTbSolixArti articulo) {
+//        try {
+//            Model.instance().agregarArtxSolTemp(articulo);
+//        } catch (Exception ex) {
+//            throw new NotFoundException();
+//        }
+//    }
     
 //    @DELETE
 //    @Path("{id}")

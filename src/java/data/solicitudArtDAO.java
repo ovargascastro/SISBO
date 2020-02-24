@@ -223,16 +223,7 @@ public class solicitudArtDAO {
         db.getConnection().close();
     }
 
-    public int getLastInsertSolicitudArticulo() throws Exception {
-        String sql = " select IDENT_CURRENT( 'SIBO_TB_Soli_Arti' ) as seq ";
-        sql = String.format(sql);
-        ResultSet rs = db.executeQuery(sql);
-        if (rs.next()) {
-            return lastInsertSolicitudArticulo(rs);
-        } else {
-            throw new Exception("error");
-        }
-    }
+  
 
     private int lastInsertSolicitudArticulo(ResultSet rs) {
         try {
@@ -431,7 +422,7 @@ public class solicitudArtDAO {
 
     }
         
-           public void InsertarSoli(SboTbSolixArti objeto) throws Exception {
+           public void disminuyeExistencias(SboTbSolixArti objeto) throws Exception {
         String query = "execute DisminuyeExistencias ?,?,?;";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setInt(1, objeto.getSboSicop().getSicopId());
@@ -442,17 +433,23 @@ public class solicitudArtDAO {
     }
         
 
-//       public void disminuyeExistencias(SboTbSoliArti objeto) throws Exception {
-//        String query = "execute Soli_Insertar ?,?;";
-//        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
-//        preparedStmt.setInt(1, objeto.getSboSicop().getSicopId());
-//        preparedStmt.setInt(2, objeto.getSolArtiCant());
-//        preparedStmt.setInt(3, objeto.getSboTbSoliArti().getSolArtiIdPk());
-//        preparedStmt.executeUpdate();
-//        db.getConnection().close();
-//    }
-//          
-//          preparedStmt.setString(1, objeto.getSolArtiEsta());
-//        preparedStmt.setBoolean(2, objeto.getSolArtiVistJefe());
-//        preparedStmt.setInt(3, objeto.getSolArtiIdPk());
+       public void InsertarSoli(SboTbSoliArti objeto) throws Exception {
+        String query = "execute Soli_Insertar ?,?;";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setString(1, objeto.getAbaaTbDepartamento().getDeptoIdPk());
+        preparedStmt.setInt(2, objeto.getAbaaTbFuncionario().getFuncIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
+            public int getLastInsertSolicitudArticulo() throws Exception {
+        String sql = " select IDENT_CURRENT( 'SIBO_TB_Soli_Arti' ) as seq ";
+        sql = String.format(sql);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return lastInsertSolicitudArticulo(rs);
+        } else {
+            throw new Exception("error");
+        }
+    }
+         
 }
