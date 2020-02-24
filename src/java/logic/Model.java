@@ -962,10 +962,9 @@ public class Model {
     }
     
     //agrego la solicitud y en la variable numSoliArti le recupera el ultimo id de la solicitud
-    public void InsertarSoli(SboTbSoliArti soli) throws Exception{
- solArtdao.InsertarSoli(soli);
- numSoliArti = solArtdao.getLastInsertSolicitudArticulo();
+    public int InsertarSoli(SboTbSoliArti soli) throws Exception{
+        solArtdao.InsertarSoli(soli);
+        return solArtdao.getLastInsertSolicitudArticulo();
  }
-
 
 }
