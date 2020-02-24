@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <form id="formSolicitudArt" action="javascript:agregarArtTemp()">
+        <form id="formSolicitudArt" action="javascript:IngresarArticuloLista()">
             <div class="card" id="formulario">
                 <div class="card-body">
                     <h5 class="text-center">Seleccione el artículo y la cantidad deseada</h5>
@@ -38,11 +38,7 @@
                         
                           <div class="col">
                                 <label>Departamento</label>
-                               
                                 <input class="form-control" type="text" placeholder="departamento" id="departamento"  readonly="readonly">
-                                <input id="IdDptoPrueba" class="form-control" type="hidden" value="">
-                       
-                                 
                             </div>
                          
                             <div class="col">
@@ -89,6 +85,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Artículo</th>
+                                                <th>Descripción</th>
                                                 <th>Cantidad</th>
                                                 <th>Eliminar</th>
                                             </tr>
@@ -126,42 +123,87 @@
 
 <script>
    document.getElementById("solicitudArtMenu").style.color = "white";
-                                    function cargarSelectsSolArt() {
-                                       // selectDeptos();
-                                        mostrardepa();
-                                        selecArt();
-                                        <%Model.instance().reiniciaListaSolart();%>
-                                    }
+    function cargarSelectsSolArt() {
+        // selectDeptos();
+        mostrardepa();
+        selecArt();
+        depurarLocalStorage();
+    }
 
-                                    function listaArtTemp(art) {
-                                        var listado = $("#listArt");
-                                        listado.html("");
-                                        art.forEach((a) => {
-                                            filaArtTemp(listado, a);
-                                        });
-                                        limpiaEspacios();
-                                    }
+    function listaArtTemp(art) {
+        var listado = $("#listArt");
+        listado.html("");
+        art.forEach((a) => {
+            filaArtTemp(listado, a);
+        });
+        limpiaEspacios();
+    }
 
-                                    var array = [];
-                                    var x;
-                                    function filaArtTemp(listado, articulo) {
-                                        var tr = $("<tr />");
-                                        tr.html(
-                                                "<td>" + articulo.artDesc + "</td>"
-                                                + "<td>" + articulo.cantSolArt + "</td>"
-                                                + "<td><img src='assets/img/trash-delete.png' onclick='eliminaArt(\"" + articulo.artIdPk + "\");'></td>");
-                                        listado.append(tr);
-                                    }
+    var array = [];
+    var x;
+    function filaArtTemp(listado, articulo) {
+        var tr = $("<tr />");
+        tr.html(
+            "<td>" + articulo.artDesc + "</td>"
+            + "<td>" + articulo.cantSolArt + "</td>"
+            + "<td><img src='assets/img/trash-delete.png' onclick='eliminaArt(\"" + articulo.artIdPk + "\");'></td>");
+        listado.append(tr);
+    }
 
-                                    function limpiaEspacios() {
-                                        $('#formSolicitudArt').trigger("reset");
-                                    }
-                                     function mostrardepa(){
-                                         var depa=<%= logged.getDepartamento().getDeptoIdPk()%>
-                                         $("#departamento").val(depa);
-                                         
-                                     }
-
-          
+    function limpiaEspacios() {
+        $('#formSolicitudArt').trigger("reset");
+        mostrardepa();
+    }
+    
+    function mostrardepa(){
+        var depa=${logged.getDepartamento().getDeptoIdPk()};
+        $("#departamento").val(depa);    
+    }
+    
+    function IngresarArticuloLista(){
+        insertarLista(generaSolXArti());
+        agregarSolXArtTabla();
+    }
+    
+    function generaSolXArti(){
+        var soliXarti = {
+            sboSicop: [{sicopId: $("#selectArt").val(), sicopDesc: $( "#selectArt option:selected").text()}],
+            solArtiCant: $("#cantidad").val(),
+            solArtiDeta: $("#descripcion").val()
+        };
+        return soliXarti;
+    }
+    
+    function insertarLista(objeto){
+        window.localStorage.setItem($("#selectArt").val(), JSON.stringify(objeto));
+    }
+    
+    function agregarSolXArtTabla(){
+        $("#listArt").empty();
+        insertaElemento();
+    }
+    
+    function insertaElemento() {
+        for (var i = 0; i < localStorage.length; i++){
+            var objeto = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            var tr = $("<tr id=" + objeto.sboSicop[0].sicopId + " />");
+            tr.html(
+                "<td>" + objeto.sboSicop[0].sicopDesc + "</td>"
+                + "<td>" + objeto.solArtiDeta + "</td>"
+                + "<td>" + objeto.solArtiCant + "</td>"
+                + "<td><img src='assets/img/trash-delete.png' onclick='eliminarArticulo(\"" + objeto.sboSicop[0].sicopId + "\");'></td>");
+            $("#listArt").append(tr);
+        }
+        limpiaEspacios();
+   }
+    
+    function eliminarArticulo(id){
+        $('#' + id + '').remove();
+        window.localStorage.removeItem(id);
+    }
+    
+    function depurarLocalStorage(){
+         window.localStorage.clear(); 
+    }
 
 </script>

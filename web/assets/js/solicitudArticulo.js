@@ -7,46 +7,33 @@
 
  
 function mostrarUnidadUsuaria(usuario){
-   
-    
      $("#departamento").val(usuario);
 }
-function selecArt() {
 
+function selecArt() {
     var filtro = $("#departamento").val();
-    console.log(filtro);
     $.ajax({type: "GET",
         url: "api/ExistenciasTemp?filtro=" + filtro,
         success: function (data) {
             $.each(data, function (key, art) {
-                $("#selectArt").append('<option value=' + art.sboTbSicop.sicopId + '>' + art.sboTbSicop.sicopDesc + '</option>');
-                
-            });
-          
+                $("#selectArt").append('<option value=' + art.sboTbSicop.sicopId + '>' + art.sboTbSicop.sicopDesc + '</option>');    
+            });         
         },
         error: function (jqXHR) {
             alert(errorMessage(jqXHR.status));
         }
     });
-
 }
 
-
-function resetearSelectArt(selectbox)
-{
+function resetearSelectArt(selectbox){
     var i;
-    for (i = selectbox.options.length - 1; i >= 0; i--)
-    {
+    for (i = selectbox.options.length - 1; i >= 0; i--){
         selectbox.remove(i);
     }
     selecArt();
 }
 
-
-
-
 function agregarArtTemp() {
-
     var art = document.getElementById("selectArt").value;
     SboTbArticulo = {
         artIdPk: art,
@@ -723,8 +710,8 @@ function eliminaArt(id){
   
   //imprimir JS trabajar desde aqui
   
-document.getElementById('export').addEventListener('click',
-  PDF);
+//document.getElementById('export').addEventListener('click',
+//  PDF);
 
 var specialElementHandlers = {
   // element with id of "bypass" - jQuery style selector
