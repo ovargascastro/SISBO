@@ -389,7 +389,7 @@ public class solicitudArtDAO {
                 String sql = "select * from SIBO_TB_Soli_Arti sa, ABAA_TB_Catalogo_Departamento dep "
                     + "where sa.Soli_Arti_Id_PK like '%%%s%%'"
                     + "and sa.Soli_Arti_Esta = 'PendienteVBTI'"
-                    + "and sa.Soli_Arti_Id_Depa_FK=dep.Depto_Id_PK";
+                    + "and sa.Soli_Arti_Id_Depa_FK=dep.Cata_Depa_id_PK";
 //            String sql = "select * from Sbo_TB_Soli_Arti o where o.Sol_Arti_Esta='pendiente' and o.Sol_Arti_Id_PK like '%%%s%%'";
             sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);

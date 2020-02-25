@@ -907,54 +907,27 @@ public class Model {
 
 
     public SboSicop obtenerSicop(String filtro) throws Exception {
-
         return sicopDao.getSboSicop(filtro);
-
     }
-
-
 
     public void actualizarSicop(SboSicop s) throws SQLException {
-
         sicopDao.actualizarSicop(s);
-
-
-
     }
-
-
 
     public void agregarSicop(SboSicop s) throws SQLException {
-
-
-
         sicopDao.agregarSicop(s);
-
     }
-
-
 
     public List<SboTbExistencia> listaExistencias(String bodega, String departamento, String articulo) {
-
-        
-
        return existdao.listaExistencias(bodega, departamento, articulo);
-
     }
 
-       public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
-
-          
-
+    public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
        return existdao.listaExistenciasfiltro(depa);
-
     }
     
    public SboTbExistencia getSboTbExistencia(String depa,String Arti) throws Exception {
-
-       
        return existdao.getSboTbExistencia(depa,Arti);
-
     }
     
     public void agregarArticuloSinOrden(SboTbArticulo art) throws Exception {
