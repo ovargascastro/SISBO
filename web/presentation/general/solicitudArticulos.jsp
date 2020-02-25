@@ -71,7 +71,7 @@
                 </div>
             </div>
         </form>
-        <form action="javascript:creaSolicitud()">
+        <form action="javascript:creaNuevaSolicitud()">
             <div class="card" id="formulario">
                 <div class="card-body">
                     
@@ -202,6 +202,51 @@
         }
         limpiaEspacios();
    }
+   
+   // Este es el método invocado a partir del botón "Solicitar"
+   // Debes llamar 3 a funciones principales:
+   // Primera función: insertaDatosSolicitud()
+   // Segunda función: ingresaIdSoli()
+   // Tercera función: insertaListaSoliXArti()
+   function creaNuevaSolicitud(){
+       //var idUltimo = insertaDatosSolicitud();
+       //ingresaIdSoli(idUltimo);
+       //insertaListaSoliXArti();
+   }
+   
+   // Dentro de esta función deberías hacer un insert usando AJAX
+   // con los datos de cabecera del objeto Solicitud, es decir,
+   // datos como el del funcionario, el dpto, el estado, etc
+   // en teoría, esto debería retornar un ID para pasárselo a la siguiente función
+   function insertaDatosSolicitud(){
+
+   }
+   
+   // Esta función ya está programada!
+   // Acá básicamente utilizo el ID de la función anterior y se lo agrego
+   // a todos los objetos en el localstorage
+   function ingresaIdSoli(id){
+        for (var i = 0; i < localStorage.length; i++){
+            var objeto = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            objeto['sboTbSoliArti'] = [{solArtiIdPk: id}];
+            localStorage.setItem(objeto.sboSicop[0].sicopId, JSON.stringify(objeto));
+        } 
+   }
+   
+   // Esta es la última función por llamar
+   // Acá es realizar un ciclo similar a la función anterior pero
+   // llamando a una "función auxiliar" con AJAX que realice el 
+   // INSERT en la BD... probablemente haya que modificar/crear
+   // un DAO extra.
+   function insertaListaSoliXArti(){
+       
+   }
+   
+   // Acá se podría hacer la función AJAX del insert requerido!
+   //function funcionAuxiliar(){
+   //    
+   //}
+   
     
     function eliminarArticulo(id){
         $('#' + id + '').remove();
