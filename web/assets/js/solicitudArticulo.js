@@ -75,6 +75,7 @@ function eliminaArt(id){
   function creaSolicitud(){
        var depto = $("#departamento").val();
        var idUsu = $("#idusuario").val();
+       console.log(depto);
        SboTbSoliArti = {
            abaaTbDepartamento: {
             deptoIdPk: depto
@@ -108,6 +109,8 @@ function eliminaArt(id){
   
   function colocarID(arti){
       $("#idSoli").val(arti.solArtiIdPk);
+     // probando que si ingresa
+      mostrarInserto();
       
   }
   
