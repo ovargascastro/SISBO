@@ -40,7 +40,7 @@
                               
                                 <input class="form-control" type="hidden" placeholder="departamento" id="departamento"  readonly="readonly">
                                 <input class="form-control" type="hidden" placeholder="idusuario" id="idusuario"  readonly="readonly">
-
+                                  <input class="form-control" type="hidden" placeholder="idSoli" id="idSoli"  readonly="readonly">
                          
                             <div class="col">
                                 <label>Artículo</label>

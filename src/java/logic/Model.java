@@ -966,6 +966,14 @@ public class Model {
  solArtdao.InsertarSoli(soli);
  numSoliArti = solArtdao.getLastInsertSolicitudArticulo();
  }
+    
+    
+    public SboTbSoliArti obtenerid() throws Exception{
+         int id=solArtdao.getLastInsertSolicitudArticulo();
+       
+        return  solArtdao.getSboTbSoliArti(id);
+         
+    }
 
 
 }

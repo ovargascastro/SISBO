@@ -451,5 +451,18 @@ public class solicitudArtDAO {
             throw new Exception("error");
         }
     }
-         
+//         public SboTbSoliArti listadoSolicitudFiltro(int filtro) {
+//        SboTbSoliArti resultado = new SboTbSoliArti();
+//        try {
+//                String sql = "select * from SIBO_TB_Soli_Arti sa"
+//                    + "where sa.Soli_Arti_Id_PK like '%%%s%%'";
+//            sql = String.format(sql, filtro);
+//            ResultSet rs = db.executeQuery(sql);
+//           if (rs.next()) {
+//               return soliArti(rs);
+//            }
+//        } catch (SQLException ex) {
+//        }
+//        return resultado;
+//    }
 }
