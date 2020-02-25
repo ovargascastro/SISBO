@@ -75,6 +75,7 @@ function eliminaArt(id){
   function creaSolicitud(){
        var depto = $("#departamento").val();
        var idUsu = $("#idusuario").val();
+       console.log(depto);
        SboTbSoliArti = {
            abaaTbDepartamento: {
             deptoIdPk: depto
@@ -95,9 +96,24 @@ function eliminaArt(id){
       
   }
   function termine(){
+      
+    $.ajax({type: "GET",
+        url: "api/artSolTemp/"+0,
+        success: colocarID,
+        error: function (jqXHR) {
+            alert("No lo hice");}
+    });
       console.log("hola");
       alert("ya hice la solicitud en el model hay una varible numSoliArti donde guardo el id de la solicitud");
   }
+  
+  function colocarID(arti){
+      $("#idSoli").val(arti.solArtiIdPk);
+     // probando que si ingresa
+      mostrarInserto();
+      
+  }
+  
 function agregarSolicitudArticulo() {
     var depto = $("#departamento").val();
     var f = new Date();

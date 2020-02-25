@@ -23,6 +23,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import logic.Model;
 import logic.SboTbArticulo;
+import logic.SboTbSoliArti;
 import logic.SboTbSolixArti;
 
 /**
@@ -50,17 +51,17 @@ public class ArituculoXSolicitudTemporal {
         return null;
     }
     
-//    @GET
-//    @Path("{filtro}")
-//    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-//    public SboTbArticulo get(@PathParam("filtro") int filtro) {
-//        try {
-//            SboTbArticulo art = Model.instance().getArtxSolTemp(filtro);
-//            return art;
-//        } catch (Exception ex) {
-//            throw new NotFoundException();
-//        }
-//    }
+    @GET
+    @Path("{filtro}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public SboTbSoliArti get(@PathParam("filtro") int filtro) {
+        try {
+            SboTbSoliArti art = Model.instance().obtenerid();
+            return art;
+        } catch (Exception ex) {
+            throw new NotFoundException();
+        }
+    }
     
 //    @POST
 //    @Consumes(MediaType.APPLICATION_JSON)

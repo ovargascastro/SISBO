@@ -40,8 +40,8 @@
                               
                                 <input class="form-control" type="hidden" placeholder="departamento" id="departamento"  readonly="readonly">
                                 <input class="form-control" type="hidden" placeholder="idusuario" id="idusuario"  readonly="readonly">
-
-                         
+                                  <input class="form-control" type="hidden" placeholder="idSoli" id="idSoli"  readonly="readonly">
+                                    <input class="form-control" type="hidden" placeholder="idSoli" id="prueba"  readonly="readonly">
                             <div class="col">
                                 <label>Artículo</label>
                                 <select class="form-control" id="selectArt" onchange="getExistencias()" required>
@@ -130,6 +130,7 @@
         selecArt();
         depurarLocalStorage();
         mostraridUsuario();
+        
     }
 
     function listaArtTemp(art) {
@@ -209,17 +210,23 @@
    // Segunda función: ingresaIdSoli()
    // Tercera función: insertaListaSoliXArti()
    function creaNuevaSolicitud(){
-       //var idUltimo = insertaDatosSolicitud();
-       //ingresaIdSoli(idUltimo);
-       //insertaListaSoliXArti();
-   }
-   
-   // Dentro de esta función deberías hacer un insert usando AJAX
-   // con los datos de cabecera del objeto Solicitud, es decir,
-   // datos como el del funcionario, el dpto, el estado, etc
-   // en teoría, esto debería retornar un ID para pasárselo a la siguiente función
-   function insertaDatosSolicitud(){
+       //esta funcion me inserta y ademas me trae ultimoID se lo pongo en campo html
+        creaSolicitud();
+        var idUltimo = $("#idSoli").val();
+       ingresaIdSoli(idUltimo);
 
+       //insertaListaSoliXArti();
+
+   }
+        
+ 
+   function mostrarInserto(){
+      // creaSolicitud();
+    var id=$("#idSoli").val();
+   
+    console.log(id);
+   $("#prueba").val(id);
+   
    }
    
    // Esta función ya está programada!

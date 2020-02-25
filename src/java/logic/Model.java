@@ -816,13 +816,23 @@ public class Model {
     }
     
     //agrego la solicitud y en la variable numSoliArti le recupera el ultimo id de la solicitud
-    public int InsertarSoli(SboTbSoliArti soli) throws Exception{
+    public void InsertarSoli(SboTbSoliArti soli) throws Exception{
         solArtdao.InsertarSoli(soli);
-        return solArtdao.getLastInsertSolicitudArticulo();
+       // return solArtdao.getLastInsertSolicitudArticulo();
  }
     
     public void agregarSolxArt(SboTbSolixArti objeto) throws Exception{
         solixartdao.insertarSolxArt(objeto);
     }
+
+    
+    
+    public SboTbSoliArti obtenerid() throws Exception{
+         int id=solArtdao.getLastInsertSolicitudArticulo();
+       
+        return  solArtdao.getSboTbSoliArti(id);
+         
+    }
+
 
 }
