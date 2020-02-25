@@ -5,6 +5,7 @@
  */
 package data;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -388,7 +389,7 @@ public class solicitudArtDAO {
                 String sql = "select * from SIBO_TB_Soli_Arti sa, ABAA_TB_Catalogo_Departamento dep "
                     + "where sa.Soli_Arti_Id_PK like '%%%s%%'"
                     + "and sa.Soli_Arti_Esta = 'PendienteVBTI'"
-                    + "and sa.Soli_Arti_Id_Depa_FK=dep.Depto_Id_PK";
+                    + "and sa.Soli_Arti_Id_Depa_FK=dep.Cata_Depa_id_PK";
 //            String sql = "select * from Sbo_TB_Soli_Arti o where o.Sol_Arti_Esta='pendiente' and o.Sol_Arti_Id_PK like '%%%s%%'";
             sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
@@ -439,9 +440,21 @@ public class solicitudArtDAO {
         preparedStmt.setString(1, objeto.getAbaaTbDepartamento().getDeptoIdPk());
         preparedStmt.setInt(2, objeto.getAbaaTbFuncionario().getFuncIdPk());
         preparedStmt.executeUpdate();
-        db.getConnection().close();
-    }
-            public int getLastInsertSolicitudArticulo() throws Exception {
+        db.getConnection().close();        
+       }
+       
+       public void insertarSolxArt(SboTbSolixArti objeto) throws Exception{
+       String sql = "Execute agregarSoliXarti(?,?,?,?);";
+       CallableStatement CallStmt = db.getConnection().prepareCall(sql);
+       CallStmt.setInt(1,objeto.getId().getSolixArtiIdSoliArtiPk());
+       CallStmt.setInt(2, objeto.getSboSicop().getSicopId());
+       CallStmt.setInt(3, objeto.getSolArtiCant());
+       CallStmt.setString(4, objeto.getSolArtiDeta());
+       CallStmt.execute();
+       db.getConnection().close(); 
+       }
+       
+       public int getLastInsertSolicitudArticulo() throws Exception {
         String sql = " select IDENT_CURRENT( 'SIBO_TB_Soli_Arti' ) as seq ";
         sql = String.format(sql);
         ResultSet rs = db.executeQuery(sql);
@@ -451,18 +464,7 @@ public class solicitudArtDAO {
             throw new Exception("error");
         }
     }
-//         public SboTbSoliArti listadoSolicitudFiltro(int filtro) {
-//        SboTbSoliArti resultado = new SboTbSoliArti();
-//        try {
-//                String sql = "select * from SIBO_TB_Soli_Arti sa"
-//                    + "where sa.Soli_Arti_Id_PK like '%%%s%%'";
-//            sql = String.format(sql, filtro);
-//            ResultSet rs = db.executeQuery(sql);
-//           if (rs.next()) {
-//               return soliArti(rs);
-//            }
-//        } catch (SQLException ex) {
-//        }
-//        return resultado;
-//    }
+       
+       
+         
 }

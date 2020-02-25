@@ -907,54 +907,27 @@ public class Model {
 
 
     public SboSicop obtenerSicop(String filtro) throws Exception {
-
         return sicopDao.getSboSicop(filtro);
-
     }
-
-
 
     public void actualizarSicop(SboSicop s) throws SQLException {
-
         sicopDao.actualizarSicop(s);
-
-
-
     }
-
-
 
     public void agregarSicop(SboSicop s) throws SQLException {
-
-
-
         sicopDao.agregarSicop(s);
-
     }
-
-
 
     public List<SboTbExistencia> listaExistencias(String bodega, String departamento, String articulo) {
-
-        
-
        return existdao.listaExistencias(bodega, departamento, articulo);
-
     }
 
-       public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
-
-          
-
+    public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
        return existdao.listaExistenciasfiltro(depa);
-
     }
     
    public SboTbExistencia getSboTbExistencia(String depa,String Arti) throws Exception {
-
-       
        return existdao.getSboTbExistencia(depa,Arti);
-
     }
     
     public void agregarArticuloSinOrden(SboTbArticulo art) throws Exception {
@@ -962,10 +935,11 @@ public class Model {
     }
     
     //agrego la solicitud y en la variable numSoliArti le recupera el ultimo id de la solicitud
-    public void InsertarSoli(SboTbSoliArti soli) throws Exception{
- solArtdao.InsertarSoli(soli);
- numSoliArti = solArtdao.getLastInsertSolicitudArticulo();
+    public int InsertarSoli(SboTbSoliArti soli) throws Exception{
+        solArtdao.InsertarSoli(soli);
+        return solArtdao.getLastInsertSolicitudArticulo();
  }
+
     
     
     public SboTbSoliArti obtenerid() throws Exception{

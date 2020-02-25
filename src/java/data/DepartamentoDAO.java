@@ -34,12 +34,6 @@ public class DepartamentoDAO {
         }
     }
     
-//    	[Cata_Depa_id_PK] [int] IDENTITY(1,1) NOT NULL,
-//	[Cata_Depa_id_madr] [varchar](50) NULL,
-//	[Cata_Depa_num] [varchar](50) NOT NULL,
-//	[Cata_Depa_nomb] [varchar](50) NOT NULL,
-//	[Cata_Depa_aten_publ] [int] NULL,
-    
     public List<AbaaTbDepartamento> listaDepartamento() {
         List<AbaaTbDepartamento> resultado = new ArrayList<AbaaTbDepartamento>();
         try {

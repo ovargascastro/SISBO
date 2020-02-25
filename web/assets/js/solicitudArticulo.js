@@ -254,7 +254,7 @@ function buscarSolicitudVbJf() {
 }
 
 
-function buscarSolicitudVbTI() {
+function buscarSolicitudVbTI(){
 
     $.ajax({type: "GET",
         url: "api/soliAprobacionTI?filtro=" + $("#filtro").val(),
@@ -262,9 +262,7 @@ function buscarSolicitudVbTI() {
         error: function (jqXHR) {
             alert(errorMessage(jqXHR.status));
         }
-    });
-    
-    
+    });   
 }
 
 function abrirModalRechazar(){
