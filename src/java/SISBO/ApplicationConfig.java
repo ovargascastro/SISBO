@@ -30,6 +30,7 @@ public class ApplicationConfig extends Application {
         resources.add(SISBO.LogIn.class);
         resources.add(SISBO.SolicitudJf.class);
         resources.add(SISBO.SolicitudTI.class);
+        resources.add(SISBO.SolxArt.class);
         resources.add(SISBO.artOrdenInner.class);
         resources.add(SISBO.articulos.class);
         resources.add(SISBO.articulosXorden.class);

@@ -239,15 +239,29 @@
    // INSERT en la BD... probablemente haya que modificar/crear
    // un DAO extra.
    function insertaListaSoliXArti(){
-       
+       for (var i = 0; i < localStorage.length; i++){
+          //  var objeto = JSON.parse(localStorage.getItem(localStorage.key(i)));
+          //  objeto['sboTbSoliArti'] = [{solArtiIdPk: id}];
+          //  localStorage.setItem(objeto.sboSicop[0].sicopId, JSON.stringify(objeto));
+          funcionAuxiliar();
+        }
    }
    
-   // Acá se podría hacer la función AJAX del insert requerido!
-   //function funcionAuxiliar(){
-   //    
-   //}
+    //Acá se podría hacer la función AJAX del insert requerido!
+    function funcionAuxiliar(){
+        $.ajax({type: "POST",
+        url: "api/SolxArt",
+        contentType: "application/json",
+        success: limpiartabla,
+        error: function (jqXHR) {
+            alert(errorMessage(jqXHR.status));
+        }
+    });
+}
    
-    
+    function limpiartabla(){
+        $(#listArt)[0].reset();
+    }
     function eliminarArticulo(id){
         $('#' + id + '').remove();
         window.localStorage.removeItem(id);

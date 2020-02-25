@@ -19,7 +19,8 @@ import java.util.Map;
 public class Model {
 
 
-
+    private static Model uniqueInstance;
+    
     private final catalogosDAO catdao;
 
     private final OrdenCompraDAO ocdao;
@@ -27,8 +28,6 @@ public class Model {
     private final ArticuloOCDAO artidao;
 
     private final BodegaDAO bodegadao;
-
-    private static Model uniqueInstance;
 
     private final DepartamentoDAO dptodao;
 
@@ -49,6 +48,8 @@ public class Model {
     private final loginDAO logindao;
 
     private final ExistenciasDAO existdao;
+    
+    private final SoliXArtDAO solixartdao;
 
     public int numOrden;
 
@@ -111,6 +112,8 @@ public class Model {
         sicopDao = new sicopDAO();
 
         existdao = new ExistenciasDAO();
+        
+        solixartdao = new SoliXArtDAO();
 
     }
 
@@ -551,77 +554,46 @@ public class Model {
 
 
     public List<SboTbCatContable> listaCatContables(String filtro) throws ClassNotFoundException, SQLException {
-
         List result = catdao.listaCatContable(filtro);
-
         return result;
-
-
-
     }
 
 
 
     public SboTbCatContable getSboTbCatContable(int filtro) throws Exception {
-
         SboTbCatContable ob = catdao.getSboTbCatContable(filtro);
-
         return ob;
-
     }
 
 
 
     public SboTbSoliArti getSboTbSoliArti(int filtro) throws Exception {
-
         SboTbSoliArti ob = solArtdao.getSboTbSoliArti(filtro);
-
         return ob;
-
     }
 
 
 
     public SboTbSolixArti getSboTbSolixArti(int filtro) throws Exception {
-
         SboTbSolixArti ob = solArtdao.getSboTbSolixArti(filtro);
-
         return ob;
-
     }
 
 
 
     public void actualizarCatContable(SboTbCatContable cont) throws Exception {
-
         catdao.actualizarCatContable(cont);
-
-
-
     }
-
-
 
     public void crearCatContable(SboTbCatContable cont) throws Exception {
-
         catdao.crearCatContable(cont);
-
     }
-
-
 
     public List<SboTbArticulo> listaArticulosExistencia(String filtro) throws ClassNotFoundException, SQLException {
-
         List result = solArtdao.getArticuloExistencia(filtro);
-
         return result;
-
-
-
     }
     
-
-            
     public List<SboTbArticulo> listaExistenciasDepartamento(String filtro) throws ClassNotFoundException, SQLException {
 
        // List result = articulodao.listaExistenciasDepartamento(filtro);
@@ -677,49 +649,29 @@ public class Model {
 
 
     public SboTbSolixArti getArtxSolTemp(int id) {
-
         return artXsolTemp.get(id);
-
     }
 
 
 
     public void eliminarArtxSolTemp(SboTbArticulo artSol) throws Exception {
-
         artXsolTemp.remove(artSol.getArtIdPk(), artSol);
-
     }
-
-
 
     public Map<Integer, SboTbSolixArti> getListaArtxSolTemp() {
-
         return artXsolTemp;
-
     }
-
-
-
+    
     public void setListaArtxSolTemp(Map<Integer, SboTbSolixArti> listaTemp) {
-
         this.artXsolTemp = listaTemp;
-
     }
-
-
 
     public void agregarSolicitudArticulo(SboTbSoliArti solArti) throws Exception {
-
         if (!artXsolTemp.isEmpty()) {
-
-            solArtdao.agregarSolicitudArticulo(solArti);
-
+           solArtdao.agregarSolicitudArticulo(solArti);
             //numSoliArti = solArtdao.getLastInsertSolicitudArticulo();
-
         } else {
-
             throw new Exception("Seleccione los artículos que requiere antes de enviar la solicitud");
-
         }
 
     }
@@ -751,27 +703,17 @@ public class Model {
 
 
     public void reiniciaListaSolart() {
-
         artXsolTemp = new HashMap<>();
-
     }
 
-
-
     public int sumaExistencias(String idDepto, int idCatArt) throws Exception {
-
         int sum = 0;
-
         List<SboTbExistencia> existencias = solArtdao.existenciasXarticuloxdepto(idDepto, idCatArt);
-
         for (SboTbExistencia exist : existencias) {
 
             sum += exist.getExisCant();
-
         }
-
         return sum;
-
     }
 
 
@@ -779,133 +721,72 @@ public class Model {
     public int sumaExistencias2(int id) throws Exception {
 
         SboTbArticulo art = articulodao.getArticulo2(id);
-
         String idDep = art.getAbaaTbDepartamento().getDeptoIdPk();
-
         int idCatArt = art.getSboTbCatArticulo().getCatIdPk();
-
         int sum = 0;
-
         List<SboTbExistencia> existencias = solArtdao.existenciasXarticuloxdepto(idDep, idCatArt);
-
+        
         for (SboTbExistencia exist : existencias) {
 
             sum += exist.getExisCant();
-
         }
-
         return sum;
-
     }
-
-
-
+    
     public List<SboTbSoliArti> listaSolicitudesArticulos(String filtro) {
-
         return solArtdao.listadoSolicitudesArticulos(filtro);
-
     }
-
-
 
     public List<SboTbSolixArti> listaArticulosXSolicitud(String filtro) {
-
         int valor = Integer.parseInt(filtro);
-
         return solArtdao.listadoArticulosPorSolicitud(valor);
-
     }
-
-
 
     public List<SboTbSoliArti> listadoSolicitudxAprobar(String soli) {
-
         return solArtdao.listadoSolicitudxAprobar(soli);
-
     }
-
-
 
     public void actualizarEstSolicitud(SboTbSoliArti cont) throws Exception {
-
         solArtdao.actualizarEstSolicitud(cont);
-
-
-
     }
-
-
-
+    
     public List<SboTbSoliArti> listadoSolicitudVistobuenoJf(String filtro) {
 
         return solArtdao.listadoSolicitudVistobuenoJf(filtro);
 
     }
-
-
-
+    
     public List<SboTbSoliArti> listadoSolicitudVistobuenoTI(String filtro) {
-
         return solArtdao.listadoSolicitudVistobuenoTI(filtro);
-
     }
-
-
-
+    
     public void actualizarEstSolicitudJefe(SboTbSoliArti cont) throws Exception {
-
         solArtdao.actualizarEstSolicitudJefe(cont);
-
-
-
     }
-
-
 
     public void actualizarEstSolicitudTI(SboTbSoliArti cont) throws Exception {
 
         solArtdao.actualizarEstSolicitudTI(cont);
-
-
-
     }
-
-
-
+    
 //    public void disminuyeExistencias(SboTbSolixArti objeto) throws Exception {
 //
 //        solArtdao.disminuyeExistencias(objeto);
 //
 //    }
- 
     
-
     public AbaaTbPersona login(String user, String password) throws Exception {
-
-
-
         return logindao.logged(user, password);
-
     }
-
-
 
     public List<SboSicop> listadoSicop(String filtro) {
-
         return sicopDao.getListaSicop(filtro);
-
     }
-
-
 
     public List<SboSicop> listadoSicopFiltro(String filtro) {
-
         return sicopDao.getListaSicopFiltro(filtro);
-
     }
-
-
-
+    
     public SboSicop obtenerSicop(String filtro) throws Exception {
         return sicopDao.getSboSicop(filtro);
     }
@@ -939,5 +820,9 @@ public class Model {
         solArtdao.InsertarSoli(soli);
         return solArtdao.getLastInsertSolicitudArticulo();
  }
+    
+    public void agregarSolxArt(SboTbSolixArti objeto) throws Exception{
+        solixartdao.insertarSolxArt(objeto);
+    }
 
 }
