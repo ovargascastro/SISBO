@@ -829,7 +829,6 @@ public class Model {
     
     public SboTbSoliArti obtenerid() throws Exception{
          int id=solArtdao.getLastInsertSolicitudArticulo();
-       
         return  solArtdao.getSboTbSoliArti(id);
          
     }

@@ -40,8 +40,8 @@
                               
                                 <input class="form-control" type="hidden" placeholder="departamento" id="departamento"  readonly="readonly">
                                 <input class="form-control" type="hidden" placeholder="idusuario" id="idusuario"  readonly="readonly">
-                                  <input class="form-control" type="hidden" placeholder="idSoli" id="idSoli"  readonly="readonly">
-                                    <input class="form-control" type="hidden" placeholder="idSoli" id="prueba"  readonly="readonly">
+
+                         
                             <div class="col">
                                 <label>Artículo</label>
                                 <select class="form-control" id="selectArt" onchange="getExistencias()" required>
@@ -130,9 +130,7 @@
         selecArt();
         depurarLocalStorage();
         mostraridUsuario();
-        
     }
-
     function listaArtTemp(art) {
         var listado = $("#listArt");
         listado.html("");
@@ -141,7 +139,6 @@
         });
         limpiaEspacios();
     }
-
     var array = [];
     var x;
     function filaArtTemp(listado, articulo) {
@@ -152,7 +149,6 @@
             + "<td><img src='assets/img/trash-delete.png' onclick='eliminaArt(\"" + articulo.artIdPk + "\");'></td>");
         listado.append(tr);
     }
-
     function limpiaEspacios() {
         $('#formSolicitudArt').trigger("reset");
         mostrardepa();
@@ -210,65 +206,57 @@
    // Segunda función: ingresaIdSoli()
    // Tercera función: insertaListaSoliXArti()
    function creaNuevaSolicitud(){
-       //esta funcion me inserta y ademas me trae ultimoID se lo pongo en campo html
-        creaSolicitud();
-        var idUltimo = $("#idSoli").val();
-       ingresaIdSoli(idUltimo);
-
+       creaSolicitud();
+       //ingresaIdSoli('18');
        //insertaListaSoliXArti();
-
-   }
-        
- 
-   function mostrarInserto(){
-      // creaSolicitud();
-    var id=$("#idSoli").val();
-   
-    console.log(id);
-   $("#prueba").val(id);
-   
    }
    
-   // Esta función ya está programada!
-   // Acá básicamente utilizo el ID de la función anterior y se lo agrego
-   // a todos los objetos en el localstorage
    function ingresaIdSoli(id){
         for (var i = 0; i < localStorage.length; i++){
             var objeto = JSON.parse(localStorage.getItem(localStorage.key(i)));
             objeto['sboTbSoliArti'] = [{solArtiIdPk: id}];
             localStorage.setItem(objeto.sboSicop[0].sicopId, JSON.stringify(objeto));
-        } 
+        }
+        //--------------------------------------------------------------------------
+        for (var i = 0; i < localStorage.length; i++){
+            var objeto = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            funcionAuxiliar(objeto);
+        }
+        limpiartabla();
+        limpiaEspacios();
+        depurarLocalStorage();
    }
    
-   // Esta es la última función por llamar
-   // Acá es realizar un ciclo similar a la función anterior pero
-   // llamando a una "función auxiliar" con AJAX que realice el 
-   // INSERT en la BD... probablemente haya que modificar/crear
-   // un DAO extra.
-   function insertaListaSoliXArti(){
-       for (var i = 0; i < localStorage.length; i++){
-          //  var objeto = JSON.parse(localStorage.getItem(localStorage.key(i)));
-          //  objeto['sboTbSoliArti'] = [{solArtiIdPk: id}];
-          //  localStorage.setItem(objeto.sboSicop[0].sicopId, JSON.stringify(objeto));
-          funcionAuxiliar();
+    function insertaListaSoliXArti(){
+        for (var i = 0; i < localStorage.length; i++){
+            var objeto = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            funcionAuxiliar(objeto);
         }
-   }
-   
-    //Acá se podría hacer la función AJAX del insert requerido!
-    function funcionAuxiliar(){
-        $.ajax({type: "POST",
-        url: "api/SolxArt",
-        contentType: "application/json",
-        success: limpiartabla,
-        error: function (jqXHR) {
-            alert(errorMessage(jqXHR.status));
-        }
-    });
-}
-   
-    function limpiartabla(){
-        $(#listArt)[0].reset();
+        limpiartabla();
+        limpiaEspacios();
+        depurarLocalStorage();
     }
+   
+    function funcionAuxiliar(objeto){
+        $.ajax({type: "POST",
+            url: "api/solxArt",
+            data: JSON.stringify(objeto),
+            contentType: "application/json",
+            success: completar,
+            error: function (jqXHR) {
+                alert(errorMessage(jqXHR.status));
+            }
+        });
+    }
+    
+    function completar(){
+        
+    }
+    
+    function limpiartabla(){
+        $('#listArt').empty();
+    }
+    
     function eliminarArticulo(id){
         $('#' + id + '').remove();
         window.localStorage.removeItem(id);
@@ -277,5 +265,8 @@
     function depurarLocalStorage(){
          window.localStorage.clear(); 
     }
+    
+    
 
+  
 </script>

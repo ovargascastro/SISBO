@@ -96,8 +96,8 @@ public class OrdenCompraDAO {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {
             String sql = "select * "
-                    + " from SIBO_TB_Orde_Comp oc, SIBO_TB_Articulo art, ABAA_TB_Prove p \n"
-                    + " where oc.OC_Prove_FK = Prove_Id_Prove_PK and art.Arti_Orde_Comp_Fk=oc.OC_Id_PK \n"
+                    + " from SIBO_TB_Orde_Comp oc, ABAA_TB_Prove p \n"
+                    + " where oc.OC_Prove_FK = Prove_Id_Prove_PK \n"
                     + " and (oc.OC_Esta='No Procesada' or oc.OC_Esta='Parcialmente Procesada')\n"
                     + " and oc.OC_Id_PK like '%%%s%%';";
             sql = String.format(sql, filtro);

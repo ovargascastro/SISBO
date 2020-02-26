@@ -13,8 +13,8 @@ function selecArt() {
         url: "api/ExistenciasTemp?filtro=" + filtro,
         success: function (data) {
             $.each(data, function (key, art) {
-                $("#selectArt").append('<option value=' + art.sboTbSicop.sicopId + '>' + art.sboTbSicop.sicopDesc + '</option>');    
-            });         
+                $("#selectArt").append('<option value=' + art.sboTbSicop.sicopId + '>' + art.sboTbSicop.sicopDesc + '</option>');
+            });
         },
         error: function (jqXHR) {
             alert(errorMessage(jqXHR.status));
@@ -25,9 +25,9 @@ function selecArt() {
 //funcion para listarArticulos de la solicitud temporales
 
 
-function resetearSelectArt(selectbox){
+function resetearSelectArt(selectbox) {
     var i;
-    for (i = selectbox.options.length - 1; i >= 0; i--){
+    for (i = selectbox.options.length - 1; i >= 0; i--) {
         selectbox.remove(i);
     }
     selecArt();
@@ -60,64 +60,26 @@ function buscar() {
 
 
 
-function eliminaArt(id){
-   if(confirm("Desea eliminar el articulo?") ){
-           $.ajax({type: "DELETE", 
-          url:"api/artSolTemp/"+id, 
-          success: buscar,
-          error: function(status){ alert(errorMessage(status));}                 
-        }); 
+function eliminaArt(id) {
+    if (confirm("Desea eliminar el articulo?")) {
+        $.ajax({type: "DELETE",
+            url: "api/artSolTemp/" + id,
+            success: buscar,
+            error: function (status) {
+                alert(errorMessage(status));
+            }
+        });
     }
-  }
-  
-  //funcion para crear la solicitud que va a recibir ArtixSoli
-  
-  function creaSolicitud(){
-       var depto = $("#departamento").val();
-       var idUsu = $("#idusuario").val();
-       console.log(depto);
-       SboTbSoliArti = {
-           abaaTbDepartamento: {
-            deptoIdPk: depto
-        },
-         abaaTbFuncionario: {
-            funcIdPk: idUsu
-        }
-       };
-       $.ajax({type: "POST",
-        url: "api/solicitudArticulo",
-        data: JSON.stringify(SboTbSoliArti),
-        contentType: "application/json",
-        success: termine,
-        error: function (jqXHR) {
-            alert("Seleccione los artículos que requiere antes de enviar la solicitud");
-        }
-    });
-      
-  }
-  function termine(){
-      
-    $.ajax({type: "GET",
-        url: "api/artSolTemp/"+0,
-        success: colocarID,
-        error: function (jqXHR) {
-            alert("No lo hice");}
-    });
-      console.log("hola");
-      alert("ya hice la solicitud en el model hay una varible numSoliArti donde guardo el id de la solicitud");
-  }
-  
-  function colocarID(arti){
-      $("#idSoli").val(arti.solArtiIdPk);
-     // probando que si ingresa
-      mostrarInserto();
-      
-  }
-  
+}
+
+//funcion para crear la solicitud que va a recibir ArtixSoli
+
+
+
 function agregarSolicitudArticulo() {
     var depto = $("#departamento").val();
     var f = new Date();
-    var fecha =f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate();
+    var fecha = f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate();
     var fecha2 = fecha.toDate("yyyy-mm-dd");
     SboTbSoliArti = {
         abaaTbDepartamento: {
@@ -128,7 +90,7 @@ function agregarSolicitudArticulo() {
         },
         solArtiEsta: "pendiente",
         solArtiFechSoli: fecha2,
-        solArtiDesc:document.getElementById("descripcion").value
+        solArtiDesc: document.getElementById("descripcion").value
     };
     $.ajax({type: "POST",
         url: "api/solicitudArticulo",
@@ -141,7 +103,46 @@ function agregarSolicitudArticulo() {
     });
 }
 
+function creaSolicitud() {
+    var depto = $("#departamento").val();
+    var idUsu = $("#idusuario").val();
+    console.log(depto);
+    SboTbSoliArti = {
+        abaaTbDepartamento: {
+            deptoIdPk: depto
+        },
+        abaaTbFuncionario: {
+            funcIdPk: idUsu
+        }
+    };
+    $.ajax({type: "POST",
+        url: "api/solicitudArticulo",
+        data: JSON.stringify(SboTbSoliArti),
+        contentType: "application/json",
+        success: termine,
+        error: function (jqXHR) {
+            alert("Seleccione los artículos que requiere antes de enviar la solicitud");
+        }
+    });
+}
 
+function termine() {
+    $.ajax({type: "GET",
+        url: "api/artSolTemp/" + 0,
+        success: colocarID,
+        error: function (jqXHR) {
+            alert("No lo hice");
+        }
+    });
+    console.log("hola");
+    //alert("ya hice la solicitud en el model hay una varible numSoliArti donde guardo el id de la solicitud");
+}
+
+function colocarID(arti) {
+    console.log(arti);
+    $("#idSoli").val(arti.solArtiIdPk);
+    ingresaIdSoli(arti.solArtiIdPk);
+}
 
 function agregarSoliXart() {
     $.ajax({type: "POST",
@@ -199,7 +200,7 @@ function buscarListaSolicitudes() {
 }
 
 function articulosXSolicitud(filtro) {
-    
+
     $.ajax({type: "GET",
         url: "api/artPorSol?filtro=" + filtro,
         success: listaArticulosxSol,
@@ -212,11 +213,11 @@ function articulosXSolicitud(filtro) {
 }
 
 function getExistencias() {
-  var depa = $("#departamento").val();
-  var arti = document.getElementById("selectArt").value;
-  
+    var depa = $("#departamento").val();
+    var arti = document.getElementById("selectArt").value;
+
     $.ajax({type: "GET",
-        url: "api/ExistenciasTemp/"+depa+"/"+arti,
+        url: "api/ExistenciasTemp/" + depa + "/" + arti,
         success: muestraCantidad,
         error: function (jqXHR) {
             alert("no se pudo");
@@ -224,7 +225,7 @@ function getExistencias() {
     });
 }
 
-function muestraCantidad(can){
+function muestraCantidad(can) {
     //alert("prueba");
     console.log(can);
     $("#cantidadExist").val(can.exisCant);
@@ -239,8 +240,8 @@ function buscarSolicitudxAprobar() {
             alert(errorMessage(jqXHR.status));
         }
     });
-    
-    
+
+
 }
 
 function buscarSolicitudVbJf() {
@@ -252,12 +253,12 @@ function buscarSolicitudVbJf() {
             alert(errorMessage(jqXHR.status));
         }
     });
-    
-    
+
+
 }
 
 
-function buscarSolicitudVbTI(){
+function buscarSolicitudVbTI() {
 
     $.ajax({type: "GET",
         url: "api/soliAprobacionTI?filtro=" + $("#filtro").val(),
@@ -265,52 +266,52 @@ function buscarSolicitudVbTI(){
         error: function (jqXHR) {
             alert(errorMessage(jqXHR.status));
         }
-    });   
+    });
 }
 
-function abrirModalRechazar(){
-        $("#motivo").val("");
-        $('#Rechazar').modal('show');
-   
+function abrirModalRechazar() {
+    $("#motivo").val("");
+    $('#Rechazar').modal('show');
+
 
 }
 
-function Aprobar(filtro){
+function Aprobar(filtro) {
     console.log(filtro);
- $.ajax({type: "GET",
-            url:"api/soliAprobacionJF/" + filtro,
-            success: mostraraprobarJF,
-            error: function (jqXHR) {
-                alert(errorMessage(jqXHR.status));
-            }
-        });
-    
+    $.ajax({type: "GET",
+        url: "api/soliAprobacionJF/" + filtro,
+        success: mostraraprobarJF,
+        error: function (jqXHR) {
+            alert(errorMessage(jqXHR.status));
+        }
+    });
+
 }
 
 var solIdActual1;
 var solFecha1;
 var solDeparta1;
 function mostraraprobarJF(soli) {
- solIdActual1 = soli.solArtiIdPk;
- solFecha1= soli.solArtiFechSoli;
- solDeparta1= soli.abaaTbDepartamento;
+    solIdActual1 = soli.solArtiIdPk;
+    solFecha1 = soli.solArtiFechSoli;
+    solDeparta1 = soli.abaaTbDepartamento;
     console.log("estoy en el aprobarJEFE");
-   // solEstado= soli.c;
-        $('#Aprobar').modal('show');
-        console.log(soli.solArtiIdPk);
+    // solEstado= soli.c;
+    $('#Aprobar').modal('show');
+    console.log(soli.solArtiIdPk);
 
 }
 
-function AprobarTI(filtro){
+function AprobarTI(filtro) {
     console.log(filtro);
- $.ajax({type: "GET",
-            url:"api/soliAprobacionTI/" + filtro,
-            success: mostraraprobarTI,
-            error: function (jqXHR) {
-                alert(errorMessage(jqXHR.status));
-            }
-        });
-    
+    $.ajax({type: "GET",
+        url: "api/soliAprobacionTI/" + filtro,
+        success: mostraraprobarTI,
+        error: function (jqXHR) {
+            alert(errorMessage(jqXHR.status));
+        }
+    });
+
 }
 
 var solIdActual2;
@@ -318,15 +319,15 @@ var solFecha2;
 var solDeparta2;
 
 function mostraraprobarTI(soli) {
- solIdActual2 = soli.solArtiIdPk;
- solFecha2= soli.solArtiFechSoli;
- solDeparta2= soli.abaaTbDepartamento;
- 
+    solIdActual2 = soli.solArtiIdPk;
+    solFecha2 = soli.solArtiFechSoli;
+    solDeparta2 = soli.abaaTbDepartamento;
+
     console.log("estoy en el aprobarIT");
-  
-   // solEstado= soli.c;
-        $('#AprobarTI').modal('show');
-        console.log(soli.solArtiIdPk);
+
+    // solEstado= soli.c;
+    $('#AprobarTI').modal('show');
+    console.log(soli.solArtiIdPk);
 
 }
 
@@ -347,25 +348,25 @@ var artIdEx;
 var cantExist;
 var SoliEx;
 function mostrarExistencia(soli) {
-     
-    artIdEx=soli.sboTbArticulo.artIdPk;
-    SoliEx=soli.sboTbSoliArti.solArtiIdPk;
-    cantExist=soli.solArtiCant;
-   console.log("existencias funciona");
+
+    artIdEx = soli.sboTbArticulo.artIdPk;
+    SoliEx = soli.sboTbSoliArti.solArtiIdPk;
+    cantExist = soli.solArtiCant;
+    console.log("existencias funciona");
     console.log(artIdEx);
     console.log(SoliEx);
 }
 
 function actualizarExistenciaEstado() {
- console.log(artIdEx);   
- console.log(SoliEx);
+    console.log(artIdEx);
+    console.log(SoliEx);
     SboTbSolixArti = {
-        sboTbArticulo:{ 
-            artIdPk:artIdEx},
-        sboTbSoliArti:{
-            solArtiIdPk:SoliEx
-        } ,
-        solArtiCant: cantExist 
+        sboTbArticulo: {
+            artIdPk: artIdEx},
+        sboTbSoliArti: {
+            solArtiIdPk: SoliEx
+        },
+        solArtiCant: cantExist
     };
     $.ajax({type: "PUT",
         url: "api/artPorSol",
@@ -384,25 +385,25 @@ function actualizarExistenciaEstado() {
 
 
 
-function abrirModalAprobar(filtro){
+function abrirModalAprobar(filtro) {
     console.log(filtro);
- $.ajax({type: "GET",
-            url:"api/soliAprobacion/" + filtro,
-            success: mostrarXaprobar,
-            error: function (jqXHR) {
-                alert(errorMessage(jqXHR.status));
-            }
-        });
-        
-         $.ajax({type: "GET",
-         url: "api/artPorSol/" + filtro,
+    $.ajax({type: "GET",
+        url: "api/soliAprobacion/" + filtro,
+        success: mostrarXaprobar,
+        error: function (jqXHR) {
+            alert(errorMessage(jqXHR.status));
+        }
+    });
+
+    $.ajax({type: "GET",
+        url: "api/artPorSol/" + filtro,
         success: mostrarExistencia,
         error: function (jqXHR) {
             alert(errorMessage(jqXHR.status));
         }
 
     });
-    
+
 }
 var VBJF;
 var VBTI;
@@ -411,40 +412,36 @@ var solFecha;
 var solDeparta;
 var EstAc;
 function mostrarXaprobar(soli) {
- solIdActual = soli.solArtiIdPk;
- solFecha= soli.solArtiFechSoli;
- solDeparta= soli.abaaTbDepartamento;
- VBJF=soli.solArtiVistJefe;
- VBTI=soli.solArtiVistTi;
- EstAc=soli.solArtiEsta;
-   // solEstado= soli.c;
-     console.log(VBJF);
-     console.log(VBTI);
-     if(VBJF===true && VBTI===false && EstAc==='VBJefeAprobado'){
-         $('#modalAprobarJEFE').modal('show');     
-     }
-     else if(VBJF===false && VBTI===true && EstAc==='VBTIAprobado'){
-         $('#modalAprobarTI').modal('show');     
-     }
-     else if(VBJF===true && VBTI===true){
-         $('#modalAprobarAmbas').modal('show');
-      }
-      
-     else if(EstAc==='PendienteVBJefe'||EstAc==='PendienteVBTI'){
-        $('#modalPendiente').modal('show');}
-    else 
-       $('#modalAprobar').modal('show');
-        console.log(soli.solArtiIdPk);
-        console.log(EstAc);
+    solIdActual = soli.solArtiIdPk;
+    solFecha = soli.solArtiFechSoli;
+    solDeparta = soli.abaaTbDepartamento;
+    VBJF = soli.solArtiVistJefe;
+    VBTI = soli.solArtiVistTi;
+    EstAc = soli.solArtiEsta;
+    // solEstado= soli.c;
+    console.log(VBJF);
+    console.log(VBTI);
+    if (VBJF === true && VBTI === false && EstAc === 'VBJefeAprobado') {
+        $('#modalAprobarJEFE').modal('show');
+    } else if (VBJF === false && VBTI === true && EstAc === 'VBTIAprobado') {
+        $('#modalAprobarTI').modal('show');
+    } else if (VBJF === true && VBTI === true) {
+        $('#modalAprobarAmbas').modal('show');
+    } else if (EstAc === 'PendienteVBJefe' || EstAc === 'PendienteVBTI') {
+        $('#modalPendiente').modal('show');
+    } else
+        $('#modalAprobar').modal('show');
+    console.log(soli.solArtiIdPk);
+    console.log(EstAc);
 }
 
-function cerrarPendiente(){
-     $('#modalPendiente').modal('hide');
+function cerrarPendiente() {
+    $('#modalPendiente').modal('hide');
 }
 
-   var solEstado="Aprobada";     
- function actualizarEstadoAprobacion() {
- console.log(solIdActual);
+var solEstado = "Aprobada";
+function actualizarEstadoAprobacion() {
+    console.log(solIdActual);
     SboTbSoliArti = {
         solArtiIdPk: solIdActual,
         solArtiFechSoli: solFecha,
@@ -465,24 +462,21 @@ function cerrarPendiente(){
 
 function afterUpdateApE() {
     buscarSolicitudxAprobar();
-    
-   if(VBJF===true && VBTI===false){
-         $('#modalAprobarJEFE').modal('hide');     
-     }
-     else if(VBJF===false && VBTI===true){
-         $('#modalAprobarTI').modal('hide');     
-     }
-     else if(VBJF===true && VBTI===true){
-         $('#modalAprobarAmbas').modal('hide');
-      }
-     else
+
+    if (VBJF === true && VBTI === false) {
+        $('#modalAprobarJEFE').modal('hide');
+    } else if (VBJF === false && VBTI === true) {
+        $('#modalAprobarTI').modal('hide');
+    } else if (VBJF === true && VBTI === true) {
+        $('#modalAprobarAmbas').modal('hide');
+    } else
         $('#modalAprobar').modal('hide');
 
-}   
+}
 
-var solEstado2="PendienteVBJefe";     
- function actualizarEstadoJefe() {
- console.log(solIdActual);
+var solEstado2 = "PendienteVBJefe";
+function actualizarEstadoJefe() {
+    console.log(solIdActual);
     SboTbSoliArti = {
         solArtiIdPk: solIdActual,
         solArtiFechSoli: solFecha,
@@ -502,23 +496,20 @@ var solEstado2="PendienteVBJefe";
 }
 function afterUpdateApEsJf() {
     buscarSolicitudxAprobar();
-   if(VBJF===true && VBTI===false){
-         $('#modalAprobarJEFE').modal('hide');     
-     }
-     else if(VBJF===false && VBTI===true){
-         $('#modalAprobarTI').modal('hide');     
-     }
-     else if(VBJF===true && VBTI===true){
-         $('#modalAprobarAmbas').modal('hide');
-      }
-     else
+    if (VBJF === true && VBTI === false) {
+        $('#modalAprobarJEFE').modal('hide');
+    } else if (VBJF === false && VBTI === true) {
+        $('#modalAprobarTI').modal('hide');
+    } else if (VBJF === true && VBTI === true) {
+        $('#modalAprobarAmbas').modal('hide');
+    } else
         $('#modalAprobar').modal('hide');
 
-}   
+}
 
-var solEstado3="PendienteVBTI";     
- function actualizarEstadoTI() {
- console.log(solIdActual);
+var solEstado3 = "PendienteVBTI";
+function actualizarEstadoTI() {
+    console.log(solIdActual);
     SboTbSoliArti = {
         solArtiIdPk: solIdActual,
         solArtiFechSoli: solFecha,
@@ -538,29 +529,26 @@ var solEstado3="PendienteVBTI";
 }
 function afterUpdateApEsTI() {
     buscarSolicitudxAprobar();
-    if(VBJF===true && VBTI===false){
-         $('#modalAprobarJEFE').modal('hide');     
-     }
-     else if(VBJF===false && VBTI===true){
-         $('#modalAprobarTI').modal('hide');     
-     }
-     else if(VBJF===true && VBTI===true){
-         $('#modalAprobarAmbas').modal('hide');
-      }
-     else
+    if (VBJF === true && VBTI === false) {
+        $('#modalAprobarJEFE').modal('hide');
+    } else if (VBJF === false && VBTI === true) {
+        $('#modalAprobarTI').modal('hide');
+    } else if (VBJF === true && VBTI === true) {
+        $('#modalAprobarAmbas').modal('hide');
+    } else
         $('#modalAprobar').modal('hide');
 
-}   
+}
 
 
-var solEstado4="Rechazado: ";     
- function actualizarEstadoRechazo() {
- console.log(solIdActual);
+var solEstado4 = "Rechazado: ";
+function actualizarEstadoRechazo() {
+    console.log(solIdActual);
     SboTbSoliArti = {
         solArtiIdPk: solIdActual,
         solArtiFechSoli: solFecha,
         abaaTbDepartamento: solDeparta,
-        solArtiEsta:solEstado4+$("#motivo").val()
+        solArtiEsta: solEstado4 + $("#motivo").val()
     };
     $.ajax({type: "PUT",
         url: "api/solicitudArticulo",
@@ -579,20 +567,20 @@ function afterUpdateApEs() {
     buscarSolicitudxAprobar();
     $('#Rechazar').modal('hide');
 
-}   
+}
 
 function imprimir(filtro) {
-    
-    
-     $.ajax({type: "GET",
-            url:"api/solicitudArticulo?filtro=" + filtro,
-            success: listaInformacionSol,
-            error: function (jqXHR) {
-                alert(errorMessage(jqXHR.status));
-            }
-        });
-        
-        $.ajax({type: "GET",
+
+
+    $.ajax({type: "GET",
+        url: "api/solicitudArticulo?filtro=" + filtro,
+        success: listaInformacionSol,
+        error: function (jqXHR) {
+            alert(errorMessage(jqXHR.status));
+        }
+    });
+
+    $.ajax({type: "GET",
         url: "api/artPorSol?filtro=" + filtro,
         success: listaArticulosxSolImp,
         error: function (jqXHR) {
@@ -600,35 +588,35 @@ function imprimir(filtro) {
         }
 
     });
-  
-     $('#SolicitudImprimir').modal('show');
-}   
+
+    $('#SolicitudImprimir').modal('show');
+}
 
 var a;
 function mostrarsoli(soli) {
-    
-  console.log(a);
-  a=soli.solArtiIdPk;
+
+    console.log(a);
+    a = soli.solArtiIdPk;
     $('#SolicitudImprimir').modal('show');
 //   
-   $("#num").val(soli.solArtiIdPk);  
-   $("#departa").val(formatDate(soli.solArtiFechSoli));  
+    $("#num").val(soli.solArtiIdPk);
+    $("#departa").val(formatDate(soli.solArtiFechSoli));
 //    console.log(soli.abaaTbDepartamento.deptoNomb);
-       // console.log(a);
+    // console.log(a);
 }
 
 
 
-var vistoBueno=1;
-var solEstado1="VBJefeAprobado";     
- function actualizarEstadoVbJf() {
- console.log(solIdActual);
+var vistoBueno = 1;
+var solEstado1 = "VBJefeAprobado";
+function actualizarEstadoVbJf() {
+    console.log(solIdActual);
     SboTbSoliArti = {
         solArtiIdPk: solIdActual1,
         solArtiFechSoli: solFecha1,
         abaaTbDepartamento: solDeparta1,
         solArtiEsta: solEstado1,
-        solArtiVistJefe:vistoBueno
+        solArtiVistJefe: vistoBueno
     };
     $.ajax({type: "PUT",
         url: "api/soliAprobacionJF",
@@ -646,18 +634,18 @@ function afterUpdateVBJefe() {
     buscarSolicitudVbJf();
     $('#Aprobar').modal('hide');
 
-}   
+}
 
 
-var solEstado5="Rechazado Jefe: ";     
- function actualizarEstadoRechazoJefe() {
- console.log(solIdActual);
+var solEstado5 = "Rechazado Jefe: ";
+function actualizarEstadoRechazoJefe() {
+    console.log(solIdActual);
     SboTbSoliArti = {
         solArtiIdPk: solIdActual1,
         solArtiFechSoli: solFecha1,
         abaaTbDepartamento: solDeparta1,
-        solArtiEsta:solEstado5+$("#motivoJF").val(),
-        solArtiVistJefe:0
+        solArtiEsta: solEstado5 + $("#motivoJF").val(),
+        solArtiVistJefe: 0
     };
     $.ajax({type: "PUT",
         url: "api/soliAprobacionJF",
@@ -676,20 +664,20 @@ function afterUpdateRechJefe() {
     buscarSolicitudVbJf();
     $('#Rechazar').modal('hide');
 
-}   
+}
 
 
-var vistoBueno2=1;
-var solEstado6="VBTIAprobado";     
- function actualizarEstadoVbTI() {
- console.log(solIdActual);
+var vistoBueno2 = 1;
+var solEstado6 = "VBTIAprobado";
+function actualizarEstadoVbTI() {
+    console.log(solIdActual);
     SboTbSoliArti = {
         solArtiIdPk: solIdActual2,
         solArtiFechSoli: solFecha2,
         abaaTbDepartamento: solDeparta2,
         solArtiEsta: solEstado6,
-        solArtiVistTi:vistoBueno2
-        
+        solArtiVistTi: vistoBueno2
+
     };
     $.ajax({type: "PUT",
         url: "api/soliAprobacionTI",
@@ -707,17 +695,17 @@ function afterUpdateVBTI() {
     buscarSolicitudVbTI();
     $('#AprobarTI').modal('hide');
 
-}   
+}
 
-var solEstado7="Rechazado TI: ";     
- function actualizarEstadoRechazoTI() {
- console.log(solIdActual);
+var solEstado7 = "Rechazado TI: ";
+function actualizarEstadoRechazoTI() {
+    console.log(solIdActual);
     SboTbSoliArti = {
         solArtiIdPk: solIdActual2,
         solArtiFechSoli: solFecha2,
         abaaTbDepartamento: solDeparta2,
-        solArtiEsta:solEstado7+$("#motivoTI").val(),
-        solArtiVistTi:0
+        solArtiEsta: solEstado7 + $("#motivoTI").val(),
+        solArtiVistTi: 0
     };
     $.ajax({type: "PUT",
         url: "api/soliAprobacionTI",
@@ -736,40 +724,42 @@ function afterUpdateRechTI() {
     buscarSolicitudVbTI();
     $('#Rechazar').modal('hide');
 
-}   
+}
 
 
-function eliminaArt(id){
-   if(confirm("Desea eliminar el articulo?") ){
-           $.ajax({type: "DELETE", 
-          url:"api/artSolTemp/"+id, 
-          success: buscar,
-          error: function(status){ alert(errorMessage(status));}                 
-        }); 
+function eliminaArt(id) {
+    if (confirm("Desea eliminar el articulo?")) {
+        $.ajax({type: "DELETE",
+            url: "api/artSolTemp/" + id,
+            success: buscar,
+            error: function (status) {
+                alert(errorMessage(status));
+            }
+        });
     }
-  }
-  
-  
-  //imprimir JS trabajar desde aqui
-  
+}
+
+
+//imprimir JS trabajar desde aqui
+
 //document.getElementById('export').addEventListener('click',
 //  PDF);
 
 var specialElementHandlers = {
-  // element with id of "bypass" - jQuery style selector
-  '.no-export': function(element, renderer) {
-    // true = "handled elsewhere, bypass text extraction"
-    return true;
-  }
+    // element with id of "bypass" - jQuery style selector
+    '.no-export': function (element, renderer) {
+        // true = "handled elsewhere, bypass text extraction"
+        return true;
+    }
 };
 
-var getImageFromUrl = function(url, callback) {
+var getImageFromUrl = function (url, callback) {
     var img = new Image();
 
-    img.onError = function() {
-        alert('Cannot load image: "'+url+'"');
+    img.onError = function () {
+        alert('Cannot load image: "' + url + '"');
     };
-    img.onload = function() {
+    img.onload = function () {
         callback(img);
     };
     img.src = url;
@@ -777,34 +767,33 @@ var getImageFromUrl = function(url, callback) {
 
 function exportPDF(imgData) {
 
-    
+
     var doc = new jsPDF('p', 'pt', 'a4');
 
     doc.addImage(imgData, 'JPEG', 0, 0, 100, 90);
 
-  var source = document.getElementById('content').innerHTML;
+    var source = document.getElementById('content').innerHTML;
 
-  var margins = {
-    top: 80,
-    bottom: 10,
-    left: 10,
-    width: 595
-  };
+    var margins = {
+        top: 80,
+        bottom: 10,
+        left: 10,
+        width: 595
+    };
 
 
-  doc.fromHTML(
-    source, // HTML string or DOM elem ref.
-    margins.left,
-    margins.top, {
-      'width': margins.width,
-      'elementHandlers': specialElementHandlers
-    },
-
-    function(dispose) {
-      doc.save('solicitud.pdf');
-    }, margins);
+    doc.fromHTML(
+            source, // HTML string or DOM elem ref.
+            margins.left,
+            margins.top, {
+                'width': margins.width,
+                'elementHandlers': specialElementHandlers
+            },
+            function (dispose) {
+                doc.save('solicitud.pdf');
+            }, margins);
 }
 
-function PDF(){
-getImageFromUrl('assets/img/Escudo.png', exportPDF);
+function PDF() {
+    getImageFromUrl('assets/img/Escudo.png', exportPDF);
 }
