@@ -444,13 +444,13 @@ public class solicitudArtDAO {
        }
        
        public void insertarSolxArt(SboTbSolixArti objeto) throws Exception{
-       String sql = "Execute agregarSoliXarti(?,?,?,?);";
-       CallableStatement CallStmt = db.getConnection().prepareCall(sql);
-       CallStmt.setInt(1,objeto.getId().getSolixArtiIdSoliArtiPk());
-       CallStmt.setInt(2, objeto.getSboSicop().getSicopId());
-       CallStmt.setInt(3, objeto.getSolArtiCant());
-       CallStmt.setString(4, objeto.getSolArtiDeta());
-       CallStmt.execute();
+       String sql = "Execute agregarSoliXarti ?,?,?,?;";
+       PreparedStatement preparedStmt = db.getConnection().prepareStatement(sql);
+       preparedStmt.setInt(1,objeto.getId().getSolixArtiIdSoliArtiPk());
+       preparedStmt.setInt(2, objeto.getSboSicop().getSicopId());
+       preparedStmt.setInt(3, objeto.getSolArtiCant());
+       preparedStmt.setString(4, objeto.getSolArtiDeta());
+       preparedStmt.executeUpdate();
        db.getConnection().close(); 
        }
        
