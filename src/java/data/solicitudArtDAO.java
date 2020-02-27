@@ -235,8 +235,9 @@ public class solicitudArtDAO {
     public List<SboTbSoliArti> listadoSolicitudesArticulos(String filtro) {
         List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
         try {
-            String sql = "select * from SIBO_TB_Soli_Arti sa, ABAA_TB_Catalogo_Departamento dep "
+            String sql = "select * from SIBO_TB_Soli_Arti sa, ABAA_TB_Catalogo_Departamento dep, ABAA_TB_Persona per "
                     + "where sa.Soli_Arti_Id_PK like '%%%s%%'"
+                    + "and sa.Soli_Arti_Id_Func_FK=per.Pers_id_PK "
                     + "and sa.Soli_Arti_Id_Depa_FK=dep.Cata_Depa_id_PK";
             sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
@@ -255,8 +256,8 @@ public class solicitudArtDAO {
             solArt.setSolArtiVistJefe(rs.getBoolean("Soli_Arti_Vist_Jefe"));
             solArt.setSolArtiVistTi(rs.getBoolean("Soli_Arti_Vist_Ti"));
             solArt.setSolArtiFechSoli(rs.getDate("Soli_Arti_Fech_Soli"));
-            solArt.setAbaaTbDepartamento(departamento2(rs));
-            solArt.setAbaaTbFuncionario(persona(rs));
+            solArt.setAbaaTbDepartamento(departamento(rs));
+            solArt.setAbaaTbPersona(persona(rs));
             solArt.setSolArtiEsta(rs.getString("Soli_Arti_Esta"));
             return solArt;
         } catch (SQLException ex) {
@@ -277,7 +278,15 @@ public class solicitudArtDAO {
     private AbaaTbPersona persona(ResultSet rs) {
         try {
             AbaaTbPersona ob = new AbaaTbPersona();
-            ob.setPersIdPK(rs.getInt("Soli_Arti_Id_Func_FK"));
+            ob.setPersIdPK(rs.getInt("Pers_id_PK"));
+            ob.setDepartamento(departamento(rs));
+            ob.setPersApe1(rs.getString("Pers_ape1"));
+            ob.setPersApe2(rs.getString("Pers_ape2"));
+            ob.setPersNomb(rs.getString("Pers_nomb"));
+            ob.setPersSfun(rs.getByte("Pers_es_func"));
+            ob.setPers_es_jefe(rs.getByte("Pers_es_jefe"));
+            ob.setPersCedu(rs.getString("Pers_cedu"));
+            
             return ob;
         } catch (SQLException ex) {
             return null;
@@ -439,7 +448,7 @@ public class solicitudArtDAO {
         String query = "execute Soli_Insertar ?,?;";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getAbaaTbDepartamento().getDeptoIdPk());
-        preparedStmt.setInt(2, objeto.getAbaaTbFuncionario().getPersIdPK());
+        preparedStmt.setInt(2, objeto.getAbaaTbPersona().getPersIdPK());
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }

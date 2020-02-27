@@ -86,7 +86,7 @@ function agregarSolicitudArticulo() {
             deptoIdPk: depto
         },
         abaaTbFuncionario: {
-            funcIdPk: 1
+            funcIdPk: 1 
         },
         solArtiEsta: "pendiente",
         solArtiFechSoli: fecha2,
@@ -111,8 +111,8 @@ function creaSolicitud() {
         abaaTbDepartamento: {
             deptoIdPk: depto
         },
-        abaaTbFuncionario: {
-            funcIdPk: idUsu
+        abaaTbPersona: {
+            persIdPK: idUsu
         }
     };
     $.ajax({type: "POST",

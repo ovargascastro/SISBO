@@ -71,7 +71,7 @@
                 </div>
             </div>
         </form>
-        <form action="javascript:creaNuevaSolicitud()">
+        <form action="javascript:creaSolicitud()">
             <div class="card" id="formulario">
                 <div class="card-body">
                     

@@ -14,7 +14,7 @@ public class SboTbSoliArti  implements java.io.Serializable {
 
      private int solArtiIdPk;
      private AbaaTbDepartamento abaaTbDepartamento;
-     private AbaaTbPersona abaaTbFuncionario;
+     private AbaaTbPersona AbaaTbPersona;
      private Boolean solArtiVistJefe;
      private Boolean solArtiVistTi;
      private Date solArtiFechSoli;
@@ -29,10 +29,10 @@ public class SboTbSoliArti  implements java.io.Serializable {
     public SboTbSoliArti(int solArtiIdPk) {
         this.solArtiIdPk = solArtiIdPk;
     }
-    public SboTbSoliArti(int solArtiIdPk, AbaaTbDepartamento abaaTbDepartamento, AbaaTbPersona abaaTbFuncionario, Boolean solArtiVistJefe, Boolean solArtiVistTi, Date solArtiFechSoli, Date solArtiFechSali, Set<SboTbSolixArti> sboTbSolixArtis, String solArtiDesc) {
+    public SboTbSoliArti(int solArtiIdPk, AbaaTbDepartamento abaaTbDepartamento, AbaaTbPersona AbaaTbPersona, Boolean solArtiVistJefe, Boolean solArtiVistTi, Date solArtiFechSoli, Date solArtiFechSali, Set<SboTbSolixArti> sboTbSolixArtis, String solArtiDesc) {
        this.solArtiIdPk = solArtiIdPk;
        this.abaaTbDepartamento = abaaTbDepartamento;
-       this.abaaTbFuncionario = abaaTbFuncionario;
+       this.AbaaTbPersona = AbaaTbPersona;
        this.solArtiVistJefe = solArtiVistJefe;
        this.solArtiVistTi = solArtiVistTi;
        this.solArtiFechSoli = solArtiFechSoli;
@@ -56,12 +56,12 @@ public class SboTbSoliArti  implements java.io.Serializable {
     public void setAbaaTbDepartamento(AbaaTbDepartamento abaaTbDepartamento) {
         this.abaaTbDepartamento = abaaTbDepartamento;
     }
-    public AbaaTbPersona getAbaaTbFuncionario() {
-        return this.abaaTbFuncionario;
+    public AbaaTbPersona getAbaaTbPersona() {
+        return this.AbaaTbPersona;
     }
     
-    public void setAbaaTbFuncionario(AbaaTbPersona abaaTbFuncionario) {
-        this.abaaTbFuncionario = abaaTbFuncionario;
+    public void setAbaaTbPersona(AbaaTbPersona abaaTbFuncionario) {
+        this.AbaaTbPersona = abaaTbFuncionario;
     }
     public Boolean getSolArtiVistJefe() {
         return this.solArtiVistJefe;
