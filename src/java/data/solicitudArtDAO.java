@@ -297,8 +297,8 @@ public class solicitudArtDAO {
         List<SboTbSolixArti> resultado = new ArrayList<SboTbSolixArti>();
         try {
             String sql = "select * "
-                    + "from SIBO_TB_Articulo art, SIBO_TB_Soli_Arti solArt, SIBO_TB_Soli_X_Arti sxa "
-                    + "where art.Arti_Id_PK = sxa.Soli_Arti_Id_X_Arti_PK "
+                    + "from SIBO_TB_Sicop art, SIBO_TB_Soli_Arti solArt, SIBO_TB_Soli_X_Arti sxa "
+                    + "where art.Sico_Id_PK = sxa.Soli_Arti_Id_X_Sico_PK "
                     + "and solart.Soli_Arti_Id_PK = sxa.Soli_Arti_Id_X_Soli_Arti_PK "
                     + "and solArt.Soli_Arti_Id_PK = '%s'";
             sql = String.format(sql, filtro);
