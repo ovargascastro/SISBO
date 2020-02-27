@@ -245,50 +245,43 @@
         <script src="assets/js/solicitudArticulo.js" type="text/javascript"></script>
     </body>
     <script>
-                        document.getElementById("solicitudArtMenu").style.color = "white";
-                        function listSoliArt(personas) {
-                            var listado = $("#listSolArt");
-                            listado.html("");
-                            personas.forEach((p) => {
-                                filaSolArt(listado, p);
-                            });
-                        }
+        document.getElementById("solicitudArtMenu").style.color = "white";
+        function listSoliArt(personas) {
+            var listado = $("#listSolArt");
+            listado.html("");
+            personas.forEach((p) => {
+                filaSolArt(listado, p);
+            });
+        }
 
-                        function filaSolArt(listado, objeto) {
-                            var tr = $("<tr />");
-                            tr.html(
-                                    "<td>" + objeto.solArtiIdPk + "</td>"
-                                    + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
-                                    + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
-                                    + "<td>" + objeto.solArtiEsta + "</td>"
-                                    + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'></td>"
-                                    + "<td><img src='assets/img/edit.png' onclick='abrirModalAprobar(\"" + objeto.solArtiIdPk + "\");'></td>"
-                                    );
-                            listado.append(tr);
+        function filaSolArt(listado, objeto) {
+            var tr = $("<tr />");
+            tr.html(
+                "<td>" + objeto.solArtiIdPk + "</td>"
+                + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
+                + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
+                + "<td>" + objeto.solArtiEsta + "</td>"
+                + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'></td>"
+                + "<td><img src='assets/img/edit.png' onclick='abrirModalAprobar(\"" + objeto.solArtiIdPk + "\");'></td>"
+            );
+            listado.append(tr);
+        }
 
-                        }
+        function listaArticulosxSol(personas) {
+            var listado = $("#listaArticulosSolicitud");
+            listado.html("");
+            personas.forEach((p) => {
+                filaArticulos(listado, p);
+            });
+        }
 
-                        //onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'
-
-
-                        function listaArticulosxSol(personas) {
-                            var listado = $("#listaArticulosSolicitud");
-                            listado.html("");
-                            personas.forEach((p) => {
-                                filaArticulos(listado, p);
-                            });
-                        }
-
-
-
-                        function filaArticulos(listado, objeto) {
-                            var tr = $("<tr />");
-                            tr.html(
-                                    "<td>" + objeto.sboTbArticulo.artDesc + "</td>"
-                                    + "<td>" + objeto.solArtiCant + "</td>");
-
-                            listado.append(tr);
-
-                        }
+        function filaArticulos(listado, objeto) {
+            var tr = $("<tr />");
+            tr.html(
+                "<td>" + objeto.sboSicop.sicopDesc + "</td>"
+                + "<td>" + objeto.solArtiCant + "</td>");
+            listado.append(tr);
+        }
+        
     </script>
 </html>

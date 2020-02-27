@@ -386,7 +386,7 @@ function actualizarExistenciaEstado() {
 
 
 function abrirModalAprobar(filtro) {
-    console.log(filtro);
+    console.log("Filtro ID en abrirModalAprobar:" + filtro);
     $.ajax({type: "GET",
         url: "api/soliAprobacion/" + filtro,
         success: mostrarXaprobar,
@@ -419,8 +419,8 @@ function mostrarXaprobar(soli) {
     VBTI = soli.solArtiVistTi;
     EstAc = soli.solArtiEsta;
     // solEstado= soli.c;
-    console.log(VBJF);
-    console.log(VBTI);
+    console.log("Visto bueno del jefe:" + VBJF);
+    console.log("Visto bueno de TI:" + VBTI);
     if (VBJF === true && VBTI === false && EstAc === 'VBJefeAprobado') {
         $('#modalAprobarJEFE').modal('show');
     } else if (VBJF === false && VBTI === true && EstAc === 'VBTIAprobado') {
@@ -431,8 +431,8 @@ function mostrarXaprobar(soli) {
         $('#modalPendiente').modal('show');
     } else
         $('#modalAprobar').modal('show');
-    console.log(soli.solArtiIdPk);
-    console.log(EstAc);
+    console.log("ID de Solicitud Articulo:" + soli.solArtiIdPk);
+    console.log("Estado Solicitud Articulo:" + EstAc);
 }
 
 function cerrarPendiente() {
