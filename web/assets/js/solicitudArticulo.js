@@ -198,7 +198,7 @@ function buscarListaSolicitudes() {
         }
     });
 }
-
+//SI
 function articulosXSolicitud(filtro) {
 
     $.ajax({type: "GET",
@@ -247,7 +247,7 @@ function buscarSolicitudxAprobar() {
 function buscarSolicitudVbJf() {
 
     $.ajax({type: "GET",
-        url: "api/soliAprobacionJF?filtro=" + $("#filtro").val(),
+        url: "api/soliAprobacionJF?filtro=" + $("#departamento").val(),
         success: listSoliArtJF,
         error: function (jqXHR) {
             alert(errorMessage(jqXHR.status));
@@ -395,14 +395,14 @@ function abrirModalAprobar(filtro) {
         }
     });
 
-    $.ajax({type: "GET",
-        url: "api/artPorSol/" + filtro,
-        success: mostrarExistencia,
-        error: function (jqXHR) {
-            alert(errorMessage(jqXHR.status));
-        }
-
-    });
+//    $.ajax({type: "GET",
+//        url: "api/artPorSol/" + filtro,
+//        success: mostrarExistencia,
+//        error: function (jqXHR) {
+//            alert(errorMessage(jqXHR.status));
+//        }
+//
+//    });
 
 }
 var VBJF;

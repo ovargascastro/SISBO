@@ -376,11 +376,12 @@ public class solicitudArtDAO {
         }
     }
 
+   
     public List<SboTbSoliArti> listadoSolicitudVistobuenoJf(String filtro) {
         List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
         try {
             String sql = "select * from SIBO_TB_Soli_Arti sa, ABAA_TB_Catalogo_Departamento dep "
-                    + "where sa.Soli_Arti_Id_PK like '%%%s%%'"
+                    + "where sa.Soli_Arti_Id_Depa_FK like '%%%s%%'"
                     + "and sa.Soli_Arti_Esta = 'PendienteVBJefe'"
                     + "and sa.Soli_Arti_Id_Depa_FK=dep.Cata_Depa_id_PK";
 //            String sql = "select * from Sbo_TB_Soli_Arti o where o.Sol_Arti_Esta='pendiente' and o.Sol_Arti_Id_PK like '%%%s%%'";

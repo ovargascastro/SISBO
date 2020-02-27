@@ -20,7 +20,7 @@
 
     </head>
 
-    <body style="background-color: rgb(255,255,255);">
+    <body style="background-color: rgb(255,255,255);" onload="mostrardepa()">
 
         <%@ include file="/presentation/header.jsp" %>
 
@@ -32,7 +32,9 @@
             </div>
         </div>
         <form>
-            <div class="card" id="formulario">
+            <div class="card" id="formulario" >
+      <input class="form-control" type="hidden" placeholder="departamento" id="departamento"  readonly="readonly">
+
                 <div class="card-body">
                     <h4 class="text-center">Solicitudes de Artículos</h4>
                     <div class="container">
@@ -257,6 +259,11 @@
                                                    listado.append(tr);
 
                                         }
+                                        
+     function mostrardepa(){
+        var depa=${logged.getDepartamento().getDeptoIdPk()};
+        $("#departamento").val(depa);    
+    }
     </script>
 
 </html>
