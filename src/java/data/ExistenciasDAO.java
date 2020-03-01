@@ -18,7 +18,6 @@ public class ExistenciasDAO {
     }
 
     private SboTbBodega Bodega(ResultSet rs) {
-
         try {
             SboTbBodega bodega = new SboTbBodega();
             //bodega.setBodeIdPk(rs.getInt("Bode_Id_PK"));
@@ -30,11 +29,31 @@ public class ExistenciasDAO {
         }
     }
 
+    private SboTbBodega Bodega2(ResultSet rs) {
+        try {
+            SboTbBodega bodega = new SboTbBodega();
+            bodega.setBodeIdPk(rs.getInt("Exis_Id_Bode_PK"));
+            return bodega;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+
     private AbaaTbDepartamento departamento(ResultSet rs) {
         try {
             AbaaTbDepartamento ob = new AbaaTbDepartamento();
             //  ob.setDeptoIdPk(rs.getString("Cata_Depa_id_PK"));
             ob.setDeptoNomb(rs.getString("Cata_Depa_nomb"));
+            return ob;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+
+    private AbaaTbDepartamento departamento2(ResultSet rs) {
+        try {
+            AbaaTbDepartamento ob = new AbaaTbDepartamento();
+            ob.setDeptoIdPk(rs.getString("Exist_Depa_PK"));
             return ob;
         } catch (SQLException ex) {
             return null;
@@ -54,6 +73,16 @@ public class ExistenciasDAO {
         }
     }
 
+    private SboSicop sicop2(ResultSet rs) {
+        try {
+            SboSicop ob = new SboSicop();
+            ob.setSicopId(rs.getInt("Exis_Id_Sico_PK"));
+            return ob;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+
     private SboTbExistencia existencia(ResultSet rs) {
         try {
             SboTbExistencia ob = new SboTbExistencia();
@@ -61,6 +90,19 @@ public class ExistenciasDAO {
             ob.setExisCant(rs.getDouble("Exis_Cant"));
             ob.setAbaaTbDepartamento(departamento(rs));
             ob.setSboTbSicop(sicop(rs));
+            return ob;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+
+    private SboTbExistencia existencia2(ResultSet rs) {
+        try {
+            SboTbExistencia ob = new SboTbExistencia();
+            ob.setSboTbBodega(Bodega2(rs));
+            ob.setSboTbSicop(sicop2(rs));
+            ob.setAbaaTbDepartamento(departamento2(rs));
+            ob.setExisCant(rs.getDouble("Exis_Cant"));
             return ob;
         } catch (SQLException ex) {
             return null;
@@ -120,7 +162,22 @@ public class ExistenciasDAO {
         } else {
             throw new Exception("Bien no Existe");
         }
+    }
 
+    public SboTbExistencia registroExistenciasPorSolicitud(String depa, String sicop) throws SQLException, Exception {
+        String sql = "select SIBO_TB_Exis.Exis_Id_Bode_PK,SIBO_TB_Exis.Exis_Id_Sico_PK,SIBO_TB_Exis.Exist_Depa_PK,SIBO_TB_Exis.Exis_Cant \n"
+                + "from SIBO_TB_Exis,SIBO_TB_Bode,SIBO_TB_Sicop,ABAA_TB_Catalogo_Departamento\n"
+                + "where SIBO_TB_Exis.Exis_Id_Bode_PK=SIBO_TB_Bode.Bode_Id_PK\n"
+                + "and SIBO_TB_Exis.Exis_Id_Sico_PK=SIBO_TB_Sicop.Sico_Id_PK\n"
+                + "and SIBO_TB_Exis.Exist_Depa_PK=ABAA_TB_Catalogo_Departamento.Cata_Depa_id_PK\n"
+                + "and SIBO_TB_Exis.Exis_Id_Sico_PK='%s' and SIBO_TB_Exis.Exist_Depa_PK='%s';";
+        sql = String.format(sql, sicop, depa);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return existencia2(rs);
+        } else {
+            throw new Exception("Bien no Existe");
+        }
     }
 
 }

@@ -86,7 +86,7 @@ function agregarSolicitudArticulo() {
             deptoIdPk: depto
         },
         abaaTbFuncionario: {
-            funcIdPk: 1
+            funcIdPk: 1 
         },
         solArtiEsta: "pendiente",
         solArtiFechSoli: fecha2,
@@ -111,8 +111,8 @@ function creaSolicitud() {
         abaaTbDepartamento: {
             deptoIdPk: depto
         },
-        abaaTbFuncionario: {
-            funcIdPk: idUsu
+        abaaTbPersona: {
+            persIdPK: idUsu
         }
     };
     $.ajax({type: "POST",
@@ -198,7 +198,7 @@ function buscarListaSolicitudes() {
         }
     });
 }
-
+//SI
 function articulosXSolicitud(filtro) {
 
     $.ajax({type: "GET",
@@ -247,7 +247,7 @@ function buscarSolicitudxAprobar() {
 function buscarSolicitudVbJf() {
 
     $.ajax({type: "GET",
-        url: "api/soliAprobacionJF?filtro=" + $("#filtro").val(),
+        url: "api/soliAprobacionJF?filtro=" + $("#departamento").val(),
         success: listSoliArtJF,
         error: function (jqXHR) {
             alert(errorMessage(jqXHR.status));
@@ -272,8 +272,6 @@ function buscarSolicitudVbTI() {
 function abrirModalRechazar() {
     $("#motivo").val("");
     $('#Rechazar').modal('show');
-
-
 }
 
 function Aprobar(filtro) {
@@ -285,7 +283,6 @@ function Aprobar(filtro) {
             alert(errorMessage(jqXHR.status));
         }
     });
-
 }
 
 var solIdActual1;
@@ -358,26 +355,23 @@ function mostrarExistencia(soli) {
 }
 
 function actualizarExistenciaEstado() {
-    console.log(artIdEx);
-    console.log(SoliEx);
-    SboTbSolixArti = {
-        sboTbArticulo: {
-            artIdPk: artIdEx},
-        sboTbSoliArti: {
-            solArtiIdPk: SoliEx
-        },
-        solArtiCant: cantExist
+    var soliXarti = {
+        sboTbSoliArti: [{solArtiIdPk: $('#SoliArtiID').val()}]
     };
     $.ajax({type: "PUT",
-        url: "api/artPorSol",
-        data: JSON.stringify(SboTbSolixArti),
+        url: "api/aprobacionSolicitudBodeguero",
+        data: JSON.stringify(soliXarti),
         contentType: "application/json",
-        success: afterUpdateApE,
+        success: alistarAlertas,
         error: function (jqXHR) {
             alert('Error');
         }
     });
 
+}
+
+function alistarAlertas(lista){
+    
 }
 
 
@@ -386,7 +380,6 @@ function actualizarExistenciaEstado() {
 
 
 function abrirModalAprobar(filtro) {
-    console.log(filtro);
     $.ajax({type: "GET",
         url: "api/soliAprobacion/" + filtro,
         success: mostrarXaprobar,
@@ -395,14 +388,14 @@ function abrirModalAprobar(filtro) {
         }
     });
 
-    $.ajax({type: "GET",
-        url: "api/artPorSol/" + filtro,
-        success: mostrarExistencia,
-        error: function (jqXHR) {
-            alert(errorMessage(jqXHR.status));
-        }
-
-    });
+//    $.ajax({type: "GET",
+//        url: "api/artPorSol/" + filtro,
+//        success: mostrarExistencia,
+//        error: function (jqXHR) {
+//            alert(errorMessage(jqXHR.status));
+//        }
+//
+//    });
 
 }
 var VBJF;
@@ -419,8 +412,8 @@ function mostrarXaprobar(soli) {
     VBTI = soli.solArtiVistTi;
     EstAc = soli.solArtiEsta;
     // solEstado= soli.c;
-    console.log(VBJF);
-    console.log(VBTI);
+    $('#SoliArtiID').val(solIdActual);
+    
     if (VBJF === true && VBTI === false && EstAc === 'VBJefeAprobado') {
         $('#modalAprobarJEFE').modal('show');
     } else if (VBJF === false && VBTI === true && EstAc === 'VBTIAprobado') {
@@ -431,8 +424,6 @@ function mostrarXaprobar(soli) {
         $('#modalPendiente').modal('show');
     } else
         $('#modalAprobar').modal('show');
-    console.log(soli.solArtiIdPk);
-    console.log(EstAc);
 }
 
 function cerrarPendiente() {

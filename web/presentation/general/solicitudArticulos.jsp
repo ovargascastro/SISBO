@@ -71,7 +71,7 @@
                 </div>
             </div>
         </form>
-        <form action="javascript:creaNuevaSolicitud()">
+        <form action="javascript:creaSolicitud()">
             <div class="card" id="formulario">
                 <div class="card-body">
                     
@@ -200,15 +200,8 @@
         limpiaEspacios();
    }
    
-   // Este es el método invocado a partir del botón "Solicitar"
-   // Debes llamar 3 a funciones principales:
-   // Primera función: insertaDatosSolicitud()
-   // Segunda función: ingresaIdSoli()
-   // Tercera función: insertaListaSoliXArti()
    function creaNuevaSolicitud(){
        creaSolicitud();
-       //ingresaIdSoli('18');
-       //insertaListaSoliXArti();
    }
    
    function ingresaIdSoli(id){
@@ -217,14 +210,7 @@
             objeto['sboTbSoliArti'] = [{solArtiIdPk: id}];
             localStorage.setItem(objeto.sboSicop[0].sicopId, JSON.stringify(objeto));
         }
-        //--------------------------------------------------------------------------
-        for (var i = 0; i < localStorage.length; i++){
-            var objeto = JSON.parse(localStorage.getItem(localStorage.key(i)));
-            funcionAuxiliar(objeto);
-        }
-        limpiartabla();
-        limpiaEspacios();
-        depurarLocalStorage();
+        insertaListaSoliXArti();
    }
    
     function insertaListaSoliXArti(){
