@@ -61,7 +61,6 @@
                                         <tr>
                                             <th class="text-center">Número<br>de solicitud</th>
                                             <th class="text-center">Fecha</th>
-                                            <th class="text-center">Solicitante</th>
                                             <th class="text-center">Unidad usuaria</th>
                                             <th class="text-center">Estado</th>
                                             <th class="text-center">Artículos</th>
@@ -240,7 +239,6 @@
             </div>
         </div>
     </div>
-    <input id="SoliArtiID" type="hidden">
 
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
@@ -261,7 +259,6 @@
             tr.html(
                 "<td>" + objeto.solArtiIdPk + "</td>"
                 + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
-                + "<td>" + objeto.abaaTbPersona.persNomb + " " + objeto.abaaTbPersona.persApe1 + " " + objeto.abaaTbPersona.persApe2 + "</td>"
                 + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
                 + "<td>" + objeto.solArtiEsta + "</td>"
                 + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'></td>"
