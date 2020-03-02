@@ -465,4 +465,8 @@ public class Model {
        return existdao.listaExistencias(bodega, departamento, articulo);
     }
 
+    
+    public void actualizaCantExist(SboTbExistencia e) throws SQLException{
+        existdao.updateExist(e);
+    }
 }

@@ -9,12 +9,21 @@ package logic;
 public class SboTbExistencia  implements java.io.Serializable {
 
      private SboTbExistenciaId id;
+     private int idE;
      private AbaaTbDepartamento abaaTbDepartamento;
      private SboTbBodega sboTbBodega;
      private SboSicop sboTbSicop;
      private Double exisCant;
 
     public SboTbExistencia() {
+    }
+
+    public int getIdE() {
+        return idE;
+    }
+
+    public void setIdE(int idE) {
+        this.idE = idE;
     }
 
 	
