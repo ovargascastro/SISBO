@@ -9,7 +9,6 @@ package logic;
 public class SboTbExistencia  implements java.io.Serializable {
 
      private SboTbExistenciaId id;
-     private int idE;
      private AbaaTbDepartamento abaaTbDepartamento;
      private SboTbBodega sboTbBodega;
      private SboSicop sboTbSicop;
@@ -18,21 +17,12 @@ public class SboTbExistencia  implements java.io.Serializable {
     public SboTbExistencia() {
     }
 
-<<<<<<< HEAD
     public SboTbExistencia(SboTbExistenciaId id, AbaaTbDepartamento abaaTbDepartamento, SboTbBodega sboTbBodega, SboSicop sboTbSicop, Double exisCant) {
         this.id = id;
         this.abaaTbDepartamento = abaaTbDepartamento;
         this.sboTbBodega = sboTbBodega;
         this.sboTbSicop = sboTbSicop;
         this.exisCant = exisCant;
-=======
-    public int getIdE() {
-        return idE;
-    }
-
-    public void setIdE(int idE) {
-        this.idE = idE;
->>>>>>> f3176b462ff20101acc0708c97964fed1b7d7c42
     }
 
 	
@@ -90,5 +80,3 @@ public class SboTbExistencia  implements java.io.Serializable {
 
 
 }
-
-
