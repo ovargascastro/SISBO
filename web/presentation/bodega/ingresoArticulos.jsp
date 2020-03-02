@@ -70,6 +70,7 @@
                                     <option value="Unidad" >Unidad</option>
                                     <option value="Kilo">Kilo</option>
                                     <option value="Metro">Metro</option>
+                                    <option value="Metro">Litro</option>
                                 </select>
 
                                 <label>Precio</label>
@@ -111,6 +112,14 @@
                                 <label>Fecha de Vencimiento</label>
                                 <input id="AddArtFVencimiento" class="form-control" 
                                        type="date" placeholder="Fecha de Vencimiento">
+                                
+                                <label>Tipo de Ingreso</label>
+                                <select class="form-control" id="selectTipoIngreso" required>
+                                    <option values="0" selected disabled = "true">Seleccione una opcion</option>
+                                    <option value="Regular" >Regular</option>
+                                    <option value="Donacion" >Donación</option>
+                                    <option value="Caja Chica">Caja Chica</option>
+                                </select>
                             </div>
 
                         </div>
