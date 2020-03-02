@@ -1,5 +1,6 @@
 package data;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.List;
 import logic.AbaaTbDepartamento;
 import logic.SboSicop;
 import logic.SboTbBodega;
+import logic.SboTbCatContable;
 import logic.SboTbExistencia;
 
 public class ExistenciasDAO {
@@ -178,6 +180,17 @@ public class ExistenciasDAO {
         } else {
             throw new Exception("Bien no Existe");
         }
+    }
+
+    public void actualizarExistencia(SboTbExistencia objeto) throws Exception {
+        String query = "update SIBO_TB_Exis set Exis_Cant=? where Exis_Id_Bode_PK=? and Exis_Id_Sico_PK=? and Exist_Depa_PK=?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setDouble(1, objeto.getExisCant());
+        preparedStmt.setInt(2, objeto.getSboTbBodega().getBodeIdPk());
+        preparedStmt.setInt(3, objeto.getSboTbSicop().getSicopId());
+        preparedStmt.setString(4, objeto.getAbaaTbDepartamento().getDeptoIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
     }
 
 }
