@@ -272,8 +272,6 @@ function buscarSolicitudVbTI() {
 function abrirModalRechazar() {
     $("#motivo").val("");
     $('#Rechazar').modal('show');
-
-
 }
 
 function Aprobar(filtro) {
@@ -285,7 +283,6 @@ function Aprobar(filtro) {
             alert(errorMessage(jqXHR.status));
         }
     });
-
 }
 
 var solIdActual1;
@@ -358,26 +355,23 @@ function mostrarExistencia(soli) {
 }
 
 function actualizarExistenciaEstado() {
-    console.log(artIdEx);
-    console.log(SoliEx);
-    SboTbSolixArti = {
-        sboTbArticulo: {
-            artIdPk: artIdEx},
-        sboTbSoliArti: {
-            solArtiIdPk: SoliEx
-        },
-        solArtiCant: cantExist
+    var soliXarti = {
+        sboTbSoliArti: [{solArtiIdPk: $('#SoliArtiID').val()}]
     };
     $.ajax({type: "PUT",
-        url: "api/artPorSol",
-        data: JSON.stringify(SboTbSolixArti),
+        url: "api/aprobacionSolicitudBodeguero",
+        data: JSON.stringify(soliXarti),
         contentType: "application/json",
-        success: afterUpdateApE,
+        success: alistarAlertas,
         error: function (jqXHR) {
             alert('Error');
         }
     });
 
+}
+
+function alistarAlertas(lista){
+    
 }
 
 
@@ -386,7 +380,6 @@ function actualizarExistenciaEstado() {
 
 
 function abrirModalAprobar(filtro) {
-    console.log("Filtro ID en abrirModalAprobar:" + filtro);
     $.ajax({type: "GET",
         url: "api/soliAprobacion/" + filtro,
         success: mostrarXaprobar,
@@ -419,8 +412,8 @@ function mostrarXaprobar(soli) {
     VBTI = soli.solArtiVistTi;
     EstAc = soli.solArtiEsta;
     // solEstado= soli.c;
-    console.log("Visto bueno del jefe:" + VBJF);
-    console.log("Visto bueno de TI:" + VBTI);
+    $('#SoliArtiID').val(solIdActual);
+    
     if (VBJF === true && VBTI === false && EstAc === 'VBJefeAprobado') {
         $('#modalAprobarJEFE').modal('show');
     } else if (VBJF === false && VBTI === true && EstAc === 'VBTIAprobado') {
@@ -431,8 +424,6 @@ function mostrarXaprobar(soli) {
         $('#modalPendiente').modal('show');
     } else
         $('#modalAprobar').modal('show');
-    console.log("ID de Solicitud Articulo:" + soli.solArtiIdPk);
-    console.log("Estado Solicitud Articulo:" + EstAc);
 }
 
 function cerrarPendiente() {

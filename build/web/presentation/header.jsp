@@ -70,7 +70,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="ArticulosMenu" data-toggle="dropdown"> Artículos </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/bodega/ingresoArticulosNuevos.jsp">Ingreso de Artículos por OC</a>
-                                <!--<a class="dropdown-item" href="presentation/bodega/ingresoArticulos.jsp">Ingreso de Artículos</a>-->
+                                <a class="dropdown-item" href="presentation/bodega/ingresoArticulos.jsp">Ingreso de Artículos</a>
                                 <a class="dropdown-item" href="presentation/bodega/existencias.jsp">Existencias</a>
                             </div>
                         </div>
