@@ -86,7 +86,7 @@ function agregarSolicitudArticulo() {
             deptoIdPk: depto
         },
         abaaTbFuncionario: {
-            funcIdPk: 1 
+            funcIdPk: 1
         },
         solArtiEsta: "pendiente",
         solArtiFechSoli: fecha2,
@@ -240,8 +240,17 @@ function buscarSolicitudxAprobar() {
             alert(errorMessage(jqXHR.status));
         }
     });
+}
 
-
+function buscarSolicitudxAprobar2() {
+    var vacio="";
+    $.ajax({type: "GET",
+        url: "api/soliAprobacion?filtro=" + vacio,
+        success: listSoliArt,
+        error: function (jqXHR) {
+            alert(errorMessage(jqXHR.status));
+        }
+    });
 }
 
 function buscarSolicitudVbJf() {
@@ -370,8 +379,16 @@ function actualizarExistenciaEstado() {
 
 }
 
-function alistarAlertas(lista){
+function alistarAlertas(lista) {
+    buscarSolicitudxAprobar2();
+    alert('¡Solicitud aprobada correctamente! De puta madre...');
+    $('#modalAprobar').modal('show');
+    $('#modalAprobarJEFE').modal('show');
+    $('#modalAprobarTI').modal('show');
+    $('#modalAprobarAmbas').modal('show');
+    $('#modalPendiente').modal('show');
     
+
 }
 
 
@@ -413,7 +430,7 @@ function mostrarXaprobar(soli) {
     EstAc = soli.solArtiEsta;
     // solEstado= soli.c;
     $('#SoliArtiID').val(solIdActual);
-    
+
     if (VBJF === true && VBTI === false && EstAc === 'VBJefeAprobado') {
         $('#modalAprobarJEFE').modal('show');
     } else if (VBJF === false && VBTI === true && EstAc === 'VBTIAprobado') {
@@ -534,12 +551,9 @@ function afterUpdateApEsTI() {
 
 var solEstado4 = "Rechazado: ";
 function actualizarEstadoRechazo() {
-    console.log(solIdActual);
     SboTbSoliArti = {
-        solArtiIdPk: solIdActual,
-        solArtiFechSoli: solFecha,
-        abaaTbDepartamento: solDeparta,
-        solArtiEsta: solEstado4 + $("#motivo").val()
+        solArtiIdPk: $('#SoliArtiID').val(),
+        solArtiEsta: "Rechazado: " + $("#motivo").val()
     };
     $.ajax({type: "PUT",
         url: "api/solicitudArticulo",
