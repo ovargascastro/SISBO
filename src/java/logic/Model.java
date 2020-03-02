@@ -494,4 +494,8 @@ public class Model {
         return bandera;
     }
 
+    
+    public void actualizaCantExist(SboTbExistencia e) throws SQLException{
+        existdao.updateExist(e);
+    }
 }
