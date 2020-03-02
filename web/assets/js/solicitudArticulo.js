@@ -294,9 +294,9 @@ function Aprobar(filtro) {
     });
 }
 
-var solIdActual1;
-var solFecha1;
-var solDeparta1;
+    var solIdActual1;
+    var solFecha1;
+    var solDeparta1;
 function mostraraprobarJF(soli) {
     solIdActual1 = soli.solArtiIdPk;
     solFecha1 = soli.solArtiFechSoli;
