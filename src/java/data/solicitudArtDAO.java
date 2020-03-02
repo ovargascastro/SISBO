@@ -341,6 +341,8 @@ public class solicitudArtDAO {
         }
         return resultado;
     }
+    
+    
 
     public void actualizarEstSolicitud(SboTbSoliArti objeto) throws SQLException {
         String query = "update SIBO_TB_Soli_Arti set Soli_Arti_Esta = ? where Soli_Arti_Id_PK = ?";
