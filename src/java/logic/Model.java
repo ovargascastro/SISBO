@@ -826,10 +826,15 @@ public class Model {
         return  solArtdao.getSboTbSoliArti(id);
          
     }
+<<<<<<< HEAD
 
 
     
     public void actualizaCantExist(SboTbExistencia e) throws SQLException{
         existdao.updateExist(e);
     }
+=======
+
+
+>>>>>>> parent of 83f46e2... Version preliminar aprobar solicitudes
 }

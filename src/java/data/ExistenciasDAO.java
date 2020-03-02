@@ -70,6 +70,7 @@ public class ExistenciasDAO {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private SboTbExistencia existencia2(ResultSet rs) {
         try {
             SboTbExistencia ob = new SboTbExistencia();
@@ -93,6 +94,8 @@ public class ExistenciasDAO {
     
     }
 
+=======
+>>>>>>> parent of 83f46e2... Version preliminar aprobar solicitudes
 =======
 >>>>>>> parent of 83f46e2... Version preliminar aprobar solicitudes
     public List<SboTbExistencia> listaExistencias(String bodega, String departamento, String articulo) {
