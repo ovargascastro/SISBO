@@ -356,6 +356,12 @@ $('#selectCatalogoArticulos').attr('data-live-search', 'true');
     
 }
 
+    function logged() {
+    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+    <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("17")) { %>
+        location.href = "presentation/notAccess.jsp";
+    <%}%>
+    }
 
 
 
