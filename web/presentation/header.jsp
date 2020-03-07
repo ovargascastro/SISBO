@@ -32,6 +32,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="index.jsp" id="index">Inicio</a>
                         </li>
+                        <!--CONTABILIDAD-->
                         <% if ("8".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 1) {%>
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="ordenCompraMenu" data-toggle="dropdown"> Orden de Compra</a>
@@ -57,6 +58,7 @@
                             </div>
                         </div>
                         <%}%>
+                        <!--BODEGA-->
                         <% if ("5".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 1) {%>
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="ordenCompraMenu" data-toggle="dropdown"> Orden de Compra </a>
@@ -67,7 +69,8 @@
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="ArticulosMenu" data-toggle="dropdown"> Artículos </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/bodega/ingresoArticulosNuevos.jsp">Ingreso de Artículos Nuevos</a>
+                                <a class="dropdown-item" href="presentation/bodega/ingresoArticulosNuevos.jsp">Ingreso de Artículos por OC</a>
+                                <a class="dropdown-item" href="presentation/bodega/ingresoArticulos.jsp">Ingreso de Artículos</a>
                                 <a class="dropdown-item" href="presentation/bodega/existencias.jsp">Existencias</a>
                             </div>
                         </div>
@@ -89,6 +92,7 @@
                             </div>
                         </div>
                         <%}%>
+                        <!-- PROVEDURIA -->
                         <!-- Secretaria -->
                         <% if ("17".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 0) {%>
                         <div class="nav-item dropdown">
@@ -115,6 +119,7 @@
                             </div>
                         </div>
                         <%}%>
+                        <!--PROVEDURIA-->
                         <!-- Jefa -->
                         <% if ("17".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 1) {%>
                         <div class="nav-item dropdown">
@@ -139,6 +144,18 @@
                                 <a class="dropdown-item" href="presentation/catalogos/administracionCatalogos.jsp">Administración de Catálogos</a>
                                 <a class="dropdown-item" href="presentation/proveeduria/proveedores.jsp">Catálogo de Proveedores</a>
                                 <a class="dropdown-item" href="presentation/catalogos/codSicop.jsp">Catálogo de SICOP</a>
+                            </div>
+                        </div>
+                        <%}%>
+                        <!--COMPUTO-->
+                        <% if ("6".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 1) {%>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown">
+                                Solicitud de artículos
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
+                                <a class="dropdown-item" href="presentation/general/vistoBuenoTI.jsp">Visto bueno de TI</a>
                             </div>
                         </div>
                         <%}%>

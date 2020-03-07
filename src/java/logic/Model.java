@@ -464,6 +464,10 @@ public class Model {
         
        return existdao.listaExistencias(bodega, departamento, articulo);
     }
+    
+    public void agregarArticuloSinOrden(SboTbArticulo art) throws Exception {
+        articulodao.agregarArticuloSinOrden(art);
+    }
 
     
     public void actualizaCantExist(SboTbExistencia e) throws SQLException{

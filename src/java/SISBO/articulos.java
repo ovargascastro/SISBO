@@ -36,4 +36,16 @@ public class articulos {
             throw new NotFoundException();
         }
     }
+    
+    @POST
+    @Path("articulo")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void agregarArticulo(SboTbArticulo articulo) {
+        try {
+            Model.instance().agregarArticuloSinOrden(articulo);
+        } catch (Exception ex) {
+            throw new NotFoundException();
+        }
+    }
+    
 }
