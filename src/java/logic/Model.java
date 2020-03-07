@@ -510,7 +510,7 @@ public class Model {
         ArrayList<SboTbLimiteDpto> limites = verificaLimExisConExistencias(existencias);
         ArrayList< SboTbExistencia> alertas = new ArrayList<SboTbExistencia>();
         for (int i = 0; i < existencias.size(); i++) {
-            if (limites.get(i).getLimiteDptoLimite() < existencias.get(i).getExisCant()) {
+            if (limites.get(i).getLimiteDptoLimite() > existencias.get(i).getExisCant()) {
                 alertas.add(existencias.get(i));
             }
         }

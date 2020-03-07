@@ -79,6 +79,7 @@ public class ExistenciasDAO {
         try {
             SboSicop ob = new SboSicop();
             ob.setSicopId(rs.getInt("Exis_Id_Sico_PK"));
+            ob.setSicopDesc(rs.getString("Sico_Desc"));
             return ob;
         } catch (SQLException ex) {
             return null;
@@ -167,7 +168,7 @@ public class ExistenciasDAO {
     }
 
     public SboTbExistencia registroExistenciasPorSolicitud(String depa, String sicop) throws SQLException, Exception {
-        String sql = "select SIBO_TB_Exis.Exis_Id_Bode_PK,SIBO_TB_Exis.Exis_Id_Sico_PK,SIBO_TB_Exis.Exist_Depa_PK,SIBO_TB_Exis.Exis_Cant \n"
+        String sql = "select SIBO_TB_Exis.Exis_Id_Bode_PK,SIBO_TB_Exis.Exis_Id_Sico_PK,SIBO_TB_Exis.Exist_Depa_PK,SIBO_TB_Exis.Exis_Cant, SIBO_TB_Sicop.Sico_Desc\n"
                 + "from SIBO_TB_Exis,SIBO_TB_Bode,SIBO_TB_Sicop,ABAA_TB_Catalogo_Departamento\n"
                 + "where SIBO_TB_Exis.Exis_Id_Bode_PK=SIBO_TB_Bode.Bode_Id_PK\n"
                 + "and SIBO_TB_Exis.Exis_Id_Sico_PK=SIBO_TB_Sicop.Sico_Id_PK\n"

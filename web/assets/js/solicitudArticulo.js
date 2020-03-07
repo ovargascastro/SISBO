@@ -373,7 +373,7 @@ function actualizarExistenciaEstado() {
         contentType: "application/json",
         success: alistarAlertas,
         error: function (jqXHR) {
-            alert('Error');
+            alert('No se puede aceptar la solicitud por falta de artículos');
         }
     });
 
@@ -381,14 +381,15 @@ function actualizarExistenciaEstado() {
 
 function alistarAlertas(lista) {
     buscarSolicitudxAprobar2();
-    alert('¡Solicitud aprobada correctamente! De puta madre...');
-    $('#modalAprobar').modal('show');
-    $('#modalAprobarJEFE').modal('show');
-    $('#modalAprobarTI').modal('show');
-    $('#modalAprobarAmbas').modal('show');
-    $('#modalPendiente').modal('show');
-    
-
+    if(lista.length!==0){
+        listaAlerts(lista);
+        $('#alertasMinimo').modal('show');
+    }
+    $('#modalAprobar').modal('hide');
+    $('#modalAprobarJEFE').modal('hide');
+    $('#modalAprobarTI').modal('hide');
+    $('#modalAprobarAmbas').modal('hide');
+    $('#modalPendiente').modal('hide');
 }
 
 
