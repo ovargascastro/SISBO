@@ -183,10 +183,9 @@
                             </div>
                         </div>
                         <%}%>
-                        
-                        <!--OTROS FUNCIONARIOS JEFES-->
-                        <% if (logged.getDepartamento().getDeptoIdPk()!="6" && logged.getDepartamento().getDeptoIdPk()!="17"
-                                && logged.getDepartamento().getDeptoIdPk()!="5" && logged.getDepartamento().getDeptoIdPk()!="8"
+                                <!--OTROS FUNCIONARIOS JEFES-->
+                                <% if (!logged.getDepartamento().getDeptoIdPk().equals("6") && !logged.getDepartamento().getDeptoIdPk().equals("17")
+                                && !logged.getDepartamento().getDeptoIdPk().equals("5") && !logged.getDepartamento().getDeptoIdPk().equals("8")
                                 && logged.getPers_es_jefe() == 1) {%>
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown">
@@ -198,7 +197,8 @@
                             </div>
                         </div>
                         <%}%>
-                        
+
+ 
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="UsuarioActual" data-toggle="dropdown">
                                 <%= logged.getPersNomb() + " " + logged.getPersApe1()%>

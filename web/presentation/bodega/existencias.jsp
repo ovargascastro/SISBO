@@ -116,6 +116,11 @@
 </html>
 <script>
     document.getElementById("ArticulosMenu").style.color = "white";
-
+    function logged() {
+    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+    <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
+        location.href = "presentation/notAccess.jsp";
+    <%}%>
+    }
 
 </script>
