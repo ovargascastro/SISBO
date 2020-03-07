@@ -11,9 +11,7 @@ function selectBodegas() {
             alert('error');
         }
     });
-
 }
-
 
 function selectDeptos() {
     $.ajax({type: "GET",
@@ -29,8 +27,6 @@ function selectDeptos() {
     });
 }
 
-
-
 function selectSicop() {
     $.ajax({type: "GET",
         url: "api/Sicop",
@@ -45,7 +41,6 @@ function selectSicop() {
     });
 }
 
-
 $(document).ready(function () {
     selectSicop();
     selectDeptos();
@@ -57,14 +52,11 @@ function getExistencias() {
     var depto = document.getElementById("SelectDptos").value;
     var arti = document.getElementById("selectSicop").value;
     var bodeg = document.getElementById("SelectBodegas").value;
-
-
     $.ajax({type: "GET",
         url: "api/Existencias/" + bodeg + "/" + depto + "/" + arti,
         success: listaExist
     });
 }
-
 
 function listaExist(personas) {
     var listado = $("#listadoExistencias");
@@ -83,9 +75,7 @@ function fila(listado, objeto) {
             + "<td>" + objeto.exisCant + "</td>"
             + "<td><img src='assets/img/edit.png' onclick='editarExist(\"" + objeto.idE + "\",\"" + objeto.exisCant + "\");'></td>");
     listado.append(tr);
-
 }
-
 
 var idExistActual = 0;
 function editarExist(id, cant) {
@@ -95,7 +85,6 @@ function editarExist(id, cant) {
 }
 
 function actualizarExistencia() {
-
     if (confirm("Desea guardar el registro actual?")) {
         SboTbExistencia = {
             idE: idExistActual,

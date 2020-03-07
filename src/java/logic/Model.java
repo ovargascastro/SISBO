@@ -433,7 +433,7 @@ public class Model {
     }
 
     public List<SboTbExistencia> listaExistencias(String bodega, String departamento, String articulo) {
-        return existdao.listaExistencias(bodega, departamento, articulo);
+        return existdao.listaExistencias2(bodega, departamento, articulo);
     }
 
     public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
@@ -474,9 +474,8 @@ public class Model {
                 listaSolicitudes.get(i).getSboTbSoliArti().setSolArtiEsta("Aprobada");
                 solArtdao.actualizarEstSolicitud(listaSolicitudes.get(i).getSboTbSoliArti());
             }
-           return verificaLimiteExis(existencias);
-        }
-       else {
+            return verificaLimiteExis(existencias);
+        } else {
             throw new Exception("Departamento no Existe");
         }
     }
@@ -523,6 +522,10 @@ public class Model {
             l.add(limiDAO.getLimiteDepaPorExis(e.get(i)));
         }
         return l;
+    }
+
+    public void actualizaCantExist(SboTbExistencia e) throws SQLException {
+        existdao.updateExist(e);
     }
 
 }

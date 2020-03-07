@@ -11,6 +11,17 @@ import logic.SboTbBodega;
 import logic.SboTbCatContable;
 import logic.SboTbExistencia;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import logic.AbaaTbDepartamento;
+import logic.SboSicop;
+import logic.SboTbBodega;
+import logic.SboTbExistencia;
+import logic.SboTbOrdenCompra;
+
 public class ExistenciasDAO {
 
     RelDatabase db;
@@ -22,8 +33,6 @@ public class ExistenciasDAO {
     private SboTbBodega Bodega(ResultSet rs) {
         try {
             SboTbBodega bodega = new SboTbBodega();
-            //bodega.setBodeIdPk(rs.getInt("Bode_Id_PK"));
-            // bodega.setBodeUbic(rs.getString("Bode_Ubic"));
             bodega.setBodeDesc(rs.getString("Bode_Desc"));
             return bodega;
         } catch (SQLException ex) {
@@ -44,7 +53,6 @@ public class ExistenciasDAO {
     private AbaaTbDepartamento departamento(ResultSet rs) {
         try {
             AbaaTbDepartamento ob = new AbaaTbDepartamento();
-            //  ob.setDeptoIdPk(rs.getString("Cata_Depa_id_PK"));
             ob.setDeptoNomb(rs.getString("Cata_Depa_nomb"));
             return ob;
         } catch (SQLException ex) {
@@ -65,9 +73,6 @@ public class ExistenciasDAO {
     private SboSicop sicop(ResultSet rs) {
         try {
             SboSicop ob = new SboSicop();
-            ob.setSicopId(rs.getInt("Sico_Id_PK"));
-//            ob.setSicopCodiClas(rs.getString("Sico_Codi_Clas"));
-//            ob.setSicopCodiInden(rs.getString("Sico_Codi_Iden"));
             ob.setSicopDesc(rs.getString("Sico_Desc"));
             return ob;
         } catch (SQLException ex) {
@@ -90,6 +95,7 @@ public class ExistenciasDAO {
         try {
             SboTbExistencia ob = new SboTbExistencia();
             ob.setSboTbBodega(Bodega(rs));
+            ob.setIdE(rs.getInt("Exis_Id_Bode_PK"));
             ob.setExisCant(rs.getDouble("Exis_Cant"));
             ob.setAbaaTbDepartamento(departamento(rs));
             ob.setSboTbSicop(sicop(rs));
@@ -110,6 +116,40 @@ public class ExistenciasDAO {
         } catch (SQLException ex) {
             return null;
         }
+    }
+
+    private SboTbExistencia existencia3(ResultSet rs) {
+        try {
+            SboTbExistencia ob = new SboTbExistencia();
+            ob.setSboTbBodega(Bodega(rs));
+            ob.setAbaaTbDepartamento(departamento(rs));
+            ob.setSboTbSicop(sicop2(rs));
+            ob.setExisCant(rs.getDouble("Exis_Cant"));
+            return ob;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+
+    private SboTbExistencia existencia4(ResultSet rs) {
+        try {
+            SboTbExistencia ob = new SboTbExistencia();
+            ob.setExisCant(rs.getDouble("Exis_Cant"));
+            return ob;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+
+    public void updateExist(SboTbExistencia e) throws SQLException {
+        String query = "update SIBO_TB_Exis set Exis_Cant=? where Exis_Id_Bode_PK=? and Exis_Id_Sico_PK=? and Exist_Depa_PK=?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setDouble(1, e.getExisCant());
+        preparedStmt.setInt(2, e.getSboTbBodega().getBodeIdPk());
+        preparedStmt.setInt(3, e.getSboTbSicop().getSicopId());
+        preparedStmt.setString(4, e.getAbaaTbDepartamento().getDeptoIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
     }
 
     public List<SboTbExistencia> listaExistencias(String bodega, String departamento, String articulo) {
@@ -134,10 +174,33 @@ public class ExistenciasDAO {
         return resultado;
     }
 
+    public List<SboTbExistencia> listaExistencias2(String bodega, String departamento, String articulo) {
+        List<SboTbExistencia> resultado = new ArrayList<SboTbExistencia>();
+        try {
+            String sql = "select exis.Exis_Id_Bode_PK, bode.Bode_Desc, dpto.Cata_Depa_nomb, sicop.Sico_Desc, exis.Exis_Cant\n"
+                    + "from ABAA_TB_Catalogo_Departamento dpto, SIBO_TB_Bode bode, SIBO_TB_Sicop sicop,\n"
+                    + "SIBO_TB_Exis exis\n"
+                    + "where exis.Exis_Id_Bode_PK=bode.Bode_Id_PK\n"
+                    + "and exis.Exist_Depa_PK=dpto.Cata_Depa_id_PK\n"
+                    + "and exis.Exis_Id_Sico_PK=sicop.Sico_Id_PK\n"
+                    + "and exis.Exis_Id_Bode_PK=" + bodega + "\n"
+                    + "and exis.Exist_Depa_PK=" + departamento + "\n"
+                    + "and exis.Exis_Id_Sico_PK=" + articulo + ";";
+
+            sql = String.format(sql, bodega, departamento, articulo);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(existencia(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+
     public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
         List<SboTbExistencia> resultado = new ArrayList<SboTbExistencia>();
         try {
-            String sql = "select bode.Bode_Desc, dpto.Cata_Depa_nomb,sicop.Sico_Id_PK, sicop.Sico_Desc, exis.Exis_Cant\n"
+            String sql = "select bode.Bode_Desc, dpto.Cata_Depa_nomb,exis.Exis_Id_Sico_PK, sicop.Sico_Desc, exis.Exis_Cant\n"
                     + "from ABAA_TB_Catalogo_Departamento dpto, SIBO_TB_Bode bode, SIBO_TB_Sicop sicop,\n"
                     + "SIBO_TB_Exis exis\n"
                     + "where exis.Exis_Id_Bode_PK=bode.Bode_Id_PK\n"
@@ -147,7 +210,7 @@ public class ExistenciasDAO {
             sql = String.format(sql, depa);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
-                resultado.add(existencia(rs));
+                resultado.add(existencia3(rs));
             }
         } catch (SQLException ex) {
         }
@@ -161,7 +224,7 @@ public class ExistenciasDAO {
         sql = String.format(sql, departamento, articulo);
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
-            return existencia(rs);
+            return existencia4(rs);
         } else {
             throw new Exception("Bien no Existe");
         }
