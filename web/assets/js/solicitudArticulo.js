@@ -405,7 +405,7 @@ function abrirModalAprobar(filtro) {
         }
     });
 
-//    $.ajax({type: "GET",
+//      $.ajax({type: "GET",
 //        url: "api/artPorSol/" + filtro,
 //        success: mostrarExistencia,
 //        error: function (jqXHR) {
