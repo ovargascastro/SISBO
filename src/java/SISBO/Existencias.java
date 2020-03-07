@@ -55,6 +55,7 @@ public class Existencias {
 
 
     
+    
     @GET
     @Path("{bodeg}/{depto}/{arti}")
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)

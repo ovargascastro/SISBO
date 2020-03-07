@@ -96,6 +96,7 @@ function fila(listado, objeto) {
 
 
 
+
 var idExistActual=0;
 function editarExist(id, cant){
     idExistActual=id;

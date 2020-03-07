@@ -78,7 +78,7 @@
             </div>
         </div>
 
-
+        
         <div class="modal fade" role="dialog" tabindex="-1" id="modalEditarExist">
             <form id="actualizaExist" action="javascript:actualizarExistencia();">
             <div class="modal-dialog" role="document">
