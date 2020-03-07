@@ -218,6 +218,7 @@
 
     <script>
                                         document.getElementById("solicitudArtMenu").style.color = "white";
+                                        
                                         function listSoliArtTI(personas) {
                                             var listado = $("#listSolArtTI");
                                             listado.html("");
@@ -255,10 +256,9 @@
                                         function filaArticulos(listado, objeto) {
                                             var tr = $("<tr />");
                                             tr.html(
-                                                    "<td>" + objeto.sboTbArticulo.artDesc + "</td>"
-                                                    + "<td>" + objeto.solArtiCant + "</td>");
-
-                                            listado.append(tr);
+                                                  "<td>" + objeto.sboSicop.sicopDesc + "</td>"
+                                                + "<td>" + objeto.solArtiCant + "</td>");
+                                                   listado.append(tr);
 
                                         }
     </script>

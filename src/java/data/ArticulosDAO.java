@@ -18,11 +18,14 @@ import java.util.List;
 import logic.AbaaProyectos;
 import logic.AbaaTbDepartamento;
 import logic.AbaaTbProveedor;
+import logic.SboSicop;
 import logic.SboTbArticulo;
+import logic.SboTbBodega;
 import logic.SboTbCatArticulo;
 import logic.SboTbFamilia;
 import logic.SboTbOrdenCompra;
 import logic.SboTbSubFamilia;
+import logic.SboTbExistencia;
 
 /**
  *
@@ -131,6 +134,43 @@ public class ArticulosDAO {
             return null;
         }
     }
+       private SboTbExistencia existencia(ResultSet rs) {
+        try {
+            SboTbExistencia ob = new SboTbExistencia();
+            ob.setSboTbBodega(Bodega(rs));
+            ob.setExisCant(rs.getDouble("Exis_Cant"));
+            ob.setAbaaTbDepartamento(departamento(rs));
+            ob.setSboTbSicop(sicop(rs));
+            return ob;
+        } catch (SQLException ex) {
+            return null;
+        }
+
+    }
+       private SboTbBodega Bodega(ResultSet rs) {
+        try {
+            SboTbBodega bodega = new SboTbBodega();
+            //bodega.setBodeIdPk(rs.getInt("Bode_Id_PK"));
+           // bodega.setBodeUbic(rs.getString("Bode_Ubic"));
+            bodega.setBodeDesc(rs.getString("Bode_Desc"));
+            return bodega;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+        private SboSicop sicop(ResultSet rs) {
+        try {
+            SboSicop ob = new SboSicop();
+            ob.setSicopId(rs.getInt("Sico_Id_PK"));
+          //  ob.setSicopCodiClas(rs.getString("Sico_Codi_Clas"));
+          //  ob.setSicopCodiInden(rs.getString("Sico_Codi_Iden"));
+            ob.setSicopDesc(rs.getString("Sico_Desc"));
+            return ob;
+        } catch (SQLException ex) {
+            return null;
+        }
+
+    }
 
     public void agregarArticulo(SboTbArticulo objeto) throws Exception {
         String query = "insert into SIBO_TB_Articulo(Arti_Prec,Arti_Cant,Arti_Cant_Rest,Arti_Desc,"
@@ -213,7 +253,9 @@ public class ArticulosDAO {
         }
         return resultado;
     }
-
+    
+    
+    
     public List<SboTbArticulo> listadoArticulosPorOrdenConta(int filtro) {
         List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
         try {
@@ -253,6 +295,7 @@ public class ArticulosDAO {
             ar.setAbaaTbDepartamento(departamento(rs));
             ar.setArtUnidadMedida(rs.getString("Arti_Unid_Medi"));
             ar.setSboTbOrdenCompra(OrdenCompra(rs));
+            ar.setSboSicop(sicop(rs));
             return ar;
         } catch (SQLException ex) {
             return null;
@@ -293,14 +336,12 @@ public class ArticulosDAO {
         }
     }
 
-    //Hola Scrappy
-    
     public void agregarArticuloSinOrden(SboTbArticulo objeto) throws Exception {
         String query = "insert into SIBO_TB_Articulo(Arti_Prec,Arti_Cant,Arti_Cant_Rest,Arti_Desc,"
                 + "Arti_Mode,Arti_Nume_Seri,Arti_Marc,"
                 + "Arti_Codi_Cata_Arti_FK,Arti_Cata_Depa_FK,Arti_Unid_Medi, "
-                + "Arti_Cod_Sico_FK, Arti_Fech_Ingr, Arti_Fech_Venc, Arti_tipo_ingr) "
-                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "Arti_Cod_Sico_FK, Arti_Fech_Ingr, Arti_Fech_Venc) "
+                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setDouble(1, objeto.getArtPrecio());
         preparedStmt.setInt(2, objeto.getArtCant());
@@ -313,6 +354,7 @@ public class ArticulosDAO {
         preparedStmt.setString(9, objeto.getAbaaTbDepartamento().getDeptoIdPk());
         preparedStmt.setString(10, objeto.getArtUnidadMedida());
         preparedStmt.setInt(11, objeto.getSboSicop().getSicopId());
+        
         java.util.Date utilStartDate = objeto.getArtFingr();
         java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
         preparedStmt.setDate(12, sqlStartDate);
@@ -325,7 +367,6 @@ public class ArticulosDAO {
         else{
             preparedStmt.setDate(13, null);
         }
-        preparedStmt.setString(14, objeto.getArtiTipoIngr());
         
         preparedStmt.executeUpdate();
         db.getConnection().close();

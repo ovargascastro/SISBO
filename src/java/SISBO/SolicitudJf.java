@@ -43,6 +43,32 @@ public class SolicitudJf {
     }   
     
     
+//     @GET
+//
+//    @Path("{bodeg}/{depto}/{arti}")
+//
+//    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+//
+//    public List<SboTbExistencia> getExistencias(@PathParam("bodeg") String x, @PathParam("depto") String y, @PathParam("arti") String z)
+//
+//            throws ClassNotFoundException, SQLException {
+//
+//        String bodega = x;
+//
+//        String departamento = y;
+//
+//        String articulo = z;
+//
+//
+//
+//        List<SboTbExistencia> lista = Model.instance().listaExistencias(bodega, departamento, articulo);
+//
+//        return lista;
+//
+//    }
+
+    
+    
     @GET
     @Path("{filtro}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

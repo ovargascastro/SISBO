@@ -134,10 +134,6 @@ public class catalogosDAO {
         return resultado;
     }
     
-  
-  
-
-
     public SboTbCatArticulo getCatArticulo(int filtro) throws Exception {
         String sql = "select * from SIBO_TB_Cata_Arti a inner join SIBO_TB_Sub_Fami s on a.Cata_SubF_FK = s.Sub_Fami_Id_PK"
                 + " where a.Cata_Id_PK ='%s'";

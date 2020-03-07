@@ -19,6 +19,11 @@ public class SboSicop {
     public SboSicop() {
     }
 
+    public SboSicop(int sicopId, String sicopDesc) {
+        this.sicopId = sicopId;
+        this.sicopDesc = sicopDesc;
+    }
+
     public SboSicop(int sicopId, String sicopCodiInden, String sicopCodiClas, String sicopDesc) {
         this.sicopId = sicopId;
         this.sicopCodiInden = sicopCodiInden;

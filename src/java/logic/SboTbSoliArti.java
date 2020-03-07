@@ -14,13 +14,14 @@ public class SboTbSoliArti  implements java.io.Serializable {
 
      private int solArtiIdPk;
      private AbaaTbDepartamento abaaTbDepartamento;
-     private AbaaTbFuncionario abaaTbFuncionario;
+     private AbaaTbPersona AbaaTbPersona;
      private Boolean solArtiVistJefe;
      private Boolean solArtiVistTi;
      private Date solArtiFechSoli;
      private Date solArtiFechSali;
      private Set<SboTbSolixArti> sboTbSolixArtis = new HashSet<SboTbSolixArti>(0);
      private String solArtiEsta;
+     private String solArtiDesc;
     public SboTbSoliArti() {
     }
 
@@ -28,15 +29,17 @@ public class SboTbSoliArti  implements java.io.Serializable {
     public SboTbSoliArti(int solArtiIdPk) {
         this.solArtiIdPk = solArtiIdPk;
     }
-    public SboTbSoliArti(int solArtiIdPk, AbaaTbDepartamento abaaTbDepartamento, AbaaTbFuncionario abaaTbFuncionario, Boolean solArtiVistJefe, Boolean solArtiVistTi, Date solArtiFechSoli, Date solArtiFechSali, Set<SboTbSolixArti> sboTbSolixArtis) {
+    public SboTbSoliArti(int solArtiIdPk, AbaaTbDepartamento abaaTbDepartamento, AbaaTbPersona AbaaTbPersona, Boolean solArtiVistJefe, Boolean solArtiVistTi, Date solArtiFechSoli, Date solArtiFechSali, Set<SboTbSolixArti> sboTbSolixArtis, String solArtiDesc) {
        this.solArtiIdPk = solArtiIdPk;
        this.abaaTbDepartamento = abaaTbDepartamento;
-       this.abaaTbFuncionario = abaaTbFuncionario;
+       this.AbaaTbPersona = AbaaTbPersona;
        this.solArtiVistJefe = solArtiVistJefe;
        this.solArtiVistTi = solArtiVistTi;
        this.solArtiFechSoli = solArtiFechSoli;
        this.solArtiFechSali = solArtiFechSali;
        this.sboTbSolixArtis = sboTbSolixArtis;
+       this.solArtiDesc=solArtiDesc;
+       
     }
    
     public int getSolArtiIdPk() {
@@ -53,12 +56,12 @@ public class SboTbSoliArti  implements java.io.Serializable {
     public void setAbaaTbDepartamento(AbaaTbDepartamento abaaTbDepartamento) {
         this.abaaTbDepartamento = abaaTbDepartamento;
     }
-    public AbaaTbFuncionario getAbaaTbFuncionario() {
-        return this.abaaTbFuncionario;
+    public AbaaTbPersona getAbaaTbPersona() {
+        return this.AbaaTbPersona;
     }
     
-    public void setAbaaTbFuncionario(AbaaTbFuncionario abaaTbFuncionario) {
-        this.abaaTbFuncionario = abaaTbFuncionario;
+    public void setAbaaTbPersona(AbaaTbPersona abaaTbFuncionario) {
+        this.AbaaTbPersona = abaaTbFuncionario;
     }
     public Boolean getSolArtiVistJefe() {
         return this.solArtiVistJefe;
@@ -104,8 +107,12 @@ public class SboTbSoliArti  implements java.io.Serializable {
         this.solArtiEsta = solArtiEsta;
     }
 
-    
+    public String getSolArtiDesc() {
+        return solArtiDesc;
+    }
 
-
+    public void setSolArtiDesc(String solArtiDesc) {
+        this.solArtiDesc = solArtiDesc;
+    }
 
 }

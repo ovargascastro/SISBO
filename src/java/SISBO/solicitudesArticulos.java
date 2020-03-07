@@ -26,7 +26,7 @@ import logic.SboTbSoliArti;
 
 /**
  *
- * @author Osvaldo Vargas
+ * @author Boris Mendez
  */
 @Path("solicitudArticulo")
 public class solicitudesArticulos {
@@ -37,7 +37,7 @@ public class solicitudesArticulos {
     @Consumes(MediaType.APPLICATION_JSON)
     public void agregarSolicitud(SboTbSoliArti solicitud) {
         try {
-            Model.instance().agregarSolicitudArticulo(solicitud);
+            Model.instance().InsertarSoli(solicitud);
         } catch (Exception ex) {
             throw new NotFoundException();
         }

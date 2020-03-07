@@ -61,6 +61,7 @@
                                         <tr>
                                             <th class="text-center">Número<br>de solicitud</th>
                                             <th class="text-center">Fecha</th>
+                                            <th class="text-center">Solicitante</th>
                                             <th class="text-center">Unidad usuaria</th>
                                             <th class="text-center">Estado</th>
                                             <th class="text-center">Artículos</th>
@@ -107,6 +108,38 @@
                 </div>
             </div>
         </div>
+            
+            
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="alertasMinimo">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Los siguientes artículos están por debajo del límite:</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <div class="container text-center">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Artículo<br><br></th>
+                                                    <th>Cantidad<br><br></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="alertasMinimotb">
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button></div>
+                </div>
+            </div>
+        </div>    
 
 
         <div role="dialog" tabindex="-1" class="modal fade" id="modalAprobar">
@@ -239,56 +272,67 @@
             </div>
         </div>
     </div>
+    <input id="SoliArtiID" type="hidden">
 
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/solicitudArticulo.js" type="text/javascript"></script>
     </body>
     <script>
-                        document.getElementById("solicitudArtMenu").style.color = "white";
-                        function listSoliArt(personas) {
-                            var listado = $("#listSolArt");
-                            listado.html("");
-                            personas.forEach((p) => {
-                                filaSolArt(listado, p);
-                            });
-                        }
+        document.getElementById("solicitudArtMenu").style.color = "white";
+        function listSoliArt(personas) {
+            var listado = $("#listSolArt");
+            listado.html("");
+            personas.forEach((p) => {
+                filaSolArt(listado, p);
+            });
+        }
 
-                        function filaSolArt(listado, objeto) {
-                            var tr = $("<tr />");
-                            tr.html(
-                                    "<td>" + objeto.solArtiIdPk + "</td>"
-                                    + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
-                                    + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
-                                    + "<td>" + objeto.solArtiEsta + "</td>"
-                                    + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'></td>"
-                                    + "<td><img src='assets/img/edit.png' onclick='abrirModalAprobar(\"" + objeto.solArtiIdPk + "\");'></td>"
-                                    );
-                            listado.append(tr);
+        function filaSolArt(listado, objeto) {
+            var tr = $("<tr />");
+            tr.html(
+                "<td>" + objeto.solArtiIdPk + "</td>"
+                + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
+                + "<td>" + objeto.abaaTbPersona.persNomb + " " + objeto.abaaTbPersona.persApe1 + " " + objeto.abaaTbPersona.persApe2 + "</td>"
+                + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
+                + "<td>" + objeto.solArtiEsta + "</td>"
+                + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'></td>"
+                + "<td><img src='assets/img/edit.png' onclick='abrirModalAprobar(\"" + objeto.solArtiIdPk + "\");'></td>"
+            );
+            listado.append(tr);
+        }
 
-                        }
+        function listaArticulosxSol(personas) {
+            var listado = $("#listaArticulosSolicitud");
+            listado.html("");
+            personas.forEach((p) => {
+                filaArticulos(listado, p);
+            });
+        }
 
-                        //onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'
-
-
-                        function listaArticulosxSol(personas) {
-                            var listado = $("#listaArticulosSolicitud");
-                            listado.html("");
-                            personas.forEach((p) => {
-                                filaArticulos(listado, p);
-                            });
-                        }
-
-
-
-                        function filaArticulos(listado, objeto) {
-                            var tr = $("<tr />");
-                            tr.html(
-                                    "<td>" + objeto.sboTbArticulo.artDesc + "</td>"
-                                    + "<td>" + objeto.solArtiCant + "</td>");
-
-                            listado.append(tr);
-
-                        }
+        function filaArticulos(listado, objeto) {
+            var tr = $("<tr />");
+            tr.html(
+                "<td>" + objeto.sboSicop.sicopDesc + "</td>"
+                + "<td>" + objeto.solArtiCant + "</td>");
+            listado.append(tr);
+        }
+        
+        function listaAlerts(personas) {
+            var listado = $("#alertasMinimotb");
+            listado.html("");
+            personas.forEach((p) => {
+                filaAlertas(listado, p);
+            });
+        }
+        
+        function filaAlertas(listado, objeto) {
+            var tr = $("<tr />");
+            tr.html(
+                "<td>" + objeto.sboTbSicop.sicopDesc + "</td>"
+                + "<td>" + objeto.exisCant + "</td>");
+            listado.append(tr);
+        }
+        
     </script>
 </html>

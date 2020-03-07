@@ -33,7 +33,6 @@ public class SboTbArticulo implements java.io.Serializable {
     private Set<SboTbSolixArti> sboTbSolixArtis = new HashSet<SboTbSolixArti>(0);
     private Set<SboTbExistencia> sboTbExistencias = new HashSet<SboTbExistencia>(0);
     private Integer cantSolArt;
-    private String artiTipoIngr;
 
     public SboTbArticulo() {
     }
@@ -42,7 +41,7 @@ public class SboTbArticulo implements java.io.Serializable {
         this.artIdPk = artIdPk;
     }
 
-    public SboTbArticulo(int artIdPk, AbaaProyectos abaaProyectos, AbaaTbDepartamento abaaTbDepartamento, SboTbCatArticulo sboTbCatArticulo, SboTbOrdenCompra sboTbOrdenCompra, Double artPrecio, Integer artCant, Integer artCantRest, Date artFingr, Date artFvenc, String artDesc, String artMode, String artNumeSeri, String artMarc, String artNumeFact, String artCodiPresup, String artCodiCont, String artCodContGast, String artCodContExis, String artCodContSal, Boolean artEsAc, String artUnidadMedida, SboSicop sboSicop, Integer cantSolArt, String artiTipoIngr) {
+    public SboTbArticulo(int artIdPk, AbaaProyectos abaaProyectos, AbaaTbDepartamento abaaTbDepartamento, SboTbCatArticulo sboTbCatArticulo, SboTbOrdenCompra sboTbOrdenCompra, Double artPrecio, Integer artCant, Integer artCantRest, Date artFingr, Date artFvenc, String artDesc, String artMode, String artNumeSeri, String artMarc, String artNumeFact, String artCodiPresup, String artCodiCont, String artCodContGast, String artCodContExis, String artCodContSal, Boolean artEsAc, String artUnidadMedida, SboSicop sboSicop, Integer cantSolArt) {
         this.artIdPk = artIdPk;
         this.abaaProyectos = abaaProyectos;
         this.abaaTbDepartamento = abaaTbDepartamento;
@@ -67,7 +66,6 @@ public class SboTbArticulo implements java.io.Serializable {
         this.artUnidadMedida = artUnidadMedida;
         this.sboSicop = sboSicop;
         this.cantSolArt = cantSolArt;
-        this.artiTipoIngr=artiTipoIngr;
     }
 
     public int getArtIdPk() {
@@ -287,13 +285,4 @@ public class SboTbArticulo implements java.io.Serializable {
     public void setSboSicop(SboSicop sboSicop) {
         this.sboSicop = sboSicop;
     }    
-
-    public String getArtiTipoIngr() {
-        return artiTipoIngr;
-    }
-
-    public void setArtiTipoIngr(String artiTipoIngr) {
-        this.artiTipoIngr = artiTipoIngr;
-    }
-    
 }

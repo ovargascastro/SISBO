@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html id="body">
-    
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@ include file="/presentation/base.jsp" %>
@@ -78,34 +78,33 @@
             </div>
         </div>
 
-
         <div class="modal fade" role="dialog" tabindex="-1" id="modalEditarExist">
             <form id="actualizaExist" action="javascript:actualizarExistencia();">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edición</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container">
-                            <form>
-                                <div class="form-row">
-                                    <div class="col"><label>Existencias Actuales</label>
-                                        <input class="form-control" type="text" id="existAct" readonly></div>
-                                    <div class="col"><label>Nueva Cantidad</label>
-                                        <input class="form-control" type="text" id="nuevExist" required></div>
-                                </div>
-                            </form>
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Edición</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
                         </div>
+                        <div class="modal-body">
+                            <div class="container">
+                                <form>
+                                    <div class="form-row">
+                                        <div class="col"><label>Existencias Actuales</label>
+                                            <input class="form-control" type="text" id="existAct" readonly></div>
+                                        <div class="col"><label>Nueva Cantidad</label>
+                                            <input class="form-control" type="text" id="nuevExist" required></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>
+                            <button class="btn btn-primary" type="submit">Guardar</button></div>
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>
-                        <button class="btn btn-primary" type="submit">Guardar</button></div>
                 </div>
-            </div>
             </form>
         </div>
 
@@ -115,9 +114,8 @@
     </body>
 
 </html>
-
-
 <script>
     document.getElementById("ArticulosMenu").style.color = "white";
+
 
 </script>

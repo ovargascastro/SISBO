@@ -23,6 +23,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import logic.Model;
 import logic.SboTbArticulo;
+import logic.SboTbSoliArti;
+import logic.SboTbSolixArti;
 
 /**
  *
@@ -35,16 +37,16 @@ public class ArituculoXSolicitudTemporal {
     
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<SboTbArticulo> search(@QueryParam("temporales") String cedula) {
+    public List<SboTbSolixArti> search(@QueryParam("temporales") String cedula) {
         try {
-            List<SboTbArticulo> lista = new ArrayList();
-            Map<Integer,SboTbArticulo> list = Model.instance().getListaArtxSolTemp();
+            List<SboTbSolixArti> lista = new ArrayList();
+            Map<Integer,SboTbSolixArti> list = Model.instance().getListaArtxSolTemp();
             list.values().forEach((art) -> {
                 lista.add(art);
             });
             return lista;
         } catch (Exception ex) {
-            Logger.getLogger(SboTbArticulo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SboTbSolixArti.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -52,35 +54,35 @@ public class ArituculoXSolicitudTemporal {
     @GET
     @Path("{filtro}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public SboTbArticulo get(@PathParam("filtro") int filtro) {
+    public SboTbSoliArti get(@PathParam("filtro") int filtro) {
         try {
-            SboTbArticulo art = Model.instance().getArtxSolTemp(filtro);
+            SboTbSoliArti art = Model.instance().obtenerid();
             return art;
         } catch (Exception ex) {
             throw new NotFoundException();
         }
     }
     
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces({MediaType.APPLICATION_JSON})
-    public void agregarArticulo(SboTbArticulo articulo) {
-        try {
-            Model.instance().agregarArtxSolTemp(articulo);
-        } catch (Exception ex) {
-            throw new NotFoundException();
-        }
-    }
+//    @POST
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces({MediaType.APPLICATION_JSON})
+//    public void agregarArticulo(SboTbSolixArti articulo) {
+//        try {
+//            Model.instance().agregarArtxSolTemp(articulo);
+//        } catch (Exception ex) {
+//            throw new NotFoundException();
+//        }
+//    }
     
-    @DELETE
-    @Path("{id}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public void del(@PathParam("id") Integer id) {
-        try {
-            SboTbArticulo art = Model.instance().getListaArtxSolTemp().get(id);
-            Model.instance().eliminarArtxSolTemp(art);
-        } catch (Exception ex) {
-            throw new NotFoundException();
-        }
-    }
+//    @DELETE
+//    @Path("{id}")
+//    @Produces({MediaType.APPLICATION_JSON})
+//    public void del(@PathParam("id") Integer id) {
+//        try {
+//            SboTbArticulo art = Model.instance().getListaArtxSolTemp().get(id);
+//            Model.instance().eliminarArtxSolTemp(art);
+//        } catch (Exception ex) {
+//            throw new NotFoundException();
+//        }
+//    }
 }

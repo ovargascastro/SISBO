@@ -1,6 +1,9 @@
 package logic;
 // Generated 22-sep-2019 1:11:19 by Hibernate Tools 4.3.1
 
+import java.util.Date;
+
+
 
 
 /**
@@ -10,24 +13,27 @@ public class SboTbSolixArti  implements java.io.Serializable {
 
 
      private SboTbSolixArtiId id;
-     private SboTbArticulo sboTbArticulo;
+     private SboSicop sboSicop;
      private SboTbSoliArti sboTbSoliArti;
      private Integer solArtiCant;
-
+     private Date solArtiSali;
+     private String solArtiDeta;
     public SboTbSolixArti() {
     }
 
 	
-    public SboTbSolixArti(SboTbSolixArtiId id, SboTbArticulo sboTbArticulo, SboTbSoliArti sboTbSoliArti) {
+    public SboTbSolixArti(SboTbSolixArtiId id, SboSicop sboSicop, SboTbSoliArti sboTbSoliArti) {
         this.id = id;
-        this.sboTbArticulo = sboTbArticulo;
+        this.sboSicop = sboSicop;
         this.sboTbSoliArti = sboTbSoliArti;
     }
-    public SboTbSolixArti(SboTbSolixArtiId id, SboTbArticulo sboTbArticulo, SboTbSoliArti sboTbSoliArti, Integer solArtiCant) {
+    public SboTbSolixArti(SboTbSolixArtiId id, SboSicop sboSicop, SboTbSoliArti sboTbSoliArti, Integer solArtiCant, Date solArtiSali, String solArtiDeta) {
        this.id = id;
-       this.sboTbArticulo = sboTbArticulo;
+       this.sboSicop = sboSicop;
        this.sboTbSoliArti = sboTbSoliArti;
        this.solArtiCant = solArtiCant;
+       this.solArtiSali = solArtiSali;
+       this.solArtiDeta = solArtiDeta;
     }
    
     public SboTbSolixArtiId getId() {
@@ -37,12 +43,12 @@ public class SboTbSolixArti  implements java.io.Serializable {
     public void setId(SboTbSolixArtiId id) {
         this.id = id;
     }
-    public SboTbArticulo getSboTbArticulo() {
-        return this.sboTbArticulo;
+    public SboSicop getSboSicop() {
+        return this.sboSicop;
     }
     
-    public void setSboTbArticulo(SboTbArticulo sboTbArticulo) {
-        this.sboTbArticulo = sboTbArticulo;
+    public void setSboSicop(SboSicop sboSicop) {
+        this.sboSicop = sboSicop;
     }
     public SboTbSoliArti getSboTbSoliArti() {
         return this.sboTbSoliArti;
@@ -59,8 +65,23 @@ public class SboTbSolixArti  implements java.io.Serializable {
         this.solArtiCant = solArtiCant;
     }
 
+    public Date getSolArtiSali() {
+        return solArtiSali;
+    }
 
+    public void setSolArtiSali(Date solArtiSali) {
+        this.solArtiSali = solArtiSali;
+    }
 
+    public String getSolArtiDeta() {
+        return solArtiDeta;
+    }
+
+    public void setSolArtiDeta(String solArtiDeta) {
+        this.solArtiDeta = solArtiDeta;
+    }
+    
+    
 
 }
 

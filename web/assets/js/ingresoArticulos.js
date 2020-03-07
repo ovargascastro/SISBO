@@ -3,7 +3,6 @@ function agregarArt() {
     var art = document.getElementById("selectCatalogoArticulos").value;
     var unidad = document.getElementById("selectUnidadMedida").value;
     var sicop = document.getElementById("selectSicop").value;
-    var tipoIngreso = document.getElementById("selectTipoIngreso").value;
     var cantRest = 0;
     
     var fechaIngreso = document.getElementById("AddArtFIngreso").value;
@@ -37,8 +36,7 @@ function agregarArt() {
         artFingr: fechaIngreso2,
         artFvenc: fechaVencimiento2,
         artCantRest: cantRest,
-        artUnidadMedida: unidad,
-        artiTipoIngr: tipoIngreso
+        artUnidadMedida: unidad
     };
     $.ajax({type: "POST",
         url: "api/articulos/articulo",
@@ -106,5 +104,3 @@ function salir() {
 function limpiar(){
     location.href = "presentation/bodega/ingresoArticulos.jsp"; 
 }
-
-

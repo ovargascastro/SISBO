@@ -345,8 +345,6 @@ function pb4(data){
 
      });
         $('#selectCatalogoArticulos').selectpicker('refresh');
-        $("#selectCatalogoArticulos").selectpicker('toggle');
-
 
 }
 

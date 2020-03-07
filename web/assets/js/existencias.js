@@ -1,10 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 function selectBodegas() {
     var vacio = "";
     $.ajax({type: "GET",
@@ -18,9 +11,7 @@ function selectBodegas() {
             alert('error');
         }
     });
-
 }
-
 
 function selectDeptos() {
     $.ajax({type: "GET",
@@ -36,8 +27,6 @@ function selectDeptos() {
     });
 }
 
-
-
 function selectSicop() {
     $.ajax({type: "GET",
         url: "api/Sicop",
@@ -52,7 +41,6 @@ function selectSicop() {
     });
 }
 
-
 $(document).ready(function () {
     selectSicop();
     selectDeptos();
@@ -64,15 +52,11 @@ function getExistencias() {
     var depto = document.getElementById("SelectDptos").value;
     var arti = document.getElementById("selectSicop").value;
     var bodeg = document.getElementById("SelectBodegas").value;
-
-
     $.ajax({type: "GET",
         url: "api/Existencias/" + bodeg + "/" + depto + "/" + arti,
         success: listaExist
     });
 }
-
-
 
 function listaExist(personas) {
     var listado = $("#listadoExistencias");
@@ -91,20 +75,16 @@ function fila(listado, objeto) {
             + "<td>" + objeto.exisCant + "</td>"
             + "<td><img src='assets/img/edit.png' onclick='editarExist(\"" + objeto.idE + "\",\"" + objeto.exisCant + "\");'></td>");
     listado.append(tr);
-
 }
 
-
-
-var idExistActual=0;
-function editarExist(id, cant){
-    idExistActual=id;
+var idExistActual = 0;
+function editarExist(id, cant) {
+    idExistActual = id;
     $('#modalEditarExist').modal('show');
     $("#existAct").val(cant);
 }
 
-function actualizarExistencia(){
-
+function actualizarExistencia() {
     if (confirm("Desea guardar el registro actual?")) {
         SboTbExistencia = {
             idE: idExistActual,
@@ -121,14 +101,11 @@ function actualizarExistencia(){
         });
     }
 }
-    
-    
-    function ocultarEditarExist(list){
-            $('#modalEditarExist').modal('hide');
-            listaExist(list);
-    }
 
-
+function ocultarEditarExist(list) {
+    $('#modalEditarExist').modal('hide');
+    listaExist(list);
+}
 
 
 function myFunction() {
