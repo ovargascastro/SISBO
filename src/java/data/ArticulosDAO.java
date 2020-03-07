@@ -293,6 +293,8 @@ public class ArticulosDAO {
         }
     }
 
+    //Hola Scrappy
+    
     public void agregarArticuloSinOrden(SboTbArticulo objeto) throws Exception {
         String query = "insert into SIBO_TB_Articulo(Arti_Prec,Arti_Cant,Arti_Cant_Rest,Arti_Desc,"
                 + "Arti_Mode,Arti_Nume_Seri,Arti_Marc,"
