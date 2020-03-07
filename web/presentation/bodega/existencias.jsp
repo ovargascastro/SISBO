@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        
+
         <div class="modal fade" role="dialog" tabindex="-1" id="modalEditarExist">
             <form id="actualizaExist" action="javascript:actualizarExistencia();">
             <div class="modal-dialog" role="document">
@@ -97,7 +97,6 @@
                                         <input class="form-control" type="text" id="existAct" readonly></div>
                                     <div class="col"><label>Nueva Cantidad</label>
                                         <input class="form-control" type="text" id="nuevExist" required></div>
-
                                 </div>
                             </form>
                         </div>
