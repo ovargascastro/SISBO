@@ -104,5 +104,3 @@ function salir() {
 function limpiar(){
     location.href = "presentation/bodega/ingresoArticulos.jsp"; 
 }
-
-

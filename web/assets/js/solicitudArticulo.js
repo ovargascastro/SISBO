@@ -373,10 +373,23 @@ function actualizarExistenciaEstado() {
         contentType: "application/json",
         success: alistarAlertas,
         error: function (jqXHR) {
-            alert('Error');
+            alert('No se puede aceptar la solicitud por falta de artículos');
         }
     });
 
+}
+
+function alistarAlertas(lista) {
+    buscarSolicitudxAprobar2();
+    if(lista.length!==0){
+        listaAlerts(lista);
+        $('#alertasMinimo').modal('show');
+    }
+    $('#modalAprobar').modal('hide');
+    $('#modalAprobarJEFE').modal('hide');
+    $('#modalAprobarTI').modal('hide');
+    $('#modalAprobarAmbas').modal('hide');
+    $('#modalPendiente').modal('hide');
 }
 
 function alistarAlertas(lista) {
@@ -395,7 +408,6 @@ function alistarAlertas(lista) {
 
 
 
-
 function abrirModalAprobar(filtro) {
     $.ajax({type: "GET",
         url: "api/soliAprobacion/" + filtro,
@@ -405,7 +417,7 @@ function abrirModalAprobar(filtro) {
         }
     });
 
-//      $.ajax({type: "GET",
+//    $.ajax({type: "GET",
 //        url: "api/artPorSol/" + filtro,
 //        success: mostrarExistencia,
 //        error: function (jqXHR) {

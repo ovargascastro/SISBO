@@ -433,7 +433,7 @@ public class Model {
     }
 
     public List<SboTbExistencia> listaExistencias(String bodega, String departamento, String articulo) {
-        return existdao.listaExistencias(bodega, departamento, articulo);
+        return existdao.listaExistencias2(bodega, departamento, articulo);
     }
 
     public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
@@ -474,9 +474,8 @@ public class Model {
                 listaSolicitudes.get(i).getSboTbSoliArti().setSolArtiEsta("Aprobada");
                 solArtdao.actualizarEstSolicitud(listaSolicitudes.get(i).getSboTbSoliArti());
             }
-           return verificaLimiteExis(existencias);
-        }
-       else {
+            return verificaLimiteExis(existencias);
+        } else {
             throw new Exception("Departamento no Existe");
         }
     }
@@ -510,7 +509,7 @@ public class Model {
         ArrayList<SboTbLimiteDpto> limites = verificaLimExisConExistencias(existencias);
         ArrayList< SboTbExistencia> alertas = new ArrayList<SboTbExistencia>();
         for (int i = 0; i < existencias.size(); i++) {
-            if (limites.get(i).getLimiteDptoLimite() < existencias.get(i).getExisCant()) {
+            if (limites.get(i).getLimiteDptoLimite() > existencias.get(i).getExisCant()) {
                 alertas.add(existencias.get(i));
             }
         }
@@ -524,5 +523,18 @@ public class Model {
         }
         return l;
     }
+
+    public void actualizaCantExist(SboTbExistencia e) throws SQLException {
+        existdao.updateExist(e);
+    }
+
+    public List<SboTbSoliArti> solicitudesPendientesxFunc(int func) {
+        return solArtdao.listadoSolicitudPorFuncionarioPendientes(func);
+    }
+    
+        public List<SboTbSoliArti> solicitudesTotalxFunc(int func) {
+        return solArtdao.listadoSolicitudPorFuncionarioTotal(func);
+    }
+    
 
 }

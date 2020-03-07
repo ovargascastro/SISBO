@@ -114,7 +114,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Artículos por debajo del límite</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                        <h4 class="modal-title">Los siguientes artículos están por debajo del límite:</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                     <div class="modal-body">
                         <div class="container text-center">
                             <div class="row">
@@ -329,8 +329,8 @@
         function filaAlertas(listado, objeto) {
             var tr = $("<tr />");
             tr.html(
-                "<td>" + objeto.sboSicop.sicopDesc + "</td>"
-                + "<td>" + objeto.solArtiCant + "</td>");
+                "<td>" + objeto.sboTbSicop.sicopDesc + "</td>"
+                + "<td>" + objeto.exisCant + "</td>");
             listado.append(tr);
         }
         

@@ -39,9 +39,9 @@ public class LimitesDepartamentoDAO {
         String sql = "select limi.Limi_Depa_limi  \n"
                 + "from SIBO_TB_Limi_Depa limi, SIBO_TB_Sicop sicop, ABAA_TB_Catalogo_Departamento depa\n"
                 + "where sicop.Sico_Id_PK = limi.Limi_Depa_Id_Sico_PK "
-                + "and limi.Limi_Depa_Id_Dpto_PK = depa.Cata_Depa_id_PK "
-                + "limi.Limi_Depa_Id_Dpto_PK='%s' and limi.Limi_Depa_Id_Sico_PK='%s'";
-        sql = String.format(sql, exis.getAbaaTbDepartamento().getDeptoIdPk(), exis.getSboTbSicop().getSicopId());
+                + "and limi.Limi_Depa_Id_Dpto_PK = depa.Cata_Depa_id_PK and "
+                + "limi.Limi_Depa_Id_Dpto_PK=" + exis.getAbaaTbDepartamento().getDeptoIdPk()
+                + " and limi.Limi_Depa_Id_Sico_PK=" + exis.getSboTbSicop().getSicopId();
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
             return limites(rs);
