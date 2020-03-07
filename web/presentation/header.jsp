@@ -175,6 +175,7 @@
                         </div>
                         <%}%>
                         
+                        <!--Cerrar Sesion-->
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="UsuarioActual" data-toggle="dropdown">
                                 <%= logged.getPersNomb() + " " + logged.getPersApe1()%>
