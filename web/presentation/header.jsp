@@ -159,6 +159,22 @@
                             </div>
                         </div>
                         <%}%>
+                        
+                        <!--OTROS FUNCIONARIOS-->
+                        <% if (logged.getDepartamento().getDeptoIdPk()!="6" && logged.getDepartamento().getDeptoIdPk()!="17"
+                                && logged.getDepartamento().getDeptoIdPk()!="5" && logged.getDepartamento().getDeptoIdPk()!="8"
+                                && logged.getPers_es_jefe() == 0) {%>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown">
+                                Solicitud de artículos
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
+                                <a class="dropdown-item" href="presentation/general/solicitudes.jsp">Mis Solicitudes</a>
+                            </div>
+                        </div>
+                        <%}%>
+                        
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="UsuarioActual" data-toggle="dropdown">
                                 <%= logged.getPersNomb() + " " + logged.getPersApe1()%>
