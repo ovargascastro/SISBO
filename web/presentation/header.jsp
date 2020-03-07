@@ -32,6 +32,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="index.jsp" id="index">Inicio</a>
                         </li>
+                        
                         <!--CONTABILIDAD-->
                         <% if ("8".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 1) {%>
                         <div class="nav-item dropdown">
@@ -46,7 +47,6 @@
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
-                                <a class="dropdown-item" href="presentation/general/solicitudes.jsp">Mis Solicitudes</a>
                                 <a class="dropdown-item" href="presentation/general/vistoBuenoJefe.jsp">Visto bueno de Jefe</a>
                             </div>
                         </div>
@@ -79,7 +79,6 @@
                             <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown"> Solicitud de artículos </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
-                                <a class="dropdown-item" href="presentation/general/solicitudes.jsp">Mis Solicitudes</a>
                                 <a class="dropdown-item" href="presentation/general/listarSolicitudesArticulos.jsp">Listado de solicitudes</a>
                                 <a class="dropdown-item" href="presentation/general/gestionSolicitudes.jsp">Gestión de Solitudes</a>
                                 <a class="dropdown-item" href="presentation/general/vistoBuenoJefe.jsp">Visto bueno de Jefe</a>
@@ -108,7 +107,6 @@
                             <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown"> Solicitud de artículos </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
-                                <a class="dropdown-item" href="presentation/general/solicitudes.jsp">Mis Solicitudes</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
@@ -122,23 +120,6 @@
                             </div>
                         </div>
                         <%}%>
-                        
-                         <!-- JefeTI -->
-                        <% if ("6".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 1) {%>
-                        <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown"> Solicitud de artículos </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
-                                <a class="dropdown-item" href="presentation/general/solicitudes.jsp">Mis Solicitudes</a>
-                                <a class="dropdown-item" href="presentation/general/vistoBuenoTI.jsp">Visto bueno de TI</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown">
-                                Catálogos
-                            </a>
-                        </div>
-                        <%}%>
                         <!--PROVEDURIA-->
                         <!-- Jefa -->
                         <% if ("17".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 1) {%>
@@ -149,12 +130,10 @@
                                 <a class="dropdown-item" href="presentation/proveeduria/listarOrdenes.jsp">Listado Órdenes de Compra</a>
                             </div>
                         </div>
-                        <!-- -->
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown"> Solicitud de artículos </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
-                                <a class="dropdown-item" href="presentation/general/solicitudes.jsp">Mis Solicitudes</a>
                                 <a class="dropdown-item" href="presentation/general/vistoBuenoJefe.jsp">Visto bueno de Jefe</a>
                             </div>
                         </div>
@@ -169,9 +148,23 @@
                             </div>
                         </div>
                         <%}%>
-                        <!--OTROS FUNCIONARIOS-->
+
+                        <!--COMPUTO-->
+                        <% if ("6".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 1) {%>
+
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown">
+                                Solicitud de artículos
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
+                                <a class="dropdown-item" href="presentation/general/vistoBuenoTI.jsp">Visto bueno de TI</a>
+                            </div>
+                        </div>
+                        <%}%>
+                       <!--OTROS FUNCIONARIOS-->
                         <% if (logged.getDepartamento().getDeptoIdPk()!="6" && logged.getDepartamento().getDeptoIdPk()!="17"
-                                && logged.getDepartamento().getDeptoIdPk()!="5" && logged.getDepartamento().getDeptoIdPk()!="8"
+                                && logged.getDepartamento().getDeptoIdPk() !="5" && logged.getDepartamento().getDeptoIdPk()!="8"
                                 && logged.getPers_es_jefe() == 0) {%>
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown">
@@ -184,21 +177,7 @@
                         </div>
                         <%}%>
                         
-                        <!--OTROS FUNCIONARIOS JEFES-->
-                        <% if (logged.getDepartamento().getDeptoIdPk()!="6" && logged.getDepartamento().getDeptoIdPk()!="17"
-                                && logged.getDepartamento().getDeptoIdPk()!="5" && logged.getDepartamento().getDeptoIdPk()!="8"
-                                && logged.getPers_es_jefe() == 1) {%>
-                        <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown">
-                                Solicitud de artículos
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
-                                <a class="dropdown-item" href="presentation/general/solicitudes.jsp">Mis Solicitudes</a>
-                            </div>
-                        </div>
-                        <%}%>
-                        
+
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="UsuarioActual" data-toggle="dropdown">
                                 <%= logged.getPersNomb() + " " + logged.getPersApe1()%>
