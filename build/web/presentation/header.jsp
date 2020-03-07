@@ -135,6 +135,16 @@
                             </a>
                         </div>
                         <%}%>
+                        <!-- Funcionario Mensajeria -->
+                        <% if ("14".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 0) {%>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown"> Solicitud de artículos </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
+                                <a class="dropdown-item" href="presentation/general/solicitudes.jsp">Mis Solicitudes</a>
+                            </div>
+                        </div>
+                        <%}%>
                         <!--PROVEDURIA-->
                         <!-- Jefa -->
                         <% if ("17".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 1) {%>
