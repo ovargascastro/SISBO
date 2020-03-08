@@ -46,11 +46,21 @@ public class ExistenciasTemp {
      @GET
 
     @Path("{depto}/{arti}")
+
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+
     public SboTbExistencia getSboTbExistencia(@PathParam("depto") String y, @PathParam("arti") String z)
+
             throws ClassNotFoundException, SQLException, Exception {
+
+    
+
         String departamento = y;
+
         String articulo = z;
+
+
+
         SboTbExistencia lista = Model.instance().getSboTbExistencia(departamento, articulo);
 
         return lista;
