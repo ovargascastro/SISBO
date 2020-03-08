@@ -137,7 +137,7 @@
                                     <label>Fecha de Vencimiento</label>
                                     <input id="AddArtFVencimiento" class="form-control" type="date" placeholder="Fecha de Vencimiento">
                                     <label>Cantidad a Ingresar</label>
-                                    <input id="AddArtCant" class="form-control" type="number" placeholder="Cantidad a Ingresar" required>    
+                                    <input id="AddArtCant" class="form-control" type="number" placeholder="Cantidad a Ingresar" min="0" required>    
                                     <br>
                                     <div class="col">
                                         <label>Información del Artículo</label>

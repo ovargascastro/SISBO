@@ -101,7 +101,7 @@
 
                                 <label>Cantidad a Ingresar</label>
                                 <input id="AddArtCant" class="form-control" 
-                                       type="number" placeholder="Cantidad a Ingresar" required> 
+                                       type="number" placeholder="Cantidad a Ingresar" min="0" required> 
 
                                 <label>Bodega</label>
                                 <select class="form-control" id="AddArtBodega" required> 
