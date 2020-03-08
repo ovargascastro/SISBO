@@ -805,5 +805,6 @@ function PDF() {
 }
 
 $(document).ready(function () {
+    
     logged();
 });

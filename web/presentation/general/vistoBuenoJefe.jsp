@@ -20,7 +20,7 @@
 
     </head>
 
-    <body style="background-color: rgb(255,255,255);" onload="mostrardepa()">
+    <body style="background-color: rgb(255,255,255);" onload="mostrardepa(),buscarSolicitudVbJf()">
 
         <%@ include file="/presentation/header.jsp" %>
 

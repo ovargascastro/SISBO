@@ -19,7 +19,7 @@
 
     </head>
 
-    <body style="background-color: rgb(255,255,255);">
+    <body style="background-color: rgb(255,255,255);" onload="javascript:buscarSolicitudxAprobar();">
         <%@ include file="/presentation/header.jsp" %>
 
         <div id="titulo">
