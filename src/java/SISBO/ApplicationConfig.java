@@ -20,6 +20,7 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(SISBO.AprobacionSolicitud.class);
         resources.add(SISBO.ArituculoXSolicitudTemporal.class);
         resources.add(SISBO.ArticulosTemporales.class);
         resources.add(SISBO.Bodega.class);
@@ -28,8 +29,10 @@ public class ApplicationConfig extends Application {
         resources.add(SISBO.ExistenciasTemp.class);
         resources.add(SISBO.ListaOCxArt.class);
         resources.add(SISBO.LogIn.class);
+        resources.add(SISBO.SolicitudFuncionario.class);
         resources.add(SISBO.SolicitudJf.class);
         resources.add(SISBO.SolicitudTI.class);
+        resources.add(SISBO.SolicitudesPendientes.class);
         resources.add(SISBO.SolxArt.class);
         resources.add(SISBO.artOrdenInner.class);
         resources.add(SISBO.articulos.class);

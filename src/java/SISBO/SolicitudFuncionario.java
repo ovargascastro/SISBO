@@ -1,0 +1,58 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package SISBO;
+
+import java.sql.SQLException;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
+import logic.AbaaTbPersona;
+import logic.Model;
+import logic.SboTbSoliArti;
+
+/**
+ *
+ * @author oscar
+ */
+@Path("SolicitudXfuncionario")
+public class SolicitudFuncionario {
+
+    @Context
+    private UriInfo context;
+
+    @Context
+    HttpServletRequest request;
+
+    @GET
+    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+    public List<SboTbSoliArti> getSolicitudes() throws ClassNotFoundException, SQLException {
+
+        AbaaTbPersona logged = (AbaaTbPersona) request.getSession().getAttribute("logged");
+        int funcionario = logged.getPersIdPK();
+        List<SboTbSoliArti> lista = Model.instance().solicitudesPendientesxFunc(funcionario);
+
+        return lista;
+
+    }
+
+    @GET
+    @Path("{param}")
+    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+    public List<SboTbSoliArti> getSolicitudesTotal() throws ClassNotFoundException, SQLException {
+
+        AbaaTbPersona logged = (AbaaTbPersona) request.getSession().getAttribute("logged");
+        int funcionario = logged.getPersIdPK();
+        List<SboTbSoliArti> lista = Model.instance().solicitudesTotalxFunc(funcionario);
+
+        return lista;
+
+    }
+}

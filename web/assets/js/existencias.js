@@ -1,10 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 function selectBodegas() {
     var vacio = "";
     $.ajax({type: "GET",
@@ -18,9 +11,7 @@ function selectBodegas() {
             alert('error');
         }
     });
-
 }
-
 
 function selectDeptos() {
     $.ajax({type: "GET",
@@ -36,8 +27,6 @@ function selectDeptos() {
     });
 }
 
-
-
 function selectSicop() {
     $.ajax({type: "GET",
         url: "api/Sicop",
@@ -52,11 +41,11 @@ function selectSicop() {
     });
 }
 
-
 $(document).ready(function () {
     selectSicop();
     selectDeptos();
     selectBodegas();
+    logged();
 });
 
 
@@ -64,15 +53,11 @@ function getExistencias() {
     var depto = document.getElementById("SelectDptos").value;
     var arti = document.getElementById("selectSicop").value;
     var bodeg = document.getElementById("SelectBodegas").value;
-
-
     $.ajax({type: "GET",
         url: "api/Existencias/" + bodeg + "/" + depto + "/" + arti,
         success: listaExist
     });
 }
-
-
 
 function listaExist(personas) {
     var listado = $("#listadoExistencias");
@@ -88,52 +73,40 @@ function fila(listado, objeto) {
             "<td>" + objeto.sboTbBodega.bodeDesc + "</td>"
             + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
             + "<td>" + objeto.sboTbSicop.sicopDesc + "</td>"
-            + "<td>" + objeto.exisCant + "</td>");
+            + "<td>" + objeto.exisCant + "</td>"
+            + "<td><img src='assets/img/edit.png' onclick='editarExist(\"" + objeto.idE + "\",\"" + objeto.exisCant + "\");'></td>");
     listado.append(tr);
-
 }
 
+var idExistActual = 0;
+function editarExist(id, cant) {
+    idExistActual = id;
+    $('#modalEditarExist').modal('show');
+    $("#existAct").val(cant);
+}
 
-//function myFunction() {
-//    var input, filter, filter2, table, tr, td2, td3, td, i, txtValue, txtValue2, txtValue3;
-//    input = document.getElementById("filtro");
-//
-//    // var depto = document.getElementById("SelectDptos").value;
-//    // var arti = document.getElementById("selectSicop").value;
-//    // var bodeg = document.getElementById("SelectBodegas").value;
-//
-//    var bodeg = $('#SelectBodegas option:selected').text();
-//    var depto = $('#SelectDptos option:selected').text();
-//
-//
-//
-//    filter = bodeg.value.toUpperCase();
-//    filter2 = depto.value.toUpperCase();
-//
-//
-//
-//
-//    table = document.getElementById("myTable");
-//    tr = table.getElementsByTagName("tr");
-//
-//
-//    for (i = 0; i < tr.length; i++) {
-//        td = tr[i].getElementsByTagName("td")[0];
-//        td2 = tr[i].getElementsByTagName("td")[1];
-//        td3 = tr[i].getElementsByTagName("td")[2];
-//
-//        if (td, td2, td3) {
-//            txtValue = td.textContent || td.innerText;
-//            txtValue2 = td2.textContent || td2.innerText;
-//            if (txtValue.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter2) > -1) {
-//                tr[i].style.display = "";
-//            } else {
-//                tr[i].style.display = "none";
-//            }
-//        }
-//    }
-//}
+function actualizarExistencia() {
+    if (confirm("Desea guardar el registro actual?")) {
+        SboTbExistencia = {
+            idE: idExistActual,
+            exisCant: $("#nuevExist").val()
+        };
+        $.ajax({type: "POST",
+            url: "api/Existencias;charset=UTF-8",
+            data: JSON.stringify(SboTbExistencia),
+            contentType: "application/json;charset=UTF-8",
+            success: ocultarEditarExist,
+            error: function (jqXHR) {
+                alert("Error");
+            }
+        });
+    }
+}
 
+function ocultarEditarExist(list) {
+    $('#modalEditarExist').modal('hide');
+    listaExist(list);
+}
 
 
 function myFunction() {

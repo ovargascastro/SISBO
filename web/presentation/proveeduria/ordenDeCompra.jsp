@@ -192,7 +192,7 @@
                                         <input class="form-control" type="text" placeholder="Marca" id="Marca">
 
                                         <label>Cantidad</label>
-                                        <input class="form-control" type="number" placeholder="Cantidad" id="Cantidad" required>
+                                        <input class="form-control" type="number" placeholder="Cantidad" id="Cantidad" min="0"required>
 
                                         <label>Unidad Usuaria</label>
                                         <select class="form-control" id="selectDeptos" required>
@@ -356,6 +356,12 @@ $('#selectCatalogoArticulos').attr('data-live-search', 'true');
     
 }
 
+    function logged() {
+    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+    <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("17")) { %>
+        location.href = "presentation/notAccess.jsp";
+    <%}%>
+    }
 
 
 

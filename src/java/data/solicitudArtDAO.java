@@ -286,7 +286,6 @@ public class solicitudArtDAO {
             ob.setPersSfun(rs.getByte("Pers_es_func"));
             ob.setPers_es_jefe(rs.getByte("Pers_es_jefe"));
             ob.setPersCedu(rs.getString("Pers_cedu"));
-            
             return ob;
         } catch (SQLException ex) {
             return null;
@@ -328,11 +327,11 @@ public class solicitudArtDAO {
     public List<SboTbSoliArti> listadoSolicitudxAprobar(String filtro) {
         List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
         try {
-            String sql = "select * from SIBO_TB_Soli_Arti sa, ABAA_TB_Catalogo_Departamento dep "
+
+            String sql = "select * from SIBO_TB_Soli_Arti sa, ABAA_TB_Catalogo_Departamento dep, ABAA_TB_Persona per  "
                     + "where sa.Soli_Arti_Id_PK like '%%%s%%'"
                     + "and (sa.Soli_Arti_Esta = 'pendiente' or sa.Soli_Arti_Esta = 'VBJefeAprobado' or sa.Soli_Arti_Esta = 'VBTIAprobado' or sa.Soli_Arti_Esta = 'PendienteVBJefe' or sa.Soli_Arti_Esta = 'PendienteVBTI')"
-                    + "and sa.Soli_Arti_Id_Depa_FK=dep.Cata_Depa_id_PK";
-//            String sql = "select * from Sbo_TB_Soli_Arti o where o.Sol_Arti_Esta='pendiente' and o.Sol_Arti_Id_PK like '%%%s%%'";
+                    + "and sa.Soli_Arti_Id_Depa_FK=dep.Cata_Depa_id_PK and sa.Soli_Arti_Id_Func_FK=per.Pers_id_PK";
             sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
@@ -376,7 +375,7 @@ public class solicitudArtDAO {
         }
     }
 
-   
+
     public List<SboTbSoliArti> listadoSolicitudVistobuenoJf(String filtro) {
         List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
         try {
@@ -474,6 +473,35 @@ public class solicitudArtDAO {
         } else {
             throw new Exception("error");
         }
+    }
+
+
+    public List<SboTbSoliArti> listadoSolicitudPorFuncionarioPendientes(int filtro) {
+        List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
+        try {
+            String sql = "select * from SIBO_TB_Soli_Arti s where s.Soli_Arti_Id_Func_FK =" + filtro + "and s.Soli_Arti_Esta = 'pendiente';";
+            sql = String.format(sql, filtro);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(soliArti(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+
+    public List<SboTbSoliArti> listadoSolicitudPorFuncionarioTotal(int filtro) {
+        List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
+        try {
+            String sql = "select * from SIBO_TB_Soli_Arti s where s.Soli_Arti_Id_Func_FK =" + filtro + " and s.Soli_Arti_Esta <> 'pendiente';";
+            sql = String.format(sql, filtro);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(soliArti(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
     }
 
 }
