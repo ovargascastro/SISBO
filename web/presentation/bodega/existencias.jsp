@@ -95,7 +95,7 @@
                                         <div class="col"><label>Existencias Actuales</label>
                                             <input class="form-control" type="text" id="existAct" readonly></div>
                                         <div class="col"><label>Nueva Cantidad</label>
-                                            <input class="form-control" type="text" id="nuevExist" required></div>
+                                            <input class="form-control" type="number" min="0" id="nuevExist" required></div>
                                     </div>
                                 </form>
                             </div>
@@ -116,6 +116,12 @@
 </html>
 <script>
     document.getElementById("ArticulosMenu").style.color = "white";
+    function logged() {
+    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+    <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
+        location.href = "presentation/notAccess.jsp";
+    <%}%>
+    }
 
 
 </script>

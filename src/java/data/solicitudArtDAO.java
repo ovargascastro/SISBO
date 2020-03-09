@@ -286,7 +286,7 @@ public class solicitudArtDAO {
             ob.setPersSfun(rs.getByte("Pers_es_func"));
             ob.setPers_es_jefe(rs.getByte("Pers_es_jefe"));
             ob.setPersCedu(rs.getString("Pers_cedu"));
-            
+
             return ob;
         } catch (SQLException ex) {
             return null;
@@ -377,7 +377,6 @@ public class solicitudArtDAO {
         }
     }
 
-   
     public List<SboTbSoliArti> listadoSolicitudVistobuenoJf(String filtro) {
         List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
         try {
@@ -475,6 +474,34 @@ public class solicitudArtDAO {
         } else {
             throw new Exception("error");
         }
+    }
+
+    public List<SboTbSoliArti> listadoSolicitudPorFuncionarioPendientes(int filtro) {
+        List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
+        try {
+            String sql = "select * from SIBO_TB_Soli_Arti s where s.Soli_Arti_Id_Func_FK =" + filtro + "and s.Soli_Arti_Esta = 'pendiente';";
+            sql = String.format(sql, filtro);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(soliArti(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+
+    public List<SboTbSoliArti> listadoSolicitudPorFuncionarioTotal(int filtro) {
+        List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
+        try {
+            String sql = "select * from SIBO_TB_Soli_Arti s where s.Soli_Arti_Id_Func_FK =" + filtro + " and s.Soli_Arti_Esta <> 'pendiente';";
+            sql = String.format(sql, filtro);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(soliArti(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
     }
 
 }

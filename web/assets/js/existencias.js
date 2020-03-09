@@ -45,6 +45,7 @@ $(document).ready(function () {
     selectSicop();
     selectDeptos();
     selectBodegas();
+    logged();
 });
 
 

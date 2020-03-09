@@ -528,4 +528,13 @@ public class Model {
         existdao.updateExist(e);
     }
 
+    public List<SboTbSoliArti> solicitudesPendientesxFunc(int func) {
+        return solArtdao.listadoSolicitudPorFuncionarioPendientes(func);
+    }
+    
+        public List<SboTbSoliArti> solicitudesTotalxFunc(int func) {
+        return solArtdao.listadoSolicitudPorFuncionarioTotal(func);
+    }
+    
+
 }

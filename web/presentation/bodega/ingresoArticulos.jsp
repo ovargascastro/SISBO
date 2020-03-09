@@ -101,7 +101,7 @@
 
                                 <label>Cantidad a Ingresar</label>
                                 <input id="AddArtCant" class="form-control" 
-                                       type="number" placeholder="Cantidad a Ingresar" required> 
+                                       type="number" placeholder="Cantidad a Ingresar" min="0" required> 
 
                                 <label>Bodega</label>
                                 <select class="form-control" id="AddArtBodega" required> 
@@ -373,7 +373,7 @@
 
         function logged() {
     <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
-    <% if (aux == null) { %>
+     <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
             location.href = "presentation/notAccess.jsp";
     <%}%>
         }
@@ -411,6 +411,8 @@
             $('#selectCatalogoArticulos').addClass('selectpicker');
             $('#selectCatalogoArticulos').attr('data-live-search', 'true');
         }
+        
+
 
 
 
