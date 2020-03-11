@@ -252,6 +252,18 @@
          window.localStorage.clear(); 
     }
     
+    $(document).ready(function () {
+    logged();
+});
+    
+    
+    function logged() {
+    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+    <% if (aux == null) { %>
+        location.href = "presentation/notAccess.jsp";
+    <%}%>
+    }
+    
     
 
   

@@ -19,7 +19,7 @@
 
     </head>
 
-    <body style="background-color: rgb(255,255,255);">
+    <body style="background-color: rgb(255,255,255);" onload="javascript:buscarSolicitudxAprobar();">
         <%@ include file="/presentation/header.jsp" %>
 
         <div id="titulo">
@@ -278,7 +278,9 @@
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/solicitudArticulo.js" type="text/javascript"></script>
     </body>
+    </html>
     <script>
+        
         document.getElementById("solicitudArtMenu").style.color = "white";
         function listSoliArt(personas) {
             var listado = $("#listSolArt");
@@ -293,10 +295,8 @@
             tr.html(
                 "<td>" + objeto.solArtiIdPk + "</td>"
                 + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
-<<<<<<< HEAD
-=======
+
                 + "<td>" + objeto.abaaTbPersona.persNomb + " " + objeto.abaaTbPersona.persApe1 + " " + objeto.abaaTbPersona.persApe2 + "</td>"
->>>>>>> origin/oscar-v2
                 + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
                 + "<td>" + objeto.solArtiEsta + "</td>"
                 + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'></td>"
@@ -321,8 +321,7 @@
             listado.append(tr);
         }
         
-<<<<<<< HEAD
-=======
+
         function listaAlerts(personas) {
             var listado = $("#alertasMinimotb");
             listado.html("");
@@ -339,6 +338,14 @@
             listado.append(tr);
         }
         
->>>>>>> origin/oscar-v2
+
+    function logged() {
+    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+    <% if (aux == null ) { %>
+        location.href = "presentation/notAccess.jsp";
+    <%}%>
+    }
+        
+
     </script>
-</html>
+

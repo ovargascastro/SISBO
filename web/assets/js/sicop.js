@@ -171,3 +171,8 @@ function myFunction() {
         }
     }
 }
+
+
+$(document).ready(function () {
+    logged();
+});
