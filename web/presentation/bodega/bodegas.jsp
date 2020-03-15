@@ -32,7 +32,7 @@
                             <form id="buscarSicop" action="javascript:buscarSicopFiltro()">
                                 <div class="form-row">
                                     <div class="col text-center">
-                                        <input class="form-control" type="text" id="filtro" onkeyup="myFunction()"></div>
+                                        <input class="form-control" type="text" id="filtro" onkeyup="myFunction()" placeholder="Búsqueda por descripción"></div>
                                 </div>
                             </form>
                         </div>
