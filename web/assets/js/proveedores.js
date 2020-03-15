@@ -155,7 +155,7 @@ function afterCreateProv() {
 
 }
 
-    document.getElementById("CatalogosMenu").style.color = "white";
+
     
 
 $(document).ready(function () {

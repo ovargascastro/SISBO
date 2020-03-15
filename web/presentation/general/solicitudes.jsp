@@ -114,4 +114,5 @@
         location.href = "presentation/notAccess.jsp";
     <%}%>
     }
+    document.getElementById("solicitudArtMenu").style.color = "white";
 </script>

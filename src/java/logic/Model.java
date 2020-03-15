@@ -531,10 +531,26 @@ public class Model {
     public List<SboTbSoliArti> solicitudesPendientesxFunc(int func) {
         return solArtdao.listadoSolicitudPorFuncionarioPendientes(func);
     }
-    
-        public List<SboTbSoliArti> solicitudesTotalxFunc(int func) {
+
+    public List<SboTbSoliArti> solicitudesTotalxFunc(int func) {
         return solArtdao.listadoSolicitudPorFuncionarioTotal(func);
     }
-    
+
+    public void agregarBodega(SboTbBodega b) throws SQLException {
+        bodegadao.agregarBodega(b);
+    }
+
+    public void deleteBodega(SboTbBodega s) throws SQLException {
+        bodegadao.deleteBodega(s);
+    }
+
+    public void updateBodega(SboTbBodega s) throws SQLException {
+        bodegadao.updateBodega(s);
+    }
+
+    public SboTbBodega getBodega(String id) throws Exception {
+        return bodegadao.getBodega(id);
+
+    }
 
 }
