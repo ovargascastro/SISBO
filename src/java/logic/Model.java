@@ -536,5 +536,8 @@ public class Model {
         return solArtdao.listadoSolicitudPorFuncionarioTotal(func);
     }
     
-
+    public void agregarLimite(SboTbLimiteDpto limi) throws Exception{
+        limiDAO.insertLimites(limi);
+    }
+    
 }

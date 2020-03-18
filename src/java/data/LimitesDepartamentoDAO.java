@@ -5,6 +5,7 @@
  */
 package data;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -50,4 +51,18 @@ public class LimitesDepartamentoDAO {
         }
 
     }
+    
+    public void insertLimites(SboTbLimiteDpto ilimites) throws SQLException, Exception{
+        String sql = "insert into SIBO_TB_Limi_Depa(Limi_Depa_Id_Dpto_PK,Limi_Depa_Id_Sico_PK,Limi_Depa_limi)"
+                + " values(?,?,?);";
+        
+        PreparedStatement pstmt = db.getConnection().prepareStatement(sql);
+        pstmt.setString(1,ilimites.getAbaaTbDepartamento().getDeptoIdPk());
+        pstmt.setInt(2,ilimites.getSboTbCatArticulo().getCatIdPk());
+        pstmt.setInt(3,ilimites.getLimiteDptoLimite());
+        pstmt.executeUpdate();
+        db.getConnection().close();
+    }
+    
+     
 }
