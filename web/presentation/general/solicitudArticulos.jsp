@@ -179,7 +179,7 @@
         var cant = document.getElementById("cantidad").value;
         var existencias =  document.getElementById("cantidadExist").value;
         if(existencias < cant ){
-            return false;
+            return true;
         }
         return true;
     }

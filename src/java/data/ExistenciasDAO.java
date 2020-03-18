@@ -256,5 +256,26 @@ public class ExistenciasDAO {
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
+    
+    
+        public List<SboTbExistencia> listaConsumo(String depa) {
+        List<SboTbExistencia> resultado = new ArrayList<SboTbExistencia>();
+        try {
+            String sql = "select bode.Bode_Desc, dpto.Cata_Depa_nomb,exis.Exis_Id_Sico_PK, sicop.Sico_Desc, exis.Exis_Cant\n"
+                    + "from ABAA_TB_Catalogo_Departamento dpto, SIBO_TB_Bode bode, SIBO_TB_Sicop sicop,\n"
+                    + "SIBO_TB_Exis exis\n"
+                    + "where exis.Exis_Id_Bode_PK=bode.Bode_Id_PK\n"
+                    + "and exis.Exist_Depa_PK=dpto.Cata_Depa_id_PK\n"
+                    + "and exis.Exis_Id_Sico_PK=sicop.Sico_Id_PK\n"
+                    + "and exis.Exist_Depa_PK=" + depa;
+            sql = String.format(sql, depa);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(existencia3(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
 
 }

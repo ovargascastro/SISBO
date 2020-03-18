@@ -91,7 +91,7 @@ public class SoliXArtDAO {
             return null;
         }
     }
-    
+
     private AbaaTbDepartamento departamento(ResultSet rs) {
         try {
             AbaaTbDepartamento ob = new AbaaTbDepartamento();
@@ -100,6 +100,69 @@ public class SoliXArtDAO {
         } catch (SQLException ex) {
             return null;
         }
+    }
+    
+    
+        private SboSicop sicop(ResultSet rs) {
+        try {
+            SboSicop ob = new SboSicop();
+            ob.setSicopId(rs.getInt("Sico_Id_PK"));
+            ob.setSicopCodiClas(rs.getString("Sico_Codi_Clas"));
+            ob.setSicopCodiInden(rs.getString("Sico_Codi_Iden"));
+            ob.setSicopDesc(rs.getString("Sico_Desc"));
+            return ob;
+        } catch (SQLException ex) {
+            return null;
+        }
+
+    }
+
+    
+        private SboTbSolixArti objetoReporte(ResultSet rs) {
+        try {
+            SboTbSolixArti solxArt = new SboTbSolixArti();
+            solxArt.setSboSicop(articulo(rs));
+            solxArt.setSolArtiCant(rs.getInt("Soli_Arti_X_Cant"));
+            solxArt.setSboSicop(sicop(rs));
+            return solxArt;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+    
+    
+    public  ArrayList<SboTbSolixArti>  reporteConsumo(String depa, String inicio, String fin) {
+         ArrayList<SboTbSolixArti>  resultado = new ArrayList<SboTbSolixArti>();
+        try {
+            String sql = "select si.Sico_Desc, si.Sico_Codi_Iden,si.Sico_Codi_Clas,si.Sico_Id_PK, Soli_Arti_X_Cant from SIBO_TB_Soli_X_Arti s inner join\n"
+                    + "SIBO_TB_Sicop si on s.Soli_Arti_Id_X_Sico_PK=si.Sico_Id_PK inner join\n"
+                    + "SIBO_TB_Soli_Arti so on s.Soli_Arti_Id_X_Soli_Arti_PK=so.Soli_Arti_Id_PK\n"
+                    + "where so.Soli_Arti_Id_Depa_FK='%s' and s.Soli_Arti_Fech_Sali between '"+inicio+"'and '"+fin+"';";
+            sql = String.format(sql, depa);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(objetoReporte(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+    
+        public  ArrayList<SboTbSolixArti>  reporteConsumoFilter(String arti, String depa, String inicio, String fin) {
+         ArrayList<SboTbSolixArti>  resultado = new ArrayList<SboTbSolixArti>();
+        try {
+            String sql = "select si.Sico_Desc, si.Sico_Codi_Iden,si.Sico_Codi_Clas,si.Sico_Id_PK, Soli_Arti_X_Cant from SIBO_TB_Soli_X_Arti s inner join\n"
+                    + "SIBO_TB_Sicop si on s.Soli_Arti_Id_X_Sico_PK=si.Sico_Id_PK inner join\n"
+                    + "SIBO_TB_Soli_Arti so on s.Soli_Arti_Id_X_Soli_Arti_PK=so.Soli_Arti_Id_PK\n"
+                    + "where so.Soli_Arti_Id_Depa_FK='%s' and s.Soli_Arti_Id_X_Sico_PK="+arti+" and s.Soli_Arti_Fech_Sali between '"+inicio+"'and '"+fin+"';";
+            sql = String.format(sql, depa);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(objetoReporte(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
     }
 
 }

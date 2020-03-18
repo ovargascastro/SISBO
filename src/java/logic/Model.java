@@ -553,4 +553,56 @@ public class Model {
 
     }
 
+    public ArrayList<SboTbSolixArti> listaReporte(String arti, String depa, String inicio, String fin) throws Exception {
+
+       
+        Map<String, SboTbSolixArti> aux = new HashMap<>();
+
+        if (arti.equals("all")) {
+             ArrayList<SboTbSolixArti> lista = solixartdao.reporteConsumo(depa, inicio, fin);
+            for (SboTbSolixArti x : lista) {
+
+                String key = Integer.toString(x.getSboSicop().getSicopId());
+
+                if (aux.containsKey(key)) {
+                    SboTbSolixArti obj = aux.get(key);
+                    int cant = obj.getSolArtiCant();
+                    int cantAux = cant + x.getSolArtiCant();
+                    obj.setSolArtiCant(cantAux);
+
+                } else {
+                    aux.put(key, x);
+
+                }
+
+            }
+
+            ArrayList<SboTbSolixArti> beans = new ArrayList<>(aux.values());
+
+            return beans;
+        } else {
+             ArrayList<SboTbSolixArti> lista = solixartdao.reporteConsumoFilter(arti,depa, inicio, fin);
+            for (SboTbSolixArti x : lista) {
+
+                String key = Integer.toString(x.getSboSicop().getSicopId());
+
+                if (aux.containsKey(key)) {
+                    SboTbSolixArti obj = aux.get(key);
+                    int cant = obj.getSolArtiCant();
+                    int cantAux = cant + x.getSolArtiCant();
+                    obj.setSolArtiCant(cantAux);
+
+                } else {
+                    aux.put(key, x);
+
+                }
+
+            }
+
+        }
+        ArrayList<SboTbSolixArti> beans = new ArrayList<>(aux.values());
+        
+        return beans;
+    }
+
 }
