@@ -15,6 +15,7 @@ public class SboTbBodega  implements java.io.Serializable {
      private AbaaTbFuncionario abaaTbFuncionario;
      private String bodeUbic;
      private String bodeDesc;
+     private int bodeEsta;
      private Set<SboTbExistencia> sboTbExistencias = new HashSet<SboTbExistencia>(0);
 
     public SboTbBodega() {
@@ -31,7 +32,17 @@ public class SboTbBodega  implements java.io.Serializable {
        this.bodeDesc = bodeDesc;
        this.sboTbExistencias = sboTbExistencias;
     }
+
+    public int getBodeEsta() {
+        return bodeEsta;
+    }
+
+    public void setBodeEsta(int bodeEsta) {
+        this.bodeEsta = bodeEsta;
+    }
    
+    
+    
     public int getBodeIdPk() {
         return this.bodeIdPk;
     }

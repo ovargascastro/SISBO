@@ -107,3 +107,12 @@
 
     </body>
 </html>
+<script>
+    function logged() {
+    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+    <% if (aux == null ) { %>
+        location.href = "presentation/notAccess.jsp";
+    <%}%>
+    }
+    document.getElementById("solicitudArtMenu").style.color = "white";
+</script>

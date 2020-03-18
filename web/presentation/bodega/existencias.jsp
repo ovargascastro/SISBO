@@ -94,7 +94,7 @@
                                         <div class="col"><label>Existencias Actuales</label>
                                             <input class="form-control" type="text" id="existAct" readonly></div>
                                         <div class="col"><label>Nueva Cantidad</label>
-                                            <input class="form-control" type="text" id="nuevExist" required></div>
+                                            <input class="form-control" type="number" min="0" id="nuevExist" required></div>
                                     </div>
                                 </form>
                             </div>

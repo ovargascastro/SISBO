@@ -192,7 +192,7 @@
                                         <input class="form-control" type="text" placeholder="Marca" id="Marca">
 
                                         <label>Cantidad</label>
-                                        <input class="form-control" type="number" placeholder="Cantidad" id="Cantidad" required>
+                                        <input class="form-control" type="number" placeholder="Cantidad" id="Cantidad" min="0"required>
 
                                         <label>Unidad Usuaria</label>
                                         <select class="form-control" id="selectDeptos" required>

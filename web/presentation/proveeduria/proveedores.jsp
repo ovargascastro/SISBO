@@ -189,5 +189,12 @@ function ocultarModalInfoProv() {
     buscarProvs();
     
 }
-    
+
+    function logged() {
+    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+    <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("17") && !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
+        location.href = "presentation/notAccess.jsp";
+    <%}%>
+    }
+     document.getElementById("CatalogosMenu").style.color = "white";
 </script>
