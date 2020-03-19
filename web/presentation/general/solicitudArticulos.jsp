@@ -44,13 +44,13 @@
                          
                             <div class="col">
                                 <label>Artículo</label>
-                                <select class="form-control" id="selectArt" onchange="getExistencias()" required>
+                                <select class="form-control" id="selectArt" onchange="getExistencias()" required="required" >
                                     <option values="0" selected disabled = "true">Seleccione una opcion</option>
                                 </select>
                             </div>
                              <div class="col">
                                 <label>Descripción</label>
-                                 <input class="form-control" type="text" placeholder="Descripción" id="descripcion">
+                                 <input class="form-control" type="text" placeholder="Descripción" id="descripcion" required="required">
                             </div>
                         
                             <div class="col">
@@ -164,7 +164,11 @@
     }
     
     function IngresarArticuloLista(){
-        if(validar()){
+        
+        var cant = document.getElementById("cantidad").value;
+        var existencias =  document.getElementById("cantidadExist").value;
+        
+        if(existencias >= cant){
         insertarLista(generaSolXArti());
         agregarSolXArtTabla();
         }else{
@@ -174,15 +178,7 @@
         
     }
     
-    function validar(){
-       
-        var cant = document.getElementById("cantidad").value;
-        var existencias =  document.getElementById("cantidadExist").value;
-        if(existencias < cant ){
-            return true;
-        }
-        return true;
-    }
+
     
     function generaSolXArti(){
         var soliXarti = {
