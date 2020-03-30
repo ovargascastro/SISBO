@@ -1,7 +1,5 @@
-
-
 package SISBO;
-import logic.SboTbExistencia;
+
 
 import java.sql.SQLException;
 import java.util.List;
@@ -24,14 +22,12 @@ import logic.SboSicop;
 import logic.SboTbArticulo;
 import logic.SboTbBodega;
 import logic.SboTbCatArticulo;
-
+import logic.SboTbExistencia;
 
 @Path("Existencias")
-
 public class Existencias {
 
     @Context
-
     private UriInfo context;
     private static String bode;
     private static String arti;
@@ -55,23 +51,13 @@ public class Existencias {
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-
     public void update(SboTbExistencia existencia) {
-
         try {
-
             Model.instance().aumentarExistenciasArticulo(existencia);
-
         } catch (Exception ex) {
-
             throw new NotFoundException();
-
         }
-
     }
-    
-     @GET
-
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -87,45 +73,19 @@ public class Existencias {
     }
 
     @GET
-
     @Path("{bodeg}/{depto}/{arti}")
-
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-
     public List<SboTbExistencia> getExistencias(@PathParam("bodeg") String x, @PathParam("depto") String y, @PathParam("arti") String z)
-
             throws ClassNotFoundException, SQLException {
 
         String bodega = x;
-
         String departamento = y;
-
         String articulo = z;
         bode = bodega;
         arti = articulo;
         dpt = departamento;
-
         List<SboTbExistencia> lista = Model.instance().listaExistencias(bodega, departamento, articulo);
-
         return lista;
-
     }
 
-
-
-//    @GET
-
-//    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-
-//    public List<SboTbArticulo> getArticulos(@QueryParam("filtro") String filtro) throws ClassNotFoundException, SQLException {
-
-//        List<SboTbArticulo> lista = Model.instance().listaArticulosExistencia(filtro);
-
-//        return lista;
-
-//    }
-
-
-
-   
 }
