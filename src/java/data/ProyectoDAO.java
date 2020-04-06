@@ -26,7 +26,7 @@ public class ProyectoDAO {
         try {
             AbaaProyectos ob = new AbaaProyectos();
             ob.setProyIdPk(Integer.parseInt(rs.getString("Proy_id_PK")));
-            ob.setProyDesc(rs.getString("Proy_desc"));
+            ob.setProyDesc(rs.getString("Proy_nomb"));
             return ob;
         } catch (SQLException ex) {
             return null;
