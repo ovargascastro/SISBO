@@ -25,6 +25,7 @@ public class LimitesDepartamentoDAO {
         db = new RelDatabase();
     }
 
+    //objeto de tipo limiite por departamento
     private SboTbLimiteDpto limites(ResultSet rs) {
         try {
             SboTbLimiteDpto li = new SboTbLimiteDpto();
@@ -34,7 +35,7 @@ public class LimitesDepartamentoDAO {
             return null;
         }
     }
-
+//se obtiene el limite de departamento por cada existencia 
     public SboTbLimiteDpto getLimiteDepaPorExis(SboTbExistencia exis) throws SQLException, Exception {
         String sql = "select limi.Limi_Depa_limi  \n"
                 + "from SIBO_TB_Limi_Depa limi, SIBO_TB_Sicop sicop, ABAA_TB_Catalogo_Departamento depa\n"

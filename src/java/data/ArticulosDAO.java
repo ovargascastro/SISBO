@@ -39,6 +39,7 @@ public class ArticulosDAO {
         db = new RelDatabase();
     }
 
+    //creacion de un objeto tipo familia
     private SboTbFamilia familia(ResultSet rs) {
         try {
             SboTbFamilia ob = new SboTbFamilia();
@@ -52,6 +53,7 @@ public class ArticulosDAO {
 
     }
 
+    //objeto tipo catalogo de articulos 
     private SboTbCatArticulo catArticulo(ResultSet rs) {
         try {
             SboTbCatArticulo ob = new SboTbCatArticulo();
@@ -65,7 +67,7 @@ public class ArticulosDAO {
         }
 
     }
-
+//objeto de tipo subfamilia 
     private SboTbSubFamilia Subfamilia(ResultSet rs) {
         try {
             SboTbSubFamilia ob = new SboTbSubFamilia();
@@ -79,7 +81,7 @@ public class ArticulosDAO {
         }
 
     }
-
+//objeto de tipo proyecto
     private AbaaProyectos proyecto(ResultSet rs) {
         try {
             AbaaProyectos ob = new AbaaProyectos();
@@ -91,7 +93,7 @@ public class ArticulosDAO {
         }
 
     }
-
+//objeto de tipo departamento
     private AbaaTbDepartamento departamento(ResultSet rs) {
         try {
             AbaaTbDepartamento ob = new AbaaTbDepartamento();
@@ -102,7 +104,7 @@ public class ArticulosDAO {
             return null;
         }
     }
-
+//objeto de tipo orden de compra
     private SboTbOrdenCompra OrdenCompra(ResultSet rs) {
         try {
             SboTbOrdenCompra oc = new SboTbOrdenCompra();
@@ -118,7 +120,7 @@ public class ArticulosDAO {
             return null;
         }
     }
-
+//objeto de tipo proveedor
     private AbaaTbProveedor Proveedor(ResultSet rs) {
         try {
             AbaaTbProveedor pro = new AbaaTbProveedor();
@@ -134,6 +136,7 @@ public class ArticulosDAO {
             return null;
         }
     }
+    //objeto de tipo existencias
        private SboTbExistencia existencia(ResultSet rs) {
         try {
             SboTbExistencia ob = new SboTbExistencia();
@@ -147,6 +150,8 @@ public class ArticulosDAO {
         }
 
     }
+       
+           //objeto de tipo Bodega
        private SboTbBodega Bodega(ResultSet rs) {
         try {
             SboTbBodega bodega = new SboTbBodega();
@@ -158,6 +163,8 @@ public class ArticulosDAO {
             return null;
         }
     }
+       
+           //objeto de tipo articulo de Sicop
         private SboSicop sicop(ResultSet rs) {
         try {
             SboSicop ob = new SboSicop();
@@ -172,6 +179,7 @@ public class ArticulosDAO {
 
     }
 
+        // se inserta o agrega el objeto de tipo articulo en la base de datos con todos sus atributos
     public void agregarArticulo(SboTbArticulo objeto) throws Exception {
         String query = "insert into SIBO_TB_Articulo(Arti_Prec,Arti_Cant,Arti_Cant_Rest,Arti_Desc,"
                 + "Arti_Mode,Arti_Nume_Seri,Arti_Marc,Arti_Codi_Pres,"
@@ -193,7 +201,8 @@ public class ArticulosDAO {
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
-
+ // se inserta o agrega el objeto de tipo articulo cuando este pertenece a un proyecto especifico
+ //en la base de datos con todos sus atributos
     public void agregarArticuloConProyecto(SboTbArticulo objeto) throws Exception {
         String query = "insert into SIBO_TB_Articulo(Arti_Prec,Arti_Cant,Arti_Cant_Rest,"
                 + "Arti_Desc,Arti_Mode,Arti_Nume_Seri,Arti_Marc,Arti_Codi_Pres,"
@@ -218,6 +227,7 @@ public class ArticulosDAO {
         db.getConnection().close();
     }
 
+    // obtenemos el ultimo id del articulo existente en la tabla de articulos
     public int getLastInsertArticulo() throws Exception {
         String sql = " select IDENT_CURRENT( 'SIBO_TB_Articulo' ) as seq ";
         sql = String.format(sql);
@@ -229,6 +239,7 @@ public class ArticulosDAO {
         }
     }
 
+    //se obtiene el ultimo id como un tipo int para poder retornarlo en el metodo anterior
     private int lastInsertOrdenCompra(ResultSet rs) {
         try {
             int x;
@@ -239,6 +250,7 @@ public class ArticulosDAO {
         }
     }
 
+    // se hace la consulta para obtener todos los articulos que pertenecen a una orden de compra en especifico mediante el id
     public List<SboTbArticulo> listadoArticulosPorOrden(int filtro) {
         List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
         try {
@@ -255,7 +267,7 @@ public class ArticulosDAO {
     }
     
     
-    
+   // se lista las ordenes de compra que estan pendiente de asignarles un codigo contable
     public List<SboTbArticulo> listadoArticulosPorOrdenConta(int filtro) {
         List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
         try {
@@ -272,7 +284,7 @@ public class ArticulosDAO {
         }
         return resultado;
     }
-
+//objeto de tipo de articulo
     private SboTbArticulo articulo(ResultSet rs) {
         try {
             SboTbArticulo ar = new SboTbArticulo();
@@ -302,6 +314,7 @@ public class ArticulosDAO {
         }
     }
 
+    // se actualiza el codigo contable del objeto que se selecciono
     public void actualizarCodigCont(SboTbArticulo objeto) throws Exception {
         String query = "update SIBO_TB_Articulo set Arti_Codi_Cont = ? where Arti_Id_PK = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -311,6 +324,7 @@ public class ArticulosDAO {
         db.getConnection().close();
     }
 
+    // se listan los articulos mediante el id de este
     public SboTbArticulo getArticulo(int id) throws Exception {
         String sql = "select * from SIBO_TB_Articulo where Arti_Id_PK='%s'";
         sql = String.format(sql, id);
@@ -322,6 +336,7 @@ public class ArticulosDAO {
         }
     }
 
+    // se seleccionan todos los atributos de articulos de la tabla articulos, catalogos de articulos y Departamento
     public SboTbArticulo getArticulo2(int id) throws Exception {
         String sql = "select * "
                 + "from SIBO_TB_Articulo art, ABAA_TB_Catalogo_Departamento dpto, SIBO_TB_Cata_Arti cat "
@@ -336,6 +351,8 @@ public class ArticulosDAO {
         }
     }
 
+    
+    //este metodo agrega articulos por medios alternativos a una orden de compra
     public void agregarArticuloSinOrden(SboTbArticulo objeto) throws Exception {
         String query = "insert into SIBO_TB_Articulo(Arti_Prec,Arti_Cant,Arti_Cant_Rest,Arti_Desc,"
                 + "Arti_Mode,Arti_Nume_Seri,Arti_Marc,"

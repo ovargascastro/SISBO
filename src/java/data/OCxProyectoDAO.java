@@ -20,7 +20,7 @@ public class OCxProyectoDAO {
     public OCxProyectoDAO() {
         db = new RelDatabase();
     }
-    
+    // se agrega los datos de proyecto de una orden de compra 
     public void agregarDatos(AbaaTbOcproyecto objeto) throws Exception{
         String query = "insert into ABAA_TB_OCProyecto(Ocpr_OC_id,Ocpr_Proy_id,Ocpr_Arti_id)"
                 + "values(?,?,?)";

@@ -38,7 +38,7 @@ public class solicitudArtDAO {
     public solicitudArtDAO() {
         db = new RelDatabase();
     }
-
+// se crea un articulo de sicop
     private SboSicop articulo(ResultSet rs) {
         try {
             SboSicop ar = new SboSicop();
@@ -52,6 +52,7 @@ public class solicitudArtDAO {
         }
     }
 
+    // se obtiene todos los articulos en existencias de un departamento
     public List<SboSicop> getArticuloExistencia(String filtro) {
         List<SboSicop> resultado = new ArrayList<SboSicop>();
         try {
@@ -71,6 +72,8 @@ public class solicitudArtDAO {
         return resultado;
     }
 
+    
+    // se seleccionan los articulos en existencias por departamento
     public List<SboTbExistencia> existenciasXarticuloxdepto(String idDepto, int idCatArt) throws Exception {
         List<SboTbExistencia> resultado = new ArrayList<SboTbExistencia>();
         try {
@@ -90,6 +93,7 @@ public class solicitudArtDAO {
         return resultado;
     }
 
+    // se crea un objeto de tipo existencia
     private SboTbExistencia existencia(ResultSet rs) {
         try {
             SboTbExistencia existencia = new SboTbExistencia();
@@ -101,7 +105,7 @@ public class solicitudArtDAO {
             return null;
         }
     }
-
+// se crea un objeto de tipo bodega
     private SboTbBodega Bodega(ResultSet rs) {
         try {
             SboTbBodega bodega = new SboTbBodega();
@@ -113,7 +117,7 @@ public class solicitudArtDAO {
             return null;
         }
     }
-
+// se crea un objeto de tipo catalogo de articulo ***
     private SboTbCatArticulo catArticulo(ResultSet rs) {
         try {
             SboTbCatArticulo ob = new SboTbCatArticulo();
@@ -127,6 +131,7 @@ public class solicitudArtDAO {
         }
     }
 
+    // se crea un objeto de tipo subfamilia
     private SboTbSubFamilia Subfamilia(ResultSet rs) {
         try {
             SboTbSubFamilia ob = new SboTbSubFamilia();
@@ -140,6 +145,7 @@ public class solicitudArtDAO {
         }
 
     }
+    // se crea un objeto de tipo familia
 
     private SboTbFamilia familia(ResultSet rs) {
         try {
@@ -153,6 +159,7 @@ public class solicitudArtDAO {
         }
 
     }
+    // se crea un objeto de tipo departamento
 
     private AbaaTbDepartamento departamento(ResultSet rs) {
         try {
@@ -164,6 +171,7 @@ public class solicitudArtDAO {
             return null;
         }
     }
+    // se crea un objeto de tipo proyecto******
 
     private AbaaProyectos proyecto(ResultSet rs) {
         try {
@@ -176,6 +184,7 @@ public class solicitudArtDAO {
         }
 
     }
+    // se crea un objeto de tipo Orden de compra *****
 
     private SboTbOrdenCompra OrdenCompra(ResultSet rs) {
         try {
@@ -193,6 +202,8 @@ public class solicitudArtDAO {
         }
     }
 
+        // se crea un objeto de tipo proveedor
+
     private AbaaTbProveedor Proveedor(ResultSet rs) {
         try {
             AbaaTbProveedor pro = new AbaaTbProveedor();
@@ -209,6 +220,7 @@ public class solicitudArtDAO {
         }
     }
 
+    // se obtiene el ultimo id de la tabla solicitud de articulos de tipo int
     private int lastInsertSolicitudArticulo(ResultSet rs) {
         try {
             int x;
@@ -219,6 +231,7 @@ public class solicitudArtDAO {
         }
     }
 
+    // se agregra los datos a la tabla de solixarti
     public void agregarSolicitudXArticulo(SboTbSolixArti objeto) throws Exception {
         String query = "insert into SIBO_TB_Soli_X_Arti(Soli_Arti_Id_X_Soli_Arti_PK,Soli_Arti_Id_X_Arti_PK,"
                 + "Soli_Arti_X_Cant)"
@@ -232,6 +245,7 @@ public class solicitudArtDAO {
         db.getConnection().close();
     }
 
+    // se muestran la solicitud que tiene el correspondiente id  
     public List<SboTbSoliArti> listadoSolicitudesArticulos(String filtro) {
         List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
         try {
@@ -249,6 +263,7 @@ public class solicitudArtDAO {
         return resultado;
     }
 
+    // se crea un objeto solicitud
     private SboTbSoliArti soliArti(ResultSet rs) {
         try {
             SboTbSoliArti solArt = new SboTbSoliArti();
@@ -265,15 +280,9 @@ public class solicitudArtDAO {
         }
     }
 
-    private AbaaTbDepartamento departamento2(ResultSet rs) {
-        try {
-            AbaaTbDepartamento ob = new AbaaTbDepartamento();
-            ob.setDeptoIdPk(rs.getString("Soli_Arti_Id_Depa_FK"));
-            return ob;
-        } catch (SQLException ex) {
-            return null;
-        }
-    }
+  
+    
+    // se crea un objeto de tipo persona
 
     private AbaaTbPersona persona(ResultSet rs) {
         try {
@@ -292,6 +301,7 @@ public class solicitudArtDAO {
         }
     }
 
+    // se selecciona los articulos por solicitud
     public List<SboTbSolixArti> listadoArticulosPorSolicitud(int filtro) {
         List<SboTbSolixArti> resultado = new ArrayList<SboTbSolixArti>();
         try {
@@ -310,6 +320,7 @@ public class solicitudArtDAO {
         return resultado;
     }
 
+    // se crea un objeto de tipo solixArti
     private SboTbSolixArti solixArti(ResultSet rs) {
         try {
             SboTbSolixArti solxArt = new SboTbSolixArti();
@@ -324,6 +335,7 @@ public class solicitudArtDAO {
         }
     }
 
+    // se seleccionan las solicitudes con el estado pendiente
     public List<SboTbSoliArti> listadoSolicitudxAprobar(String filtro) {
         List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
         try {
@@ -342,6 +354,7 @@ public class solicitudArtDAO {
         return resultado;
     }
 
+    //se actualiza el estado de la solicitud
     public void actualizarEstSolicitud(SboTbSoliArti objeto) throws SQLException {
         String query = "update SIBO_TB_Soli_Arti set Soli_Arti_Esta = ? where Soli_Arti_Id_PK = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -352,6 +365,7 @@ public class solicitudArtDAO {
 
     }
 
+    // se selecciona la solicitud por id
     public SboTbSoliArti getSboTbSoliArti(int filtro) throws Exception {
         String sql = "select * from SIBO_TB_Soli_Arti f where f.Soli_Arti_Id_PK ='%s'";
         sql = String.format(sql, filtro);
@@ -363,6 +377,7 @@ public class solicitudArtDAO {
         }
     }
 
+    // se selecciona el regisro de la tabla solixarti por id de la solicitud
     public SboTbSolixArti getSboTbSolixArti(int filtro) throws Exception {
         String sql = "select * from SIBO_TB_Soli_X_Arti s inner join SIBO_TB_Articulo a on s.Soli_Arti_Id_X_Arti_PK = a.Arti_Id_PK inner join SIBO_TB_Soli_Arti sa on s.Soli_Arti_Id_X_Soli_Arti_PK = sa.Soli_Arti_Id_PK"
                 + " where s.Soli_Arti_Id_X_Soli_Arti_PK ='%s'";
@@ -375,7 +390,7 @@ public class solicitudArtDAO {
         }
     }
 
-
+// se muestran los datos que estan pendientes del visto bueno por parte del jefe
     public List<SboTbSoliArti> listadoSolicitudVistobuenoJf(String filtro) {
         List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
         try {
@@ -394,6 +409,7 @@ public class solicitudArtDAO {
         return resultado;
     }
 
+    // se muestran los datos que estan pendientes del visto bueno por parte del departamento de TI
     public List<SboTbSoliArti> listadoSolicitudVistobuenoTI(String filtro) {
         List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
         try {
@@ -412,6 +428,7 @@ public class solicitudArtDAO {
         return resultado;
     }
 
+    // se actualizan los datos que con la opcion  seleccionado por parte del jefe
     public void actualizarEstSolicitudJefe(SboTbSoliArti objeto) throws SQLException {
         String query = "update SIBO_TB_Soli_Arti set Soli_Arti_Esta = ?, Soli_Arti_Vist_Jefe = ? where Soli_Arti_Id_PK = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -422,7 +439,7 @@ public class solicitudArtDAO {
         db.getConnection().close();
 
     }
-
+// se actualizan los datos que con la opcion  seleccionado por parte del departamento de TI
     public void actualizarEstSolicitudTI(SboTbSoliArti objeto) throws SQLException {
         String query = "update SIBO_TB_Soli_Arti set Soli_Arti_Esta = ?, Soli_Arti_Vist_Ti = ? where Soli_Arti_Id_PK = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -433,7 +450,7 @@ public class solicitudArtDAO {
         db.getConnection().close();
 
     }
-
+// se ejecuta el procedimiento para disminuir las existencias
     public void disminuyeExistencias(SboTbSolixArti objeto) throws Exception {
         String query = "execute DisminuyeExistencias ?,?,?;";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -444,6 +461,7 @@ public class solicitudArtDAO {
         db.getConnection().close();
     }
 
+    // se inserta la solicitid mediante el procedimiento
     public void InsertarSoli(SboTbSoliArti objeto) throws Exception {
         String query = "execute Soli_Insertar ?,?;";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -453,6 +471,7 @@ public class solicitudArtDAO {
         db.getConnection().close();
     }
 
+    // se agrega en la tabla solixarti por medio de un procedimiento
     public void insertarSolxArt(SboTbSolixArti objeto) throws Exception {
         String sql = "Execute agregarSoliXarti ?,?,?,?;";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(sql);
@@ -464,6 +483,7 @@ public class solicitudArtDAO {
         db.getConnection().close();
     }
 
+    // se selecciona el ultimo id de la tabla soli_arti
     public int getLastInsertSolicitudArticulo() throws Exception {
         String sql = " select IDENT_CURRENT( 'SIBO_TB_Soli_Arti' ) as seq ";
         sql = String.format(sql);
@@ -475,7 +495,7 @@ public class solicitudArtDAO {
         }
     }
 
-
+// se muestran las solicitudes que tiene un funcionario pendiente
     public List<SboTbSoliArti> listadoSolicitudPorFuncionarioPendientes(int filtro) {
         List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
         try {
@@ -490,6 +510,7 @@ public class solicitudArtDAO {
         return resultado;
     }
 
+    // se muestran todas las solicitudes realizadas por un funcionario
     public List<SboTbSoliArti> listadoSolicitudPorFuncionarioTotal(int filtro) {
         List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
         try {

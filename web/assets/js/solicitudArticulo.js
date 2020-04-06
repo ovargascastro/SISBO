@@ -21,10 +21,9 @@ function selecArt() {
         }
     });
 }
-//fin
-//funcion para listarArticulos de la solicitud temporales
 
 
+//se resetea el dato elegido en el select
 function resetearSelectArt(selectbox) {
     var i;
     for (i = selectbox.options.length - 1; i >= 0; i--) {
@@ -33,6 +32,7 @@ function resetearSelectArt(selectbox) {
     selecArt();
 }
 
+//se agrega un articulo provisionalmente a la tabla de la solicitud
 function agregarArtTemp() {
     var art = document.getElementById("selectArt").value;
     SboTbArticulo = {
@@ -50,6 +50,7 @@ function agregarArtTemp() {
     });
 }
 
+//se listan los datos agregados a la solicitud temporal
 function buscar() {
     $.ajax({type: "GET",
         url: "api/artSolTemp?temporales=" + $("#Modelo").val(),
@@ -59,7 +60,7 @@ function buscar() {
 }
 
 
-
+//se elimina un articulo de la tabla temporal
 function eliminaArt(id) {
     if (confirm("Desea eliminar el articulo?")) {
         $.ajax({type: "DELETE",
@@ -73,8 +74,6 @@ function eliminaArt(id) {
 }
 
 //funcion para crear la solicitud que va a recibir ArtixSoli
-
-
 
 function agregarSolicitudArticulo() {
     var depto = $("#departamento").val();
@@ -102,7 +101,7 @@ function agregarSolicitudArticulo() {
         }
     });
 }
-
+//se crea la solicitud con los datos proporcionado por el usuario
 function creaSolicitud() {
     var depto = $("#departamento").val();
     var idUsu = $("#idusuario").val();
@@ -126,6 +125,7 @@ function creaSolicitud() {
     });
 }
 
+//funcion que recupera el id de la solicitud en la tabla de la base de datos
 function termine() {
     $.ajax({type: "GET",
         url: "api/artSolTemp/" + 0,
@@ -137,13 +137,13 @@ function termine() {
     console.log("hola");
     //alert("ya hice la solicitud en el model hay una varible numSoliArti donde guardo el id de la solicitud");
 }
-
+// recupera el id que pertenece a la solicitud recien creada y lo envia a un campo de texto
 function colocarID(arti) {
     console.log(arti);
     $("#idSoli").val(arti.solArtiIdPk);
     ingresaIdSoli(arti.solArtiIdPk);
 }
-
+//agrega los datos en la tabla solixarti
 function agregarSoliXart() {
     $.ajax({type: "POST",
         url: "api/artPorSol",
@@ -154,12 +154,12 @@ function agregarSoliXart() {
         }
     });
 }
-
+//se redirig a la pagina principal
 function salirSolicitud() {
     var ruta = "index.jsp";
     window.location = ruta;
 }
-
+// formato de fecha
 String.prototype.toDate = function (format)
 {
     var normalized = this.replace(/[^a-zA-Z0-9]/g, '-');
@@ -188,6 +188,7 @@ function formatDate(fecha) {
     return newFecha;
 }
 
+//se listan las solicitudes realizadas
 function buscarListaSolicitudes() {
 
     $.ajax({type: "GET",
@@ -198,7 +199,7 @@ function buscarListaSolicitudes() {
         }
     });
 }
-//SI
+//SI se muestran los articulos que pertenecen a una solicitud
 function articulosXSolicitud(filtro) {
 
     $.ajax({type: "GET",
@@ -211,7 +212,7 @@ function articulosXSolicitud(filtro) {
     });
     $('#listaArtxSol').modal('show');
 }
-
+//se obtiene los articulos en existencia por departamento 
 function getExistencias() {
     var depa = $("#departamento").val();
     var arti = document.getElementById("selectArt").value;
@@ -224,13 +225,13 @@ function getExistencias() {
         }
     });
 }
-
+// se muestra la cantidad en existencia del articulo seleccionado
 function muestraCantidad(can) {
     //alert("prueba");
     console.log(can);
     $("#cantidadExist").val(can.exisCant);
 }
-
+//se listan las solicitues pendientes de aprobacion por id
 function buscarSolicitudxAprobar() {
 
     $.ajax({type: "GET",
@@ -241,7 +242,7 @@ function buscarSolicitudxAprobar() {
         }
     });
 }
-
+//se muestran los solicitudes pendientes
 function buscarSolicitudxAprobar2() {
     var vacio="";
     $.ajax({type: "GET",
@@ -252,6 +253,7 @@ function buscarSolicitudxAprobar2() {
         }
     });
 }
+//se listan las solicitues pendientes de aprobacion por parte del jefe
 
 function buscarSolicitudVbJf() {
 
@@ -266,6 +268,7 @@ function buscarSolicitudVbJf() {
 
 }
 
+//se listan las solicitues pendientes de aprobacion por parte de TI
 
 function buscarSolicitudVbTI() {
 
@@ -277,12 +280,12 @@ function buscarSolicitudVbTI() {
         }
     });
 }
-
+//se muestra el modal para rechazar
 function abrirModalRechazar() {
     $("#motivo").val("");
     $('#Rechazar').modal('show');
 }
-
+//se muestra la informacon de las solicitudes pendientes de aprobacon por jefe
 function Aprobar(filtro) {
     console.log(filtro);
     $.ajax({type: "GET",
@@ -294,6 +297,7 @@ function Aprobar(filtro) {
     });
 }
 
+//se asigan a las campos del modal los datos de la solicitud
     var solIdActual1;
     var solFecha1;
     var solDeparta1;
@@ -307,7 +311,7 @@ function mostraraprobarJF(soli) {
     console.log(soli.solArtiIdPk);
 
 }
-
+//se muestra la informacion de la solicitud pendiente de aprobacion de TI
 function AprobarTI(filtro) {
     console.log(filtro);
     $.ajax({type: "GET",
@@ -319,6 +323,9 @@ function AprobarTI(filtro) {
     });
 
 }
+
+
+//se asigan a las campos del modal los datos de la solicitud
 
 var solIdActual2;
 var solFecha2;
@@ -350,6 +357,8 @@ function mostraraprobarTI(soli) {
 //    });
 //  
 //}
+
+//se recuperan los datos de la base de datos correspondientes a la existencia
 var artIdEx;
 var cantExist;
 var SoliEx;
@@ -362,7 +371,7 @@ function mostrarExistencia(soli) {
     console.log(artIdEx);
     console.log(SoliEx);
 }
-
+// se modifica el estado de la existencias para alertar
 function actualizarExistenciaEstado() {
     var soliXarti = {
         sboTbSoliArti: [{solArtiIdPk: $('#SoliArtiID').val()}]
@@ -378,7 +387,7 @@ function actualizarExistenciaEstado() {
     });
 
 }
-
+// se alertara dependiendo de los limites de cada articulo
 function alistarAlertas(lista) {
     buscarSolicitudxAprobar2();
     if(lista.length!==0){
@@ -396,7 +405,7 @@ function alistarAlertas(lista) {
 
 
 
-
+//se muestra los datos de la solicitud por aprobar
 function abrirModalAprobar(filtro) {
     $.ajax({type: "GET",
         url: "api/soliAprobacion/" + filtro,
@@ -416,6 +425,9 @@ function abrirModalAprobar(filtro) {
 //    });
 
 }
+
+//se muestran los datos de la solicitud seleccionada dependiendo del caso
+//se mostraran los modales correspondientes
 var VBJF;
 var VBTI;
 var solIdActual;
@@ -443,11 +455,12 @@ function mostrarXaprobar(soli) {
     } else
         $('#modalAprobar').modal('show');
 }
-
+//se oculta el modal de solicitudes pendientes
 function cerrarPendiente() {
     $('#modalPendiente').modal('hide');
 }
 
+//se actualiza estado de aprobacion 
 var solEstado = "Aprobada";
 function actualizarEstadoAprobacion() {
     console.log(solIdActual);
@@ -468,7 +481,7 @@ function actualizarEstadoAprobacion() {
     });
 
 }
-
+//depues de actualizar el estado se oculta el modal correspondiente
 function afterUpdateApE() {
     buscarSolicitudxAprobar();
 
@@ -482,7 +495,7 @@ function afterUpdateApE() {
         $('#modalAprobar').modal('hide');
 
 }
-
+//se actualiza el estado a PendienteVBJefe
 var solEstado2 = "PendienteVBJefe";
 function actualizarEstadoJefe() {
     console.log(solIdActual);
@@ -503,6 +516,7 @@ function actualizarEstadoJefe() {
     });
 
 }
+//despues de actulizar el estado se ocultan los modales correspondientes
 function afterUpdateApEsJf() {
     buscarSolicitudxAprobar();
     if (VBJF === true && VBTI === false) {
@@ -515,7 +529,7 @@ function afterUpdateApEsJf() {
         $('#modalAprobar').modal('hide');
 
 }
-
+//se modifica el estado a PendienteVBTI
 var solEstado3 = "PendienteVBTI";
 function actualizarEstadoTI() {
     console.log(solIdActual);
@@ -536,6 +550,8 @@ function actualizarEstadoTI() {
     });
 
 }
+
+//despues de avtualizar el estado se oculta el modal correspondiente
 function afterUpdateApEsTI() {
     buscarSolicitudxAprobar();
     if (VBJF === true && VBTI === false) {
@@ -549,7 +565,7 @@ function afterUpdateApEsTI() {
 
 }
 
-
+//se modifica el estado a Rechazado
 var solEstado4 = "Rechazado: ";
 function actualizarEstadoRechazo() {
     SboTbSoliArti = {
@@ -568,13 +584,13 @@ function actualizarEstadoRechazo() {
 
 }
 
-
+// se oculta el modal de rechazar
 function afterUpdateApEs() {
     buscarSolicitudxAprobar();
     $('#Rechazar').modal('hide');
 
 }
-
+//funcion para crear el pdf de la solicitud
 function imprimir(filtro) {
 
 
@@ -597,7 +613,7 @@ function imprimir(filtro) {
 
     $('#SolicitudImprimir').modal('show');
 }
-
+// se muestran los datos de la solicitud en el modal de imprimir
 var a;
 function mostrarsoli(soli) {
 
@@ -612,7 +628,7 @@ function mostrarsoli(soli) {
 }
 
 
-
+//se actualiza el estado a VBJefeAprobado
 var vistoBueno = 1;
 var solEstado1 = "VBJefeAprobado";
 function actualizarEstadoVbJf() {
@@ -635,14 +651,14 @@ function actualizarEstadoVbJf() {
     });
 
 }
-
+//se cierra el modal despues de la aprobacion del jefe
 function afterUpdateVBJefe() {
     buscarSolicitudVbJf();
     $('#Aprobar').modal('hide');
 
 }
 
-
+//se cambia el estado a Rechazado Jefe
 var solEstado5 = "Rechazado Jefe: ";
 function actualizarEstadoRechazoJefe() {
     console.log(solIdActual);
@@ -665,14 +681,14 @@ function actualizarEstadoRechazoJefe() {
 
 }
 
-
+//se cierra el modal de rechazar
 function afterUpdateRechJefe() {
     buscarSolicitudVbJf();
     $('#Rechazar').modal('hide');
 
 }
 
-
+// se modifica el estado a VBTIAprobado
 var vistoBueno2 = 1;
 var solEstado6 = "VBTIAprobado";
 function actualizarEstadoVbTI() {
@@ -696,13 +712,13 @@ function actualizarEstadoVbTI() {
     });
 
 }
-
+// se cierra el modal despues de ser aprobado por TI
 function afterUpdateVBTI() {
     buscarSolicitudVbTI();
     $('#AprobarTI').modal('hide');
 
 }
-
+//Se cambia el estado a Rechazado TI:
 var solEstado7 = "Rechazado TI: ";
 function actualizarEstadoRechazoTI() {
     console.log(solIdActual);
@@ -725,14 +741,14 @@ function actualizarEstadoRechazoTI() {
 
 }
 
-
+//se cierra el modal de rechazar
 function afterUpdateRechTI() {
     buscarSolicitudVbTI();
     $('#Rechazar').modal('hide');
 
 }
 
-
+//se eliminae l articulo de la tabla temporal
 function eliminaArt(id) {
     if (confirm("Desea eliminar el articulo?")) {
         $.ajax({type: "DELETE",
@@ -748,8 +764,8 @@ function eliminaArt(id) {
 
 //imprimir JS trabajar desde aqui
 
-//document.getElementById('export').addEventListener('click',
-//  PDF);
+document.getElementById('export').addEventListener('click',
+  PDF);
 
 var specialElementHandlers = {
     // element with id of "bypass" - jQuery style selector

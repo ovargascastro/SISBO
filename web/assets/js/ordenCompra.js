@@ -1,3 +1,6 @@
+
+// se agrega el articulo a la tabla provisional de la orden de compra
+//con todos sus atributos, importante aun no se ha agregado a la base de datos
 function agregarArticuloTemporal() {
     var depto = document.getElementById("selectDeptos").value;
     var art = document.getElementById("selectCatalogoArticulos").value;
@@ -45,24 +48,24 @@ function agregarArticuloTemporal() {
 
 
 }
-
+//al ejecutar correctamente la funcion se limpian los campos de texto de los articulos
 function exito() {
     limpiar();
     $('#modalArticulo').modal('hide');
     buscar2();
 }
-
+//se resetea los articulos de la orden
 function limpiar() {
     $('#articulosOrden').trigger("reset");
 }
-
+// se listan los datos de los articulos temporales
 function buscar2() {
     $.ajax({type: "GET",
         url: "api/articulostemporales?temporales=" + $("#Modelo").val(),
         success: listaArticulosTemporales
     });
 }
-
+//se elimina el articulo agregado a la orden de compra temporal
 function eliminarArt(id){
    if(confirm("Desea eliminar el articulo?") ){
            $.ajax({type: "DELETE", 
@@ -73,6 +76,7 @@ function eliminarArt(id){
     }
   }
 
+//se listan los articulos existentes en el catalogo de articulos
 function selectCatArticulos() {
     $.ajax({type: "GET",
         url: "api/catArticulos?filtro=" + " ",
@@ -87,7 +91,7 @@ function selectCatArticulos() {
     });
 
 }
-
+//se resetea el articulo elegido en el select
 function resetearSelectCatArticulos(selectbox)
 {
     var i;
@@ -96,7 +100,7 @@ function resetearSelectCatArticulos(selectbox)
         selectbox.remove(i);
     }
 }
-
+//se agrega los datos a la tabla de la orden de compra en la base de datos
 function agregarOrdenCompra() {
     var provee = document.getElementById("selectProveedores").value;
     var fecha = document.getElementById("fechaOrden").value;
@@ -124,6 +128,7 @@ function agregarOrdenCompra() {
     });
 }
 
+//se agrega los articulos en la base
 function agregarArticulos() {
     $.ajax({type: "POST",
         url: "api/articulos",
@@ -135,11 +140,11 @@ function agregarArticulos() {
     });
 }
 
-
+// se redirecciona a la pagina principal
 function salirOrden() {
     location.href = "index.jsp"; 
 }
-
+// formato de la fecha
 String.prototype.toDate = function (format)
 {
     var normalized = this.replace(/[^a-zA-Z0-9]/g, '-');
@@ -159,7 +164,7 @@ String.prototype.toDate = function (format)
 
     return new Date(year, month, day);
 };
-
+//se agrega el proyecto a la base en caso de que la orden pertenezca a uno
 function proyecto() {
     var proy;
     if (document.getElementById("proyectoCheck").checked === true) {
@@ -171,6 +176,7 @@ function proyecto() {
 
 }
 
+//se listan las ordenes de compra
 function buscarOrdenes() {
 
     $.ajax({type: "GET",
@@ -179,7 +185,7 @@ function buscarOrdenes() {
     });
     
 }
-
+// se listan las ordenes que se le debe asignar un codigo contable
 function estadoConta() {
 
     $.ajax({type: "GET",
@@ -188,6 +194,7 @@ function estadoConta() {
     });
 }
 
+//formato de la fecha
 function formatDate(fecha) {
     var dia = fecha.substring(8, 10);
     var mes = fecha.substring(5, 7);
@@ -196,6 +203,7 @@ function formatDate(fecha) {
     return newFecha;
 }
 
+//se listan los articulos que pertenecen a una orden de compra
 function articulosXorden(filtro){
     
         $.ajax({type: "GET",
@@ -206,7 +214,7 @@ function articulosXorden(filtro){
     $('#listaArticulos').modal('show');
 }
 
-
+//se listan losa articulos de una orden por asignarsele codigo contable
 function articulosXordenConta(filtro){
     
         $.ajax({type: "GET",
@@ -216,7 +224,7 @@ function articulosXordenConta(filtro){
 
     $('#listaArticulos').modal('show');
 }
-
+// se agrega un departamento en la tabla
 function agregaDepartamento(objeto) {
     var listado = $("#departamentosRow");
     listado.html("");
@@ -225,6 +233,7 @@ function agregaDepartamento(objeto) {
     });
 
 }
+//se agrega una fila en la tabla para listar departamentos
 function filaDepartamentos(listado, objeto) {
 
     var tr = $("<tr />");
@@ -233,6 +242,7 @@ function filaDepartamentos(listado, objeto) {
     listado.append(tr);
 }
 
+//se agrega un proyecto nuevo a la tabla provisional de proyecto
 function agregaProyecto(objeto) {
     var listado = $("#proyectosRow");
     listado.html("");
@@ -241,6 +251,7 @@ function agregaProyecto(objeto) {
     });
 
 }
+//se agrega una fila a la tabla de proyectos
 function filaProyectos(listado, objeto) {
 
     var tr = $("<tr />");
@@ -248,7 +259,7 @@ function filaProyectos(listado, objeto) {
             "<td>" + objeto.abaaProyectos.proyDesc + "</td>");
     listado.append(tr);
 }
-
+//verificar datos de sesion
 $(document).ready(function () {
     logged();
 });

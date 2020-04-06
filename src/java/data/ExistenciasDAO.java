@@ -18,7 +18,7 @@ public class ExistenciasDAO {
     public ExistenciasDAO() {
         db = new RelDatabase();
     }
-
+//objeto de tipo Bodega solo con atributo descripcion
     private SboTbBodega Bodega(ResultSet rs) {
 
         try {
@@ -33,7 +33,7 @@ public class ExistenciasDAO {
             return null;
         }
     }
-
+//objeto de tipo Bodega con atributo de Id
     private SboTbBodega Bodega2(ResultSet rs) {
         try {
             SboTbBodega bodega = new SboTbBodega();
@@ -43,7 +43,7 @@ public class ExistenciasDAO {
             return null;
         }
     }
-
+//objeto departamento con atributo del nombre de departamento
     private AbaaTbDepartamento departamento(ResultSet rs) {
         try {
             AbaaTbDepartamento ob = new AbaaTbDepartamento();
@@ -56,6 +56,7 @@ public class ExistenciasDAO {
             return null;
         }
     }
+//objeto departamento con atributo del id
 
     private AbaaTbDepartamento departamento2(ResultSet rs) {
         try {
@@ -66,7 +67,7 @@ public class ExistenciasDAO {
             return null;
         }
     }
-
+//Objeto del catalogo de Sicop con id y descripcion
     private SboSicop sicop(ResultSet rs) {
         try {
             SboSicop ob = new SboSicop();
@@ -82,6 +83,7 @@ public class ExistenciasDAO {
         }
 
     }
+//Objeto del catalogo de Sicop con id de Sicp en la tabla de existencias y descripcion
 
     private SboSicop sicop2(ResultSet rs) {
         try {
@@ -94,7 +96,7 @@ public class ExistenciasDAO {
         }
 
     }
-
+// objeto de tipo existencia con todos sus atributos
     private SboTbExistencia existencia(ResultSet rs) {
         try {
             SboTbExistencia ob = new SboTbExistencia();
@@ -109,7 +111,7 @@ public class ExistenciasDAO {
         }
 
     }
-
+//objeto de tipo existencia con algunos atributos necesarios a mostrar en las existencias por solicitud
     private SboTbExistencia existencia2(ResultSet rs) {
         try {
             SboTbExistencia ob = new SboTbExistencia();
@@ -122,7 +124,7 @@ public class ExistenciasDAO {
             return null;
         }
     }
-
+//objeto de tipo existencia con algunos atributos necesarios a mostrar en los reportes de la lista de consumo
     private SboTbExistencia existencia3(ResultSet rs) {
         try {
             SboTbExistencia ob = new SboTbExistencia();
@@ -145,7 +147,7 @@ public class ExistenciasDAO {
             return null;
         }
     }
-
+//se actualiza la cantidad en existencia 2
     public void updateExist(SboTbExistencia e) throws SQLException {
         String query = "update SIBO_TB_Exis set Exis_Cant=? where Exis_Id_Bode_PK=? and Exis_Id_Sico_PK=? and Exist_Depa_PK=?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -157,6 +159,7 @@ public class ExistenciasDAO {
         db.getConnection().close();
     }
 
+    //se lista las existencias por bodega, departamento y el id del articulo de sicop 1
     public List<SboTbExistencia> listaExistencias(String bodega, String departamento, String articulo) {
         List<SboTbExistencia> resultado = new ArrayList<SboTbExistencia>();
         try {
@@ -179,6 +182,7 @@ public class ExistenciasDAO {
         return resultado;
     }
 
+    // se lista las existencias por departamento 3
     public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
         List<SboTbExistencia> resultado = new ArrayList<SboTbExistencia>();
         try {
@@ -199,6 +203,7 @@ public class ExistenciasDAO {
         return resultado;
     }
 
+    // se selecciona la existencia que pertenecen a un departamento de un determinado articulo 
     public SboTbExistencia getSboTbExistencia(String departamento, String articulo) throws SQLException, Exception {
         String sql = "select Exis_Cant from SIBO_TB_Exis exis\n"
                 + "where exis.Exist_Depa_PK=" + departamento + "\n"
@@ -211,6 +216,7 @@ public class ExistenciasDAO {
             throw new Exception("Bien no Existe");
         }}
 
+    //se lista las existencias por bodega, departamento y el id del articulo de sicop ***** 1
     public List<SboTbExistencia> listaExistencias2(String bodega, String departamento, String articulo) {
         List<SboTbExistencia> resultado = new ArrayList<SboTbExistencia>();
         try {
@@ -236,7 +242,7 @@ public class ExistenciasDAO {
     
    
 
-    
+    // se muestran las existencias que hay por solicitud
     public SboTbExistencia registroExistenciasPorSolicitud(String depa, String sicop) throws SQLException, Exception {
         String sql = "select SIBO_TB_Exis.Exis_Id_Bode_PK,SIBO_TB_Exis.Exis_Id_Sico_PK,SIBO_TB_Exis.Exist_Depa_PK,SIBO_TB_Exis.Exis_Cant, SIBO_TB_Sicop.Sico_Desc\n"
                 + "from SIBO_TB_Exis,SIBO_TB_Bode,SIBO_TB_Sicop,ABAA_TB_Catalogo_Departamento\n"
@@ -252,7 +258,7 @@ public class ExistenciasDAO {
             throw new Exception("Bien no Existe");
         }
     }
-
+// se actualizan la cantidad de una determinada existencia **** 2
     public void actualizarExistencia(SboTbExistencia objeto) throws Exception {
         String query = "update SIBO_TB_Exis set Exis_Cant=? where Exis_Id_Bode_PK=? and Exis_Id_Sico_PK=? and Exist_Depa_PK=?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -263,6 +269,27 @@ public class ExistenciasDAO {
         preparedStmt.executeUpdate();
         db.getConnection().close();
 
+    }
+    
+     // se lista las existencias por departamento ***** 3
+        public List<SboTbExistencia> listaConsumo(String depa) {
+        List<SboTbExistencia> resultado = new ArrayList<SboTbExistencia>();
+        try {
+            String sql = "select bode.Bode_Desc, dpto.Cata_Depa_nomb,exis.Exis_Id_Sico_PK, sicop.Sico_Desc, exis.Exis_Cant\n"
+                    + "from ABAA_TB_Catalogo_Departamento dpto, SIBO_TB_Bode bode, SIBO_TB_Sicop sicop,\n"
+                    + "SIBO_TB_Exis exis\n"
+                    + "where exis.Exis_Id_Bode_PK=bode.Bode_Id_PK\n"
+                    + "and exis.Exist_Depa_PK=dpto.Cata_Depa_id_PK\n"
+                    + "and exis.Exis_Id_Sico_PK=sicop.Sico_Id_PK\n"
+                    + "and exis.Exist_Depa_PK=" + depa;
+            sql = String.format(sql, depa);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(existencia3(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
     }
 
 }

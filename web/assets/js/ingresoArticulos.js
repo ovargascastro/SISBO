@@ -1,3 +1,5 @@
+
+//funcion necesaria para agregar el registro a la base de datos con la informacion proporcionada por el usuario 
 function agregarArt() {
     var depto = document.getElementById("selectDeptos").value;
     var art = document.getElementById("selectCatalogoArticulos").value;
@@ -49,6 +51,7 @@ function agregarArt() {
     });
 }
 
+//darle formato a las fechas
 String.prototype.toDate = function (format)
 {
     var normalized = this.replace(/[^a-zA-Z0-9]/g, '-');
@@ -69,6 +72,7 @@ String.prototype.toDate = function (format)
     return new Date(year, month, day);
 };
 
+//se agrega la existencia a la base de datos con los datos correspondientes
 function agregarExistencias() {
     var depto = document.getElementById("selectDeptos").value;
     var sicop = document.getElementById("selectSicop").value;
@@ -96,11 +100,11 @@ function agregarExistencias() {
         }
     });
 }
-
+//se redirige a la pagina principal
 function salir() {
     location.href = "index.jsp"; 
 }
-
+//se limpian los campos del ingreso de articulos
 function limpiar(){
     location.href = "presentation/bodega/ingresoArticulos.jsp"; 
 }

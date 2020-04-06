@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 
-
+// funcion para realizar las busquedas dependiendo si se desea
+//buscar una familia, subfamilia, catalogo de articulo, catalogo contable
 function buscar() {
 
     var e = document.getElementById("selectcatalogos");
@@ -31,6 +32,8 @@ function buscar() {
     }
 }
 
+
+//se buscara la familia por id
 function buscarFamilias() {
     $.ajax({type: "GET",
         url: "api/familias?filtro=" + $("#filtro").val(),
@@ -38,13 +41,14 @@ function buscarFamilias() {
     });
 }
 
+//se buscara la subfamilia por id
 function buscarSubFamilias() {
     $.ajax({type: "GET",
         url: "api/subfamilias?filtro=" + $("#filtro").val(),
         success: listaSubFam
     });
 }
-
+//se buscara en el catalgo de articulos por id
 function buscarCatArticulos() {
     $.ajax({type: "GET",
         url: "api/catArticulos?filtro=" + $("#filtro").val(),
@@ -52,7 +56,7 @@ function buscarCatArticulos() {
     });
 
 }
-
+//se buscara en el catalogo contable por id
 function buscarCatContables() {
     $.ajax({type: "GET",
         url: "api/contables?filtro=" + $("#filtro").val(),
@@ -60,7 +64,9 @@ function buscarCatContables() {
     });
 
 }
-
+ 
+ 
+ //se abre el modal de editar dependiendo si es una familia,subfamilia, el catalogo de articulos o de codigos contables
 function abrirModalEditar(filtro) {
     var e = document.getElementById("selectcatalogos");
     var strUser = e.options[e.selectedIndex].value;
@@ -103,7 +109,7 @@ function abrirModalEditar(filtro) {
         });
     }
 }
-
+// se coloca los datos actuales de la familia seleccionada en los campos correspondientes
 var famEsta;
 function mostrarFamilia(fam) {
 
@@ -113,6 +119,7 @@ function mostrarFamilia(fam) {
     $('#modalEditarFam').modal('show');
 }
 
+// se coloca los datos actuales del codigo contable seleccionada en los campos correspondientes
 var contAct;
 var contEsta;
 function mostrarCatCont(cont) {
@@ -123,7 +130,7 @@ function mostrarCatCont(cont) {
     $("#NivelContable").val(cont.cntNivel);
     $('#modalEditarCatContable').modal('show');
 }
-
+// se coloca los datos actuales del articulo seleccionada en los campos correspondientes
 var catArtEstado;
 var catArtActual;
 function mostrarCatArt(art) {
@@ -136,6 +143,8 @@ function mostrarCatArt(art) {
     // selectSubFamilias();
     $('#modalArticulo').modal('show');
 }
+// se coloca los datos actuales de la subfamilia seleccionada en los campos correspondientes
+
 var subfamEsta;
 function mostrarSubFamilia(subfam) {
 
@@ -149,18 +158,19 @@ function mostrarSubFamilia(subfam) {
     $('#modalSubFam').modal('show');
 }
 
-
+//se muestra el modal para "eliminar"
 function abrirModalEliminar() {
     $('#modalEliminar').modal('show');
 
 }
+//se busca dependiendo del catalogo seleccionado
 function concatenarBusqueda() {
     var valor = $("#selectcatalogos option:selected").text();
     $("#catalogode").text('Catalogo de ' + valor);
     buscar();
 }
 
-
+//funcion para mostrar los catalogos
 function cargarSelects() {
     selectFamilias();
     selectSubFamilias();
@@ -168,6 +178,7 @@ function cargarSelects() {
     selectAgregaSubFamilias();
 }
 
+//se buscan los registron del catalogo de familias
 function selectFamilias() {
 
     $.ajax({type: "GET",
@@ -184,6 +195,7 @@ function selectFamilias() {
 
 }
 
+//se buscan los registron del catalogo de subfamilias
 
 function selectSubFamilias() {
 
@@ -201,6 +213,8 @@ function selectSubFamilias() {
 
 }
 
+//se buscan los registron del catalogo de articulos
+
 function selectCatArticulos() {
     $.ajax({type: "GET",
         url: "api/catArticulos?nombre=" + $("#codigo").val(),
@@ -215,7 +229,7 @@ function selectCatArticulos() {
     });
 
 }
-
+// se reinician los datos del catalogo de articulos
 function resetearSelectCatArticulos(selectbox)
 {
     var i;
@@ -224,6 +238,8 @@ function resetearSelectCatArticulos(selectbox)
         selectbox.remove(i);
     }
 }
+
+//se actualiza los registron del catalogo de familias
 
 function actualizarFamilia() {
     console.log(famEsta);
@@ -245,12 +261,14 @@ function actualizarFamilia() {
 
 }
 
+//se utiliza en caso de que la funcion actualizarFamilia haya sido exitosa
+// esconde el modal  de editar familia
 function afterUpdateFm() {
     buscarFamilias();
     $('#modalEditarFam').modal('hide');
 
 }
-
+//se actualiza los registron del catalogo de subfamilias
 function actualizarSubFamilia() {
     console.log(subfamEsta);
     var e = document.getElementById("selectFamilias");
@@ -276,7 +294,8 @@ function actualizarSubFamilia() {
     });
 
 }
-
+//se utiliza en caso de que la funcion actualizarsubFamilia haya sido exitosa
+// esconde el modal  de editar subfamilia
 function afterUpdateSubFm() {
     alert("ex");
     $('#busqueda').trigger("reset");
@@ -286,7 +305,7 @@ function afterUpdateSubFm() {
 }
 
 
-
+//se actualiza el catalogo de codigos contables
 function actualizarCatContable() {
     console.log(contEsta);
     SboTbCatContable = {
@@ -308,6 +327,8 @@ function actualizarCatContable() {
 
 }
 
+//se utiliza en caso de que la funcion actualizarCatContable haya sido exitosa
+// esconde modal de codigos contables
 function afterUpdateCt() {
     buscarCatContables();
     $('#modalEditarCatContable').modal('hide');
@@ -319,7 +340,7 @@ function afterUpdateCt() {
 
 
 
-
+//se actualiza el catalogo de articulos
 function actualizarCatArticulo() {
     var e = document.getElementById("selectSubFam");
     var strUser = e.options[e.selectedIndex].value;
@@ -347,12 +368,17 @@ function actualizarCatArticulo() {
 
 }
 
+//se utiliza en caso de que la funcion actualizarCatArt haya sido exitosa
+// esconde modal de catalogo de articulos
 function afterUpdateCatArt() {
     buscarCatArticulos();
     $('#modalArticulo').modal('hide');
 
 }
 
+//se agrega un registro dependiendo del catalogo seleccionado
+//puede ser una familia, subfamilia, catalgo de codigos contables o al catalogo de articulos
+//dependiendo del caso se abre el modal para realizar la agregacion
 function agregarACatalogo() {
 
     var e = document.getElementById("selectcatalogos");
@@ -379,23 +405,28 @@ function agregarACatalogo() {
     }
 
 }
+//se hace visible el modal para agregar codigos contables
 function abrirModalAgregaCodContable() {
     $('#modalAgregarCatContable').modal('show');
 }
+//se hace visible el modal para agregar articulos 
 
 function abrirModalAgregaCatArticulo() {
     $('#modalAgregarCatArticulo').modal('show');
     $("#selectSubFam").val("");
     // selectAgregaSubFamilias();
 }
+//se hace visible el modal para agregar subfamilias
+
 function abrirModalAgregaSubFam() {
     $('#modalAgregarSubFamilia').modal('show');
 }
+//se hace visible el modal para agregar familias
 
 function abrirModalAgregaFam() {
     $('#modalAgregarFamilia').modal('show');
 }
-
+// se limpia el select de familias
 function resetearSelectFam(selectbox)
 {
     var i;
@@ -404,7 +435,7 @@ function resetearSelectFam(selectbox)
         selectbox.remove(i);
     }
 }
-
+// se limpia el select de subfamilias
 function resetearSelectSubFam(selectbox)
 {
     var i;
@@ -414,10 +445,9 @@ function resetearSelectSubFam(selectbox)
     }
 }
 
-//$("#selectSubFam").val("");
-// selectAgregaSubFamilias();
 
 
+// se muestran las subfamilias en el select 
 function selectAgregaSubFamilias() {
 
     $.ajax({type: "GET",
@@ -433,7 +463,7 @@ function selectAgregaSubFamilias() {
     });
 
 }
-
+//se muestra el modal para agregar una subfamilia 
 function abrirModalAgregaSubFam() {
     $('#modalAgregarSubFamilia').modal('show');
     $("#AgregarFamiliaSubF").val("");
@@ -441,6 +471,7 @@ function abrirModalAgregaSubFam() {
 
 }
 
+//se cargan en el select las familias a elegir
 function selectAgregaFamilias() {
 
     $.ajax({type: "GET",
@@ -456,10 +487,12 @@ function selectAgregaFamilias() {
     });
 
 }
-
+//se muestra el modal para agregar una familia 
 function abrirModalAgregaFam() {
     $('#modalAgregarFamilia').modal('show');
 }
+
+//se agrega una familia a la base de datos
 function crearFamilia() {
 //           var e = document.getElementById("Select2");
 //           var strUser = e.options[e.selectedIndex].value;
@@ -479,13 +512,15 @@ function crearFamilia() {
     });
 
 }
+
+//se oculta el modal para agregar una familia despues de haber sido creada
 function afterCreateFm() {
     buscarFamilias();
     $('#modalAgregarFamilia').modal('hide');
 }
 
 
-
+//se agrega un registro al catalogo contable a la base de datos
 
 function crearCatContable() {
 //           var e = document.getElementById("Select2");
@@ -507,12 +542,15 @@ function crearCatContable() {
     });
 
 }
+
+//se oculta el modal para agregar un codigo contable despues de haber sido creada
+//se listan de nuevo todos los codigos
 function afterCreateCont() {
     buscarCatContables();
     $('#modalAgregarCatContable').modal('hide');
 }
 
-
+// se crea una familia con sus atributos en la base de datos
 function crearSubFamilia() {
     var e = document.getElementById("AgregarFamiliaSubF");
     var strUser = e.options[e.selectedIndex].value;
@@ -536,12 +574,13 @@ function crearSubFamilia() {
     });
 
 }
-
+//se oculta el modal para agregar una subfamilia despues de haber sido creada
+//se listan las subfamilias
 function afterCreateSubFm() {
     buscarSubFamilias();
     $('#modalAgregarSubFamilia').modal('hide');
 }
-
+//creamos un articulo en el catalogo
 function CrearCatArticulo() {
     var e = document.getElementById("AgregarSubfamiliaCatArt");
     var strUser = e.options[e.selectedIndex].value;
@@ -568,12 +607,16 @@ function CrearCatArticulo() {
     });
 
 }
-
+//se oculta el modal para agregar una articulo despues de haber sido creada
+//se listan los articulos existentes
 function afterCreateCatArt() {
     buscarCatArticulos();
     $('#modalAgregarCatArticulo').modal('hide');
 }
 
+
+// se muestran los modales para desactivar los catalogos dependiendo de la opcion
+//pueden ser una familia,subfamilia, codigos contables o catalogo de articulos
 function abrirModalDesactivar(filtro) {
     var e = document.getElementById("selectcatalogos");
     var strUser = e.options[e.selectedIndex].value;
@@ -622,7 +665,7 @@ function abrirModalDesactivar(filtro) {
 
 
 
-
+//se muestra el modal correpondiente para activar/desactivar una familia
 
 var famidAct;
 var famiDesAct;
@@ -640,7 +683,7 @@ function desactivarFamilia(fam) {
 }
 
 
-
+//*********
 function ActivarFamilia(fam) {
     famidAct = fam.famiIdPk;
     famiDesAct = fam.famiDesc;
@@ -651,6 +694,7 @@ function ActivarFamilia(fam) {
 var subFamidAct;
 var subFamiFami;
 var subFamiDesAct;
+//se muestra el modal correpondiente para activar/desactivar una subfamilia
 
 function desactivarSubFamilia(Subfam) {
     subFamidAct = Subfam.subFamiIdPk;
@@ -667,6 +711,7 @@ var catArtId;
 var catArtDesc;
 var catArtSubF;
 var catArtEst;
+//se muestra el modal correpondiente para activar/desactivar un articulo
 
 function desactivarCatArt(articulo) {
     catArtId = articulo.catIdPk;
@@ -687,6 +732,8 @@ var catCodi;
 var catContEst;
 var catNivel;
 
+//se muestra el modal correpondiente para activar/desactivar un codigo contable
+
 function desactivarCatConta(cont) {
     catContId = cont.cntIdPk;
     catContDesc = cont.cntDesc;
@@ -701,7 +748,7 @@ function desactivarCatConta(cont) {
     }
 }
 
-
+//se actualiza el estado de las familias para hacer el bloqueo/desbloqueo de esta
 var famiEstAct = 0;
 function actualizarEstadoFamilia() {
 
@@ -722,12 +769,14 @@ function actualizarEstadoFamilia() {
     });
 
 }
-
+//se oculta el modal despues de actualizar el estado de la familia
 function afterUpdateFmEs() {
     buscarFamilias();
     $('#modalDesactivar').modal('hide');
 
 }
+
+//se actualiza el estado de las subfamilias para hacer el bloqueo/desbloqueo de esta
 
 var subFamiEstAct = 0;
 function actualizarEstadoSubFamilia() {
@@ -751,12 +800,15 @@ function actualizarEstadoSubFamilia() {
     });
 
 }
-
+//se oculta el modal despues de hacer el update del estado
 function afterUpdateSubFmEs() {
     buscarSubFamilias();
     $('#modalDesactivar').modal('hide');
 
 }
+
+//se actualiza el estado del articulo para hacer el bloqueo/desbloqueo de esta
+
 var EstadoActual = 0;
 function actualizarEstadoCatArticulo() {
 
@@ -778,6 +830,7 @@ function actualizarEstadoCatArticulo() {
 
 }
 
+//se oculta el modal depues de actualizar el estado del articulo
 function afterUpdateCatArtEs() {
     buscarCatArticulos();
     $('#modalDesactivar').modal('hide');
@@ -785,6 +838,7 @@ function afterUpdateCatArtEs() {
 }
 
 
+//se actualiza el estado del codigo contable para hacer el bloqueo/desbloqueo de esta
 
 var EstadoActual = 0;
 function actualizarEstadoCatConta() {
@@ -807,13 +861,15 @@ function actualizarEstadoCatConta() {
     });
 
 }
-
+//se oculta el modal despues de hacer el update del codigo contable
 function afterUpdateCatContEs() {
     buscarCatContables();
     $('#modalDesactivar').modal('hide');
 
 }
 
+//se desactiva el registro del catalogo dependiendo de la opcion seleccionada
+//puede ser una familia,subfamilia, codigo contable o un articulo
 function Desactivar() {
     var e = document.getElementById("selectcatalogos");
     var strUser = e.options[e.selectedIndex].value;
@@ -858,7 +914,8 @@ function Desactivar() {
         });
     }
 }
-
+//se activa el registro del catalogo dependiendo de la opcion seleccionada
+//puede ser una familia,subfamilia, codigo contable o un articulo
 function Activar() {
     var e = document.getElementById("selectcatalogos");
     var strUser = e.options[e.selectedIndex].value;
@@ -903,7 +960,7 @@ function Activar() {
         });
     }
 }
-
+//aca se hace la actualizacion del estado en la familia seleccionada para activarla
 function ActivaFamilia() {
 
     var valor = 1;
@@ -924,12 +981,13 @@ function ActivaFamilia() {
 
 
 }
-
+//se oculta el modal de activar familia
 function ocultarModalActivarF() {
     buscarFamilias();
     $('#modalActivar').modal('hide');
 
 }
+//aca se hace la actualizacion del estado en el codigo contable seleccionado para activarlo
 function ActivaContables() {
 
     var valor = 1;
@@ -952,12 +1010,13 @@ function ActivaContables() {
 
 
 }
-
+//se oculta el modal de activar codigo contable
 function ocultarModalActivarCont() {
     buscarCatContables();
     $('#modalActivar').modal('hide');
 
 }
+//aca se hace la actualizacion del estado en la subfamilia seleccionada para activarla
 
 function ActivaSubF() {
     var valor = 1;
@@ -978,13 +1037,14 @@ function ActivaSubF() {
     });
 
 }
-
+//se oculta el modal de activar subfamilia
 function ocultarModalActivarSubF() {
     buscarSubFamilias();
     $('#modalActivar').modal('hide');
 
 }
 
+//aca se hace la actualizacion del estado en el articulo seleccionado para activarlo
 
 function activarArticulo() {
     var valor = 1;
@@ -1005,441 +1065,7 @@ function activarArticulo() {
     });
 
 }
-
-function ocultarModalActivarCatArt() {
-    buscarCatArticulos();
-    $('#modalActivar').modal('hide');
-
-}
-
-function abrirModalDesactivar(filtro) {
-    var e = document.getElementById("selectcatalogos");
-    var strUser = e.options[e.selectedIndex].value;
-
-    if (strUser === "1") {
-        $.ajax({type: "GET",
-            url: "api/familias/" + filtro,
-            success: desactivarFamilia,
-            error: function (jqXHR) {
-                alert(errorMessage(jqXHR.status));
-            }
-        });
-    } else if (strUser === "2") {
-        $.ajax({type: "GET",
-            url: "api/subfamilias/" + filtro,
-            success: desactivarSubFamilia,
-            error: function (jqXHR) {
-                alert(errorMessage(jqXHR.status));
-            }
-        });
-
-    } else if (strUser === "3") {
-
-
-        $.ajax({type: "GET",
-            url: "api/catArticulos/" + filtro,
-            success: desactivarCatArt,
-            error: function (jqXHR) {
-                alert(errorMessage(jqXHR.status));
-            }
-        });
-    } else if (strUser === "4") {
-
-
-        $.ajax({type: "GET",
-            url: "api/contables/" + filtro,
-            success: desactivarCatConta,
-            error: function (jqXHR) {
-                alert(errorMessage(jqXHR.status));
-            }
-        });
-    }
-}
-
-
-
-
-
-var famidAct;
-var famiDesAct;
-
-function desactivarFamilia(fam) {
-
-    famidAct = fam.famiIdPk;
-    famiDesAct = fam.famiDesc;
-    // famiEstAct = fam.famiEstado;
-    if (fam.famiEstado === '1') {
-        $('#modalDesactivar').modal('show');
-    } else {
-        $('#modalActivar').modal('show');
-    }
-}
-
-
-
-function ActivarFamilia(fam) {
-    famidAct = fam.famiIdPk;
-    famiDesAct = fam.famiDesc;
-//famiEstAct = fam.famiEstado;
-    $('#modalDesactivar').modal('show');
-}
-
-var subFamidAct;
-var subFamiFami;
-var subFamiDesAct;
-
-function desactivarSubFamilia(Subfam) {
-    subFamidAct = Subfam.subFamiIdPk;
-    subFamiFami = Subfam.sboTbFamilia;
-    subFamiDesAct = Subfam.subFamiDesc;
-    // subFamiEstAct=Subfam.subFamiEstado;
-    if (Subfam.subFamiEstado === '1') {
-        $('#modalDesactivar').modal('show');
-    } else {
-        $('#modalActivar').modal('show');
-    }
-}
-var catArtId;
-var catArtDesc;
-var catArtSubF;
-var catArtEst;
-
-function desactivarCatArt(articulo) {
-    catArtId = articulo.catIdPk;
-    catArtDesc = articulo.catDesc;
-    catArtSubF = articulo.sboTbSubFamilia;
-    // catArtEst = articulo.artCat_Estado;
-
-    if (articulo.artCat_Estado === '1') {
-        $('#modalDesactivar').modal('show');
-    } else {
-        $('#modalActivar').modal('show');
-    }
-}
-
-var catContId;
-var catContDesc;
-var catCodi;
-var catContEst;
-var catNivel;
-
-function desactivarCatConta(cont) {
-    catContId = cont.cntIdPk;
-    catContDesc = cont.cntDesc;
-    catCodi = cont.cntCodi;
-    // catContEst = cont.cntEst;
-    catNivel = cont.cntNivel;
-
-    if (cont.cntEst === '1') {
-        $('#modalDesactivar').modal('show');
-    } else {
-        $('#modalActivar').modal('show');
-    }
-}
-
-
-var famiEstAct = 0;
-function actualizarEstadoFamilia() {
-
-    SboTbFamilia = {
-        famiIdPk: famidAct,
-        famiDesc: famiDesAct,
-        famiEstado: famiEstAct
-
-    };
-    $.ajax({type: "PUT",
-        url: "api/familias",
-        data: JSON.stringify(SboTbFamilia),
-        contentType: "application/json",
-        success: afterUpdateFmEs,
-        error: function (jqXHR) {
-            alert('Error');
-        }
-    });
-
-}
-
-function afterUpdateFmEs() {
-    buscarFamilias();
-    $('#modalDesactivar').modal('hide');
-
-}
-
-var subFamiEstAct = 0;
-function actualizarEstadoSubFamilia() {
-//var e = document.getElementById("selectFamilias");
-//var strUser = e.options[e.selectedIndex].value;
-
-    SboTbSubFamilia = {
-        subFamiIdPk: subFamidAct,
-        subFamiDesc: subFamiDesAct,
-        sboTbFamilia: subFamiFami,
-        subFamiEstado: subFamiEstAct
-    };
-    $.ajax({type: "PUT",
-        url: "api/subfamilias",
-        data: JSON.stringify(SboTbSubFamilia),
-        contentType: "application/json",
-        success: afterUpdateSubFmEs,
-        error: function (jqXHR) {
-            alert('Error');
-        }
-    });
-
-}
-
-function afterUpdateSubFmEs() {
-    buscarSubFamilias();
-    $('#modalDesactivar').modal('hide');
-
-}
-var EstadoActual = 0;
-function actualizarEstadoCatArticulo() {
-
-    SboTbCatArticulo = {
-        catDesc: catArtDesc,
-        catIdPk: catArtId,
-        artCat_Estado: EstadoActual,
-        sboTbSubFamilia: catArtSubF
-    };
-    $.ajax({type: "PUT",
-        url: "api/catArticulos",
-        data: JSON.stringify(SboTbCatArticulo),
-        contentType: "application/json",
-        success: afterUpdateCatArtEs,
-        error: function (jqXHR) {
-            alert('Error');
-        }
-    });
-
-}
-
-function afterUpdateCatArtEs() {
-    buscarCatArticulos();
-    $('#modalDesactivar').modal('hide');
-
-}
-
-
-
-var EstadoActual = 0;
-function actualizarEstadoCatConta() {
-
-    SboTbCatContable = {
-        cntDesc: catContDesc,
-        cntIdPk: catContId,
-        cntEst: EstadoActual,
-        cntCodi: catCodi,
-        cntNivel: catNivel
-    };
-    $.ajax({type: "PUT",
-        url: "api/contables",
-        data: JSON.stringify(SboTbCatContable),
-        contentType: "application/json",
-        success: afterUpdateCatContEs,
-        error: function (jqXHR) {
-            alert('Error');
-        }
-    });
-
-}
-
-function afterUpdateCatContEs() {
-    buscarCatContables();
-    $('#modalDesactivar').modal('hide');
-
-}
-
-function Desactivar() {
-    var e = document.getElementById("selectcatalogos");
-    var strUser = e.options[e.selectedIndex].value;
-
-    if (strUser === "1") {
-        $.ajax({type: "GET",
-            url: "api/familias/",
-            success: actualizarEstadoFamilia,
-            error: function (jqXHR) {
-                alert(errorMessage(jqXHR.status));
-            }
-        });
-    } else if (strUser === "2") {
-        $.ajax({type: "GET",
-            url: "api/subfamilias/",
-            success: actualizarEstadoSubFamilia,
-            error: function (jqXHR) {
-                alert(errorMessage(jqXHR.status));
-            }
-        });
-
-    } else if (strUser === "3") {
-
-
-        $.ajax({type: "GET",
-            url: "api/catArticulos/",
-            success: actualizarEstadoCatArticulo,
-            error: function (jqXHR) {
-                alert(errorMessage(jqXHR.status));
-            }
-        });
-    } else if (strUser === "4") {
-
-
-        $.ajax({type: "GET",
-            url: "api/contables/",
-            success: actualizarEstadoCatConta,
-            error: function (jqXHR) {
-                alert(errorMessage(jqXHR.status));
-            }
-        });
-    }
-}
-
-function Activar() {
-    var e = document.getElementById("selectcatalogos");
-    var strUser = e.options[e.selectedIndex].value;
-
-    if (strUser === "1") {
-        $.ajax({type: "GET",
-            url: "api/familias/",
-            success: ActivaFamilia,
-            error: function (jqXHR) {
-                alert(errorMessage(jqXHR.status));
-            }
-        });
-    } else if (strUser === "2") {
-        $.ajax({type: "GET",
-            url: "api/subfamilias/",
-            success: ActivaSubF,
-            error: function (jqXHR) {
-                alert(errorMessage(jqXHR.status));
-            }
-        });
-
-    } else if (strUser === "3") {
-
-
-        $.ajax({type: "GET",
-            url: "api/catArticulos/",
-            success: activarArticulo,
-            error: function (jqXHR) {
-                alert(errorMessage(jqXHR.status));
-            }
-        });
-    } else if (strUser === "4") {
-
-
-        $.ajax({type: "GET",
-            url: "api/contables/",
-            success: ActivaContables,
-            error: function (jqXHR) {
-                alert(errorMessage(jqXHR.status));
-            }
-        });
-    }
-}
-
-function ActivaFamilia() {
-
-    var valor = 1;
-    SboTbFamilia = {
-        famiIdPk: famidAct,
-        famiDesc: famiDesAct,
-        famiEstado: valor
-    };
-    $.ajax({type: "PUT",
-        url: "api/familias",
-        data: JSON.stringify(SboTbFamilia),
-        contentType: "application/json",
-        success: ocultarModalActivarF,
-        error: function (jqXHR) {
-            alert('Error');
-        }
-    });
-
-
-}
-
-function ocultarModalActivarF() {
-    buscarFamilias();
-    $('#modalActivar').modal('hide');
-
-}
-function ActivaContables() {
-
-    var valor = 1;
-    SboTbCatContable = {
-        cntDesc: catContDesc,
-        cntIdPk: catContId,
-        cntEst: valor,
-        cntCodi: catCodi,
-        cntNivel: catNivel
-    };
-    $.ajax({type: "PUT",
-        url: "api/contables",
-        data: JSON.stringify(SboTbCatContable),
-        contentType: "application/json",
-        success: ocultarModalActivarCont,
-        error: function (jqXHR) {
-            alert('Error');
-        }
-    });
-
-
-}
-
-function ocultarModalActivarCont() {
-    buscarCatContables();
-    $('#modalActivar').modal('hide');
-
-}
-
-function ActivaSubF() {
-    var valor = 1;
-    SboTbSubFamilia = {
-        subFamiIdPk: subFamidAct,
-        subFamiDesc: subFamiDesAct,
-        sboTbFamilia: subFamiFami,
-        subFamiEstado: valor
-    };
-    $.ajax({type: "PUT",
-        url: "api/subfamilias",
-        data: JSON.stringify(SboTbSubFamilia),
-        contentType: "application/json",
-        success: ocultarModalActivarSubF,
-        error: function (jqXHR) {
-            alert('Error');
-        }
-    });
-
-}
-
-function ocultarModalActivarSubF() {
-    buscarSubFamilias();
-    $('#modalActivar').modal('hide');
-
-}
-
-
-function activarArticulo() {
-    var valor = 1;
-    SboTbCatArticulo = {
-        catDesc: catArtDesc,
-        catIdPk: catArtId,
-        artCat_Estado: valor,
-        sboTbSubFamilia: catArtSubF
-    };
-    $.ajax({type: "PUT",
-        url: "api/catArticulos",
-        data: JSON.stringify(SboTbCatArticulo),
-        contentType: "application/json",
-        success: ocultarModalActivarCatArt,
-        error: function (jqXHR) {
-            alert('Error');
-        }
-    });
-
-}
-
+//se oculta el modal para activar el articulo
 function ocultarModalActivarCatArt() {
     buscarCatArticulos();
     $('#modalActivar').modal('hide');

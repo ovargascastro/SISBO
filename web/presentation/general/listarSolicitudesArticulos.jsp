@@ -121,7 +121,9 @@
                             <p>_________________________________________________________________________________<br></p>
                             <br>
                             <p>Municipalidad de Santo Domingo</p>
-                            <h2 class="text-center"><br><br>Solicitud de Requisición de Articulo  <br></h2>
+                            <h4 class="text-center"><br><br>Solicitud de Requisición de Articulo  <br></h4>
+                             <p>Persona que solicita</p>
+                       
                             <p>_________________________________________________________________________________<br><br><br><br></p>
 
                             <div>
@@ -138,6 +140,8 @@
                                             <th>No. Solicitud     <br><br></th>
                                             <th>Fecha de Solicitud        <br><br></th>
                                             <th>Departamento       <br><br></th>
+                                            <th>Persona que Solicita   <br><br></th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody id="listaInformacion">
@@ -274,7 +278,7 @@
                                             function filaArticulosImp(listado, objeto) {
                                                 var tr = $("<tr />");
                                                 tr.html(
-                                                        "<td>" + objeto.sboTbArticulo.artDesc + "</td>"
+                                                        "<td>" + objeto.sboSicop.sicopDesc+ "</td>"
                                                         + "<td>" + objeto.solArtiCant + "</td>");
 
                                                 listado.append(tr);
@@ -296,7 +300,9 @@
                                                 tr.html(
                                                         "<td>" + objeto.solArtiIdPk + "</td>"
                                                         + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
-                                                        + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>");
+                                                        + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
+                                                        + "<td>" + objeto.abaaTbPersona.persNomb +" "+ objeto.abaaTbPersona.persApe1 +" "+ objeto.abaaTbPersona.persApe2+ "</td>");
+                                                
 
                                                 listado.append(tr);
 

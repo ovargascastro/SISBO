@@ -29,6 +29,7 @@ public class OrdenCompraDAO {
         db = new RelDatabase();
     }
 
+    //se crea objeto Orden de Compra
     private SboTbOrdenCompra OrdenCompra(ResultSet rs) {
         try {
             SboTbOrdenCompra oc = new SboTbOrdenCompra();
@@ -45,7 +46,7 @@ public class OrdenCompraDAO {
             return null;
         }
     }
-
+//se crea objeto de tipo proveedor
     private AbaaTbProveedor Proveedor(ResultSet rs) {
         try {
             AbaaTbProveedor ob = new AbaaTbProveedor();
@@ -62,6 +63,7 @@ public class OrdenCompraDAO {
         }
     }
 
+    // se crea objeto de tipo articulo
     private SboTbArticulo ObtenerArticulo(ResultSet rs) {
         try {
             SboTbArticulo art = new SboTbArticulo();
@@ -74,7 +76,7 @@ public class OrdenCompraDAO {
             return null;
         }
     }
-
+//se selecciona los articulos por orden de compra
     public List<SboTbArticulo> listaOCxArt(String filtro) {
         List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
         try {
@@ -92,6 +94,7 @@ public class OrdenCompraDAO {
         return resultado;
     }
  
+    //se seleccionan las ordenes de compra que no han sido procesadas o estan parcialmente procesada
     public List<SboTbOrdenCompra> listaOrdenesCompra(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {
@@ -111,6 +114,8 @@ public class OrdenCompraDAO {
     }
 
     // ------------------ A partir de aquí, está todo lo de Oscar/Orlando ------------------
+    
+    //se selecciona el ultimo id de la tabla de orden de compra
     public int getLastInsertOrdenesCompra() throws Exception {
         String sql = "select IDENT_CURRENT( 'SIBO_TB_Orde_Comp' ) as seq;";
         sql = String.format(sql);
@@ -121,7 +126,7 @@ public class OrdenCompraDAO {
             throw new Exception("error");
         }
     }
-
+//se envia un int el dato recuperado del metodo anterior
     private int lastInsertOrdenCompra(ResultSet rs) {
         try {
             int x;
@@ -132,6 +137,7 @@ public class OrdenCompraDAO {
         }
     }
 
+    //se agrega una orden de compra con todos sus atributos
     public void agregarOrdenCompra(SboTbOrdenCompra objeto) throws Exception {
         String query = "insert into SIBO_TB_Orde_Comp(OC_Fecha,OC_Prec_Tota, "
                 + "OC_Esta,OC_Prove_FK,OC_Plaz_Entr,OC_Entr_A)"
@@ -153,6 +159,7 @@ public class OrdenCompraDAO {
         db.getConnection().close();
     }
 
+    //se selecciona una orden de compra por medio de id 
     public List<SboTbOrdenCompra> listaOrdenes(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {
@@ -170,6 +177,7 @@ public class OrdenCompraDAO {
         return resultado;
     }
 
+    //se selecciona orden de compra por proveedor e id
     public List<SboTbOrdenCompra> listadoOrdenesC(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {
@@ -185,6 +193,8 @@ public class OrdenCompraDAO {
         return resultado;
     }
 
+    
+    //se listan las ordenes de compra pendients por recibir un codigo contable
     public List<SboTbOrdenCompra> listadoOrdenesCompraConta(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
         try {
@@ -201,7 +211,7 @@ public class OrdenCompraDAO {
         }
         return resultado;
     }
-
+//se actualiza  el estado de la orden de compra
     public void actualizaEstadoOC(SboTbOrdenCompra objeto) throws SQLException {
         String query = "update SIBO_TB_Orde_Comp set OC_Esta = ? where OC_Id_PK = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);

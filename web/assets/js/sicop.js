@@ -5,7 +5,7 @@
  */
 
 
-
+//se listan los datos en un select correspondientes a Sicop
 function selectSicop() {
     $.ajax({type: "GET",
         url: "api/Sicop",
@@ -20,10 +20,10 @@ function selectSicop() {
     });
 }
 
-
+//se cargan articulos del catalogo de sicop al entrar a la ventana de sicop
 window.addEventListener('load', cargar, false);
 
-
+// lista los articulos de sicop
 function cargar() {
     $.ajax({type: "GET",
         url: "api/Sicop",
@@ -31,7 +31,7 @@ function cargar() {
     });
 }
 
-
+// se muestra en una tabla los datos de la tabla sicop 
 function listaSicop(personas) {
     var listado = $("#listado");
     listado.html("");
@@ -39,7 +39,7 @@ function listaSicop(personas) {
         fila(listado, p);
     });
 }
-
+// se agrega una fila a la tabla donde se muestran los datos de sicop
 function fila(listado, objeto) {
     var tr = $("<tr />");
     tr.html(
@@ -50,7 +50,7 @@ function fila(listado, objeto) {
     listado.append(tr);
 
 }
-
+//se llena el modal con los datos del articulo seleccionado
 function modalEditarSicop(obj) {
     $("#codClas").val(obj.sicopCodiClas);
     $("#codId").val(obj.sicopCodiInden);
@@ -59,7 +59,7 @@ function modalEditarSicop(obj) {
 }
 
 
-
+// se muestra los datos que corresponden a un registro de sicop
 function infoSicop(id) {
 
     variableSicopActual = id;
@@ -73,7 +73,7 @@ function infoSicop(id) {
 
 }
 
-
+// se modifica el articulo de sicop con los nuevos datos
 function actualizarSicop() {
 
 
@@ -97,7 +97,7 @@ function actualizarSicop() {
 
 }
 
-
+// se agrega un nuevo registro a la tabla de sicop en la base
 function agregarSicop() {
 
     if (confirm("Desea agregar el registro actual?")) {
@@ -118,7 +118,7 @@ function agregarSicop() {
     }
 }
 
-
+// despues de crear el articulo se resetean los campos de texto y se esconde el modal
 function afterCreateSicop() {
 
     $('#agregaSicop').trigger("reset");
@@ -126,20 +126,21 @@ function afterCreateSicop() {
     cargar();
 
 }
-
+// se oculta el modal de editar sicop y se limpian los campos de texto de dicho modal
 function ocultarSicop() {
     $('#actualizaSicop').trigger("reset");
     $('#modalEditarSicop').modal('hide');
     cargar();
 
 }
-
+// se muestra el modal de agregar articulo sicop
 function modalAgregaSicop() {
 
     $('#modalAgregarSicop').modal('show');
 
 }
 
+//se busca un registro de sicop por el id digitado por el usuario
 function buscarSicopFiltro() {
     $.ajax({type: "GET",
 //        url:"api/proveedores/api/subfamilias/" + filtro,
@@ -148,11 +149,9 @@ function buscarSicopFiltro() {
     });
 }
 
-function exitoFiltro(){
-    
-}
 
 
+// formato para mostrar los datos 
 function myFunction() {
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("filtro");
@@ -172,7 +171,7 @@ function myFunction() {
     }
 }
 
-
+//datos de inicio de sesion
 $(document).ready(function () {
     logged();
 });

@@ -1,4 +1,4 @@
-
+//se muestran por medio de un select los proyectos en la base de datos
 function selectProyectos() {
     $.ajax({type: "GET",
         url: "api/proyectos",
@@ -12,7 +12,7 @@ function selectProyectos() {
         }
     });
 }
-
+//se limpia la opcion seleccionada en los proyectos
 function resetearSelectProyectos(selectbox)
 {
     var i;

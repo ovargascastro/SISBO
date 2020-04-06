@@ -21,7 +21,7 @@ public class ProyectoDAO {
     public ProyectoDAO() {
         db = new RelDatabase();
     }
-    
+    // se crea un objeto proyecto
     private AbaaProyectos proyecto(ResultSet rs) {
         try {
             AbaaProyectos ob = new AbaaProyectos();
@@ -33,6 +33,7 @@ public class ProyectoDAO {
         }
 
     }
+    // se listaan los proyectos
     public List<AbaaProyectos> listaProyecto() {
         List<AbaaProyectos> resultado = new ArrayList<AbaaProyectos>();
         try {

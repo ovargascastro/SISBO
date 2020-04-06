@@ -1,3 +1,5 @@
+
+//se listan las bodegas en el select
 function selectBodegas() {
     var vacio = "";
     $.ajax({type: "GET",
@@ -12,7 +14,7 @@ function selectBodegas() {
         }
     });
 }
-
+//se listan los departamentos en el select
 function selectDeptos() {
     $.ajax({type: "GET",
         url: "api/departamentos",
@@ -26,7 +28,7 @@ function selectDeptos() {
         }
     });
 }
-
+//se listan los articulos de sicop en el select
 function selectSicop() {
     $.ajax({type: "GET",
         url: "api/Sicop",
@@ -40,7 +42,7 @@ function selectSicop() {
         }
     });
 }
-
+//funcion para cargar los datos apenas se ingrese al url de existencias
 $(document).ready(function () {
     selectSicop();
     selectDeptos();
@@ -48,7 +50,7 @@ $(document).ready(function () {
     logged();
 });
 
-
+//se obtiene las existencias dependiendo de la bodega, el departamento y el articulo seleccionado
 function getExistencias() {
     var depto = document.getElementById("SelectDptos").value;
     var arti = document.getElementById("selectSicop").value;
@@ -59,6 +61,7 @@ function getExistencias() {
     });
 }
 
+//se listan las existencias en la tabla
 function listaExist(personas) {
     var listado = $("#listadoExistencias");
     listado.html("");
@@ -66,7 +69,7 @@ function listaExist(personas) {
         fila(listado, p);
     });
 }
-
+//se utliza para mostrar los datos en las filas de la funcion anterior
 function fila(listado, objeto) {
     var tr = $("<tr />");
     tr.html(
@@ -78,6 +81,7 @@ function fila(listado, objeto) {
     listado.append(tr);
 }
 
+//se abre el modal para editar la cantidad de la existencia seleccionada
 var idExistActual = 0;
 function editarExist(id, cant) {
     idExistActual = id;
@@ -85,6 +89,7 @@ function editarExist(id, cant) {
     $("#existAct").val(cant);
 }
 
+//se edita la cantidad de la existencia seleccionada
 function actualizarExistencia() {
     if (confirm("Desea guardar el registro actual?")) {
         SboTbExistencia = {
@@ -102,13 +107,13 @@ function actualizarExistencia() {
         });
     }
 }
-
+//se oculta el modal de editar cantidad de existencias
 function ocultarEditarExist(list) {
     $('#modalEditarExist').modal('hide');
     listaExist(list);
 }
 
-
+//funcion para darle formato al select de articulos de sicop
 function myFunction() {
     var input, filter, table, tr, td, i, txtValue;
     input = $('#selectSicop option:selected').text();
