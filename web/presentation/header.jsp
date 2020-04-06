@@ -58,6 +58,12 @@
                                 <a class="dropdown-item" href="presentation/catalogos/administracionCatalogos.jsp">Administración de Catálogos</a>
                             </div>
                         </div>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown"> Reporde de Consumo </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/consumo.jsp">Consumo por Departamento</a>
+                            </div>
+                        </div>
                         <%}%>
                         <!--BODEGA-->
                         <% if ("5".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 1) {%>
@@ -99,6 +105,12 @@
                                 <a class="dropdown-item" href="presentation/catalogos/codSicop.jsp">Catálogo de SICOP</a>
                             </div>
                         </div>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown"> Reporde de Consumo </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/consumo.jsp">Consumo por Departamento</a>
+                            </div>
+                        </div>
                         <%}%>
                         <!-- PROVEDURIA -->
                         <!-- Secretaria -->
@@ -125,6 +137,12 @@
                                 <a class="dropdown-item" href="presentation/catalogos/administracionCatalogos.jsp">Administración de Catálogos</a>
                                 <a class="dropdown-item" href="presentation/proveeduria/proveedores.jsp">Catálogo de Proveedores</a>
                                 <a class="dropdown-item" href="presentation/catalogos/codSicop.jsp">Catálogo de SICOP</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown"> Reporde de Consumo </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/consumo.jsp">Consumo por Departamento</a>
                             </div>
                         </div>
                         <%}%>
