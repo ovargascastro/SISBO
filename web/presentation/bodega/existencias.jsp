@@ -53,29 +53,74 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col"></div>
+                        <div class="col">
+                            <br>
+                            <h2 id="nReg">Numero de registros : </h2>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col text-center" id="tablaOrdenes">
-                            <div class="table-responsive">
-                                <table class="table" id="myTable">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">Fecha</th>
-                                            <th class="text-center">Bodega</th>
-                                            <th class="text-center">Departamento</th>
-                                            <th class="text-center">Descripcion</th>
-                                            <th class="text-center">Infomacion</th>
-                                            <th class="text-center">Eliminar</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="listadoExistencias">
-                                    </tbody>
-                                </table>
+                            <div class="table-responsive " style="max-height: 350px; overflow: auto">
+                                <div class="table-responsive">
+                                    <table class="table" id="myTable">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Fecha</th>
+                                                <th class="text-center">Bodega</th>
+                                                <th class="text-center">Departamento</th>
+                                                <th class="text-center">Descripcion</th>
+                                                <th class="text-center">Precio</th>
+                                                <th class="text-center">Infomacion</th>
+                                                <th class="text-center">Eliminar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="listadoExistencias">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" role="dialog" tabindex="-1" id="informacionArt">
+            <div class="modal-dialog" role="document">
+                <form id="actualizaArticulo" action="javascript:actualizarArticulo()">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Informacion de Artículo</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                        <div class="modal-body">
+
+                            <div class="container">
+                                <div class="form-row">
+                                    <div class="col">
+
+                                        <label>Artículo</label>
+                                        <input id="ArticuloInfo" class="form-control" type="text" readonly placeholder="Artículo">
+                                        <label>Descripción</label>
+                                        <input id="DescripcionInfo" class="form-control" type="text" placeholder="Descripcion">
+                                        <label>Modelo</label>
+                                        <input id="ModeloInfo" class="form-control" type="text" placeholder="Modelo">
+                                        <label>Marca</label>
+                                        <input id="MarcaInfo" class="form-control" type="text" placeholder="Marca">
+                                    </div>                       
+                                    <div class="col">
+                                        <label>N° Orden de Compra</label>
+                                        <input id="OrdenInfo" class="form-control" type="text" placeholder="N° Orden de Compra">
+                                        <label>SICOP</label>
+                                         <input id="SicopInfo" class="form-control" type="text" readonly placeholder="SICOP">
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+
             </div>
         </div>
 
