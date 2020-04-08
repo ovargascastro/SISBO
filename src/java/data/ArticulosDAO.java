@@ -134,9 +134,8 @@ public class ArticulosDAO {
             return null;
         }
     }
-    
-    
-        private SboTbArticulo Articulo2(ResultSet rs) {
+
+    private SboTbArticulo Articulo2(ResultSet rs) {
         try {
             SboTbArticulo arti = new SboTbArticulo();
             AbaaTbDepartamento dpto = new AbaaTbDepartamento();
@@ -161,9 +160,8 @@ public class ArticulosDAO {
             return null;
         }
     }
-        
-        
-       private SboTbExistencia existencia(ResultSet rs) {
+
+    private SboTbExistencia existencia(ResultSet rs) {
         try {
             SboTbExistencia ob = new SboTbExistencia();
             ob.setSboTbBodega(Bodega(rs));
@@ -171,30 +169,32 @@ public class ArticulosDAO {
             ob.setSboTbEsta(rs.getInt("Exis_Esta"));
             //ob.setExisCant(rs.getDouble("Exis_Cant"));
             //ob.setAbaaTbDepartamento(departamento(rs));
-           // ob.setSboTbSicop(sicop(rs));
+            // ob.setSboTbSicop(sicop(rs));
             return ob;
         } catch (SQLException ex) {
             return null;
         }
 
     }
-       private SboTbBodega Bodega(ResultSet rs) {
+
+    private SboTbBodega Bodega(ResultSet rs) {
         try {
             SboTbBodega bodega = new SboTbBodega();
             //bodega.setBodeIdPk(rs.getInt("Bode_Id_PK"));
-           // bodega.setBodeUbic(rs.getString("Bode_Ubic"));
+            // bodega.setBodeUbic(rs.getString("Bode_Ubic"));
             bodega.setBodeDesc(rs.getString("Bode_Desc"));
             return bodega;
         } catch (SQLException ex) {
             return null;
         }
     }
-        private SboSicop sicop(ResultSet rs) {
+
+    private SboSicop sicop(ResultSet rs) {
         try {
             SboSicop ob = new SboSicop();
             ob.setSicopId(rs.getInt("Sico_Id_PK"));
-          //  ob.setSicopCodiClas(rs.getString("Sico_Codi_Clas"));
-          //  ob.setSicopCodiInden(rs.getString("Sico_Codi_Iden"));
+            //  ob.setSicopCodiClas(rs.getString("Sico_Codi_Clas"));
+            //  ob.setSicopCodiInden(rs.getString("Sico_Codi_Iden"));
             ob.setSicopDesc(rs.getString("Sico_Desc"));
             return ob;
         } catch (SQLException ex) {
@@ -260,6 +260,37 @@ public class ArticulosDAO {
         }
     }
 
+    public void insertarExistencias(SboTbArticulo articulo, SboTbExistencia existencia) throws SQLException {
+
+        int cantidad = articulo.getArtCant();
+        for (int i = 0; i < cantidad; i++) {
+            SboTbExistencia aux = new SboTbExistencia();
+            aux.setArticulo(articulo);
+            aux.setSboTbBodega(existencia.getSboTbBodega());
+            aux.setSboTbEsta(1);
+            aux.setExistFingr(articulo.getArtFingr());
+            insertarExist(aux);
+        }
+
+    }
+    
+    public void insertarExist(SboTbExistencia exist) throws SQLException{
+            String query = "insert into SIBO_TB_Exis(Exis_Id_Bode_PK, Exis_Arti_FK, Exis_Esta,Exis_Fech_Ingr)"
+                + "values(?,?,?,?)";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setInt(1, exist.getSboTbBodega().getBodeIdPk());
+        preparedStmt.setInt(2, exist.getArticulo().getArtIdPk());
+        preparedStmt.setInt(3, 1);
+        
+        java.util.Date utilStartDate = exist.getExistFingr();
+        java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+        preparedStmt.setDate(4, sqlStartDate);
+        
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    
+    }
+
     private int lastInsertOrdenCompra(ResultSet rs) {
         try {
             int x;
@@ -284,9 +315,7 @@ public class ArticulosDAO {
         }
         return resultado;
     }
-    
-    
-    
+
     public List<SboTbArticulo> listadoArticulosPorOrdenConta(int filtro) {
         List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
         try {
@@ -343,6 +372,17 @@ public class ArticulosDAO {
     }
 
     public SboTbArticulo getArticulo(int id) throws Exception {
+        String sql = "select * from SIBO_TB_Articulo a inner join SIBO_TB_Orde_Comp o on a.Arti_Orde_Comp_FK=o.OC_Id_PK where a.Arti_Id_PK='%s'";
+        sql = String.format(sql, id);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return articulo(rs);
+        } else {
+            throw new Exception("Solicitud no Existe");
+        }
+    }
+    
+        public SboTbArticulo getArticulo3 (int id) throws Exception {
         String sql = "select * from SIBO_TB_Articulo where Arti_Id_PK='%s'";
         sql = String.format(sql, id);
         ResultSet rs = db.executeQuery(sql);
@@ -385,20 +425,19 @@ public class ArticulosDAO {
         preparedStmt.setString(9, objeto.getAbaaTbDepartamento().getDeptoIdPk());
         preparedStmt.setString(10, objeto.getArtUnidadMedida());
         preparedStmt.setInt(11, objeto.getSboSicop().getSicopId());
-        
+
         java.util.Date utilStartDate = objeto.getArtFingr();
         java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
         preparedStmt.setDate(12, sqlStartDate);
-        
+
         if (objeto.getArtFvenc() != null) {
             utilStartDate = objeto.getArtFvenc();
             sqlStartDate = new java.sql.Date(utilStartDate.getTime());
             preparedStmt.setDate(13, sqlStartDate);
-        }
-        else{
+        } else {
             preparedStmt.setDate(13, null);
         }
-        
+
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }

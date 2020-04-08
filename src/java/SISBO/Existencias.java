@@ -68,6 +68,7 @@ public class Existencias {
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(SboTbExistencia existencia) {
         try {
+            Model.instance().agregarExistencias(existencia);
            // Model.instance().aumentarExistenciasArticulo(existencia);
         } catch (Exception ex) {
             throw new NotFoundException();
