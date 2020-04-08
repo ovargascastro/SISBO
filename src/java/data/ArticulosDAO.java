@@ -434,8 +434,6 @@ public class ArticulosDAO {
         preparedStmt.setDate(5, sqlStartDate2);
         }
         
-
-
         preparedStmt.setInt(6, objeto.getArtIdPk());
         
         preparedStmt.executeUpdate();

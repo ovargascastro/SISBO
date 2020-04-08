@@ -148,7 +148,9 @@
                                     <label>Unidad Usuaria</label>
                                     <input id="AddArtUniUsuaria" class="form-control" type="text" readonly placeholder="Unidad Usuaria">    
                                     <label>Bodega</label>
-                                    <select class="form-control" id="AddArtBodega" required></select>
+                                    <select class="form-control" id="AddArtBodega" required> 
+                                    <option values="0" selected disabled = "true" >Seleccione una opcion</option>
+                                    </select>
                                     <label>Fecha de Ingreso</label>
                                     <input id="AddArtFIngreso" class="form-control" type="date" placeholder="Fecha de Ingreso" required>
                                     <label>Fecha de Vencimiento</label>
