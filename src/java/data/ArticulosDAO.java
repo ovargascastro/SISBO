@@ -382,6 +382,18 @@ public class ArticulosDAO {
         }
     }
     
+    
+        public SboTbArticulo getArticuloSimple(int id) throws Exception {
+        String sql = "select * from SIBO_TB_Articulo a where a.Arti_Id_PK='%s'";
+        sql = String.format(sql, id);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return articulo(rs);
+        } else {
+            throw new Exception("Solicitud no Existe");
+        }
+    }
+    
         public SboTbArticulo getArticulo3 (int id) throws Exception {
         String sql = "select * from SIBO_TB_Articulo where Arti_Id_PK='%s'";
         sql = String.format(sql, id);

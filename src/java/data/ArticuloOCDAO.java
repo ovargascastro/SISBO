@@ -106,6 +106,16 @@ public class ArticuloOCDAO {
     preparedStmt.executeUpdate();
     db.getConnection().close();
     }
+    
+    
+    public void actualizaSicop(SboTbArticulo articulo) throws SQLException{
+    String query = "update SIBO_TB_Articulo set Arti_Cod_Sico_FK=? where Arti_Id_PK=?";
+    PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+    preparedStmt.setInt(1, articulo.getSboSicop().getSicopId());
+    preparedStmt.setInt(2, articulo.getArtIdPk());
+    preparedStmt.executeUpdate();
+    db.getConnection().close();
+    }
 
     public void disminuirCantPendienteArticulo(SboTbArticulo articulo) throws Exception {
         String query = "update SIBO_TB_Articulo set Arti_Desc=?, Arti_Mode= ?, Arti_Marc=?,\n" +
