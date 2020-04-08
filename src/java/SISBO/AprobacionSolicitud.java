@@ -22,7 +22,7 @@ public class AprobacionSolicitud {
     @Consumes(MediaType.APPLICATION_JSON)
     public List<SboTbExistencia> update(SboTbSolixArti soliXArti) {
         try {
-            return Model.instance().disminuirExistencias(soliXArti);
+            return null;
         } catch (Exception ex) {
             throw new NotFoundException();
         }

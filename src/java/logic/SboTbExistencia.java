@@ -7,82 +7,58 @@ package logic;
 public class SboTbExistencia implements java.io.Serializable {
 
     private SboTbExistenciaId id;
-    private AbaaTbDepartamento abaaTbDepartamento;
+    //private AbaaTbDepartamento abaaTbDepartamento;
     private SboTbBodega sboTbBodega;
-    private SboSicop sboTbSicop;
-    private Double exisCant;
-    private int idE;
+    private int SboTbEsta;
+    private SboTbArticulo articulo;
+   // private SboSicop sboTbSicop;
+    //private Double exisCant;
+    //private int idE;
 
     public SboTbExistencia() {
     }
 
-    public SboTbExistencia(SboTbExistenciaId id, AbaaTbDepartamento abaaTbDepartamento, SboTbBodega sboTbBodega, SboSicop sboTbSicop, Double exisCant) {
+    public SboTbExistencia(SboTbExistenciaId id, SboTbBodega sboTbBodega, int SboTbEsta, SboTbArticulo articulo) {
         this.id = id;
-        this.abaaTbDepartamento = abaaTbDepartamento;
         this.sboTbBodega = sboTbBodega;
-        this.sboTbSicop = sboTbSicop;
-        this.exisCant = exisCant;
-    }
-
-    public SboTbExistencia(SboTbExistenciaId id, AbaaTbDepartamento abaaTbDepartamento, SboTbBodega sboTbBodega) {
-        this.id = id;
-        this.abaaTbDepartamento = abaaTbDepartamento;
-        this.sboTbBodega = sboTbBodega;
-    }
-
-    public SboTbExistencia(SboTbExistenciaId id, AbaaTbDepartamento abaaTbDepartamento, SboTbBodega sboTbBodega, Double exisCant) {
-        this.id = id;
-        this.abaaTbDepartamento = abaaTbDepartamento;
-        this.sboTbBodega = sboTbBodega;
-        this.exisCant = exisCant;
+        this.SboTbEsta = SboTbEsta;
+        this.articulo = articulo;
     }
 
     public SboTbExistenciaId getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(SboTbExistenciaId id) {
         this.id = id;
     }
 
-    public int getIdE() {
-        return idE;
-    }
-
-    public void setIdE(int idE) {
-        this.idE = idE;
-    }
-
-    public AbaaTbDepartamento getAbaaTbDepartamento() {
-        return abaaTbDepartamento;
-    }
-
-    public void setAbaaTbDepartamento(AbaaTbDepartamento abaaTbDepartamento) {
-        this.abaaTbDepartamento = abaaTbDepartamento;
-    }
-
     public SboTbBodega getSboTbBodega() {
-        return this.sboTbBodega;
+        return sboTbBodega;
     }
 
     public void setSboTbBodega(SboTbBodega sboTbBodega) {
         this.sboTbBodega = sboTbBodega;
     }
 
-    public SboSicop getSboTbSicop() {
-        return sboTbSicop;
+    public int getSboTbEsta() {
+        return SboTbEsta;
     }
 
-    public void setSboTbSicop(SboSicop sboTbSicop) {
-        this.sboTbSicop = sboTbSicop;
+    public void setSboTbEsta(int SboTbEsta) {
+        this.SboTbEsta = SboTbEsta;
     }
 
-    public Double getExisCant() {
-        return this.exisCant;
+    public SboTbArticulo getArticulo() {
+        return articulo;
     }
 
-    public void setExisCant(Double exisCant) {
-        this.exisCant = exisCant;
+    public void setArticulo(SboTbArticulo articulo) {
+        this.articulo = articulo;
     }
+    
+    
+
+
 
 }
