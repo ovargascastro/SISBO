@@ -413,6 +413,29 @@ public class ArticulosDAO {
         db.getConnection().close();
     }
 
+    public void actualizarLote(SboTbArticulo objeto) throws Exception {
+        String query = "update SIBO_TB_Articulo set Arti_Fech_Ingr = ?, Arti_Desc = ?, "
+                + "Arti_Mode = ?, Arti_Marc = ?, Arti_Fech_Venc = ? where Arti_Id_PK = ?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+
+        java.util.Date utilStartDate = objeto.getArtFingr();
+        java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+        preparedStmt.setDate(1, sqlStartDate);
+
+        preparedStmt.setString(2, objeto.getArtDesc());
+        preparedStmt.setString(3, objeto.getArtMode());
+        preparedStmt.setString(4, objeto.getArtMarc());
+
+        java.util.Date utilStartDate2 = objeto.getArtFvenc();
+        java.sql.Date sqlStartDate2 = new java.sql.Date(utilStartDate2.getTime());
+        preparedStmt.setDate(5, sqlStartDate2);
+
+        preparedStmt.setInt(6, objeto.getArtIdPk());
+        
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
+
     public SboTbArticulo getArticulo(int id) throws Exception {
         String sql = "select * from SIBO_TB_Articulo a inner join SIBO_TB_Orde_Comp o on a.Arti_Orde_Comp_FK=o.OC_Id_PK where a.Arti_Id_PK='%s'";
         sql = String.format(sql, id);

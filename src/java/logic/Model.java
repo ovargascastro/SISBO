@@ -148,20 +148,48 @@ public class Model {
         sicop.setSicopId(articulo.getSboSicop().getSicopId());
         aux.setSboSicop(sicop);
         int cantRestante = aux.getArtCantRest() - articulo.getArtCant();
-        aux.setArtCantRest(cantRestante);
-        artidao.actualizaSicop(aux);
-        artidao.actualizaRestante(aux);
+        articulo.setArtIdPk(aux.getArtIdPk());
 
-        int cantidad = articulo.getArtCant();
-        for (int i = 0; i < cantidad; i++) {
-            SboTbExistencia existencia = new SboTbExistencia();
-            SboTbBodega bodega = new SboTbBodega();
-            bodega.setBodeIdPk(Integer.parseInt(articulo.getArtCodContGast()));
-            existencia.setArticulo(aux);
-            existencia.setSboTbBodega(bodega);
-            existencia.setExistFingr(articulo.getArtFingr());
-            existencia.setSboTbEsta(1);
-            articulodao.insertarExist(existencia);
+        if (cantRestante == 0) {
+
+            aux.setArtCantRest(cantRestante);
+            artidao.actualizaSicop(aux);
+            artidao.actualizaRestante(aux);
+            articulodao.actualizarLote(articulo);
+
+            int cantidad = articulo.getArtCant();
+            for (int i = 0; i < cantidad; i++) {
+                SboTbExistencia existencia = new SboTbExistencia();
+                SboTbBodega bodega = new SboTbBodega();
+                bodega.setBodeIdPk(Integer.parseInt(articulo.getArtCodContGast()));
+                existencia.setArticulo(aux);
+                existencia.setSboTbBodega(bodega);
+                existencia.setExistFingr(articulo.getArtFingr());
+                existencia.setSboTbEsta(1);
+                articulodao.insertarExist(existencia);
+            }
+
+        } else if (cantRestante > 0) {
+            aux.setArtCantRest(cantRestante);
+            artidao.actualizaSicop(aux);
+            artidao.actualizaRestante(aux);
+            articulodao.actualizarLote(articulo);
+            int cantidad = articulo.getArtCant();
+            for (int i = 0; i < cantidad; i++) {
+                SboTbExistencia existencia = new SboTbExistencia();
+                SboTbBodega bodega = new SboTbBodega();
+                bodega.setBodeIdPk(Integer.parseInt(articulo.getArtCodContGast()));
+                existencia.setArticulo(aux);
+                existencia.setSboTbBodega(bodega);
+                existencia.setExistFingr(articulo.getArtFingr());
+                existencia.setSboTbEsta(1);
+                articulodao.insertarExist(existencia);
+            }
+
+        } else if (cantRestante < 0) {
+
+            return;
+
         }
 
         artidao.verificarEstadoOCs(aux);
@@ -580,9 +608,9 @@ public class Model {
         return bodegadao.getBodega(id);
 
     }
-    
-    public void eliminaExistencia(SboTbExistencia e) throws Exception{
-    existdao.actualizarExistencia(e);
+
+    public void eliminaExistencia(SboTbExistencia e) throws Exception {
+        existdao.actualizarExistencia(e);
     }
 
 //    public ArrayList<SboTbSolixArti> listaReporte(String arti, String depa, String inicio, String fin) throws Exception {
