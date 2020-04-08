@@ -145,8 +145,12 @@ public class Model {
         
         
         SboTbArticulo aux = articulodao.getArticulo(articulo.getArtIdPk());
+        SboSicop sicop = new SboSicop();
+        sicop.setSicopId(articulo.getSboSicop().getSicopId());
+        aux.setSboSicop(sicop);
         int cantRestante = aux.getArtCantRest() - articulo.getArtCant() ;
         aux.setArtCantRest(cantRestante);
+        artidao.actualizaSicop(aux);
         artidao.actualizaRestante(aux);
         
         
@@ -478,7 +482,7 @@ public class Model {
     public void agregarExistencias(SboTbExistencia exist) throws Exception{
     
         int seq = articulodao.getLastInsertArticulo();
-        SboTbArticulo lote = articulodao.getArticulo(seq); 
+        SboTbArticulo lote = articulodao.getArticuloSimple(seq); 
         articulodao.insertarExistencias(lote, exist);
 
     }

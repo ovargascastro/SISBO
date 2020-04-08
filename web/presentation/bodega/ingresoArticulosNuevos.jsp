@@ -358,6 +358,7 @@
                     
                     function agregarArticulo(){
                          var bod = document.getElementById("AddArtBodega").value;
+                         var sicop = document.getElementById("selectSicop").value;
                         articulo = {
                             artIdPk: artiActual,
                             artCantRest: $("#AddArtCant").val(),
@@ -369,7 +370,10 @@
                             artNumeSeri: $("#AddArtNSerie").val(),
                             artFingr: parseaFecha($("#AddArtFIngreso").val()),
                             artFvenc: parseaFecha($("#AddArtFVencimiento").val()),
-                            sboSicop:[{sicopId:$("#selectSicop").val()}]
+                            sboSicop: {
+                            sicopId: sicop
+                            }
+                            
                         };
                             $.ajax({type: "PUT",
                             url: "api/ListaOCxArt",

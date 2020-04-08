@@ -61,11 +61,12 @@
                                 <table class="table" id="myTable">
                                     <thead>
                                         <tr>
+                                            <th class="text-center">Fecha</th>
                                             <th class="text-center">Bodega</th>
                                             <th class="text-center">Departamento</th>
                                             <th class="text-center">Descripcion</th>
-                                            <th class="text-center">Cantidad</th>
-                                            <th class="text-center">Editar Cantidad</th>
+                                            <th class="text-center">Infomacion</th>
+                                            <th class="text-center">Eliminar</th>
                                         </tr>
                                     </thead>
                                     <tbody id="listadoExistencias">
