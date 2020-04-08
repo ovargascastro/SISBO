@@ -28,49 +28,35 @@
                 <p>Rellenar el formulario para realizar una solicitud de artículos en bodega</p>
                 <p></p>
             </div>
+             <input class="form-control" type="hidden" placeholder="departamento" id="departamento"  readonly="readonly">
+              <input class="form-control" type="hidden" placeholder="idusuario" id="idusuario"  readonly="readonly">
         </div>
 
-        <form id="formSolicitudArt" action="javascript:IngresarArticuloLista()">
-            <div class="card" id="formulario">
-                <div class="card-body">
-                    <h5 class="text-center">Seleccione el artículo y la cantidad deseada</h5>
-                    <div class="form-row">
-                        
-                          
-                              
-                                <input class="form-control" type="hidden" placeholder="departamento" id="departamento"  readonly="readonly">
-                                <input class="form-control" type="hidden" placeholder="idusuario" id="idusuario"  readonly="readonly">
-
-                         
-                            <div class="col">
-                                <label>Artículo</label>
-                                <select class="form-control" id="selectArt" onchange="getExistencias()" required="required" >
-                                    <option values="0" selected disabled = "true">Seleccione una opcion</option>
-                                </select>
-                            </div>
-                             <div class="col">
-                                <label>Descripción</label>
-                                 <input class="form-control" type="text" placeholder="Descripción" id="descripcion" required="required">
-                            </div>
-                        
-                            <div class="col">
-                                <label>Existencias</label>
-                                <input class="form-control" type="text" placeholder="Existencias" readonly="readonly" id="cantidadExist">
-                            </div>
-                            <div class="col">
-                                <label>Cantidad</label>
-                                <input class="form-control" type="number" placeholder="Cantidad" id="cantidad" min="0" required>
-                            </div>
-                        </div>
-                        <div class="form-row text-center" id="rowBtnAgregar">
-                            <br>
-                            <div class="col">
-                                <button class="btn btn-primary text-center" id="btnAgregarArt" type="submit" >Agregar Articulo</button>
-                            </div>
-                        </div>
-                </div>
-            </div>
-        </form>
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Articulo</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+   </tbody>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </tfoot>
+    </table>
+        
         <form action="javascript:creaSolicitud()">
             <div class="card" id="formulario">
                 <div class="card-body">

@@ -42,9 +42,34 @@ function selectSicop() {
         }
     });
 }
-//funcion para cargar los datos apenas se ingrese al url de existencias
+
+
+
+function selectSicop2() {
+    $.ajax({type: "GET",
+         url: "api/Sicop",
+        success: selectSicopPicker,
+        error: function (data) {
+            alert('error');
+        }
+    });
+
+}
+
+function selectSicopPicker(data) {
+
+    var jsonData = JSON.stringify(data);
+    $.each(JSON.parse(jsonData), function (idx, obj) {
+        $("#selectSicop").append('<option value="' + obj.sicopId + '">' + '➤ ' + obj.sicopDesc + '</option>');
+
+    });
+    $('#selectSicop').selectpicker('refresh');
+
+}
+
+
 $(document).ready(function () {
-    selectSicop();
+    selectSicop2();
     selectDeptos();
     selectBodegas();
     logged();
@@ -78,7 +103,7 @@ function fila(listado, objeto) {
             + "<td>" + objeto.sboTbBodega.bodeDesc + "</td>"
             + "<td>" + objeto.articulo.abaaTbDepartamento.deptoNomb + "</td>"
             + "<td>" + objeto.articulo.sboSicop.sicopDesc + "</td>"
-            + "<td>" + objeto.articulo.artPrecio + "</td>"
+            + "<td>" + '₡ ' + objeto.articulo.artPrecio + "</td>"
             + "<td><img class='small-img' src='assets/img/info(1).png' onclick='abrirArticulo(\"" + objeto.articulo.artIdPk + "\");'></td>"
             + "<td><img class='small-img' src='assets/img/trash-delete.png' onclick='eliminarExistenciaV(\"" + objeto.id + "\");'></td>");
     listado.append(tr);

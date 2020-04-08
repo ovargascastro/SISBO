@@ -20,7 +20,31 @@ function selectSicop() {
     });
 }
 
-//se cargan articulos del catalogo de sicop al entrar a la ventana de sicop
+
+function selectSicop2() {
+    $.ajax({type: "GET",
+         url: "api/Sicop",
+        success: selectSicopPicker,
+        error: function (data) {
+            alert('error');
+        }
+    });
+
+}
+
+function selectSicopPicker(data) {
+
+    var jsonData = JSON.stringify(data);
+    $.each(JSON.parse(jsonData), function (idx, obj) {
+        $("#selectSicop").append('<option value="' + obj.sicopId + '">' + '➤ ' + obj.sicopDesc + '</option>');
+
+    });
+    $('#selectSicop').selectpicker('refresh');
+
+}
+
+
+
 window.addEventListener('load', cargar, false);
 
 // lista los articulos de sicop
@@ -149,6 +173,9 @@ function buscarSicopFiltro() {
     });
 }
 
+function exitoFiltro() {
+
+}
 
 
 // formato para mostrar los datos 
