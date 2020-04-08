@@ -58,9 +58,9 @@ public class Existencias {
         SboSicop s = new SboSicop();
         s.setSicopId(Integer.parseInt(arti));
         
-        e.setAbaaTbDepartamento(d);
-        e.setSboTbBodega(b);
-        e.setSboTbSicop(s);
+       // e.setAbaaTbDepartamento(d);
+      //  e.setSboTbBodega(b);
+       // e.setSboTbSicop(s);
         return e;
     }
 
@@ -68,7 +68,7 @@ public class Existencias {
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(SboTbExistencia existencia) {
         try {
-            Model.instance().aumentarExistenciasArticulo(existencia);
+           // Model.instance().aumentarExistenciasArticulo(existencia);
         } catch (Exception ex) {
             throw new NotFoundException();
         }
@@ -79,7 +79,7 @@ public class Existencias {
     public List<SboTbExistencia> updateCant(SboTbExistencia existencia) {
         try {
             existencia = actualizaDatosExistencia(existencia);
-            Model.instance().actualizaCantExist(existencia);
+           // Model.instance().actualizaCantExist(existencia);
             List<SboTbExistencia> lista = Model.instance().listaExistencias(bode, dpt, arti);
             return lista;
         } catch (Exception ex) {

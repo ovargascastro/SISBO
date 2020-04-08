@@ -47,7 +47,7 @@ public class consumo2 {
             date1 = dateFormat.parse(fInicio);
             date2 = dateFormat.parse(fFinal);
 
-            return Model.instance().listaReporte(articulo,departamento,fInicio,fFinal);
+            return null;
 
         } catch (Exception ex) {
             Logger.getLogger(Consumo.class.getName()).log(Level.SEVERE, null, ex);

@@ -134,13 +134,44 @@ public class ArticulosDAO {
             return null;
         }
     }
+    
+    
+        private SboTbArticulo Articulo2(ResultSet rs) {
+        try {
+            SboTbArticulo arti = new SboTbArticulo();
+            AbaaTbDepartamento dpto = new AbaaTbDepartamento();
+            SboTbCatArticulo cat = new SboTbCatArticulo();
+            SboTbOrdenCompra oc = new SboTbOrdenCompra();
+            arti.setArtIdPk(rs.getInt("Arti_Id_PK"));
+            arti.setArtDesc(rs.getString("Arti_Desc"));
+            arti.setArtMode(rs.getString("Arti_Mode"));
+            arti.setArtMarc(rs.getString("Arti_Marc"));
+            arti.setArtNumeSeri(rs.getString("Arti_Nume_Seri"));
+            cat.setCatIdPk(rs.getInt("Cata_Id_PK"));
+            cat.setCatDesc(rs.getString("Cata_Desc"));
+            dpto.setDeptoIdPk(rs.getString("Cata_Depa_id_PK"));
+            dpto.setDeptoNomb(rs.getString("Cata_Depa_nomb"));
+            arti.setSboTbCatArticulo(cat);
+            arti.setAbaaTbDepartamento(dpto);
+            oc.setOcIdPk(rs.getInt("OC_Id_PK"));
+            arti.setSboTbOrdenCompra(oc);
+
+            return arti;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+        
+        
        private SboTbExistencia existencia(ResultSet rs) {
         try {
             SboTbExistencia ob = new SboTbExistencia();
             ob.setSboTbBodega(Bodega(rs));
-            ob.setExisCant(rs.getDouble("Exis_Cant"));
-            ob.setAbaaTbDepartamento(departamento(rs));
-            ob.setSboTbSicop(sicop(rs));
+            ob.setArticulo(Articulo2(rs));
+            ob.setSboTbEsta(rs.getInt("Exis_Esta"));
+            //ob.setExisCant(rs.getDouble("Exis_Cant"));
+            //ob.setAbaaTbDepartamento(departamento(rs));
+           // ob.setSboTbSicop(sicop(rs));
             return ob;
         } catch (SQLException ex) {
             return null;

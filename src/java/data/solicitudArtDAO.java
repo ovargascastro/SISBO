@@ -90,18 +90,52 @@ public class solicitudArtDAO {
         return resultado;
     }
 
-    private SboTbExistencia existencia(ResultSet rs) {
+
+
+      private SboTbArticulo Articulo2(ResultSet rs) {
         try {
-            SboTbExistencia existencia = new SboTbExistencia();
-            existencia.setSboTbBodega(Bodega(rs));
-            //existencia.setSboTbArticulo(articulo(rs));
-            existencia.setExisCant(rs.getDouble("Exis_Cant"));
-            return existencia;
+            SboTbArticulo arti = new SboTbArticulo();
+            AbaaTbDepartamento dpto = new AbaaTbDepartamento();
+            SboTbCatArticulo cat = new SboTbCatArticulo();
+            SboTbOrdenCompra oc = new SboTbOrdenCompra();
+            arti.setArtIdPk(rs.getInt("Arti_Id_PK"));
+            arti.setArtDesc(rs.getString("Arti_Desc"));
+            arti.setArtMode(rs.getString("Arti_Mode"));
+            arti.setArtMarc(rs.getString("Arti_Marc"));
+            arti.setArtNumeSeri(rs.getString("Arti_Nume_Seri"));
+            cat.setCatIdPk(rs.getInt("Cata_Id_PK"));
+            cat.setCatDesc(rs.getString("Cata_Desc"));
+            dpto.setDeptoIdPk(rs.getString("Cata_Depa_id_PK"));
+            dpto.setDeptoNomb(rs.getString("Cata_Depa_nomb"));
+            arti.setSboTbCatArticulo(cat);
+            arti.setAbaaTbDepartamento(dpto);
+            oc.setOcIdPk(rs.getInt("OC_Id_PK"));
+            arti.setSboTbOrdenCompra(oc);
+
+            return arti;
         } catch (SQLException ex) {
             return null;
         }
     }
 
+    private SboTbExistencia existencia(ResultSet rs) {
+        try {
+            SboTbExistencia ob = new SboTbExistencia();
+            ob.setSboTbBodega(Bodega(rs));
+            ob.setArticulo(Articulo2(rs));
+            ob.setSboTbEsta(rs.getInt("Exis_Esta"));
+            //ob.setExisCant(rs.getDouble("Exis_Cant"));
+            //ob.setAbaaTbDepartamento(departamento(rs));
+            // ob.setSboTbSicop(sicop(rs));
+            return ob;
+        } catch (SQLException ex) {
+            return null;
+        }
+
+    }
+
+
+    
     private SboTbBodega Bodega(ResultSet rs) {
         try {
             SboTbBodega bodega = new SboTbBodega();
@@ -219,18 +253,18 @@ public class solicitudArtDAO {
         }
     }
 
-    public void agregarSolicitudXArticulo(SboTbSolixArti objeto) throws Exception {
-        String query = "insert into SIBO_TB_Soli_X_Arti(Soli_Arti_Id_X_Soli_Arti_PK,Soli_Arti_Id_X_Arti_PK,"
-                + "Soli_Arti_X_Cant)"
-                + "values(?,?,?)";
-
-        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
-        preparedStmt.setInt(1, objeto.getSboTbSoliArti().getSolArtiIdPk());
-        preparedStmt.setInt(2, objeto.getSboSicop().getSicopId());
-        preparedStmt.setInt(3, objeto.getSolArtiCant());
-        preparedStmt.executeUpdate();
-        db.getConnection().close();
-    }
+//    public void agregarSolicitudXArticulo(SboTbSolixArti objeto) throws Exception {
+//        String query = "insert into SIBO_TB_Soli_X_Arti(Soli_Arti_Id_X_Soli_Arti_PK,Soli_Arti_Id_X_Arti_PK,"
+//                + "Soli_Arti_X_Cant)"
+//                + "values(?,?,?)";
+//
+//        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+//        preparedStmt.setInt(1, objeto.getSboTbSoliArti().getSolArtiIdPk());
+//        preparedStmt.setInt(2, objeto.getSboSicop().getSicopId());
+//        preparedStmt.setInt(3, objeto.getSolArtiCant());
+//        preparedStmt.executeUpdate();
+//        db.getConnection().close();
+//    }
 
     public List<SboTbSoliArti> listadoSolicitudesArticulos(String filtro) {
         List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
@@ -314,9 +348,8 @@ public class solicitudArtDAO {
     private SboTbSolixArti solixArti(ResultSet rs) {
         try {
             SboTbSolixArti solxArt = new SboTbSolixArti();
-            solxArt.setSboSicop(articulo(rs));
+            solxArt.setExistencia(existencia(rs));
             solxArt.setSboTbSoliArti(soliArti(rs));
-            solxArt.setSolArtiCant(rs.getInt("Soli_Arti_X_Cant"));
             solxArt.setSolArtiDeta(rs.getString("Soli_Arti_Deta"));
             solxArt.setSolArtiSali(rs.getDate("Soli_Arti_Fech_Sali"));
             return solxArt;
@@ -433,15 +466,15 @@ public class solicitudArtDAO {
 
     }
 
-    public void disminuyeExistencias(SboTbSolixArti objeto) throws Exception {
-        String query = "execute DisminuyeExistencias ?,?,?;";
-        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
-        preparedStmt.setInt(1, objeto.getSboSicop().getSicopId());
-        preparedStmt.setInt(2, objeto.getSolArtiCant());
-        preparedStmt.setInt(3, objeto.getSboTbSoliArti().getSolArtiIdPk());
-        preparedStmt.executeUpdate();
-        db.getConnection().close();
-    }
+//    public void disminuyeExistencias(SboTbSolixArti objeto) throws Exception {
+//        String query = "execute DisminuyeExistencias ?,?,?;";
+//        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+//        preparedStmt.setInt(1, objeto.getSboSicop().getSicopId());
+//        preparedStmt.setInt(2, objeto.getSolArtiCant());
+//        preparedStmt.setInt(3, objeto.getSboTbSoliArti().getSolArtiIdPk());
+//        preparedStmt.executeUpdate();
+//        db.getConnection().close();
+//    }
 
     public void InsertarSoli(SboTbSoliArti objeto) throws Exception {
         String query = "execute Soli_Insertar ?,?;";
@@ -452,16 +485,16 @@ public class solicitudArtDAO {
         db.getConnection().close();
     }
 
-    public void insertarSolxArt(SboTbSolixArti objeto) throws Exception {
-        String sql = "Execute agregarSoliXarti ?,?,?,?;";
-        PreparedStatement preparedStmt = db.getConnection().prepareStatement(sql);
-        preparedStmt.setInt(1, objeto.getId().getSolixArtiIdSoliArtiPk());
-        preparedStmt.setInt(2, objeto.getSboSicop().getSicopId());
-        preparedStmt.setInt(3, objeto.getSolArtiCant());
-        preparedStmt.setString(4, objeto.getSolArtiDeta());
-        preparedStmt.executeUpdate();
-        db.getConnection().close();
-    }
+//    public void insertarSolxArt(SboTbSolixArti objeto) throws Exception {
+//        String sql = "Execute agregarSoliXarti ?,?,?,?;";
+//        PreparedStatement preparedStmt = db.getConnection().prepareStatement(sql);
+//        preparedStmt.setInt(1, objeto.getId().getSolixArtiIdSoliArtiPk());
+//        preparedStmt.setInt(2, objeto.getSboSicop().getSicopId());
+//        preparedStmt.setInt(3, objeto.getSolArtiCant());
+//        preparedStmt.setString(4, objeto.getSolArtiDeta());
+//        preparedStmt.executeUpdate();
+//        db.getConnection().close();
+//    }
 
     public int getLastInsertSolicitudArticulo() throws Exception {
         String sql = " select IDENT_CURRENT( 'SIBO_TB_Soli_Arti' ) as seq ";

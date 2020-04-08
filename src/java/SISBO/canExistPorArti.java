@@ -26,8 +26,8 @@ public class canExistPorArti {
     @GET
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     public String getCantExistencias(@QueryParam("id") int id) throws ClassNotFoundException, SQLException, Exception {
-        int cantidad = Model.instance().sumaExistencias2(id);
-        String cant = Integer.toString(cantidad);
+       // int cantidad = Model.instance().sumaExistencias2(id);
+        String cant = Integer.toString(0);
         return cant;
     }
 }

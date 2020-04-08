@@ -34,8 +34,8 @@ public class ExistenciasTemp {
    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<SboTbExistencia> search(@QueryParam("filtro") String filtro) {
         try {
-            List<SboTbExistencia> lista = Model.instance().listaExistenciasfiltro(filtro);
-            return lista;
+          //  List<SboTbExistencia> lista = Model.instance().listaExistenciasfiltro(filtro);
+            return null;
         } catch (Exception ex) {
             Logger.getLogger(SboTbExistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -50,8 +50,8 @@ public class ExistenciasTemp {
             throws ClassNotFoundException, SQLException, Exception {
         String departamento = y;
         String articulo = z;
-        SboTbExistencia lista = Model.instance().getSboTbExistencia(departamento, articulo);
-        return lista;
+       // SboTbExistencia lista = Model.instance().getSboTbExistencia(departamento, articulo);
+        return null;
 
     }
     
