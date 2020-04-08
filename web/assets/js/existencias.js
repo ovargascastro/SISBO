@@ -114,6 +114,8 @@ function eliminarExistenciaV(id){
     $('#modalEliminaExist').modal('show');
 }
 
+
+
 function eliminarExistencia(){
     SboTbExistencia = {
             id: existenciaActual

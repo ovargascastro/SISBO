@@ -168,6 +168,7 @@ public class Model {
                 existencia.setSboTbEsta(1);
                 articulodao.insertarExist(existencia);
             }
+            artidao.verificarEstadoOCs(aux);
 
         } else if (cantRestante > 0) {
             aux.setArtCantRest(cantRestante);
@@ -185,6 +186,7 @@ public class Model {
                 existencia.setSboTbEsta(1);
                 articulodao.insertarExist(existencia);
             }
+            artidao.verificarEstadoOCs(aux);
 
         } else if (cantRestante < 0) {
 
@@ -192,7 +194,7 @@ public class Model {
 
         }
 
-        artidao.verificarEstadoOCs(aux);
+        
 
         //artidao.disminuirCantPendienteArticulo(articulo);
     }

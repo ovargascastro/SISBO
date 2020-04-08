@@ -426,9 +426,15 @@ public class ArticulosDAO {
         preparedStmt.setString(3, objeto.getArtMode());
         preparedStmt.setString(4, objeto.getArtMarc());
 
+        if(objeto.getArtFvenc()==null){
+         preparedStmt.setDate(5, null);
+        }else{
         java.util.Date utilStartDate2 = objeto.getArtFvenc();
         java.sql.Date sqlStartDate2 = new java.sql.Date(utilStartDate2.getTime());
         preparedStmt.setDate(5, sqlStartDate2);
+        }
+        
+
 
         preparedStmt.setInt(6, objeto.getArtIdPk());
         
