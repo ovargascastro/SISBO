@@ -142,7 +142,33 @@ public class Model {
     }
 
     public void disminuirCantPendienteArticulo(SboTbArticulo articulo) throws Exception {
-        artidao.disminuirCantPendienteArticulo(articulo);
+        
+        
+        SboTbArticulo aux = articulodao.getArticulo(articulo.getArtIdPk());
+        int cantRestante = aux.getArtCantRest() - articulo.getArtCant() ;
+        aux.setArtCantRest(cantRestante);
+        artidao.actualizaRestante(aux);
+        
+        
+        int cantidad = articulo.getArtCant();
+        for (int i = 0; i < cantidad; i++) {
+            SboTbExistencia existencia = new SboTbExistencia();
+            SboTbBodega bodega = new SboTbBodega();
+            bodega.setBodeIdPk(Integer.parseInt(articulo.getArtCodContGast()));
+            existencia.setArticulo(aux);
+            existencia.setSboTbBodega(bodega);
+            existencia.setExistFingr(articulo.getArtFingr());
+            existencia.setSboTbEsta(1);
+            articulodao.insertarExist(existencia);
+        }
+        
+        artidao.verificarEstadoOCs(aux);
+
+
+        
+        
+        
+        //artidao.disminuirCantPendienteArticulo(articulo);
     }
 
 //    public void aumentarExistenciasArticulo(SboTbExistencia existencia) throws Exception {
@@ -445,7 +471,16 @@ public class Model {
 //    }
 
     public void agregarArticuloSinOrden(SboTbArticulo art) throws Exception {
-        articulodao.agregarArticuloSinOrden(art);
+        articulodao.agregarArticuloSinOrden(art);       
+        
+    }
+    
+    public void agregarExistencias(SboTbExistencia exist) throws Exception{
+    
+        int seq = articulodao.getLastInsertArticulo();
+        SboTbArticulo lote = articulodao.getArticulo(seq); 
+        articulodao.insertarExistencias(lote, exist);
+
     }
 
     //agrego la solicitud y en la variable numSoliArti le recupera el ultimo id de la solicitud

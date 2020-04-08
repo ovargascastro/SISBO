@@ -70,21 +70,14 @@ String.prototype.toDate = function (format)
 };
 
 function agregarExistencias() {
-    var depto = document.getElementById("selectDeptos").value;
-    var sicop = document.getElementById("selectSicop").value;
+    //SboTbExistenciaId id, SboTbBodega sboTbBodega, int SboTbEsta, SboTbArticulo articulo
+
     var bodeg = document.getElementById("AddArtBodega").value;
     existencia = {
         sboTbBodega: [{bodeIdPk: $("#AddArtBodega").val()}],
-        abaaTbDepartamento: {
-            deptoIdPk: depto
-        },
-        sboTbSicop: {
-            sicopId: sicop
-        },
         SboTbBodega:{
             bodeIdPk: bodeg
-        },
-        exisCant: $("#AddArtCant").val()
+        }
     };
     $.ajax({type: "PUT",
         url: "api/Existencias",
