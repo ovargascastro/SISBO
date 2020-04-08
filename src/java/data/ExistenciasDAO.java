@@ -348,16 +348,14 @@ public class ExistenciasDAO {
 //            throw new Exception("Bien no Existe");
 //        }
 //    }
-//    public void actualizarExistencia(SboTbExistencia objeto) throws Exception {
-//        String query = "update SIBO_TB_Exis set Exis_Cant=? where Exis_Id_Bode_PK=? and Exis_Id_Sico_PK=? and Exist_Depa_PK=?";
-//        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
-//        preparedStmt.setDouble(1, objeto.getExisCant());
-//        preparedStmt.setInt(2, objeto.getSboTbBodega().getBodeIdPk());
-//        preparedStmt.setInt(3, objeto.getSboTbSicop().getSicopId());
-//        preparedStmt.setString(4, objeto.getAbaaTbDepartamento().getDeptoIdPk());
-//        preparedStmt.executeUpdate();
-//        db.getConnection().close();
-//    }
+    public void actualizarExistencia(SboTbExistencia objeto) throws Exception {
+        String query = "update SIBO_TB_Exis set Exis_Esta=? where Exis_Id_PK=?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setInt(1, 0);
+        preparedStmt.setInt(2, objeto.getId());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
 //        public List<SboTbExistencia> listaConsumo(String depa) {
 //        List<SboTbExistencia> resultado = new ArrayList<SboTbExistencia>();
 //        try {

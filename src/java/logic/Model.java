@@ -580,6 +580,10 @@ public class Model {
         return bodegadao.getBodega(id);
 
     }
+    
+    public void eliminaExistencia(SboTbExistencia e) throws Exception{
+    existdao.actualizarExistencia(e);
+    }
 
 //    public ArrayList<SboTbSolixArti> listaReporte(String arti, String depa, String inicio, String fin) throws Exception {
 //

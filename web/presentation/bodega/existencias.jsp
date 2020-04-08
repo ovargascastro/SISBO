@@ -111,48 +111,38 @@
                                         <label>N° Orden de Compra</label>
                                         <input id="OrdenInfo" class="form-control" type="text" placeholder="N° Orden de Compra">
                                         <label>SICOP</label>
-                                         <input id="SicopInfo" class="form-control" type="text" readonly placeholder="SICOP">
+                                        <input id="SicopInfo" class="form-control" type="text" readonly placeholder="SICOP">
                                         <br>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>
-                    </div>
+                        </div>
                 </form>
 
             </div>
         </div>
-
-        <div class="modal fade" role="dialog" tabindex="-1" id="modalEditarExist">
-            <form id="actualizaExist" action="javascript:actualizarExistencia();">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Edición</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="container">
-                                <form>
-                                    <div class="form-row">
-                                        <div class="col"><label>Existencias Actuales</label>
-                                            <input class="form-control" type="text" id="existAct" readonly></div>
-                                        <div class="col"><label>Nueva Cantidad</label>
-                                            <input class="form-control" type="number" min="0" id="nuevExist" required></div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>
-                            <button class="btn btn-primary" type="submit">Guardar</button></div>
-                    </div>
-                </div>
-            </form>
         </div>
+        
+                <div class="modal fade" role="dialog" tabindex="-1" id="modalEliminaExist">
+             <form action="javascript:eliminarExistencia();">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Eliminar</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <p>Desea eliminar el registro seleccionado?</p>
+                    </div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary bg-danger" type="submit">Eliminar</button></div>
+                </div>
+            </div>
+                 </form>
+        </div>
+
+
+
 
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>

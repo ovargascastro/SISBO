@@ -77,9 +77,32 @@ function fila(listado, objeto) {
             + "<td>" + objeto.articulo.sboSicop.sicopDesc + "</td>"
             + "<td>" + objeto.articulo.artPrecio + "</td>"
             + "<td><img class='small-img' src='assets/img/info(1).png' onclick='abrirArticulo(\"" + objeto.articulo.artIdPk + "\");'></td>"
-            + "<td><img class='small-img' src='assets/img/trash-delete.png' onclick='abrirArticulo(\"" + objeto.id + "\");'></td>");
+            + "<td><img class='small-img' src='assets/img/trash-delete.png' onclick='eliminarExistenciaV(\"" + objeto.id + "\");'></td>");
     listado.append(tr);
     Nregistros();
+}
+
+var existenciaActual=0;
+
+function eliminarExistenciaV(id){
+    existenciaActual=id;
+    $('#modalEliminaExist').modal('show');
+}
+
+function eliminarExistencia(){
+    SboTbExistencia = {
+            id: existenciaActual
+        };
+        $.ajax({type: "POST",
+            url: "api/Existencias;charset=UTF-8",
+            data: JSON.stringify(SboTbExistencia),
+            contentType: "application/json;charset=UTF-8",
+            success: ocultarEditarExist,
+            error: function (jqXHR) {
+                alert("Error");
+            }
+        });
+    
 }
 
 function formatDate(fecha) {
@@ -116,7 +139,7 @@ function actualizarExistencia() {
 }
 
 function ocultarEditarExist(list) {
-    $('#modalEditarExist').modal('hide');
+    $('#modalEliminaExist').modal('hide');
     listaExist(list);
 }
 
