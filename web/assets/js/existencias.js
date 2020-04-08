@@ -59,6 +59,7 @@ function getExistencias() {
         url: "api/Existencias/" + bodeg + "/" + depto + "/" + arti,
         success: listaExist
     });
+    
 }
 
 //se listan las existencias en la tabla
@@ -73,12 +74,46 @@ function listaExist(personas) {
 function fila(listado, objeto) {
     var tr = $("<tr />");
     tr.html(
-            "<td>" + objeto.sboTbBodega.bodeDesc + "</td>"
-            + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
-            + "<td>" + objeto.sboTbSicop.sicopDesc + "</td>"
-            + "<td>" + objeto.exisCant + "</td>"
-            + "<td><img src='assets/img/edit.png' onclick='editarExist(\"" + objeto.idE + "\",\"" + objeto.exisCant + "\");'></td>");
+            "<td>" + formatDate(objeto.existFingr) + "</td>"
+            + "<td>" + objeto.sboTbBodega.bodeDesc + "</td>"
+            + "<td>" + objeto.articulo.abaaTbDepartamento.deptoNomb + "</td>"
+            + "<td>" + objeto.articulo.sboSicop.sicopDesc + "</td>"
+            + "<td>" + objeto.articulo.artPrecio + "</td>"
+            + "<td><img class='small-img' src='assets/img/info(1).png' onclick='abrirArticulo(\"" + objeto.articulo.artIdPk + "\");'></td>"
+            + "<td><img class='small-img' src='assets/img/trash-delete.png' onclick='eliminarExistenciaV(\"" + objeto.id + "\");'></td>");
     listado.append(tr);
+    Nregistros();
+}
+
+var existenciaActual=0;
+
+function eliminarExistenciaV(id){
+    existenciaActual=id;
+    $('#modalEliminaExist').modal('show');
+}
+
+function eliminarExistencia(){
+    SboTbExistencia = {
+            id: existenciaActual
+        };
+        $.ajax({type: "POST",
+            url: "api/Existencias;charset=UTF-8",
+            data: JSON.stringify(SboTbExistencia),
+            contentType: "application/json;charset=UTF-8",
+            success: ocultarEditarExist,
+            error: function (jqXHR) {
+                alert("Error");
+            }
+        });
+    
+}
+
+function formatDate(fecha) {
+    var dia = fecha.substring(8, 10);
+    var mes = fecha.substring(5, 7);
+    var annio = fecha.substring(0, 4);
+    var newFecha = dia + "/" + mes + "/" + annio;
+    return newFecha;
 }
 
 //se abre el modal para editar la cantidad de la existencia seleccionada
@@ -109,7 +144,7 @@ function actualizarExistencia() {
 }
 //se oculta el modal de editar cantidad de existencias
 function ocultarEditarExist(list) {
-    $('#modalEditarExist').modal('hide');
+    $('#modalEliminaExist').modal('hide');
     listaExist(list);
 }
 
@@ -131,4 +166,46 @@ function myFunction() {
             }
         }
     }
+}
+
+
+function abrirArticulo(id) {
+
+    solicitarDatosArticulo(id);
+    $('#informacionArt').modal('show');
+
+}
+
+
+function cargarBotonInfo(catalogoID) {
+    var linea = "<img src='assets/img/info(1).png' onclick='abrirModalInfoArticulo(\"" + catalogoID + "\")'>";
+    $("#botonArticuloInfo").empty().append(linea);
+}
+
+function solicitarDatosArticulo(id) {
+    $.ajax({type: "GET",
+        url: "api/infoArticulo/" + id,
+        success: mostrarDatosArt
+    });
+}
+
+
+function mostrarDatosArt(objeto) {
+    
+    $("#ArticuloInfo").val(objeto.sboTbCatArticulo.catDesc);
+    $("#DescripcionInfo").val(objeto.artDesc);
+    $("#ModeloInfo").val(objeto.artMode);
+    $("#MarcaInfo").val(objeto.artMarc);
+    $("#OrdenInfo").val(objeto.sboTbOrdenCompra.ocIdPk);
+    $("#SicopInfo").val(objeto.sboSicop.sicopDesc);
+
+}
+
+function Nregistros(){
+    
+    var table = document.getElementById("myTable");
+    var tbodyRowCount = table.tBodies[0].rows.length; // 3
+    
+    document.getElementById("nReg").innerHTML = "Numero de registros : "+tbodyRowCount;
+    
 }

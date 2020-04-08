@@ -42,9 +42,11 @@ public class ApplicationConfig extends Application {
         resources.add(SISBO.canExistPorArti.class);
         resources.add(SISBO.catArticulos.class);
         resources.add(SISBO.catContable.class);
+        resources.add(SISBO.consumo2.class);
         resources.add(SISBO.departamentos.class);
         resources.add(SISBO.descCatsArticulo.class);
         resources.add(SISBO.familias.class);
+        resources.add(SISBO.infoArticulo.class);
         resources.add(SISBO.listadoOCArtNuevos.class);
         resources.add(SISBO.ordenesCompCont.class);
         resources.add(SISBO.ordenesCompra.class);

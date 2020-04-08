@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="assets/css/styles.css">
         <title>Ingreso de Articulos por OC</title>
     </head>
-    <body onload="selectSicop(), buscarOrdenes(), logged()">
+    <body onload="selectSicop(), buscarOrdenes(), logged(), selectBodegas()">
         <%@ include file="/presentation/header.jsp" %>
         <div id="titulo">
             <div class="jumbotron">
@@ -219,7 +219,6 @@
                     function abrirModalAgregarArticulos(idArti) {
                         $('#listaArticulos').modal('hide');
                         solicitarDatosArticulo(idArti);
-                        selectBodegas();
                         $('#agregarArticulo').modal('show');
                     }
                     function abrirModalInfoArticulo(idCat) {
@@ -253,7 +252,10 @@
                             success: mostrarDatosArt
                         });
                     }
+                    
+                    var artiActual;
                     function mostrarDatosArt(objeto) {
+                        artiActual = objeto.artIdPk;
                         $("#AddArtId").val(objeto.artIdPk);
                         $("#OCId").val(objeto.sboTbOrdenCompra.ocIdPk);
                         $("#DptoId").val(objeto.abaaTbDepartamento.deptoIdPk);
@@ -348,10 +350,43 @@
                         return fecha2;
                     }
                     function actualizarArticulo() {
-                        aumentarExistencias();
-                        disminuirRestantes();
+                        
+                        
+                        agregarArticulo();
                         $("#actualizaArticulo").trigger('reset');
                     }
+                    
+                    function agregarArticulo(){
+                         var bod = document.getElementById("AddArtBodega").value;
+                         var sicop = document.getElementById("selectSicop").value;
+                        articulo = {
+                            artIdPk: artiActual,
+                            artCantRest: $("#AddArtCant").val(),
+                            artCodContGast: bod,
+                            artCant: $("#AddArtCant").val(),
+                            artDesc: $("#AddArtDescripcion").val(),
+                            artMode: $("#AddArtModelo").val(),
+                            artMarc: $("#AddArtMarca").val(),
+                            artNumeSeri: $("#AddArtNSerie").val(),
+                            artFingr: parseaFecha($("#AddArtFIngreso").val()),
+                            artFvenc: parseaFecha($("#AddArtFVencimiento").val()),
+                            sboSicop: {
+                            sicopId: sicop
+                            }
+                            
+                        };
+                            $.ajax({type: "PUT",
+                            url: "api/ListaOCxArt",
+                            data: JSON.stringify(articulo),
+                            contentType: "application/json"})
+                                .then(function () {
+                                    buscarArtxOc($("#OCId").val());
+                                    buscarOrdenes();
+                                });
+                                refresca();
+                        
+                    }
+                    
                     function aumentarExistencias() {
                         existencia = {
                             sboTbBodega: [{bodeIdPk: $("#AddArtBodega").val()}],

@@ -23,10 +23,7 @@ public class ArticuloOCDAO {
     public ArticuloOCDAO() {
         db = new RelDatabase();
     }
-//se crea un objeto tipo Articulo con todos los atributos necesarios 
-//para mostrarse en la descripcion del articulo
 
-    
     private SboTbArticulo Articulo2(ResultSet rs) {
         try {
             SboTbArticulo arti = new SboTbArticulo();
@@ -52,8 +49,6 @@ public class ArticuloOCDAO {
             return null;
         }
     }
-//se crea un objeto tipo Articulo con todos los atributos necesarios 
-//para mostrarse en la descripcion catalogo de articulos
 
     private SboTbArticulo Articulo3(ResultSet rs) {
         try {
@@ -76,7 +71,6 @@ public class ArticuloOCDAO {
         }
     }
 
-    //consulta para obtener los datos del articulo mediante el id del articulo
     public SboTbArticulo datosArticulo(String filtro) throws Exception {
         String sql = "select art.Arti_Id_PK, art.Arti_Desc,art.Arti_Mode,art.Arti_Marc,art.Arti_Nume_Seri,\n"
     + "carArt.Cata_Id_PK,carArt.Cata_Desc,dpto.Cata_Depa_id_PK,dpto.Cata_Depa_nomb,oc.OC_Id_PK\n"
@@ -90,7 +84,7 @@ public class ArticuloOCDAO {
             throw new Exception();
         }
     }
- //consulta para obtener los datos del articulo mediante el id del articulo para mostrarle en la descripcion 
+
     public SboTbArticulo DescripcionCatsPorArticulo(String filtro) throws Exception {
         String sql = "select cat.Cata_Id_PK,cat.Cata_Desc,sub.Sub_Fami_Desc,fam.Fami_Desc\n" +
                     "from SIBO_TB_Cata_Arti cat, SIBO_TB_Sub_Fami sub,SIBO_TB_Familia fam\n" +
@@ -104,8 +98,24 @@ public class ArticuloOCDAO {
         }
     }
     
-    //consulta para realizar la disminucion de articulos pendientes de una orden de compra
-    //se realiza un update de todos los datos correspendientes al articulo que se esta realizando la disminucion
+    public void actualizaRestante(SboTbArticulo articulo) throws SQLException{
+    String query = "update SIBO_TB_Articulo set Arti_Cant_Rest=? where Arti_Id_PK=?";
+    PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+    preparedStmt.setInt(1, articulo.getArtCantRest());
+    preparedStmt.setInt(2, articulo.getArtIdPk());
+    preparedStmt.executeUpdate();
+    db.getConnection().close();
+    }
+    
+    
+    public void actualizaSicop(SboTbArticulo articulo) throws SQLException{
+    String query = "update SIBO_TB_Articulo set Arti_Cod_Sico_FK=? where Arti_Id_PK=?";
+    PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+    preparedStmt.setInt(1, articulo.getSboSicop().getSicopId());
+    preparedStmt.setInt(2, articulo.getArtIdPk());
+    preparedStmt.executeUpdate();
+    db.getConnection().close();
+    }
 
     public void disminuirCantPendienteArticulo(SboTbArticulo articulo) throws Exception {
         String query = "update SIBO_TB_Articulo set Arti_Desc=?, Arti_Mode= ?, Arti_Marc=?,\n" +
@@ -138,22 +148,18 @@ public class ArticuloOCDAO {
         db.getConnection().close();
     }
 
-    
-    //Se ejecuta un procedimiento que realiza el aumento de articulos en la tabla de existencias
-    public void aumentarExistencias(SboTbExistencia existencia) throws Exception {
-        String query = "execute aumentaExistencias ?,?,?,?;";
-        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
-        preparedStmt.setInt(1, existencia.getSboTbBodega().getBodeIdPk());
-        preparedStmt.setString(2, existencia.getAbaaTbDepartamento().getDeptoIdPk());
-        preparedStmt.setInt(3, existencia.getSboTbSicop().getSicopId());
-        preparedStmt.setDouble(4, existencia.getExisCant());
-        preparedStmt.executeUpdate();
-        db.getConnection().close();
-    }
+//    public void aumentarExistencias(SboTbExistencia existencia) throws Exception {
+//        String query = "execute aumentaExistencias ?,?,?,?;";
+//        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+//        preparedStmt.setInt(1, existencia.getSboTbBodega().getBodeIdPk());
+//        preparedStmt.setString(2, existencia.getAbaaTbDepartamento().getDeptoIdPk());
+//        preparedStmt.setInt(3, existencia.getSboTbSicop().getSicopId());
+//        preparedStmt.setDouble(4, existencia.getExisCant());
+//        preparedStmt.executeUpdate();
+//        db.getConnection().close();
+//    }
 
-    // se ejecuta el procedimiento para actualizar el estado de las ordenes de compra
-    
-    private void verificarEstadoOCs(SboTbArticulo articulo) throws Exception {
+    public void verificarEstadoOCs(SboTbArticulo articulo) throws Exception {
         String query = "execute actualizarEstadoOC ?;";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setInt(1, articulo.getSboTbOrdenCompra().getOcIdPk());
