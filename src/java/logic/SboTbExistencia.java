@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public class SboTbExistencia implements java.io.Serializable {
 
-    private SboTbExistenciaId id;
+    private int id;
     //private AbaaTbDepartamento abaaTbDepartamento;
     private SboTbBodega sboTbBodega;
     private int SboTbEsta;
@@ -22,18 +22,18 @@ public class SboTbExistencia implements java.io.Serializable {
     public SboTbExistencia() {
     }
 
-    public SboTbExistencia(SboTbExistenciaId id, SboTbBodega sboTbBodega, int SboTbEsta, SboTbArticulo articulo) {
+    public SboTbExistencia(int id, SboTbBodega sboTbBodega, int SboTbEsta, SboTbArticulo articulo) {
         this.id = id;
         this.sboTbBodega = sboTbBodega;
         this.SboTbEsta = SboTbEsta;
         this.articulo = articulo;
     }
 
-    public SboTbExistenciaId getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(SboTbExistenciaId id) {
+    public void setId(int id) {
         this.id = id;
     }
 

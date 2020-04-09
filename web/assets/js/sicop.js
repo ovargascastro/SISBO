@@ -21,6 +21,30 @@ function selectSicop() {
 }
 
 
+function selectSicop2() {
+    $.ajax({type: "GET",
+         url: "api/Sicop",
+        success: selectSicopPicker,
+        error: function (data) {
+            alert('error');
+        }
+    });
+
+}
+
+function selectSicopPicker(data) {
+
+    var jsonData = JSON.stringify(data);
+    $.each(JSON.parse(jsonData), function (idx, obj) {
+        $("#selectSicop").append('<option value="' + obj.sicopId + '">' + '➤ ' + obj.sicopDesc + '</option>');
+
+    });
+    $('#selectSicop').selectpicker('refresh');
+
+}
+
+
+
 window.addEventListener('load', cargar, false);
 
 
@@ -148,8 +172,8 @@ function buscarSicopFiltro() {
     });
 }
 
-function exitoFiltro(){
-    
+function exitoFiltro() {
+
 }
 
 
