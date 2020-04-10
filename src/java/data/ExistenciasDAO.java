@@ -302,25 +302,25 @@ public class ExistenciasDAO {
         return resultado;
     }
 
-//    public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
-//        List<SboTbExistencia> resultado = new ArrayList<SboTbExistencia>();
-//        try {
-//            String sql = "select bode.Bode_Desc, dpto.Cata_Depa_nomb,exis.Exis_Id_Sico_PK, sicop.Sico_Desc, exis.Exis_Cant\n"
-//                    + "from ABAA_TB_Catalogo_Departamento dpto, SIBO_TB_Bode bode, SIBO_TB_Sicop sicop,\n"
-//                    + "SIBO_TB_Exis exis\n"
-//                    + "where exis.Exis_Id_Bode_PK=bode.Bode_Id_PK\n"
-//                    + "and exis.Exist_Depa_PK=dpto.Cata_Depa_id_PK\n"
-//                    + "and exis.Exis_Id_Sico_PK=sicop.Sico_Id_PK\n"
-//                    + "and exis.Exist_Depa_PK=" + depa;
-//            sql = String.format(sql, depa);
-//            ResultSet rs = db.executeQuery(sql);
-//            while (rs.next()) {
-//                resultado.add(existencia3(rs));
-//            }
-//        } catch (SQLException ex) {
-//        }
-//        return resultado;
-//    }
+    
+    public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
+        List<SboTbExistencia> resultado = new ArrayList<SboTbExistencia>();
+        try {
+            String sql = "select * from SIBO_TB_Exis e inner join SIBO_TB_Articulo a on e.Exis_Arti_FK=a.Arti_Id_PK\n"
+                    + "inner join SIBO_TB_Bode b on e.Exis_Id_Bode_PK= Bode_Id_Pk "
+                    + "inner join ABAA_TB_Catalogo_Departamento d on a.Arti_Cata_Depa_FK=d.Cata_Depa_id_PK "
+                    + "inner join SIBO_TB_Sicop s on a.Arti_Cod_Sico_FK=s.Sico_Id_PK "
+                    + "where a.Arti_Cata_Depa_FK=" + depa + "and\n"
+                    + "e.Exis_Esta='1';";
+            sql = String.format(sql, depa);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(existenciaF(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
 //    public SboTbExistencia getSboTbExistencia(String departamento, String articulo) throws SQLException, Exception {
 //        String sql = "select Exis_Cant from SIBO_TB_Exis exis\n"
 //                + "where exis.Exist_Depa_PK=" + departamento + "\n"

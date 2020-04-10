@@ -34,8 +34,8 @@ public class ExistenciasTemp {
    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<SboTbExistencia> search(@QueryParam("filtro") String filtro) {
         try {
-          //  List<SboTbExistencia> lista = Model.instance().listaExistenciasfiltro(filtro);
-            return null;
+            List<SboTbExistencia> lista = Model.instance().listaExistenciasfiltro(filtro);
+            return lista;
         } catch (Exception ex) {
             Logger.getLogger(SboTbExistencia.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -17,6 +17,8 @@
         <%@ include file="/presentation/base.jsp" %>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
+        <link rel="stylesheet" href="assets/bootstrap/css/dataTables.bootstrap.min.css">
+        
     </head>
     <body style="background-color: rgb(255,255,255);" onload="cargarSelectsSolArt()">
        
@@ -27,35 +29,39 @@
                 <h1>Solicitud de Artículos</h1>
                 <p>Rellenar el formulario para realizar una solicitud de artículos en bodega</p>
                 <p></p>
+                
             </div>
-             <input class="form-control" type="hidden" placeholder="departamento" id="departamento"  readonly="readonly">
-              <input class="form-control" type="hidden" placeholder="idusuario" id="idusuario"  readonly="readonly">
+              
         </div>
 
+        <form>
+           
+        <input class="form-control" type="hidden" placeholder="departamento" id="departamento"  readonly="readonly">
+              <input class="form-control" type="hidden" placeholder="idusuario" id="idusuario"  readonly="readonly">
         <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th>Articulo</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <th>ID</th>
+                <th>Descripción</th>
+                <th>Marca</th>
+                <th>Bodega</th>
+                <th>Agregar</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="ExistArti">
+         
    </tbody>
         <tfoot>
             <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <th>ID</th>
+                <th>Descripción</th>
+                <th>Marca</th>
+                <th>Bodega</th>
+                <th>Agregar</th>
             </tr>
         </tfoot>
     </table>
+                 </form>
         
         <form action="javascript:creaSolicitud()">
             <div class="card" id="formulario">
@@ -101,6 +107,9 @@
 
         </form>
         <script src="assets/js/jquery.min.js"></script>
+         <script src="assets/js/jquery-3.3.1.js"></script>
+        <script src="assets/js/dataTables.bootstrap.min.js"></script>
+        <script src="assets/js/jquery.dataTables.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/departamentos.js" type="text/javascript"></script>
         <script src="assets/js/solicitudArticulo.js" type="text/javascript"></script>
@@ -112,11 +121,38 @@
    document.getElementById("solicitudArtMenu").style.color = "white";
     function cargarSelectsSolArt() {
         // selectDeptos();
-        mostrardepa();
-        selecArt();
+         mostrardepa();
+        ListaExistencias();
+       
+        //selecArt();
         depurarLocalStorage();
         mostraridUsuario();
+      
     }
+    
+       function listaExistencias(art) {
+        var listado = $("#ExistArti");
+        listado.html("");
+        art.forEach((a) => {
+            filaExistencias(listado, a);
+        });
+    }
+    var array = [];
+    var x; 
+    function filaExistencias(listado, articulo) {
+        var tr = $("<tr />");
+        tr.html(
+      "<td>" + articulo.id + "</td>"
+      + "<td>" + articulo.articulo.sboSicop.sicopDesc  + "</td>"
+      + "<td>" + articulo.articulo.artMarc + "</td>"
+      + "<td>" + articulo.sboTbBodega.bodeDesc + "</td>"
+      + "<td>" + articulo.id +  "</td>");
+        listado.append(tr);
+    $(document).ready(function() {
+    $('#example').DataTable();
+} );
+    }
+    
     function listaArtTemp(art) {
         var listado = $("#listArt");
         listado.html("");
@@ -149,6 +185,15 @@
         $("#idusuario").val(usu);    
     }
     
+    
+      function generaSolXArti(){
+        var soliXarti = {
+            existencia: [{sicopId: $("#selectArt").val(), sicopDesc: $( "#selectArt option:selected").text()}],
+            solArtiDeta: $("#descripcion").val()
+        };
+        return soliXarti;
+    }
+    
     function IngresarArticuloLista(){
         
         var cant = document.getElementById("cantidad").value;
@@ -165,16 +210,6 @@
     }
     
 
-    
-    function generaSolXArti(){
-        var soliXarti = {
-            sboSicop: [{sicopId: $("#selectArt").val(), sicopDesc: $( "#selectArt option:selected").text()}],
-            solArtiCant: $("#cantidad").val(),
-            solArtiDeta: $("#descripcion").val()
-        };
-        return soliXarti;
-    }
-    
     function insertarLista(objeto){
         window.localStorage.setItem($("#selectArt").val(), JSON.stringify(objeto));
     }

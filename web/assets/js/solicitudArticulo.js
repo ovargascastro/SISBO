@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 
+//probando tabla con paginas
+//$(document).ready(function() {
+//    $('#example').DataTable();
+//} );
 
 //funcion para mostrar los articulos que hay en el departamento del usuario
 
@@ -33,10 +37,10 @@ function resetearSelectArt(selectbox) {
 }
 
 //se agrega un articulo provisionalmente a la tabla de la solicitud
-function agregarArtTemp() {
-    var art = document.getElementById("selectArt").value;
+function agregarArtTemp(id) {
+    
     SboTbArticulo = {
-        artIdPk: art,
+        artIdPk: id,
         cantSolArt: $("#cantidad").val()
     };
     $.ajax({type: "POST",
@@ -49,6 +53,19 @@ function agregarArtTemp() {
         }
     });
 }
+//probando tabla
+function ListaExistencias() {
+  var filtro = $("#departamento").val();
+    $.ajax({type: "GET",
+        url: "api/ExistenciasTemp?filtro="+ filtro,
+        success: listaExistencias
+    });
+
+}
+
+
+
+
 
 //se listan los datos agregados a la solicitud temporal
 function buscar() {
