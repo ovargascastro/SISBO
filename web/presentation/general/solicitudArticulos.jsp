@@ -146,7 +146,7 @@
       + "<td>" + articulo.articulo.sboSicop.sicopDesc  + "</td>"
       + "<td>" + articulo.articulo.artMarc + "</td>"
       + "<td>" + articulo.sboTbBodega.bodeDesc + "</td>"
-      + "<td>" + articulo.id +  "</td>");
+      + "<td><img src='assets/img/plus.png' onclick='eliminaArt(\"" + articulo.artIdPk + "\");'></td>");
         listado.append(tr);
     $(document).ready(function() {
     $('#example').DataTable();
@@ -163,6 +163,7 @@
     }
     var array = [];
     var x;
+    //cambiar la funcion de eliminar en la ultima columna
     function filaArtTemp(listado, articulo) {
         var tr = $("<tr />");
         tr.html(
