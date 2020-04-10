@@ -79,7 +79,6 @@
                                             <tr>
                                                 <th>Artículo</th>
                                                 <th>Descripción</th>
-                                                <th>Cantidad</th>
                                                 <th>Eliminar</th>
                                             </tr>
                                         </thead>
@@ -146,7 +145,7 @@
       + "<td>" + articulo.articulo.sboSicop.sicopDesc  + "</td>"
       + "<td>" + articulo.articulo.artMarc + "</td>"
       + "<td>" + articulo.sboTbBodega.bodeDesc + "</td>"
-      + "<td><img src='assets/img/plus.png' onclick='eliminaArt(\"" + articulo.artIdPk + "\");'></td>");
+      + "<td><img src='assets/img/plus.png' onclick='IngresarArticuloLista(\"" + articulo.id +"\",\"" + articulo.articulo.sboSicop.sicopDesc +"\");'></td>");
         listado.append(tr);
     $(document).ready(function() {
     $('#example').DataTable();
@@ -187,48 +186,42 @@
     }
     
     
-      function generaSolXArti(){
+      function generaSolXArti(id,desc){
         var soliXarti = {
-            existencia: [{sicopId: $("#selectArt").val(), sicopDesc: $( "#selectArt option:selected").text()}],
-            solArtiDeta: $("#descripcion").val()
+            existencia: id,
+            solArtiDeta: desc
         };
+         console.log(soliXarti.existencia);
         return soliXarti;
+       
     }
     
-    function IngresarArticuloLista(){
+    function IngresarArticuloLista(id,desc){
         
-        var cant = document.getElementById("cantidad").value;
-        var existencias =  document.getElementById("cantidadExist").value;
-        
-        if(existencias >= cant){
-        insertarLista(generaSolXArti());
+   console.log(id);
+        insertarLista(generaSolXArti(id,desc));
         agregarSolXArtTabla();
-        }else{
-             alert("Cantidad solicitada es mayor a las existencias");
-              $("#cantidad").val("");
-        }
-        
+ 
     }
     
 
     function insertarLista(objeto){
-        window.localStorage.setItem($("#selectArt").val(), JSON.stringify(objeto));
+        window.localStorage.setItem(objeto.existencia, JSON.stringify(objeto));
     }
     
     function agregarSolXArtTabla(){
-        $("#listArt").empty();
+        //$("#listArt").empty();
         insertaElemento();
     }
     
     function insertaElemento() {
         for (var i = 0; i < localStorage.length; i++){
             var objeto = JSON.parse(localStorage.getItem(localStorage.key(i)));
-            var tr = $("<tr id=" + objeto.sboSicop[0].sicopId + " />");
+            var tr = $("<tr id=" + objeto.existencia  + " />");
             tr.html(
-                "<td>" + objeto.sboSicop[0].sicopDesc + "</td>"
+                "<td>" + objeto.existencia + "</td>"
                 + "<td>" + objeto.solArtiDeta + "</td>"
-                + "<td>" + objeto.solArtiCant + "</td>"
-                + "<td><img src='assets/img/trash-delete.png' onclick='eliminarArticulo(\"" + objeto.sboSicop[0].sicopId + "\");'></td>");
+                + "<td><img src='assets/img/trash-delete.png' onclick='eliminarArticulo(\"" + objeto.existencia + "\");'></td>");
             $("#listArt").append(tr);
         }
         limpiaEspacios();
