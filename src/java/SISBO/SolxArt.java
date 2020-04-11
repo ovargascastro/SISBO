@@ -28,7 +28,7 @@ public class SolxArt {
     @Consumes(MediaType.APPLICATION_JSON)
     public void agregarSolxArt(SboTbSolixArti solicitud) {
         try {
-           // Model.instance().agregarSolxArt(solicitud);
+            Model.instance().agregarSolxArt(solicitud);
         } catch (Exception ex) {
             throw new NotFoundException();
         }

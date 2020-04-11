@@ -519,9 +519,9 @@ public class Model {
         // return solArtdao.getLastInsertSolicitudArticulo();
     }
 
-//    public void agregarSolxArt(SboTbSolixArti objeto) throws Exception {
-//        solixartdao.insertarSolxArt(objeto);
-//    }
+    public void agregarSolxArt(SboTbSolixArti objeto) throws Exception {
+        solixartdao.insertarSolxArt(objeto);
+    }
     public SboTbSoliArti obtenerid() throws Exception {
         int id = solArtdao.getLastInsertSolicitudArticulo();
         return solArtdao.getSboTbSoliArti(id);

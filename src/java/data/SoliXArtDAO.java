@@ -32,16 +32,15 @@ public class SoliXArtDAO {
         db = new RelDatabase();
     }
 
-//    public void insertarSolxArt(SboTbSolixArti objeto) throws Exception {
-//        String sql = "Execute agregarSoliXarti ?,?,?,?;";
-//        PreparedStatement preparedStmt = db.getConnection().prepareStatement(sql);
-//        preparedStmt.setInt(1, objeto.getSboTbSoliArti().getSolArtiIdPk());
-//        preparedStmt.setInt(2, objeto.getSboSicop().getSicopId());
-//        preparedStmt.setInt(3, objeto.getSolArtiCant());
-//        preparedStmt.setString(4, objeto.getSolArtiDeta());
-//        preparedStmt.executeUpdate();
-//        db.getConnection().close();
-//    }
+    public void insertarSolxArt(SboTbSolixArti objeto) throws Exception {
+        String sql = "Execute agregarSoliXarti ?,?,?;";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(sql);
+        preparedStmt.setInt(1, objeto.getSboTbSoliArti().getSolArtiIdPk());
+        preparedStmt.setInt(2, objeto.getExistencia().getId());
+        preparedStmt.setString(3, objeto.getSolArtiDeta());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
 
     // se selecciona los datos de la tabla solixarti por medio del id
     public List<SboTbSolixArti> filtraSolixArti(String filtro) {

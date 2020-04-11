@@ -35,7 +35,7 @@
         </div>
 
         <form>
-           
+         
         <input class="form-control" type="hidden" placeholder="departamento" id="departamento"  readonly="readonly">
               <input class="form-control" type="hidden" placeholder="idusuario" id="idusuario"  readonly="readonly">
         <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -190,7 +190,7 @@
     
       function generaSolXArti(id,desc){
         var soliXarti = {
-            existencia: id,
+            existencia:[{id:id}],
             solArtiDeta: desc
         };
          console.log("generaSOl paso 2" );
@@ -211,8 +211,8 @@
     function insertarLista(objeto){
           console.log("Inserta paso 3");
        // console.log(comprueba(objeto.existencia));
-       if(comprueba(objeto.existencia)===false){
-              window.localStorage.setItem(objeto.existencia, JSON.stringify(objeto)); 
+       if(comprueba(objeto.existencia[0].id)===false){
+              window.localStorage.setItem(objeto.existencia[0].id, JSON.stringify(objeto)); 
      swal("Articulo Agregado..!", "Correctamente!!", "success");
    
         }
@@ -252,9 +252,9 @@ function comprueba(exist){
             var objeto = JSON.parse(localStorage.getItem(localStorage.key(i)));
             var tr = $("<tr id=" + objeto.existencia  + " />");
             tr.html(
-                "<td>" + objeto.existencia + "</td>"
+                "<td>" + objeto.existencia[0].id + "</td>"
                 + "<td>" + objeto.solArtiDeta + "</td>"
-                + "<td><img src='assets/img/trash-delete.png' onclick='eliminarArticulo(\"" + objeto.existencia + "\");'></td>");
+                + "<td><img src='assets/img/trash-delete.png' onclick='eliminarArticulo(\"" + objeto.existencia[0].id + "\");'></td>");
             $("#listArt").append(tr);
         }
         //limpiaEspacios();
@@ -267,8 +267,13 @@ function comprueba(exist){
    function ingresaIdSoli(id){
         for (var i = 0; i < localStorage.length; i++){
             var objeto = JSON.parse(localStorage.getItem(localStorage.key(i)));
+             console.log("ingresaid");
+             console.log(objeto);
             objeto['sboTbSoliArti'] = [{solArtiIdPk: id}];
-            localStorage.setItem(objeto.sboSicop[0].sicopId, JSON.stringify(objeto));
+            localStorage.setItem(objeto.existencia[0].id, JSON.stringify(objeto));
+            
+              console.log(id);
+            console.log(objeto);
         }
         insertaListaSoliXArti();
    }
@@ -276,10 +281,12 @@ function comprueba(exist){
     function insertaListaSoliXArti(){
         for (var i = 0; i < localStorage.length; i++){
             var objeto = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            console.log("insertalista");
+             console.log(objeto);
             funcionAuxiliar(objeto);
         }
         limpiartabla();
-        limpiaEspacios();
+        
         depurarLocalStorage();
     }
    
@@ -296,6 +303,10 @@ function comprueba(exist){
     }
     
     function completar(){
+          swal("Solicitud creada..!", "Correctamente!!", "success");
+    setTimeout(function(){
+        window.location = "solicitudes.jsp";
+    },2000);
         
     }
     
