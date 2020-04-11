@@ -12,9 +12,18 @@
         <%@ include file="/presentation/base.jsp" %>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+        <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/i18n/defaults-*.min.js"></script>
+        
         <title>Ingreso de Articulos por OC</title>
     </head>
-    <body onload="selectSicop(), buscarOrdenes(), logged()">
+    <body onload="selectSicop2(), buscarOrdenes(), logged(), selectBodegas()">
         <%@ include file="/presentation/header.jsp" %>
         <div id="titulo">
             <div class="jumbotron">
@@ -39,7 +48,7 @@
                                     <div class="form-row">
                                         <div class="col">
                                             <br>
-                                             <img src="assets/img/information.png" onclick="$('#information').modal('show');"> 
+                                            <img src="assets/img/information.png" onclick="$('#information').modal('show');"> 
                                         </div>
                                     </div>
                                 </div>
@@ -126,13 +135,22 @@
                                     <label>N° Serie</label>
                                     <input id="AddArtNSerie" class="form-control" type="text" placeholder="N° Serie">
                                     <label>SICOP</label>
-                                    <select class="form-control" id="selectSicop" required></select>
+                                    <select id="selectSicop" class="selectpicker form-control" 
+                                            data-live-search="true" data-size="15" required>
+                                        <option values="0" selected disabled = "true" >Seleccione una opcion</option>
+                                    </select>
+                                <style>
+                                    div.dropdown-menu.open { width: 100%; }
+                                    ul.dropdown-menu.inner>li>a { white-space: initial; }
+                                </style>
                                 </div>                       
                                 <div class="col">
                                     <label>Unidad Usuaria</label>
                                     <input id="AddArtUniUsuaria" class="form-control" type="text" readonly placeholder="Unidad Usuaria">    
                                     <label>Bodega</label>
-                                    <select class="form-control" id="AddArtBodega" required></select>
+                                    <select class="form-control" id="AddArtBodega" required> 
+                                    <option values="0" selected disabled = "true" >Seleccione una opcion</option>
+                                    </select>
                                     <label>Fecha de Ingreso</label>
                                     <input id="AddArtFIngreso" class="form-control" type="date" placeholder="Fecha de Ingreso" required>
                                     <label>Fecha de Vencimiento</label>
@@ -174,8 +192,8 @@
             </div>
         </div>
     </div>
-    
-        <div class="modal fade" role="dialog" tabindex="-1" id="information">
+
+    <div class="modal fade" role="dialog" tabindex="-1" id="information">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -185,12 +203,12 @@
                         <div class="container">
                             <div class="form-row">
                                 <div class="col">
-                                           <p class="font-italic">
-                                               Digite un número de solicitud y haga clic en el botón Buscar.<br>
-                                               De no digitar un número se listarán todas las órdenes de compra.
-                                           </p>
+                                    <p class="font-italic">
+                                        Digite un número de solicitud y haga clic en el botón Buscar.<br>
+                                        De no digitar un número se listarán todas las órdenes de compra.
+                                    </p>
                                 </div>
-                               
+
                             </div>
                         </div>
                     </form>
@@ -199,17 +217,20 @@
             </div>
         </div>
     </div>
-    
-    
+
+
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    
     <script src="assets/js/sicop.js" type="text/javascript"></script>
 </body>
 
 </html>
 
 <script>
-                   document.getElementById("ArticulosMenu").style.color = "white";
+                    document.getElementById("ArticulosMenu").style.color = "white";
                     var articuloActual;
                     function abrirModalListarArticulos(id) {
                         articuloActual = id;
@@ -219,7 +240,6 @@
                     function abrirModalAgregarArticulos(idArti) {
                         $('#listaArticulos').modal('hide');
                         solicitarDatosArticulo(idArti);
-                        selectBodegas();
                         $('#agregarArticulo').modal('show');
                     }
                     function abrirModalInfoArticulo(idCat) {
@@ -253,7 +273,10 @@
                             success: mostrarDatosArt
                         });
                     }
+
+                    var artiActual;
                     function mostrarDatosArt(objeto) {
+                        artiActual = objeto.artIdPk;
                         $("#AddArtId").val(objeto.artIdPk);
                         $("#OCId").val(objeto.sboTbOrdenCompra.ocIdPk);
                         $("#DptoId").val(objeto.abaaTbDepartamento.deptoIdPk);
@@ -348,15 +371,48 @@
                         return fecha2;
                     }
                     function actualizarArticulo() {
-                        aumentarExistencias();
-                        disminuirRestantes();
+
+
+                        agregarArticulo();
                         $("#actualizaArticulo").trigger('reset');
                     }
+
+                    function agregarArticulo() {
+                        var bod = document.getElementById("AddArtBodega").value;
+                        var sicop = document.getElementById("selectSicop").value;
+                        articulo = {
+                            artIdPk: artiActual,
+                            artCantRest: $("#AddArtCant").val(),
+                            artCodContGast: bod,
+                            artCant: $("#AddArtCant").val(),
+                            artDesc: $("#AddArtDescripcion").val(),
+                            artMode: $("#AddArtModelo").val(),
+                            artMarc: $("#AddArtMarca").val(),
+                            artNumeSeri: $("#AddArtNSerie").val(),
+                            artFingr: parseaFecha($("#AddArtFIngreso").val()),
+                            artFvenc: parseaFecha($("#AddArtFVencimiento").val()),
+                            sboSicop: {
+                                sicopId: sicop
+                            }
+
+                        };
+                        $.ajax({type: "PUT",
+                            url: "api/ListaOCxArt",
+                            data: JSON.stringify(articulo),
+                            contentType: "application/json"})
+                                .then(function () {
+                                    buscarArtxOc($("#OCId").val());
+                                    buscarOrdenes();
+                                });
+                        refresca();
+
+                    }
+
                     function aumentarExistencias() {
                         existencia = {
                             sboTbBodega: [{bodeIdPk: $("#AddArtBodega").val()}],
                             abaaTbDepartamento: [{deptoIdPk: $("#DptoId").val()}],
-                            sboTbSicop: [{sicopId: $("#selectSicop").val()}], 
+                            sboTbSicop: [{sicopId: $("#selectSicop").val()}],
                             exisCant: $("#AddArtCant").val()
                         };
                         $.ajax({type: "PUT",
@@ -373,7 +429,7 @@
                             artNumeSeri: $("#AddArtNSerie").val(),
                             artFingr: parseaFecha($("#AddArtFIngreso").val()),
                             artFvenc: parseaFecha($("#AddArtFVencimiento").val()),
-                            sboSicop:[{sicopId:$("#selectSicop").val()}],
+                            sboSicop: [{sicopId: $("#selectSicop").val()}],
                             sboTbOrdenCompra: [{ocIdPk: $("#OCId").val()}],
                             artCantRest: $("#AddArtCant").val()
                         };
@@ -408,13 +464,21 @@
                         var day = dayIndex > -1 ? dateItems[dayIndex] : today.getDate();
                         return new Date(year, month, day);
                     };
+<<<<<<< HEAD
                     
                      function logged(){
                         <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
                        <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
+=======
+
+                    function logged() {
+    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+    <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
+>>>>>>> 7dab276b0d628981dc0997d8e5e8fc3cb740c1d3
                         location.href = "presentation/notAccess.jsp";
-                        <%}%>
+    <%}%>
                     }
+<<<<<<< HEAD
     function myFunction() {
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("numeroOC");
@@ -433,6 +497,26 @@
         }
     }
 }
+=======
+                    function myFunction() {
+                        var input, filter, table, tr, td, i, txtValue;
+                        input = document.getElementById("numeroOC");
+                        filter = input.value.toUpperCase();
+                        table = document.getElementById("myTable");
+                        tr = table.getElementsByTagName("tr");
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[0];
+                            if (td) {
+                                txtValue = td.textContent || td.innerText;
+                                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                    tr[i].style.display = "";
+                                } else {
+                                    tr[i].style.display = "none";
+                                }
+                            }
+                        }
+                    }
+>>>>>>> 7dab276b0d628981dc0997d8e5e8fc3cb740c1d3
 
 
 

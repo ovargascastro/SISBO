@@ -24,6 +24,7 @@ public class sicopDAO {
         db = new RelDatabase();
     }
 
+    // se crea un objeto de tipo articulos de sicop
     private SboSicop sicop(ResultSet rs) {
         try {
             SboSicop ob = new SboSicop();
@@ -37,7 +38,7 @@ public class sicopDAO {
         }
 
     }
-
+//se muesta los datos registrados en la tabla sicop
     public List<SboSicop> getListaSicop(String filtro) {
         List<SboSicop> resultado = new ArrayList<SboSicop>();
         try {
@@ -52,6 +53,7 @@ public class sicopDAO {
         return resultado;
     }
 
+    //se muestra los datos de un objeto de la tabla sicop por medio de la descripcion
     public List<SboSicop> getListaSicopFiltro(String filtro) {
         List<SboSicop> resultado = new ArrayList<SboSicop>();
         try {
@@ -66,6 +68,7 @@ public class sicopDAO {
         return resultado;
     }
 
+    // se selecciona un registro de la tabla sicop por medio del id
     public SboSicop getSboSicop(String id) throws Exception {
         String sql = "select * from SIBO_TB_Sicop where Sico_Id_PK='%s'";
         sql = String.format(sql, id);
@@ -76,7 +79,7 @@ public class sicopDAO {
             throw new Exception("Departamento no Existe");
         }
     }
-
+// se actualiza el articulo de sicop con todos sus atributos
     public void actualizarSicop(SboSicop s) throws SQLException {
 
         String query = "update SIBO_TB_Sicop set Sico_Codi_Iden = ?, Sico_Codi_Clas=?, Sico_Desc=? where Sico_Id_PK = ?";
@@ -89,6 +92,8 @@ public class sicopDAO {
         db.getConnection().close();
     }
 
+    
+    // se agrega un artiuclo al catalogo de sicop
     public void agregarSicop(SboSicop s) throws SQLException {
 
         String query = "insert into SIBO_TB_Sicop(Sico_Codi_Iden,Sico_Codi_Clas,Sico_Desc)values(?,?,?)";

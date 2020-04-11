@@ -18,7 +18,7 @@ public class catalogosDAO {
     public catalogosDAO() {
         db = new RelDatabase();
     }
-
+// se crea un objeto tipo familia
     private SboTbFamilia familia(ResultSet rs) {
         try {
             SboTbFamilia ob = new SboTbFamilia();
@@ -31,7 +31,7 @@ public class catalogosDAO {
         }
 
     }
-    
+    // se crea un objeto tipo catalogo contable
     private SboTbCatContable CatContable(ResultSet rs){
         
          try {
@@ -46,7 +46,7 @@ public class catalogosDAO {
             return null;
         }
     }
-
+// se crea un objeto tipo catalogo articulo
     private SboTbCatArticulo catArticulo(ResultSet rs) {
         try {
             SboTbCatArticulo ob = new SboTbCatArticulo();
@@ -60,7 +60,7 @@ public class catalogosDAO {
         }
 
     }
-
+// se crea un objeto tipo subfamilia
     private SboTbSubFamilia Subfamilia(ResultSet rs) {
         try {
             SboTbSubFamilia ob = new SboTbSubFamilia();
@@ -76,7 +76,7 @@ public class catalogosDAO {
     }
     
   
-
+// se selecciona todas las subfamilias en la base de datos
     public List<SboTbFamilia> listaFamilias(String filtro) {
         List<SboTbFamilia> resultado = new ArrayList<SboTbFamilia>();
         try {
@@ -91,6 +91,8 @@ public class catalogosDAO {
         return resultado;
     }
 
+    // se selecciona una  subfamilia por id en la base de datos
+
     public List<SboTbSubFamilia> listaSubFamilias(String filtro) {
         List<SboTbSubFamilia> resultado = new ArrayList<SboTbSubFamilia>();
         try {
@@ -104,6 +106,7 @@ public class catalogosDAO {
         }
         return resultado;
     }
+// se selecciona todas las articulos del catalogo en la base de datos
 
     public List<SboTbCatArticulo> listaCatArticulos(String filtro) {
         List<SboTbCatArticulo> resultado = new ArrayList<SboTbCatArticulo>();
@@ -120,6 +123,8 @@ public class catalogosDAO {
         return resultado;
     }
     
+    // se selecciona un registro especifico del catalogo contable
+
     public List<SboTbCatContable> listaCatContable(String filtro) {
         List<SboTbCatContable> resultado = new ArrayList<SboTbCatContable>();
         try {
@@ -134,6 +139,7 @@ public class catalogosDAO {
         return resultado;
     }
     
+    //se obtiene un objeto en especifico de la tabla catalogos contables
     public SboTbCatArticulo getCatArticulo(int filtro) throws Exception {
         String sql = "select * from SIBO_TB_Cata_Arti a inner join SIBO_TB_Sub_Fami s on a.Cata_SubF_FK = s.Sub_Fami_Id_PK"
                 + " where a.Cata_Id_PK ='%s'";
@@ -146,6 +152,8 @@ public class catalogosDAO {
         }
     }
 
+    // se selecciona todas las familias en la base de datos
+
     public SboTbFamilia getSboTbFamilia(String filtro) throws Exception {
         String sql = "select * from SIBO_TB_Familia f where f.Fami_Id_PK ='%s'";
         sql = String.format(sql, filtro);
@@ -157,7 +165,8 @@ public class catalogosDAO {
         }
     }
 
-    
+    // se selecciona todo el catalogo contable en la base de datos
+
     public SboTbCatContable getSboTbCatContable(int filtro) throws Exception {
         String sql = "select * from SIBO_TB_Cata_Cont f where f.Cont_Id_PK ='%s'";
         sql = String.format(sql, filtro);
@@ -169,6 +178,8 @@ public class catalogosDAO {
         }
     }
     
+    // se selecciona una subfamilias en especifico por id de la base de datos
+
     public SboTbSubFamilia getSboTbSubFamilia(String filtro) throws Exception {
         String sql = "select * from SIBO_TB_Sub_Fami s inner join SIBO_TB_Familia f on s.Sub_Fami_CodF_FK = f.Fami_Id_PK"
                 + " where s.Sub_Fami_Id_PK ='%s'";
@@ -182,7 +193,7 @@ public class catalogosDAO {
     }
     
    
-    
+    //se actualiza el catalogo contable con todos sus atributos
     public void actualizarCatContable(SboTbCatContable objeto) throws Exception {
         String query = "update SIBO_TB_Cata_Cont set Cont_Desc = ?, Cont_Esta = ?, Cont_Nive = ?, Cont_Codi = ? where Cont_Id_PK = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -195,6 +206,8 @@ public class catalogosDAO {
         db.getConnection().close();
     }
 
+        //se actualiza la familia con todos sus atributos
+
     public void actualizarFamilia(SboTbFamilia objeto) throws Exception {
         String query = "update SIBO_TB_Familia set Fami_Desc = ?,Fami_Estado = ? where Fami_Id_PK = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -204,6 +217,8 @@ public class catalogosDAO {
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
+
+        //se actualiza la subfamilias con todos sus atributos
 
     public void actualizarSubFamilia(SboTbSubFamilia objeto) throws Exception {
         String query = "update SIBO_TB_Sub_Fami set Sub_Fami_Desc = ?, Sub_Fami_CodF_FK = ?, Sub_Fami_Estado = ? where Sub_Fami_Id_PK = ?";
@@ -216,6 +231,8 @@ public class catalogosDAO {
         db.getConnection().close();
     }
 
+        //se actualiza el catalogo de articulos con todos sus atributos
+
     public void actualizarCatArticulo(SboTbCatArticulo objeto) throws Exception {
         String query = "update SIBO_TB_Cata_Arti set Cata_Desc = ?, Cata_SubF_FK = ?, Cata_Esta=? where Cata_Id_PK = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -226,6 +243,8 @@ public class catalogosDAO {
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
+    
+    //se crea una familia
 
     public void crearFamilia(SboTbFamilia objeto) throws Exception {
         String query = "insert into SIBO_TB_Familia(Fami_Id_PK,Fami_Desc,Fami_Estado)values(?,?,?)";
@@ -237,6 +256,7 @@ public class catalogosDAO {
         db.getConnection().close();
     }
 
+       //se crea una subfamilia
     public void crearSubFamilia(SboTbSubFamilia objeto) throws Exception {
         String query = "insert into SIBO_TB_Sub_Fami(Sub_Fami_Id_PK,Sub_Fami_Desc,Sub_Fami_CodF_FK,Sub_Fami_Estado)values(?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -248,6 +268,7 @@ public class catalogosDAO {
         db.getConnection().close();
     }
 
+       //se crea un articulo en el catalogo de articulos
     public void crearCatArticulo(SboTbCatArticulo objeto) throws Exception {
         String query = "insert into SIBO_TB_Cata_Arti(Cata_Codi_Sico,Cata_SubF_FK,Cata_Desc,Cata_Esta)values(?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -259,6 +280,8 @@ public class catalogosDAO {
         db.getConnection().close();
     }
     
+           //se crea un registro en el catalogo de contable
+
     public void crearCatContable(SboTbCatContable objeto) throws Exception{
         String query = "insert into SIBO_TB_Cata_Cont(Cont_Desc,Cont_Codi,Cont_Nive,Cont_Esta)values(?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);

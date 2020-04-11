@@ -97,6 +97,25 @@ public class ArticuloOCDAO {
             throw new Exception();
         }
     }
+    
+    public void actualizaRestante(SboTbArticulo articulo) throws SQLException{
+    String query = "update SIBO_TB_Articulo set Arti_Cant_Rest=? where Arti_Id_PK=?";
+    PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+    preparedStmt.setInt(1, articulo.getArtCantRest());
+    preparedStmt.setInt(2, articulo.getArtIdPk());
+    preparedStmt.executeUpdate();
+    db.getConnection().close();
+    }
+    
+    
+    public void actualizaSicop(SboTbArticulo articulo) throws SQLException{
+    String query = "update SIBO_TB_Articulo set Arti_Cod_Sico_FK=? where Arti_Id_PK=?";
+    PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+    preparedStmt.setInt(1, articulo.getSboSicop().getSicopId());
+    preparedStmt.setInt(2, articulo.getArtIdPk());
+    preparedStmt.executeUpdate();
+    db.getConnection().close();
+    }
 
     public void disminuirCantPendienteArticulo(SboTbArticulo articulo) throws Exception {
         String query = "update SIBO_TB_Articulo set Arti_Desc=?, Arti_Mode= ?, Arti_Marc=?,\n" +
@@ -129,18 +148,18 @@ public class ArticuloOCDAO {
         db.getConnection().close();
     }
 
-    public void aumentarExistencias(SboTbExistencia existencia) throws Exception {
-        String query = "execute aumentaExistencias ?,?,?,?;";
-        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
-        preparedStmt.setInt(1, existencia.getSboTbBodega().getBodeIdPk());
-        preparedStmt.setString(2, existencia.getAbaaTbDepartamento().getDeptoIdPk());
-        preparedStmt.setInt(3, existencia.getSboTbSicop().getSicopId());
-        preparedStmt.setDouble(4, existencia.getExisCant());
-        preparedStmt.executeUpdate();
-        db.getConnection().close();
-    }
+//    public void aumentarExistencias(SboTbExistencia existencia) throws Exception {
+//        String query = "execute aumentaExistencias ?,?,?,?;";
+//        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+//        preparedStmt.setInt(1, existencia.getSboTbBodega().getBodeIdPk());
+//        preparedStmt.setString(2, existencia.getAbaaTbDepartamento().getDeptoIdPk());
+//        preparedStmt.setInt(3, existencia.getSboTbSicop().getSicopId());
+//        preparedStmt.setDouble(4, existencia.getExisCant());
+//        preparedStmt.executeUpdate();
+//        db.getConnection().close();
+//    }
 
-    private void verificarEstadoOCs(SboTbArticulo articulo) throws Exception {
+    public void verificarEstadoOCs(SboTbArticulo articulo) throws Exception {
         String query = "execute actualizarEstadoOC ?;";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setInt(1, articulo.getSboTbOrdenCompra().getOcIdPk());

@@ -17,12 +17,12 @@ public class AprobacionSolicitud {
     
     @Context
     private UriInfo context;
-
+//restful para actualizar el estado de las solicitudes por aprobar del bodeguero 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public List<SboTbExistencia> update(SboTbSolixArti soliXArti) {
         try {
-            return Model.instance().disminuirExistencias(soliXArti);
+            return null;
         } catch (Exception ex) {
             throw new NotFoundException();
         }

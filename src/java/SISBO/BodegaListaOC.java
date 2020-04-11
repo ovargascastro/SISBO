@@ -21,7 +21,7 @@ public class BodegaListaOC {
 
     @Context
     private UriInfo context;
-
+//se listan las bodgas existentes en la base
     @GET
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     public List<SboTbBodega> listaBodegas(@QueryParam("filtro") String filtro) throws ClassNotFoundException, SQLException {

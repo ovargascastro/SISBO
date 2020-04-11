@@ -45,7 +45,7 @@
                                 Solicitud de artículos
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
+                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud Nueva</a>
                                 <a class="dropdown-item" href="presentation/general/solicitudes.jsp">Mis Solicitudes</a>
                                 <a class="dropdown-item" href="presentation/general/vistoBuenoJefe.jsp">Visto bueno de Jefe</a>
                             </div>
@@ -56,6 +56,12 @@
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/catalogos/administracionCatalogos.jsp">Administración de Catálogos</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown"> Reporde de Consumo </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/consumo.jsp">Consumo por Departamento</a>
                             </div>
                         </div>
                         <%}%>
@@ -76,13 +82,19 @@
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown"> Solicitud de artículos </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown"> Solicitud de Artículos </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
+                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud Nueva</a>
                                 <a class="dropdown-item" href="presentation/general/solicitudes.jsp">Mis Solicitudes</a>
                                 <a class="dropdown-item" href="presentation/general/listarSolicitudesArticulos.jsp">Listado de solicitudes</a>
                                 <a class="dropdown-item" href="presentation/general/gestionSolicitudes.jsp">Gestión de Solitudes</a>
                                 <a class="dropdown-item" href="presentation/general/vistoBuenoJefe.jsp">Visto bueno de Jefe</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="bodegasMenu" data-toggle="dropdown">Bodegas </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/bodega/bodegas.jsp">Mantenimiento de Bodegas</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
@@ -91,6 +103,12 @@
                                 <a class="dropdown-item" href="presentation/catalogos/administracionCatalogos.jsp">Administración de Catálogos</a>
                                 <a class="dropdown-item" href="presentation/proveeduria/proveedores.jsp">Catálogo de Proveedores</a>
                                 <a class="dropdown-item" href="presentation/catalogos/codSicop.jsp">Catálogo de SICOP</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown"> Reporde de Consumo </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/consumo.jsp">Consumo por Departamento</a>
                             </div>
                         </div>
                         <%}%>
@@ -105,9 +123,9 @@
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown"> Solicitud de artículos </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown"> Solicitud de Artículos </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
+                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud Nueva</a>
                                 <a class="dropdown-item" href="presentation/general/solicitudes.jsp">Mis Solicitudes</a>
                             </div>
                         </div>
@@ -121,14 +139,20 @@
                                 <a class="dropdown-item" href="presentation/catalogos/codSicop.jsp">Catálogo de SICOP</a>
                             </div>
                         </div>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown"> Reporde de Consumo </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/consumo.jsp">Consumo por Departamento</a>
+                            </div>
+                        </div>
                         <%}%>
-                        
-                         <!-- JefeTI -->
+
+                        <!-- JefeTI -->
                         <% if ("6".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 1) {%>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown"> Solicitud de artículos </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown"> Solicitud de Artículos </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
+                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud Nueva</a>
                                 <a class="dropdown-item" href="presentation/general/solicitudes.jsp">Mis Solicitudes</a>
                                 <a class="dropdown-item" href="presentation/general/vistoBuenoTI.jsp">Visto bueno de TI</a>
                             </div>
@@ -153,7 +177,7 @@
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown"> Solicitud de artículos </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
+                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud Nueva</a>
                                 <a class="dropdown-item" href="presentation/general/solicitudes.jsp">Mis Solicitudes</a>
                                 <a class="dropdown-item" href="presentation/general/vistoBuenoJefe.jsp">Visto bueno de Jefe</a>
                             </div>
@@ -170,36 +194,50 @@
                         </div>
                         <%}%>
                         <!--OTROS FUNCIONARIOS-->
-                        <% if (logged.getDepartamento().getDeptoIdPk()!="6" && logged.getDepartamento().getDeptoIdPk()!="17"
-                                && logged.getDepartamento().getDeptoIdPk()!="5" && logged.getDepartamento().getDeptoIdPk()!="8"
-                                && logged.getPers_es_jefe() == 0) {%>
+                        <% if (logged.getDepartamento().getDeptoIdPk() != "6" && logged.getDepartamento().getDeptoIdPk() != "17"
+                                    && logged.getDepartamento().getDeptoIdPk() != "5" && logged.getDepartamento().getDeptoIdPk() != "8"
+                                    && logged.getPers_es_jefe() == 0) {%>
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown">
                                 Solicitud de artículos
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
+                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud Nueva</a>
                                 <a class="dropdown-item" href="presentation/general/solicitudes.jsp">Mis Solicitudes</a>
                             </div>
                         </div>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="reportes" data-toggle="dropdown">
+                                Reportes
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/reporteConsumo.jsp">Reporte de Consumo</a>
+                            </div>
+                        </div>
                         <%}%>
-                                <!--OTROS FUNCIONARIOS JEFES-->
-                                <% if (!logged.getDepartamento().getDeptoIdPk().equals("6") && !logged.getDepartamento().getDeptoIdPk().equals("17")
-                                && !logged.getDepartamento().getDeptoIdPk().equals("5") && !logged.getDepartamento().getDeptoIdPk().equals("8")
-                                && logged.getPers_es_jefe() == 1) {%>
+                        <!--OTROS FUNCIONARIOS JEFES-->
+                        <% if (!logged.getDepartamento().getDeptoIdPk().equals("6") && !logged.getDepartamento().getDeptoIdPk().equals("17")
+                                            && !logged.getDepartamento().getDeptoIdPk().equals("5") && !logged.getDepartamento().getDeptoIdPk().equals("8")
+                                            && logged.getPers_es_jefe() == 1) {%>
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown">
                                 Solicitud de artículos
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud nueva</a>
+                                <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud Nueva</a>
                                 <a class="dropdown-item" href="presentation/general/solicitudes.jsp">Mis Solicitudes</a>
                                 <a class="dropdown-item" href="presentation/general/vistoBuenoJefe.jsp">Visto bueno de Jefe</a>
                             </div>
                         </div>
+                                                <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="reportes" data-toggle="dropdown">
+                                Reportes
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/reporteConsumo.jsp">Reporte de Consumo</a>
+                            </div>
+                        </div>
                         <%}%>
-
- 
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="UsuarioActual" data-toggle="dropdown">
                                 <%= logged.getPersNomb() + " " + logged.getPersApe1()%>
@@ -222,10 +260,7 @@
 </html>
 
 <script>
-                    $(document).ready(function () {
-                        $(".dropdown-toggle").dropdown();
-                    });
-
-
+    $(document).ready(function () {
+        $(".dropdown-toggle").dropdown();
+    });
 </script>
-

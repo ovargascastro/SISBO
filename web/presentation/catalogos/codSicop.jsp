@@ -7,7 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html id="body">
-
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@ include file="/presentation/base.jsp" %>
@@ -15,7 +14,6 @@
         <link rel="stylesheet" href="assets/css/styles.css">
         <title>Catálogo SICOP</title>
     </head>
-
     <body style="background-color: rgb(255,255,255);">
         <%@ include file="/presentation/header.jsp" %>
         <div id="titulo">
@@ -158,4 +156,5 @@ function logged() {
         location.href = "presentation/notAccess.jsp";
     <%}%>
     }
+     document.getElementById("CatalogosMenu").style.color = "white";
 </script>

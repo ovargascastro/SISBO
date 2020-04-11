@@ -1,3 +1,5 @@
+
+//se listan las bodegas en el select
 function selectBodegas() {
     var vacio = "";
     $.ajax({type: "GET",
@@ -12,7 +14,7 @@ function selectBodegas() {
         }
     });
 }
-
+//se listan los departamentos en el select
 function selectDeptos() {
     $.ajax({type: "GET",
         url: "api/departamentos",
@@ -26,7 +28,7 @@ function selectDeptos() {
         }
     });
 }
-
+//se listan los articulos de sicop en el select
 function selectSicop() {
     $.ajax({type: "GET",
         url: "api/Sicop",
@@ -41,14 +43,39 @@ function selectSicop() {
     });
 }
 
+
+
+function selectSicop2() {
+    $.ajax({type: "GET",
+         url: "api/Sicop",
+        success: selectSicopPicker,
+        error: function (data) {
+            alert('error');
+        }
+    });
+
+}
+
+function selectSicopPicker(data) {
+
+    var jsonData = JSON.stringify(data);
+    $.each(JSON.parse(jsonData), function (idx, obj) {
+        $("#selectSicop").append('<option value="' + obj.sicopId + '">' + '➤ ' + obj.sicopDesc + '</option>');
+
+    });
+    $('#selectSicop').selectpicker('refresh');
+
+}
+
+
 $(document).ready(function () {
-    selectSicop();
+    selectSicop2();
     selectDeptos();
     selectBodegas();
     logged();
 });
 
-
+//se obtiene las existencias dependiendo de la bodega, el departamento y el articulo seleccionado
 function getExistencias() {
     var depto = document.getElementById("SelectDptos").value;
     var arti = document.getElementById("selectSicop").value;
@@ -57,8 +84,10 @@ function getExistencias() {
         url: "api/Existencias/" + bodeg + "/" + depto + "/" + arti,
         success: listaExist
     });
+    
 }
 
+//se listan las existencias en la tabla
 function listaExist(personas) {
     var listado = $("#listadoExistencias");
     listado.html("");
@@ -66,18 +95,56 @@ function listaExist(personas) {
         fila(listado, p);
     });
 }
-
+//se utliza para mostrar los datos en las filas de la funcion anterior
 function fila(listado, objeto) {
     var tr = $("<tr />");
     tr.html(
-            "<td>" + objeto.sboTbBodega.bodeDesc + "</td>"
-            + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
-            + "<td>" + objeto.sboTbSicop.sicopDesc + "</td>"
-            + "<td>" + objeto.exisCant + "</td>"
-            + "<td><img src='assets/img/edit.png' onclick='editarExist(\"" + objeto.idE + "\",\"" + objeto.exisCant + "\");'></td>");
+            "<td>" + formatDate(objeto.existFingr) + "</td>"
+            + "<td>" + objeto.sboTbBodega.bodeDesc + "</td>"
+            + "<td>" + objeto.articulo.abaaTbDepartamento.deptoNomb + "</td>"
+            + "<td>" + objeto.articulo.sboSicop.sicopDesc + "</td>"
+            + "<td>" + '₡ ' + objeto.articulo.artPrecio + "</td>"
+            + "<td><img class='small-img' src='assets/img/info(1).png' onclick='abrirArticulo(\"" + objeto.articulo.artIdPk + "\");'></td>"
+            + "<td><img class='small-img' src='assets/img/trash-delete.png' onclick='eliminarExistenciaV(\"" + objeto.id + "\");'></td>");
     listado.append(tr);
+    Nregistros();
 }
 
+var existenciaActual=0;
+
+function eliminarExistenciaV(id){
+    existenciaActual=id;
+    $('#modalEliminaExist').modal('show');
+    
+}
+
+
+
+function eliminarExistencia(){
+    SboTbExistencia = {
+            id: existenciaActual
+        };
+        $.ajax({type: "POST",
+            url: "api/Existencias;charset=UTF-8",
+            data: JSON.stringify(SboTbExistencia),
+            contentType: "application/json;charset=UTF-8",
+            success: ocultarEditarExist,
+            error: function (jqXHR) {
+                alert("Error");
+            }
+        });
+    
+}
+
+function formatDate(fecha) {
+    var dia = fecha.substring(8, 10);
+    var mes = fecha.substring(5, 7);
+    var annio = fecha.substring(0, 4);
+    var newFecha = dia + "/" + mes + "/" + annio;
+    return newFecha;
+}
+
+//se abre el modal para editar la cantidad de la existencia seleccionada
 var idExistActual = 0;
 function editarExist(id, cant) {
     idExistActual = id;
@@ -85,6 +152,7 @@ function editarExist(id, cant) {
     $("#existAct").val(cant);
 }
 
+//se edita la cantidad de la existencia seleccionada
 function actualizarExistencia() {
     if (confirm("Desea guardar el registro actual?")) {
         SboTbExistencia = {
@@ -102,13 +170,13 @@ function actualizarExistencia() {
         });
     }
 }
-
+//se oculta el modal de editar cantidad de existencias
 function ocultarEditarExist(list) {
-    $('#modalEditarExist').modal('hide');
+    $('#modalEliminaExist').modal('hide');
     listaExist(list);
 }
 
-
+//funcion para darle formato al select de articulos de sicop
 function myFunction() {
     var input, filter, table, tr, td, i, txtValue;
     input = $('#selectSicop option:selected').text();
@@ -126,4 +194,46 @@ function myFunction() {
             }
         }
     }
+}
+
+
+function abrirArticulo(id) {
+
+    solicitarDatosArticulo(id);
+    $('#informacionArt').modal('show');
+
+}
+
+
+function cargarBotonInfo(catalogoID) {
+    var linea = "<img src='assets/img/info(1).png' onclick='abrirModalInfoArticulo(\"" + catalogoID + "\")'>";
+    $("#botonArticuloInfo").empty().append(linea);
+}
+
+function solicitarDatosArticulo(id) {
+    $.ajax({type: "GET",
+        url: "api/infoArticulo/" + id,
+        success: mostrarDatosArt
+    });
+}
+
+
+function mostrarDatosArt(objeto) {
+    
+    $("#ArticuloInfo").val(objeto.sboTbCatArticulo.catDesc);
+    $("#DescripcionInfo").val(objeto.artDesc);
+    $("#ModeloInfo").val(objeto.artMode);
+    $("#MarcaInfo").val(objeto.artMarc);
+    $("#OrdenInfo").val(objeto.sboTbOrdenCompra.ocIdPk);
+    $("#SicopInfo").val(objeto.sboSicop.sicopDesc);
+
+}
+
+function Nregistros(){
+    
+    var table = document.getElementById("myTable");
+    var tbodyRowCount = table.tBodies[0].rows.length; // 3
+    
+    document.getElementById("nReg").innerHTML = "Numero de registros : "+tbodyRowCount;
+    
 }

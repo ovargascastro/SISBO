@@ -42,6 +42,8 @@ public class ArticulosTemporales {
     @Context
 //    private UriInfo context;
     
+    
+    //restful para listar los articulos que pertenecen a una orden de compra temporal
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<SboTbArticulo> search(@QueryParam("temporales") String cedula) {
@@ -58,6 +60,8 @@ public class ArticulosTemporales {
         return null;
     }
     
+    
+    //listar articulos por id de la orden de compra
     @GET
     @Path("{filtro}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -69,7 +73,7 @@ public class ArticulosTemporales {
             throw new NotFoundException();
         }
     }
-    
+    //restful para agregar un articulo a la tabla de orden de compra temporal
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON})
@@ -80,7 +84,7 @@ public class ArticulosTemporales {
             throw new NotFoundException();
         }
     }
-    
+    //se elimina el articulo de la orden de compra temporal
     @DELETE
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})

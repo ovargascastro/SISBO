@@ -196,5 +196,5 @@ function ocultarModalInfoProv() {
         location.href = "presentation/notAccess.jsp";
     <%}%>
     }
-    
+     document.getElementById("CatalogosMenu").style.color = "white";
 </script>

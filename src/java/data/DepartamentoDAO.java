@@ -22,7 +22,7 @@ public class DepartamentoDAO {
     public DepartamentoDAO() {
         db = new RelDatabase();
     }
-    
+    // se crea objeto de tipo departamento
     private AbaaTbDepartamento departamento(ResultSet rs) {
         try {
             AbaaTbDepartamento ob = new AbaaTbDepartamento();
@@ -33,7 +33,7 @@ public class DepartamentoDAO {
             return null;
         }
     }
-    
+    // se seleccioan todos los departamentos en la base de datos
     public List<AbaaTbDepartamento> listaDepartamento() {
         List<AbaaTbDepartamento> resultado = new ArrayList<AbaaTbDepartamento>();
         try {
@@ -47,7 +47,7 @@ public class DepartamentoDAO {
         }
         return resultado;
     }
-    
+    //se seleciona los datos de la tabla catalogo departamento dependiendo del id
     public AbaaTbDepartamento getDepartamento(String id) throws Exception {
         String sql = "select * from ABAA_TB_Catalogo_Departamento where Cata_Depa_id_PK='%s'";
         sql = String.format(sql, id);
