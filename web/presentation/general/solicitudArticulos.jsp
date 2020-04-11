@@ -33,7 +33,7 @@
             </div>
               
         </div>
-
+ <div class="card" id="tablaCatalogos" style="background-color: rgb(255,255,255);">
         <form>
          
         <input class="form-control" type="hidden" placeholder="departamento" id="departamento"  readonly="readonly">
@@ -62,6 +62,7 @@
         </tfoot>
     </table>
                  </form>
+</div>
         
         <form action="javascript:creaSolicitud()">
             <div class="card" id="formulario">
@@ -305,7 +306,7 @@ function comprueba(exist){
     function completar(){
           swal("Solicitud creada..!", "Correctamente!!", "success");
     setTimeout(function(){
-        window.location = "solicitudes.jsp";
+        window.location = "presentation/general/solicitudes.jsp";
     },2000);
         
     }

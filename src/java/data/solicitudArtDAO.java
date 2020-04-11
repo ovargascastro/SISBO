@@ -39,6 +39,7 @@ public class solicitudArtDAO {
         db = new RelDatabase();
     }
 // se crea un articulo de sicop
+
     private SboSicop articulo(ResultSet rs) {
         try {
             SboSicop ar = new SboSicop();
@@ -72,7 +73,6 @@ public class solicitudArtDAO {
         return resultado;
     }
 
-    
     // se seleccionan los articulos en existencias por departamento
     public List<SboTbExistencia> existenciasXarticuloxdepto(String idDepto, int idCatArt) throws Exception {
         List<SboTbExistencia> resultado = new ArrayList<SboTbExistencia>();
@@ -93,9 +93,7 @@ public class solicitudArtDAO {
         return resultado;
     }
 
-
-
-      private SboTbArticulo Articulo2(ResultSet rs) {
+    private SboTbArticulo Articulo2(ResultSet rs) {
         try {
             SboTbArticulo arti = new SboTbArticulo();
             AbaaTbDepartamento dpto = new AbaaTbDepartamento();
@@ -122,7 +120,6 @@ public class solicitudArtDAO {
     }
 
 // se crea un objeto de tipo existencia
-
     private SboTbExistencia existencia(ResultSet rs) {
         try {
             SboTbExistencia ob = new SboTbExistencia();
@@ -140,7 +137,6 @@ public class solicitudArtDAO {
     }
 
 // se crea un objeto de tipo bodega
-  
     private SboTbBodega Bodega(ResultSet rs) {
         try {
             SboTbBodega bodega = new SboTbBodega();
@@ -153,6 +149,7 @@ public class solicitudArtDAO {
         }
     }
 // se crea un objeto de tipo catalogo de articulo ***
+
     private SboTbCatArticulo catArticulo(ResultSet rs) {
         try {
             SboTbCatArticulo ob = new SboTbCatArticulo();
@@ -237,8 +234,7 @@ public class solicitudArtDAO {
         }
     }
 
-        // se crea un objeto de tipo proveedor
-
+    // se crea un objeto de tipo proveedor
     private AbaaTbProveedor Proveedor(ResultSet rs) {
         try {
             AbaaTbProveedor pro = new AbaaTbProveedor();
@@ -267,8 +263,6 @@ public class solicitudArtDAO {
     }
 
     // se agregra los datos a la tabla de solixarti
-
-
 //    public void agregarSolicitudXArticulo(SboTbSolixArti objeto) throws Exception {
 //        String query = "insert into SIBO_TB_Soli_X_Arti(Soli_Arti_Id_X_Soli_Arti_PK,Soli_Arti_Id_X_Arti_PK,"
 //                + "Soli_Arti_X_Cant)"
@@ -281,8 +275,6 @@ public class solicitudArtDAO {
 //        preparedStmt.executeUpdate();
 //        db.getConnection().close();
 //    }
-
-
     // se muestran la solicitud que tiene el correspondiente id  
     public List<SboTbSoliArti> listadoSolicitudesArticulos(String filtro) {
         List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
@@ -318,10 +310,7 @@ public class solicitudArtDAO {
         }
     }
 
-  
-    
     // se crea un objeto de tipo persona
-
     private AbaaTbPersona persona(ResultSet rs) {
         try {
             AbaaTbPersona ob = new AbaaTbPersona();
@@ -343,15 +332,14 @@ public class solicitudArtDAO {
     public List<SboTbSolixArti> listadoArticulosPorSolicitud(int filtro) {
         List<SboTbSolixArti> resultado = new ArrayList<SboTbSolixArti>();
         try {
-            String sql = "select * "
-                    + "from SIBO_TB_Sicop art, SIBO_TB_Soli_Arti solArt, SIBO_TB_Soli_X_Arti sxa "
-                    + "where art.Sico_Id_PK = sxa.Soli_Arti_Id_X_Sico_PK "
-                    + "and solart.Soli_Arti_Id_PK = sxa.Soli_Arti_Id_X_Soli_Arti_PK "
-                    + "and solArt.Soli_Arti_Id_PK = '%s'";
+            String sql = "select * from SIBO_TB_Soli_X_Arti s\n"
+                    + "inner join SIBO_TB_Exis e on s.Soli_Arti_Id_X_Exis_FK=e.Exis_Id_PK\n"
+                    + "inner join SIBO_TB_Articulo a on e.Exis_Arti_FK=a.Arti_Id_PK\n"
+                    + "where s.Soli_Arti_Id_X_Soli_Arti_PK='%s';";
             sql = String.format(sql, filtro);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
-                resultado.add(solixArti(rs));
+                resultado.add(solixArtiCompleto(rs));
             }
         } catch (SQLException ex) {
         }
@@ -367,6 +355,50 @@ public class solicitudArtDAO {
             solxArt.setSolArtiDeta(rs.getString("Soli_Arti_Deta"));
             solxArt.setSolArtiSali(rs.getDate("Soli_Arti_Fech_Sali"));
             return solxArt;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+
+    // se crea un objeto de tipo solixArti completo con inner join a existncia
+    private SboTbSolixArti solixArtiCompleto(ResultSet rs) {
+        try {
+            SboTbSolixArti solxArt = new SboTbSolixArti();
+            solxArt.setExistencia(existencia(rs));
+            solxArt.setSboTbSoliArti(soliArti(rs));
+            solxArt.setSolArtiDeta(rs.getString("Soli_Arti_Deta"));
+            solxArt.setSolArtiSali(rs.getDate("Soli_Arti_Fech_Sali"));
+            solxArt.setExistencia(existenciaCompleto(rs));
+            return solxArt;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+
+    private SboTbExistencia existenciaCompleto(ResultSet rs) {
+        try {
+            SboTbExistencia ob = new SboTbExistencia();
+            ob.setArticulo(ArticuloCompleto(rs));
+            ob.setSboTbEsta(rs.getInt("Exis_Esta"));
+            //ob.setExisCant(rs.getDouble("Exis_Cant"));
+            //ob.setAbaaTbDepartamento(departamento(rs));
+            // ob.setSboTbSicop(sicop(rs));
+            return ob;
+        } catch (SQLException ex) {
+            return null;
+        }
+
+    }
+
+    private SboTbArticulo ArticuloCompleto(ResultSet rs) {
+        try {
+            SboTbArticulo arti = new SboTbArticulo();
+            arti.setArtIdPk(rs.getInt("Arti_Id_PK"));
+            arti.setArtDesc(rs.getString("Arti_Desc"));
+            arti.setArtMode(rs.getString("Arti_Mode"));
+            arti.setArtMarc(rs.getString("Arti_Marc"));
+            arti.setArtNumeSeri(rs.getString("Arti_Nume_Seri"));
+            return arti;
         } catch (SQLException ex) {
             return null;
         }
@@ -477,6 +509,7 @@ public class solicitudArtDAO {
 
     }
 // se actualizan los datos que con la opcion  seleccionado por parte del departamento de TI
+
     public void actualizarEstSolicitudTI(SboTbSoliArti objeto) throws SQLException {
         String query = "update SIBO_TB_Soli_Arti set Soli_Arti_Esta = ?, Soli_Arti_Vist_Ti = ? where Soli_Arti_Id_PK = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -498,10 +531,7 @@ public class solicitudArtDAO {
         db.getConnection().close();
     }
 
-
 // se ejecuta el procedimiento para disminuir las existencias
-  
-
 //    public void disminuyeExistencias(SboTbSolixArti objeto) throws Exception {
 //        String query = "execute DisminuyeExistencias ?,?,?;";
 //        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -511,8 +541,6 @@ public class solicitudArtDAO {
 //        preparedStmt.executeUpdate();
 //        db.getConnection().close();
 //    }
-
-
     // se selecciona el ultimo id de la tabla soli_arti
     public int getLastInsertSolicitudArticulo() throws Exception {
         String sql = " select IDENT_CURRENT( 'SIBO_TB_Soli_Arti' ) as seq ";
@@ -557,9 +585,7 @@ public class solicitudArtDAO {
 
 }
 
-    // se agrega en la tabla solixarti por medio de un procedimiento
- 
-
+// se agrega en la tabla solixarti por medio de un procedimiento
 //    public void insertarSolxArt(SboTbSolixArti objeto) throws Exception {
 //        String sql = "Execute agregarSoliXarti ?,?,?,?;";
 //        PreparedStatement preparedStmt = db.getConnection().prepareStatement(sql);

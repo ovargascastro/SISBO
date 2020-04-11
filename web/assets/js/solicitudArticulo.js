@@ -841,3 +841,33 @@ $(document).ready(function () {
     
     logged();
 });
+
+
+
+//Muestra la informacion de un articulo
+function abrirArticulo(id) {
+
+    solicitarDatosArticulo(id);
+    $('#informacionArt').modal('show');
+
+}
+
+
+function solicitarDatosArticulo(id) {
+    $.ajax({type: "GET",
+        url: "api/infoArticulo/" + id,
+        success: mostrarDatosArt
+    });
+}
+
+
+function mostrarDatosArt(objeto) {
+    
+    $("#ArticuloInfo").val(objeto.sboTbCatArticulo.catDesc);
+    $("#DescripcionInfo").val(objeto.artDesc);
+    $("#ModeloInfo").val(objeto.artMode);
+    $("#MarcaInfo").val(objeto.artMarc);
+    $("#OrdenInfo").val(objeto.sboTbOrdenCompra.ocIdPk);
+    $("#SicopInfo").val(objeto.sboSicop.sicopDesc);
+
+}

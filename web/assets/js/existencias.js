@@ -115,6 +115,7 @@ var existenciaActual=0;
 function eliminarExistenciaV(id){
     existenciaActual=id;
     $('#modalEliminaExist').modal('show');
+    
 }
 
 

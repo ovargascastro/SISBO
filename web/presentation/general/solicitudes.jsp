@@ -83,7 +83,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>Artículo<br><br></th>
-                                                    <th>Cantidad<br><br></th>
+                                                    <th>Marca<br><br></th>
+                                                    <th>Descripción<br><br></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="listaArticulosSolicitudPendientes">
