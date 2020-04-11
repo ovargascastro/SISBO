@@ -199,6 +199,7 @@
     function IngresarArticuloLista(id,desc){
         
    console.log(id);
+   
         insertarLista(generaSolXArti(id,desc));
         agregarSolXArtTabla();
  
@@ -206,8 +207,31 @@
     
 
     function insertarLista(objeto){
-        window.localStorage.setItem(objeto.existencia, JSON.stringify(objeto));
+        console.log(comprueba(objeto.existencia));
+       if(comprueba(objeto.existencia)===false){
+              window.localStorage.setItem(objeto.existencia, JSON.stringify(objeto)); }
+          else{
+              console.log("es repetido");
+          }
+              
+        }
+  
+
+function comprueba(exist){
+   // var bandera=false;
+    for(var i = 0; i < localStorage.length; i++){
+   var objeto1 = JSON.parse(localStorage.key(i));
+    console.log(exist);
+    console.log(objeto1);
+    if(exist === objeto1){
+        //bandera=true;
+        return true;
     }
+
+}
+   return false;
+}
+
     
     function agregarSolXArtTabla(){
         $("#listArt").empty();
