@@ -13,7 +13,6 @@ import logic.SboTbBodega;
 @Path("ListaBodega")
 public class Bodega {
     
-    
     @Context
     private UriInfo conext;
     
