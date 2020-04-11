@@ -95,3 +95,7 @@ function filaArticulos2(listado, objeto) {
     listado.append(tr);
 
 }
+
+$(document).ready(function () {
+    logged();
+});

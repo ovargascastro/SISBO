@@ -803,3 +803,8 @@ function exportPDF(imgData) {
 function PDF() {
     getImageFromUrl('assets/img/Escudo.png', exportPDF);
 }
+
+$(document).ready(function () {
+    
+    logged();
+});

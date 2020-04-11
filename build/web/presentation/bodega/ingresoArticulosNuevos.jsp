@@ -32,7 +32,8 @@
                             <form id="buscarOrdArt" action="javascript:buscarOrdenes()">
                                 <div><label>Buscar Orden de Compra</label>
                                     <div class="form-row">
-                                        <div class="col"><input class="form-control" type="text" placeholder="Codigo Orden de Compra" id="numeroOC" name="numeroOC"></div>
+                                        <div class="col">
+                                            <input class="form-control" type="text" placeholder="Codigo Orden de Compra" onkeyup="myFunction()" id="numeroOC" name="numeroOC"></div>
                                         <div class="col"><button class="btn btn-primary" type="submit">Buscar</button></div>
                                     </div>
                                     <div class="form-row">
@@ -48,7 +49,7 @@
                     <div class="row">
                         <div class="col text-center" id="tablaOrdenes">
                             <div class="table-responsive">
-                                <table class="table">
+                                <table id="myTable" class="table">
                                     <thead>
                                         <tr>
                                             <th class="text-center">Número<br>de Orden</th>
@@ -414,6 +415,26 @@
                         location.href = "presentation/notAccess.jsp";
                         <%}%>
                     }
+    function myFunction() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("numeroOC");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+
+
 
 
 

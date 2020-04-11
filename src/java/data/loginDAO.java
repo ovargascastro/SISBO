@@ -73,7 +73,7 @@ public class loginDAO {
     private AbaaTbDepartamento departamento(ResultSet rs) {
         try {
             AbaaTbDepartamento ob = new AbaaTbDepartamento();
-            ob.setDeptoIdPk(rs.getString("Cata_Depa_id_FK"));
+            ob.setDeptoIdPk(rs.getString("Depa_id_FK"));
             //ob.setDeptoNomb(rs.getString("Cata_Depa_nomb"));
             return ob;
         } catch (SQLException ex) {

@@ -36,7 +36,7 @@
                             <form id="busquedaOrden" action="javascript:buscarOrdenes()" >
                                 <div><label>Número Orden de Compra</label>
                                     <div class="form-row">
-                                        <div class="col"><input class="form-control" type="text" id="filtro"></div>
+                                        <div class="col"><input class="form-control" type="text" id="filtro" onkeyup="myFunction()"></div>
                                         <div class="col"><button class="btn btn-primary" type="submit">Buscar</button></div>
                                     </div>
                                     <div class="form-row">
@@ -53,7 +53,7 @@
                         <div class="col text-center" id="tablaOrdenes">
                             <div class="table-responsive " style="max-height: 350px; overflow: auto">
                             <div class="table-responsive">
-                                <table class="table">
+                                <table id="myTable" class="table">
                                     <thead>
                                         <tr>
                                             <th class="text-center">Número<br>de Orden</th>
@@ -85,7 +85,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table id="myTable" class="table">
                                             <thead>
                                                 <tr>
                                                     <th>Artículo<br><br></th>
@@ -182,6 +182,33 @@
                                                 listado.append(tr);
 
                                             }
+                                            
+                                            
+function myFunction() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("filtro");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+
+function logged() {
+    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+    <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("17") && !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
+        location.href = "presentation/notAccess.jsp";
+    <%}%>
+    }
                                             
 
                                             

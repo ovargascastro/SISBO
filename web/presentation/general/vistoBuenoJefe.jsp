@@ -20,7 +20,7 @@
 
     </head>
 
-    <body style="background-color: rgb(255,255,255);" onload="mostrardepa()">
+    <body style="background-color: rgb(255,255,255);" onload="mostrardepa(),buscarSolicitudVbJf()">
 
         <%@ include file="/presentation/header.jsp" %>
 
@@ -264,6 +264,15 @@
         var depa=${logged.getDepartamento().getDeptoIdPk()};
         $("#departamento").val(depa);    
     }
+    
+function logged() {
+    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+    <% if (aux == null) { %>
+        location.href = "presentation/notAccess.jsp";
+    <%}%>
+    }
+    
+    
     </script>
 
 </html>

@@ -59,7 +59,7 @@
                             </div>
                             <div class="col">
                                 <label>Cantidad</label>
-                                <input class="form-control" type="number" placeholder="Cantidad" id="cantidad" required>
+                                <input class="form-control" type="number" placeholder="Cantidad" id="cantidad" min="0" required>
                             </div>
                         </div>
                         <div class="form-row text-center" id="rowBtnAgregar">
@@ -164,8 +164,24 @@
     }
     
     function IngresarArticuloLista(){
+        if(validar()){
         insertarLista(generaSolXArti());
         agregarSolXArtTabla();
+        }else{
+             alert("Cantidad solicitada es mayor a las existencias");
+              $("#cantidad").val("");
+        }
+        
+    }
+    
+    function validar(){
+       
+        var cant = document.getElementById("cantidad").value;
+        var existencias =  document.getElementById("cantidadExist").value;
+        if(existencias < cant ){
+            return false;
+        }
+        return true;
     }
     
     function generaSolXArti(){
@@ -250,6 +266,18 @@
     
     function depurarLocalStorage(){
          window.localStorage.clear(); 
+    }
+    
+    $(document).ready(function () {
+    logged();
+});
+    
+    
+    function logged() {
+    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+    <% if (aux == null) { %>
+        location.href = "presentation/notAccess.jsp";
+    <%}%>
     }
     
     

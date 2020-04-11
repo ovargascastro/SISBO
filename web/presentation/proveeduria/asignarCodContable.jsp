@@ -273,6 +273,14 @@ function pb4(data){
 }
 
 
+    function logged() {
+    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+    <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("8")) { %>
+        location.href = "presentation/notAccess.jsp";
+    <%}%>
+    }
+
+
 
 
                                             
