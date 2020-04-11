@@ -92,7 +92,9 @@
                                             <thead>
                                                 <tr>
                                                     <th>Artículo<br><br></th>
-                                                    <th>Cantidad<br><br></th>
+                                                    <th>Marca<br><br></th>
+                                                    <th>Descripción<br><br></th>
+                                                    <th>Información<br><br></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="listaArticulosSolicitud">
@@ -247,6 +249,46 @@
                 </div>
             </div>
         </div>
+            
+            
+             <div class="modal fade" role="dialog" tabindex="-1" id="informacionArt">
+            <div class="modal-dialog" role="document">
+                <form id="actualizaArticulo" action="javascript:actualizarArticulo()">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Informacion de Artículo</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                        <div class="modal-body">
+
+                            <div class="container">
+                                <div class="form-row">
+                                    <div class="col">
+
+                                        <label>Artículo</label>
+                                        <input id="ArticuloInfo" class="form-control" type="text" readonly placeholder="Artículo">
+                                        <label>Descripción</label>
+                                        <input id="DescripcionInfo" class="form-control" type="text" readonly placeholder="Descripcion">
+                                        <label>Modelo</label>
+                                        <input id="ModeloInfo" class="form-control" type="text" readonly placeholder="Modelo">
+                                        <label>Marca</label>
+                                        <input id="MarcaInfo" class="form-control" type="text" readonly placeholder="Marca">
+                                    </div>                       
+                                    <div class="col">
+                                        <label>N° Orden de Compra</label>
+                                        <input id="OrdenInfo" class="form-control" type="text" readonly placeholder="N° Orden de Compra">
+                                        <label>SICOP</label>
+                                        <input id="SicopInfo" class="form-control" type="text" readonly placeholder="SICOP">
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>
+                        </div>
+                </form>
+
+            </div>
+        </div>
+        </div>
 
     <div class="modal fade" role="dialog" tabindex="-1" id="information">
         <div class="modal-dialog" role="document">
@@ -316,8 +358,10 @@
         function filaArticulos(listado, objeto) {
             var tr = $("<tr />");
             tr.html(
-                "<td>" + objeto.sboSicop.sicopDesc + "</td>"
-                + "<td>" + objeto.solArtiCant + "</td>");
+            "<td>" + objeto.solArtiDeta + "</td>"
+            +"<td>" + objeto.existencia.articulo.artMarc + "</td>"
+            +"<td>" + objeto.existencia.articulo.artDesc + "</td>"
+            + "<td><img class='small-img' src='assets/img/info(1).png' onclick='abrirArticulo(\"" + objeto.existencia.articulo.artIdPk + "\");'></td>");
             listado.append(tr);
         }
         

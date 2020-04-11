@@ -91,8 +91,9 @@ function listaArticulosxSol2(personas) {
 function filaArticulos2(listado, objeto) {
     var tr = $("<tr />");
     tr.html(
-            "<td>" + objeto.sboSicop.sicopDesc + "</td>"
-            +"<td>" + objeto.solArtiCant + "</td>");
+            "<td>" + objeto.solArtiDeta + "</td>"
+            +"<td>" + objeto.existencia.articulo.artMarc + "</td>"
+            +"<td>" + objeto.existencia.articulo.artDesc + "</td>");
     listado.append(tr);
 
 }
