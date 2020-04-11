@@ -334,12 +334,11 @@
             listado.append(tr);
         }
         
-    function logged() {
-    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
-    <% if (aux == null ) { %>
-        location.href = "presentation/notAccess.jsp";
-    <%}%>
-    }
-        
+        function logged() {
+            <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+            <% if (aux == null ) { %>
+                location.href = "presentation/notAccess.jsp";
+            <%}%>
+        }
     </script>
 </html>
