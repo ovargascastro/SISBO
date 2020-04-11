@@ -306,7 +306,7 @@ function comprueba(exist){
     function completar(){
           swal("Solicitud creada..!", "Correctamente!!", "success");
     setTimeout(function(){
-        window.location = "presentation/general/solicitudes.jsp";
+        window.location = "solicitudes.jsp";
     },2000);
         
     }
