@@ -9,10 +9,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import logic.SboTbBodega;
 
-/**
- *
- * @author Marco
- */
 
 @Path("ListaBodega")
 public class Bodega {
