@@ -315,8 +315,10 @@ function comprueba(exist){
     }
     
     function eliminarArticulo(id){
-        $('#' + id + '').remove();
+       // $('#' + id + '').remove();
+       
         window.localStorage.removeItem(id);
+         agregarSolXArtTabla();
     }
     
     function depurarLocalStorage(){
