@@ -112,12 +112,14 @@
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/departamentos.js" type="text/javascript"></script>
         <script src="assets/js/solicitudArticulo.js" type="text/javascript"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </body>
 
 </html>
 
 <script>
-   document.getElementById("solicitudArtMenu").style.color = "white";
+ 
+    document.getElementById("solicitudArtMenu").style.color = "white";
     function cargarSelectsSolArt() {
         // selectDeptos();
          mostrardepa();
@@ -191,14 +193,14 @@
             existencia: id,
             solArtiDeta: desc
         };
-         console.log(soliXarti.existencia);
+         console.log("generaSOl paso 2" );
         return soliXarti;
        
     }
     
     function IngresarArticuloLista(id,desc){
         
-   console.log(id);
+   console.log("IngresaArti paso 1");
    
         insertarLista(generaSolXArti(id,desc));
         agregarSolXArtTabla();
@@ -207,29 +209,36 @@
     
 
     function insertarLista(objeto){
-        console.log(comprueba(objeto.existencia));
+          console.log("Inserta paso 3");
+       // console.log(comprueba(objeto.existencia));
        if(comprueba(objeto.existencia)===false){
-              window.localStorage.setItem(objeto.existencia, JSON.stringify(objeto)); }
+              window.localStorage.setItem(objeto.existencia, JSON.stringify(objeto)); 
+     swal("Articulo Agregado..!", "Correctamente!!", "success");
+   
+        }
           else{
-              console.log("es repetido");
-          }
-              
+                swal("Error!", "Articulo ya ingresado en la solicitud ", "error");
+            }
+             
         }
   
 
 function comprueba(exist){
-   // var bandera=false;
+    var bandera=false;
+    var objeto0=JSON.parse(exist);
+   console.log("comprueba paso 4");
     for(var i = 0; i < localStorage.length; i++){
    var objeto1 = JSON.parse(localStorage.key(i));
     console.log(exist);
     console.log(objeto1);
-    if(exist === objeto1){
-        //bandera=true;
-        return true;
+    if(objeto0 === objeto1){
+        bandera=true;
+        //return true;
+       // 
     }
 
 }
-   return false;
+   return bandera;
 }
 
     
