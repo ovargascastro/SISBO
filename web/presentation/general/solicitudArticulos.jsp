@@ -64,7 +64,7 @@
                  </form>
 </div>
         
-        <form action="javascript:creaSolicitud()">
+        <form action="javascript:creaNuevaSolicitud()">
             <div class="card" id="formulario">
                 <div class="card-body">
                     
@@ -262,7 +262,12 @@ function comprueba(exist){
    }
    
    function creaNuevaSolicitud(){
-       creaSolicitud();
+       console.log(localStorage.length);
+       if(localStorage.length>0){
+       creaSolicitud();}
+   else{
+     swal("Error!", "Ingrese Articulos en la Solicitud", "error");
+}
    }
    
    function ingresaIdSoli(id){
