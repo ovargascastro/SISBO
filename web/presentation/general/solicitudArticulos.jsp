@@ -210,7 +210,7 @@
     }
     
     function agregarSolXArtTabla(){
-        //$("#listArt").empty();
+        $("#listArt").empty();
         insertaElemento();
     }
     
@@ -224,7 +224,7 @@
                 + "<td><img src='assets/img/trash-delete.png' onclick='eliminarArticulo(\"" + objeto.existencia + "\");'></td>");
             $("#listArt").append(tr);
         }
-        limpiaEspacios();
+        //limpiaEspacios();
    }
    
    function creaNuevaSolicitud(){
