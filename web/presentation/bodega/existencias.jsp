@@ -81,7 +81,7 @@
                                     <table class="table" id="myTable">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">Fecha</th>
+                                                <th class="text-center">Fecha Ingreso</th>
                                                 <th class="text-center">Bodega</th>
                                                 <th class="text-center">Departamento</th>
                                                 <th class="text-center">Descripcion</th>
