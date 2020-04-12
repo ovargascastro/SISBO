@@ -131,7 +131,8 @@ function creaSolicitud() {
             persIdPK: idUsu
         }
     };
-    $.ajax({type: "POST",
+
+           $.ajax({type: "POST",
         url: "api/solicitudArticulo",
         data: JSON.stringify(SboTbSoliArti),
         contentType: "application/json",
@@ -140,7 +141,8 @@ function creaSolicitud() {
             alert("Seleccione los artículos que requiere antes de enviar la solicitud");
         }
     });
-}
+    }
+
 
 //funcion que recupera el id de la solicitud en la tabla de la base de datos
 function termine() {

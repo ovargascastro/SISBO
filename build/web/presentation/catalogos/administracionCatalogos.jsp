@@ -488,13 +488,5 @@
         <%}%>
                         }
 
-function logged() {
-    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
-    <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("17") && !aux.getDepartamento().getDeptoIdPk().equals("5") &&
-            !aux.getDepartamento().getDeptoIdPk().equals("8") ) { %>
-        location.href = "presentation/notAccess.jsp";
-    <%}%>
-    }
-
     </script>
 </html>

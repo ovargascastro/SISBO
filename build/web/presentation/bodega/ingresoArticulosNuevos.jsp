@@ -464,40 +464,13 @@
                         var day = dayIndex > -1 ? dateItems[dayIndex] : today.getDate();
                         return new Date(year, month, day);
                     };
-<<<<<<< HEAD
-                    
-                     function logged(){
-                        <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
-                       <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
-=======
 
                     function logged() {
     <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
     <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
->>>>>>> 7dab276b0d628981dc0997d8e5e8fc3cb740c1d3
                         location.href = "presentation/notAccess.jsp";
     <%}%>
                     }
-<<<<<<< HEAD
-    function myFunction() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("numeroOC");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
-=======
                     function myFunction() {
                         var input, filter, table, tr, td, i, txtValue;
                         input = document.getElementById("numeroOC");
@@ -516,7 +489,6 @@
                             }
                         }
                     }
->>>>>>> 7dab276b0d628981dc0997d8e5e8fc3cb740c1d3
 
 
 
