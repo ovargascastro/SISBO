@@ -1,15 +1,6 @@
 package data;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import logic.AbaaTbDepartamento;
-import logic.SboSicop;
-import logic.SboTbBodega;
-import logic.SboTbCatContable;
-import logic.SboTbExistencia;
+
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -375,4 +366,13 @@ public class ExistenciasDAO {
 //        }
 //        return resultado;
 //    }
+    
+       public void actualizarExistenciaSoliPendiente(SboTbExistencia objeto) throws Exception {
+        String query = "update SIBO_TB_Exis set Exis_Esta=? where Exis_Id_PK=?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setInt(1, 2);
+        preparedStmt.setInt(2, objeto.getId());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
 }

@@ -290,6 +290,7 @@ function comprueba(exist){
             console.log("insertalista");
              console.log(objeto);
             funcionAuxiliar(objeto);
+            actualizarEstadoSoli(objeto.existencia[0].id);
         }
         limpiartabla();
         

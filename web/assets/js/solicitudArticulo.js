@@ -873,3 +873,22 @@ function mostrarDatosArt(objeto) {
     $("#SicopInfo").val(objeto.sboSicop.sicopDesc);
 
 }
+
+function actualizarEstadoSoli(id) {
+    
+   SboTbExistencia = {
+            id: id
+        };
+    $.ajax({type: "PUT",
+        url: "api/ExistenciasSoli",
+        data: JSON.stringify(SboTbExistencia),
+        contentType: "application/json",
+        success: ListaExistencias,
+        error: function (jqXHR) {
+             swal("Error!", "NO se cambio el estado del articulo ", "error");
+        }
+    });
+
+}
+
+

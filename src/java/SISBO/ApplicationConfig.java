@@ -27,6 +27,7 @@ public class ApplicationConfig extends Application {
         resources.add(SISBO.BodegaListaOC.class);
         resources.add(SISBO.Bodegas.class);
         resources.add(SISBO.Consumo.class);
+        resources.add(SISBO.ExistenciaSoliPendiente.class);
         resources.add(SISBO.Existencias.class);
         resources.add(SISBO.ExistenciasTemp.class);
         resources.add(SISBO.ListaOCxArt.class);
