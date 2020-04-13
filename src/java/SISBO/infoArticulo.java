@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package SISBO;
 
 import javax.ws.rs.GET;
@@ -16,10 +11,6 @@ import logic.SboSicop;
 import logic.SboTbArticulo;
 import logic.SboTbOrdenCompra;
 
-/**
- *
- * @author oscar
- */
 @Path("infoArticulo")
 public class infoArticulo {
 
@@ -39,5 +30,4 @@ public class infoArticulo {
             throw new NotFoundException();
         }
     }
-
 }

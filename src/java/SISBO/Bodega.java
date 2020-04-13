@@ -1,11 +1,3 @@
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 package SISBO;
 
 import java.sql.SQLException;
@@ -20,27 +12,24 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import logic.Model;
-import logic.SboSicop;
 import logic.SboTbBodega;
 
-/**
- *
- * @author Marco
- */
+
 @Path("ListaBodega")
 public class Bodega {
 
     @Context
-    private UriInfo conext;
-// se lista las bodegas ********
+    private UriInfo context;
+    
+    // se lista las bodegas ********
     @GET
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     public List<SboTbBodega> getBodegas() throws ClassNotFoundException, SQLException {
         //   List<SboTbBodega> lista = Model.instance().ListaBodega();
         return null;
-
     }
-//se bloquean las bodegas para que no se pueda utilizar "se elimina"
+    
+    //se bloquean las bodegas para que no se pueda utilizar "se elimina"
     @PUT
     @Consumes({"application/json; charset=UTF-8"})
     public void update(@Encoded SboTbBodega b) {

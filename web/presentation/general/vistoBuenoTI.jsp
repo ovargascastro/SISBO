@@ -300,7 +300,8 @@
                                             tr.html(
                                             "<td>" + objeto.solArtiDeta + "</td>"
                                             +"<td>" + objeto.existencia.articulo.artMarc + "</td>"
-                                            +"<td>" + objeto.existencia.articulo.artDesc + "</td>");
+                                            +"<td>" + objeto.existencia.articulo.artDesc + "</td>"
+                                            + "<td><img class='small-img' src='assets/img/info(1).png' onclick='abrirArticulo(\"" + objeto.existencia.articulo.artIdPk + "\");'></td>");
                                             listado.append(tr);
                                         }
                                         

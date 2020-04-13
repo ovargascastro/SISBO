@@ -9,24 +9,23 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import logic.Model;
-import logic.SboTbExistencia;
-import logic.SboTbSolixArti;
+import logic.SboTbLimiteDpto;
+import logic.SboTbSoliArti;
 
 @Path("aprobacionSolicitudBodeguero")
 public class AprobacionSolicitud {
-    
+
     @Context
     private UriInfo context;
-//restful para actualizar el estado de las solicitudes por aprobar del bodeguero 
+
+    //restful para actualizar el estado de las solicitudes por aprobar del bodeguero 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<SboTbExistencia> update(SboTbSolixArti soliXArti) {
+    public List<SboTbLimiteDpto> update(SboTbSoliArti soliArti) {
         try {
-            return null;
+            return Model.instance().disminuirExistencias(soliArti);
         } catch (Exception ex) {
             throw new NotFoundException();
         }
     }
-    
-    
 }

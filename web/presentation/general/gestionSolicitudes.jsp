@@ -7,54 +7,54 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <%@ include file="/presentation/base.jsp" %>
-        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/styles.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/Imprimir.css" media="print" />
-        <title>Gestión de Solicitudes</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <%@ include file="/presentation/base.jsp" %>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/Imprimir.css" media="print" />
+    <title>Gestión de Solicitudes</title>
 
-    </head>
+</head>
 
-    <body style="background-color: rgb(255,255,255);" onload="javascript:buscarSolicitudxAprobar();">
-        <%@ include file="/presentation/header.jsp" %>
+<body style="background-color: rgb(255,255,255);" onload="javascript:buscarSolicitudxAprobar();">
+    <%@ include file="/presentation/header.jsp" %>
 
-        <div id="titulo">
-            <div class="jumbotron">
-                <h1> Gestión de Solicitudes de Requisición de Articulos</h1>
-                <p></p>
-                <p></p>
-            </div>
+    <div id="titulo">
+        <div class="jumbotron">
+            <h1> Gestión de Solicitudes de Requisición de Articulos</h1>
+            <p></p>
+            <p></p>
         </div>
-        <div class="card" id="cuerpoListaOrdenes">
-            <div class="card-body">
-                <h4 class="text-center card-title">Listado  de Solicitudes de Requisición de Articulos</h4>
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <form>
-                                <div><label>Buscar Número de Solicitud</label>
-                                    <div class="form-row">
-                                        <div class="col"><input class="form-control" type="text" id="filtro"></div>
-                                        <div class="col"><button class="btn btn-primary" type="button" onclick="javascript:buscarSolicitudxAprobar()">Buscar</button></div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="col">
-                                            <br>
-                                            <img src="assets/img/information.png" onclick="$('#information').modal('show');"> 
-                                        </div>
+    </div>
+    <div class="card" id="cuerpoListaOrdenes">
+        <div class="card-body">
+            <h4 class="text-center card-title">Listado  de Solicitudes de Requisición de Articulos</h4>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <form>
+                            <div><label>Buscar Número de Solicitud</label>
+                                <div class="form-row">
+                                    <div class="col"><input class="form-control" type="text" id="filtro"></div>
+                                    <div class="col"><button class="btn btn-primary" type="button" onclick="javascript:buscarSolicitudxAprobar()">Buscar</button></div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <br>
+                                        <img src="assets/img/information.png" onclick="$('#information').modal('show');"> 
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
-                    <br>
-                    <div class="row">
-                        <div class="col text-center" id="tablaSolicitudes">
-                            <div class="table-responsive " style="max-height: 350px; overflow: auto">
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col text-center" id="tablaSolicitudes">
+                        <div class="table-responsive " style="max-height: 350px; overflow: auto">
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
@@ -110,8 +110,8 @@
                 </div>
             </div>
         </div>
-            
-            
+
+
         <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="alertasMinimo">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -125,6 +125,7 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
+                                                    <th>Departamento<br><br></th>
                                                     <th>Artículo<br><br></th>
                                                     <th>Cantidad<br><br></th>
                                                 </tr>
@@ -249,9 +250,9 @@
                 </div>
             </div>
         </div>
-            
-            
-             <div class="modal fade" role="dialog" tabindex="-1" id="informacionArt">
+
+
+        <div class="modal fade" role="dialog" tabindex="-1" id="informacionArt">
             <div class="modal-dialog" role="document">
                 <form id="actualizaArticulo" action="javascript:actualizarArticulo()">
                     <div class="modal-content">
@@ -288,7 +289,7 @@
 
             </div>
         </div>
-        </div>
+    </div>
 
     <div class="modal fade" role="dialog" tabindex="-1" id="information">
         <div class="modal-dialog" role="document">
@@ -300,12 +301,12 @@
                         <div class="container">
                             <div class="form-row">
                                 <div class="col">
-                                           <p class="font-italic">
-                                               Digite un número de solicitud y haga clic en el botón Buscar.<br>
-                                               De no digitar un número se listarán todas las solicitudes.
-                                           </p>
+                                    <p class="font-italic">
+                                        Digite un número de solicitud y haga clic en el botón Buscar.<br>
+                                        De no digitar un número se listarán todas las solicitudes.
+                                    </p>
                                 </div>
-                               
+
                             </div>
                         </div>
                     </form>
@@ -316,80 +317,77 @@
     </div>
     <input id="SoliArtiID" type="hidden">
 
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/js/solicitudArticulo.js" type="text/javascript"></script>
-    </body>
-    </html>
-    <script>
-        
-        document.getElementById("solicitudArtMenu").style.color = "white";
-        function listSoliArt(personas) {
-            var listado = $("#listSolArt");
-            listado.html("");
-            personas.forEach((p) => {
-                filaSolArt(listado, p);
-            });
-        }
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/solicitudArticulo.js" type="text/javascript"></script>
+</body>
+</html>
+<script>
 
-        function filaSolArt(listado, objeto) {
-            var tr = $("<tr />");
-            tr.html(
-                "<td>" + objeto.solArtiIdPk + "</td>"
-                + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
-
-                + "<td>" + objeto.abaaTbPersona.persNomb + " " + objeto.abaaTbPersona.persApe1 + " " + objeto.abaaTbPersona.persApe2 + "</td>"
-                + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
-                + "<td>" + objeto.solArtiEsta + "</td>"
-                + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'></td>"
-                + "<td><img src='assets/img/edit.png' onclick='abrirModalAprobar(\"" + objeto.solArtiIdPk + "\");'></td>"
-            );
-            listado.append(tr);
-        }
-
-        function listaArticulosxSol(personas) {
-            var listado = $("#listaArticulosSolicitud");
-            listado.html("");
-            personas.forEach((p) => {
-                filaArticulos(listado, p);
-            });
-        }
-
-        function filaArticulos(listado, objeto) {
-            var tr = $("<tr />");
-            tr.html(
+    document.getElementById("solicitudArtMenu").style.color = "white";
+    
+    function listSoliArt(personas) {
+        var listado = $("#listSolArt");
+        listado.html("");
+        personas.forEach((p) => {
+            filaSolArt(listado, p);
+        });
+    }
+    
+    function filaSolArt(listado, objeto) {
+        var tr = $("<tr />");
+        tr.html(
+            "<td>" + objeto.solArtiIdPk + "</td>"
+            + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
+            + "<td>" + objeto.abaaTbPersona.persNomb + " " + objeto.abaaTbPersona.persApe1 + " " + objeto.abaaTbPersona.persApe2 + "</td>"
+            + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
+            + "<td>" + objeto.solArtiEsta + "</td>"
+            + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'></td>"
+            + "<td><img src='assets/img/edit.png' onclick='abrirModalAprobar(\"" + objeto.solArtiIdPk + "\");'></td>"
+        );
+        listado.append(tr);
+    }
+    
+    function listaArticulosxSol(personas) {
+        var listado = $("#listaArticulosSolicitud");
+        listado.html("");
+        personas.forEach((p) => {
+            filaArticulos(listado, p);
+        });
+    }
+    
+    function filaArticulos(listado, objeto) {
+        var tr = $("<tr />");
+        tr.html(
             "<td>" + objeto.solArtiDeta + "</td>"
-            +"<td>" + objeto.existencia.articulo.artMarc + "</td>"
-            +"<td>" + objeto.existencia.articulo.artDesc + "</td>"
+            + "<td>" + objeto.existencia.articulo.artMarc + "</td>"
+            + "<td>" + objeto.existencia.articulo.artDesc + "</td>"
             + "<td><img class='small-img' src='assets/img/info(1).png' onclick='abrirArticulo(\"" + objeto.existencia.articulo.artIdPk + "\");'></td>");
-            listado.append(tr);
-        }
-        
+        listado.append(tr);
+    }
 
-        function listaAlerts(personas) {
-            var listado = $("#alertasMinimotb");
-            listado.html("");
-            personas.forEach((p) => {
-                filaAlertas(listado, p);
-            });
-        }
-        
-        function filaAlertas(listado, objeto) {
-            var tr = $("<tr />");
-            tr.html(
-                "<td>" + objeto.sboTbSicop.sicopDesc + "</td>"
-                + "<td>" + objeto.exisCant + "</td>");
-            listado.append(tr);
-        }
-        
+    function listaAlerts(personas) {
+        var listado = $("#alertasMinimotb");
+        listado.html("");
+        personas.forEach((p) => {
+            filaAlertas(listado, p);
+        });
+    }
+
+    function filaAlertas(listado, objeto) {
+        var tr = $("<tr />");
+        tr.html(
+            "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
+            + "<td>" + objeto.sboSicop.sicopDesc + "</td>"
+            + "<td>" + objeto.limite + "</td>");
+        listado.append(tr);
+    }
 
     function logged() {
-    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
-    <% if (aux == null ) { %>
-        location.href = "presentation/notAccess.jsp";
-    <%}%>
+        <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+        <% if (aux == null) { %>
+            location.href = "presentation/notAccess.jsp";
+        <%}%>
     }
-        
 
-    </script>
-
+</script>

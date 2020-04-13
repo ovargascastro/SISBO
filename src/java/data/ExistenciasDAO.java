@@ -1,7 +1,5 @@
 package data;
 
-
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -129,7 +127,7 @@ public class ExistenciasDAO {
             AbaaTbDepartamento dpto = new AbaaTbDepartamento();
             SboTbCatArticulo cat = new SboTbCatArticulo();
             SboTbOrdenCompra oc = new SboTbOrdenCompra();
-             SboSicop ob = new SboSicop();
+            SboSicop ob = new SboSicop();
             arti.setArtIdPk(rs.getInt("Arti_Id_PK"));
             arti.setArtDesc(rs.getString("Arti_Desc"));
             arti.setArtMode(rs.getString("Arti_Mode"));
@@ -145,11 +143,8 @@ public class ExistenciasDAO {
             return null;
         }
     }
-    
 
-    
-    
-        private SboTbExistencia existenciaF (ResultSet rs) {
+    private SboTbExistencia existenciaF(ResultSet rs) {
         try {
             SboTbExistencia ob = new SboTbExistencia();
             ob.setSboTbBodega(Bodega(rs));
@@ -293,7 +288,6 @@ public class ExistenciasDAO {
         return resultado;
     }
 
-    
     public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
         List<SboTbExistencia> resultado = new ArrayList<SboTbExistencia>();
         try {
@@ -339,14 +333,25 @@ public class ExistenciasDAO {
 //            throw new Exception("Bien no Existe");
 //        }
 //    }
+
     public void actualizarExistencia(SboTbExistencia objeto) throws Exception {
         String query = "update SIBO_TB_Exis set Exis_Esta=? where Exis_Id_PK=?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
-        preparedStmt.setInt(1, 0);
+        preparedStmt.setInt(1, objeto.getSboTbEsta());
         preparedStmt.setInt(2, objeto.getId());
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
+    
+       public void actualizarExistenciaSoliPendiente(SboTbExistencia objeto) throws Exception {
+        String query = "update SIBO_TB_Exis set Exis_Esta=? where Exis_Id_PK=?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setInt(1, 2);
+        preparedStmt.setInt(2, objeto.getId());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
+
 //        public List<SboTbExistencia> listaConsumo(String depa) {
 //        List<SboTbExistencia> resultado = new ArrayList<SboTbExistencia>();
 //        try {
@@ -366,13 +371,54 @@ public class ExistenciasDAO {
 //        }
 //        return resultado;
 //    }
-    
-       public void actualizarExistenciaSoliPendiente(SboTbExistencia objeto) throws Exception {
-        String query = "update SIBO_TB_Exis set Exis_Esta=? where Exis_Id_PK=?";
-        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
-        preparedStmt.setInt(1, 2);
-        preparedStmt.setInt(2, objeto.getId());
-        preparedStmt.executeUpdate();
-        db.getConnection().close();
+    //-------------- Metodos de disminucion de existencias --------------
+    public List<SboTbExistencia> obtenerExistenciasSegunNumSolicitud(int idSoli) {
+        List<SboTbExistencia> resultado = new ArrayList<>();
+        try {
+            String sql = "SELECT exis.Exis_Id_PK, exis.Exis_Esta\n"
+                    + "FROM SIBO_TB_Exis exis, SIBO_TB_Soli_X_Arti SoliXArti,\n"
+                    + "SIBO_TB_Soli_Arti soli, SIBO_TB_Bode bode\n"
+                    + "where SoliXArti.Soli_Arti_Id_X_Soli_Arti_PK=soli.Soli_Arti_Id_PK\n"
+                    + "and SoliXArti.Soli_Arti_Id_X_Exis_FK=exis.Exis_Id_PK\n"
+                    + "and exis.Exis_Id_Bode_PK=bode.Bode_Id_PK\n"
+                    + "and soli.Soli_Arti_Id_PK=" + idSoli + ";";
+            sql = String.format(sql, idSoli);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(existenciaIdEstado(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
     }
+
+    //Bbtiene número total de existencias según codigo SICOP y ID del dpto
+    public int obtenerCantidadExisPorDptoSicop(int idSicop, int idDpto) throws SQLException, Exception {
+        String sql = "SELECT COUNT(*) Cantidad\n"
+                + "FROM SIBO_TB_Exis exis, SIBO_TB_Articulo arti, ABAA_TB_Catalogo_Departamento dpto,\n"
+                + "SIBO_TB_Sicop sicop, SIBO_TB_Limi_Depa limite, SIBO_TB_Bode bode\n"
+                + "where exis.Exis_Arti_FK=arti.Arti_Id_PK and exis.Exis_Id_Bode_PK=bode.Bode_Id_PK\n"
+                + "and arti.Arti_Cod_Sico_FK=sicop.Sico_Id_PK and arti.Arti_Cata_Depa_FK=dpto.Cata_Depa_id_PK\n"
+                + "and limite.Limi_Depa_Id_Dpto_PK=dpto.Cata_Depa_id_PK and limite.Limi_Depa_Id_Sico_PK=sicop.Sico_Id_PK\n"
+                + "and sicop.Sico_Id_PK=" + idSicop + " and dpto.Cata_Depa_id_PK=" + idDpto + " and exis.Exis_Esta!=0;";
+        sql = String.format(sql, idSicop, idDpto);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return rs.getInt("Cantidad");
+        } else {
+            throw new Exception("Error general");
+        }
+    }
+
+    private SboTbExistencia existenciaIdEstado(ResultSet rs) {
+        try {
+            SboTbExistencia ob = new SboTbExistencia();
+            ob.setId(rs.getInt("Exis_Id_PK"));
+            ob.setSboTbEsta(rs.getInt("Exis_Esta"));
+            return ob;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+
 }

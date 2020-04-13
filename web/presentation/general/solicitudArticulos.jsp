@@ -208,7 +208,6 @@
  
     }
     
-
     function insertarLista(objeto){
           console.log("Inserta paso 3");
        // console.log(comprueba(objeto.existencia));
@@ -223,7 +222,6 @@
              
         }
   
-
 function comprueba(exist){
     var bandera=false;
     var objeto0=JSON.parse(exist);
@@ -237,11 +235,9 @@ function comprueba(exist){
         //return true;
        // 
     }
-
 }
    return bandera;
 }
-
     
     function agregarSolXArtTabla(){
         $("#listArt").empty();
@@ -327,7 +323,7 @@ else if(soliobj !== '1'){
     function completar(){
           swal("Solicitud creada..!", "Correctamente!!", "success");
     setTimeout(function(){
-        window.location = "solicitudes.jsp";
+        window.location = "presentation/general/solicitudes.jsp";
     },2000);
         
     }
