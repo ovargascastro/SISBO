@@ -19,7 +19,7 @@ import logic.SboTbBodega;
 public class Bodega {
 
     @Context
-    private UriInfo conext;
+    private UriInfo context;
     
     // se lista las bodegas ********
     @GET

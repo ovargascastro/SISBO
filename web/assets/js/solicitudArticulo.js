@@ -38,7 +38,7 @@ function resetearSelectArt(selectbox) {
 
 //se agrega un articulo provisionalmente a la tabla de la solicitud
 function agregarArtTemp(id) {
-    
+
     SboTbArticulo = {
         artIdPk: id,
         cantSolArt: $("#cantidad").val()
@@ -55,9 +55,9 @@ function agregarArtTemp(id) {
 }
 //probando tabla
 function ListaExistencias() {
-  var filtro = $("#departamento").val();
+    var filtro = $("#departamento").val();
     $.ajax({type: "GET",
-        url: "api/ExistenciasTemp?filtro="+ filtro,
+        url: "api/ExistenciasTemp?filtro=" + filtro,
         success: listaExistencias
     });
 
@@ -132,7 +132,7 @@ function creaSolicitud() {
         }
     };
 
-           $.ajax({type: "POST",
+    $.ajax({type: "POST",
         url: "api/solicitudArticulo",
         data: JSON.stringify(SboTbSoliArti),
         contentType: "application/json",
@@ -141,7 +141,7 @@ function creaSolicitud() {
             alert("Seleccione los artículos que requiere antes de enviar la solicitud");
         }
     });
-    }
+}
 
 
 //funcion que recupera el id de la solicitud en la tabla de la base de datos
@@ -263,7 +263,7 @@ function buscarSolicitudxAprobar() {
 }
 //se muestran los solicitudes pendientes
 function buscarSolicitudxAprobar2() {
-    var vacio="";
+    var vacio = "";
     $.ajax({type: "GET",
         url: "api/soliAprobacion?filtro=" + vacio,
         success: listSoliArt,
@@ -317,9 +317,9 @@ function Aprobar(filtro) {
 }
 
 //se asigan a las campos del modal los datos de la solicitud
-    var solIdActual1;
-    var solFecha1;
-    var solDeparta1;
+var solIdActual1;
+var solFecha1;
+var solDeparta1;
 function mostraraprobarJF(soli) {
     solIdActual1 = soli.solArtiIdPk;
     solFecha1 = soli.solArtiFechSoli;
@@ -392,16 +392,14 @@ function mostrarExistencia(soli) {
 }
 // se modifica el estado de la existencias para alertar
 function actualizarExistenciaEstado() {
-    var soliXarti = {
-        sboTbSoliArti: [{solArtiIdPk: $('#SoliArtiID').val()}]
-    };
+    var soliArti = { solArtiIdPk: $('#SoliArtiID').val()};
     $.ajax({type: "PUT",
         url: "api/aprobacionSolicitudBodeguero",
-        data: JSON.stringify(soliXarti),
+        data: JSON.stringify(soliArti),
         contentType: "application/json",
         success: alistarAlertas,
         error: function (jqXHR) {
-            alert('No se puede aceptar la solicitud por falta de artículos');
+            alert('No se puede aceptar la solicitud pues los articulos solicitados ya fueron entregados a otra persona.');
         }
     });
 
@@ -409,7 +407,7 @@ function actualizarExistenciaEstado() {
 // se alertara dependiendo de los limites de cada articulo
 function alistarAlertas(lista) {
     buscarSolicitudxAprobar2();
-    if(lista.length!==0){
+    if (lista.length !== 0) {
         listaAlerts(lista);
         $('#alertasMinimo').modal('show');
     }
@@ -783,8 +781,7 @@ function eliminaArt(id) {
 
 //imprimir JS trabajar desde aqui
 
-document.getElementById('export').addEventListener('click',
-  PDF);
+//document.getElementById('export').addEventListener('click',PDF);
 
 var specialElementHandlers = {
     // element with id of "bypass" - jQuery style selector
@@ -840,7 +837,7 @@ function PDF() {
 }
 
 $(document).ready(function () {
-    
+
     logged();
 });
 
@@ -864,7 +861,7 @@ function solicitarDatosArticulo(id) {
 
 
 function mostrarDatosArt(objeto) {
-    
+
     $("#ArticuloInfo").val(objeto.sboTbCatArticulo.catDesc);
     $("#DescripcionInfo").val(objeto.artDesc);
     $("#ModeloInfo").val(objeto.artMode);

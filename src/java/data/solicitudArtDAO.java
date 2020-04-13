@@ -572,6 +572,30 @@ public class solicitudArtDAO {
         return resultado;
     }
 
+    // se actualiza el estado de la solicitud a aprobada
+    public void actualizarEstadoAprobado(int idSolicitud) throws SQLException {
+        String query = "update SIBO_TB_Soli_Arti set Soli_Arti_Esta = ? where Soli_Arti_Id_PK = ?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setString(1, "Aprobada");
+        preparedStmt.setInt(2, idSolicitud);
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
+
+    //Se obtiene el id del departamento que realizo la solicitud
+    public int obtenerIdDptoPorSoli(int filtro) throws Exception {
+        String sql = "select soli.Soli_Arti_Id_PK,Soli_Arti_Id_Depa_FK\n"
+                + "from SIBO_TB_Soli_Arti soli\n"
+                + "where Soli_Arti_Id_PK=" + filtro + ";";
+        sql = String.format(sql, filtro);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return rs.getInt("Soli_Arti_Id_Depa_FK");
+        } else {
+            throw new Exception("Departamento no Existe");
+        }
+    }
+
 }
 
 // se agrega en la tabla solixarti por medio de un procedimiento

@@ -307,7 +307,7 @@ function comprueba(exist){
     function completar(){
           swal("Solicitud creada..!", "Correctamente!!", "success");
     setTimeout(function(){
-        window.location = "solicitudes.jsp";
+        window.location = "presentation/general/solicitudes.jsp";
     },2000);
         
     }
@@ -317,8 +317,6 @@ function comprueba(exist){
     }
     
     function eliminarArticulo(id){
-       // $('#' + id + '').remove();
-       
         window.localStorage.removeItem(id);
          agregarSolXArtTabla();
     }

@@ -5,14 +5,10 @@ import java.util.Date;
 public class SboTbExistencia implements java.io.Serializable {
 
     private int id;
-    //private AbaaTbDepartamento abaaTbDepartamento;
     private SboTbBodega sboTbBodega;
     private int SboTbEsta;
     private SboTbArticulo articulo;
     private Date existFingr;
-   // private SboSicop sboTbSicop;
-    //private Double exisCant;
-    //private int idE;
 
     public SboTbExistencia() {
     }

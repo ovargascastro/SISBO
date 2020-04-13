@@ -527,6 +527,65 @@ public class Model {
         return solArtdao.getSboTbSoliArti(id);
     }
 
+    public List<SboTbLimiteDpto> disminuirExistencias(SboTbSoliArti soliArti) throws Exception {
+        //Obtiene listado de existencias segun numero de solicitud
+        ArrayList<SboTbExistencia> listadoExistencias = (ArrayList) existdao.obtenerExistenciasSegunNumSolicitud(soliArti.getSolArtiIdPk());
+
+        //Se obtiene el id del dpto que realizó la solicitud de articulo
+        int idDpto = solArtdao.obtenerIdDptoPorSoli(soliArti.getSolArtiIdPk());
+
+        //Verifica que todas existencias esten disponibles
+        if (verificaEstadoExisSoliArti(listadoExistencias)) {
+            for (int i = 0; i < listadoExistencias.size(); i++) {
+
+                //Actualiza el estado de la existencia a entregado, es decir, no disponible
+                listadoExistencias.get(i).setSboTbEsta(0);
+                existdao.actualizarExistencia(listadoExistencias.get(i));
+            }
+            //actualiza el estado de la solicitud a aprobada
+            solArtdao.actualizarEstadoAprobado(soliArti.getSolArtiIdPk());
+
+            return verificaLimiteExis(soliArti.getSolArtiIdPk(), idDpto);
+        } else {
+            throw new Exception("Error general");
+        }
+    }
+
+    private boolean verificaEstadoExisSoliArti(ArrayList<SboTbExistencia> existencias) {
+        boolean bandera = true;
+        int cont = 0;
+        while (cont < existencias.size() && bandera == true) {
+            if (existencias.get(cont).getSboTbEsta() == 0) {
+                bandera = false;
+            } else {
+                cont++;
+            }
+        }
+        return bandera;
+    }
+
+    private ArrayList<SboTbLimiteDpto> verificaLimiteExis(int idSoliArti, int idDpto) throws Exception {
+        //Obtiene el listado de codigos de SICOP involucrados en la solicitud de articulos
+        ArrayList<SboSicop> listadoSicop = (ArrayList) sicopDao.listadoCodigosSicopSegunSoliArti(idSoliArti);
+
+        //Se crea lista vacia de posibles alertas de minimos
+        ArrayList<SboTbLimiteDpto> alertas = new ArrayList<>();
+
+        for (int i = 0; i < listadoSicop.size(); i++) {
+            //Se obtiene la cantidad restante en existencias segun sicop y dpto
+            int cantidad = existdao.obtenerCantidadExisPorDptoSicop(listadoSicop.get(i).getSicopId(), idDpto);
+            
+            //se obtiene el limite por dpto asignado segun sicop y dpto
+            SboTbLimiteDpto limite = limiDAO.getLimiteDepaPorExis(listadoSicop.get(i).getSicopId(), idDpto);
+
+            //¿La cantidad restante es menor al limite establecido?
+            if (limite.getLimite() > cantidad) {
+                limite.setLimite(cantidad);
+                alertas.add(limite);
+            }
+        }
+        return alertas;
+    }
 //    public List<SboTbExistencia> disminuirExistencias(SboTbSolixArti solixArti) throws Exception {
 //        ArrayList<SboTbSolixArti> listaSolicitudes = (ArrayList) solixartdao.filtraSolixArti(Integer.toString(solixArti.getSboTbSoliArti().getSolArtiIdPk()));
 //        ArrayList<SboTbExistencia> existencias = listaExistenciasPorSoli(listaSolicitudes);
@@ -586,6 +645,7 @@ public class Model {
 //    public void actualizaCantExist(SboTbExistencia e) throws SQLException {
 //        existdao.updateExist(e);
 //    }
+
     public List<SboTbSoliArti> solicitudesPendientesxFunc(int func) {
         return solArtdao.listadoSolicitudPorFuncionarioPendientes(func);
     }
