@@ -86,6 +86,13 @@
                             </div>
                         </div>
                         <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="limitesMenu" data-toggle="dropdown">Limites </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/bodega/limitesdepartamento.jsp">Mantenimiento de limtes por departamento</a>
+                            </div>
+                        </div>
+                        
+                        <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="bodegasMenu" data-toggle="dropdown">Bodegas </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/bodega/bodegas.jsp">Mantenimiento de Bodegas</a>

@@ -11,22 +11,22 @@ public class SboTbLimiteDpto  implements java.io.Serializable {
 
      private SboTbLimiteDptoId id;
      private AbaaTbDepartamento abaaTbDepartamento;
-     private SboTbCatArticulo sboTbCatArticulo;
+     private SboSicop sboSicop;
      private Integer limiteDptoLimite;
 
     public SboTbLimiteDpto() {
     }
 
 	
-    public SboTbLimiteDpto(SboTbLimiteDptoId id, AbaaTbDepartamento abaaTbDepartamento, SboTbCatArticulo sboTbCatArticulo) {
+    public SboTbLimiteDpto(SboTbLimiteDptoId id, AbaaTbDepartamento abaaTbDepartamento, SboSicop sbosicop) {
         this.id = id;
         this.abaaTbDepartamento = abaaTbDepartamento;
-        this.sboTbCatArticulo = sboTbCatArticulo;
+        this.sboSicop = sbosicop;
     }
-    public SboTbLimiteDpto(SboTbLimiteDptoId id, AbaaTbDepartamento abaaTbDepartamento, SboTbCatArticulo sboTbCatArticulo, Integer limiteDptoLimite) {
+    public SboTbLimiteDpto(SboTbLimiteDptoId id, AbaaTbDepartamento abaaTbDepartamento, SboSicop sbosicop, Integer limiteDptoLimite) {
        this.id = id;
        this.abaaTbDepartamento = abaaTbDepartamento;
-       this.sboTbCatArticulo = sboTbCatArticulo;
+       this.sboSicop = sbosicop;
        this.limiteDptoLimite = limiteDptoLimite;
     }
    
@@ -44,12 +44,12 @@ public class SboTbLimiteDpto  implements java.io.Serializable {
     public void setAbaaTbDepartamento(AbaaTbDepartamento abaaTbDepartamento) {
         this.abaaTbDepartamento = abaaTbDepartamento;
     }
-    public SboTbCatArticulo getSboTbCatArticulo() {
-        return this.sboTbCatArticulo;
+    public SboSicop getSboSicop() {
+        return this.sboSicop;
     }
     
-    public void setSboTbCatArticulo(SboTbCatArticulo sboTbCatArticulo) {
-        this.sboTbCatArticulo = sboTbCatArticulo;
+    public void setSboSicop(SboSicop sbosicop) {
+        this.sboSicop = sbosicop;
     }
     public Integer getLimiteDptoLimite() {
         return this.limiteDptoLimite;

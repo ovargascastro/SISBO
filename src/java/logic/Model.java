@@ -536,10 +536,26 @@ public class Model {
         return solArtdao.listadoSolicitudPorFuncionarioTotal(func);
     }
     
+    
+    public void getLimites(String limi, String limi2) throws Exception{
+        limiDAO.getLimites(limi,limi2);
+    }
+    
+    public List<SboTbLimiteDpto> listaLimites(String limi, String limi2) {
+        return limiDAO.listaLimites(limi, limi2);
+    }
+    
     public void agregarLimite(SboTbLimiteDpto limi) throws Exception{
         limiDAO.insertLimites(limi);
     }
     
+    public void deleteLimite(SboTbLimiteDpto limi) throws Exception{
+        limiDAO.deleteLimites(limi);
+    }
+    
+    public void updateLimite(SboTbLimiteDpto limi) throws Exception{
+        limiDAO.updateLimites(limi);
+    }
 
     public void agregarBodega(SboTbBodega b) throws SQLException {
         bodegadao.agregarBodega(b);
