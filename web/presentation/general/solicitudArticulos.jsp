@@ -142,13 +142,13 @@
     var array = [];
     var x; 
     function filaExistencias(listado, articulo) {
-        var tr = $("<tr />");
+       var tr = $("<tr id=" + articulo.id +"e"  + " />");
         tr.html(
       "<td>" + articulo.id + "</td>"
       + "<td>" + articulo.articulo.sboSicop.sicopDesc  + "</td>"
       + "<td>" + articulo.articulo.artMarc + "</td>"
       + "<td>" + articulo.sboTbBodega.bodeDesc + "</td>"
-      + "<td><img src='assets/img/plus.png' onclick='IngresarArticuloLista(\"" + articulo.id +"\",\"" + articulo.articulo.sboSicop.sicopDesc +"\");'></td>");
+      + "<td><img src='assets/img/plus.png' onclick='IngresarArticuloLista(\"" + articulo.id +"\",\"" + articulo.articulo.sboSicop.sicopDesc +"\",\"" + articulo.sboTbEsta +"\");'></td>");
         listado.append(tr);
     $(document).ready(function() {
     $('#example').DataTable();
@@ -189,9 +189,9 @@
     }
     
     
-      function generaSolXArti(id,desc){
+      function generaSolXArti(id,desc,est){
         var soliXarti = {
-            existencia:[{id:id}],
+            existencia:[{id:id,SboTbEsta:est}],
             solArtiDeta: desc
         };
          console.log("generaSOl paso 2" );
@@ -199,11 +199,11 @@
        
     }
     
-    function IngresarArticuloLista(id,desc){
+    function IngresarArticuloLista(id,desc,est){
         
    console.log("IngresaArti paso 1");
    
-        insertarLista(generaSolXArti(id,desc));
+        insertarLista(generaSolXArti(id,desc,est));
         agregarSolXArtTabla();
  
     }
@@ -218,7 +218,7 @@
    
         }
           else{
-                swal("Error!", "Articulo ya ingresado en la solicitud ", "error");
+                swal("Error!", "El articulo "+ objeto.existencia[0].id +" ya fue ingresado en la solicitud", "error");
             }
              
         }
@@ -251,24 +251,39 @@ function comprueba(exist){
     function insertaElemento() {
         for (var i = 0; i < localStorage.length; i++){
             var objeto = JSON.parse(localStorage.getItem(localStorage.key(i)));
-            var tr = $("<tr id=" + objeto.existencia  + " />");
+            var tr = $("<tr id=" + objeto.existencia[0].id  + " />");
             tr.html(
                 "<td>" + objeto.existencia[0].id + "</td>"
                 + "<td>" + objeto.solArtiDeta + "</td>"
                 + "<td><img src='assets/img/trash-delete.png' onclick='eliminarArticulo(\"" + objeto.existencia[0].id + "\");'></td>");
             $("#listArt").append(tr);
         }
+        $('#' + objeto.existencia[0].id+"e" + '').remove();
         //limpiaEspacios();
    }
    
    function creaNuevaSolicitud(){
-       console.log(localStorage.length);
-       if(localStorage.length>0){
-       creaSolicitud();}
-   else{
+   
+       if(localStorage.length<=0){
      swal("Error!", "Ingrese Articulos en la Solicitud", "error");
 }
+else {
+    for (var i = 0; i < localStorage.length; i++){  
+       
+    var objeto = JSON.parse(localStorage.getItem(localStorage.key(i)));
+    var soliobj=objeto.existencia[0].SboTbEsta; 
+     console.log(objeto);
+     if(soliobj === '1')    {    
+    creaSolicitud();
    }
+else if(soliobj !== '1'){
+     swal("Error!", "El articulo "+ objeto.existencia[0].id +" ya fue solicitado", "error");
+     eliminarArticulo(objeto.existencia[0].id);
+     //ListaExistencias();
+}
+   }
+   
+   }}
    
    function ingresaIdSoli(id){
         for (var i = 0; i < localStorage.length; i++){
@@ -322,10 +337,12 @@ function comprueba(exist){
     }
     
     function eliminarArticulo(id){
-       // $('#' + id + '').remove();
+      $('#' + id + '').remove();
        
         window.localStorage.removeItem(id);
-         agregarSolXArtTabla();
+   
+       
+        // agregarSolXArtTabla();
     }
     
     function depurarLocalStorage(){
