@@ -217,3 +217,6 @@ public class SoliXArtDAO {
 //        }
 //        return resultado;
 //    }
+
+//    }
+

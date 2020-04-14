@@ -64,9 +64,15 @@ function ListaExistencias() {
 }
 
 
+<<<<<<< HEAD
 
 
 
+=======
+
+
+
+>>>>>>> 05c8306a054258bed22b5579cd8a6e055ad1e814
 //se listan los datos agregados a la solicitud temporal
 function buscar() {
     $.ajax({type: "GET",
@@ -870,3 +876,25 @@ function mostrarDatosArt(objeto) {
     $("#SicopInfo").val(objeto.sboSicop.sicopDesc);
 
 }
+<<<<<<< HEAD
+=======
+
+function actualizarEstadoSoli(id) {
+    
+   SboTbExistencia = {
+            id: id
+        };
+    $.ajax({type: "PUT",
+        url: "api/ExistenciasSoli",
+        data: JSON.stringify(SboTbExistencia),
+        contentType: "application/json",
+        success: ListaExistencias,
+        error: function (jqXHR) {
+             swal("Error!", "NO se cambio el estado del articulo ", "error");
+        }
+    });
+
+}
+
+
+>>>>>>> 05c8306a054258bed22b5579cd8a6e055ad1e814

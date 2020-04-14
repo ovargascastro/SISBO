@@ -675,6 +675,11 @@ public class Model {
         existdao.actualizarExistencia(e);
     }
 
+     public void actualizarExistenciaSoliPendiente(SboTbExistencia e) throws Exception {
+        existdao.actualizarExistenciaSoliPendiente(e);
+    }
+    
+
 //    public ArrayList<SboTbSolixArti> listaReporte(String arti, String depa, String inicio, String fin) throws Exception {
 //
 //       
