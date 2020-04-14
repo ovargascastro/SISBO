@@ -17,6 +17,8 @@
         <%@ include file="/presentation/base.jsp" %>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
+        <link rel="stylesheet" href="assets/bootstrap/css/dataTables.bootstrap.min.css">
+        
     </head>
     <body style="background-color: rgb(255,255,255);" onload="cargarSelectsSolArt()">
        
@@ -27,51 +29,42 @@
                 <h1>Solicitud de Artículos</h1>
                 <p>Rellenar el formulario para realizar una solicitud de artículos en bodega</p>
                 <p></p>
+                
             </div>
+              
         </div>
-
-        <form id="formSolicitudArt" action="javascript:IngresarArticuloLista()">
-            <div class="card" id="formulario">
-                <div class="card-body">
-                    <h5 class="text-center">Seleccione el artículo y la cantidad deseada</h5>
-                    <div class="form-row">
-                        
-                          
-                              
-                                <input class="form-control" type="hidden" placeholder="departamento" id="departamento"  readonly="readonly">
-                                <input class="form-control" type="hidden" placeholder="idusuario" id="idusuario"  readonly="readonly">
-
-                         
-                            <div class="col">
-                                <label>Artículo</label>
-                                <select class="form-control" id="selectArt" onchange="getExistencias()" required>
-                                    <option values="0" selected disabled = "true">Seleccione una opcion</option>
-                                </select>
-                            </div>
-                             <div class="col">
-                                <label>Descripción</label>
-                                 <input class="form-control" type="text" placeholder="Descripción" id="descripcion">
-                            </div>
-                        
-                            <div class="col">
-                                <label>Existencias</label>
-                                <input class="form-control" type="text" placeholder="Existencias" readonly="readonly" id="cantidadExist">
-                            </div>
-                            <div class="col">
-                                <label>Cantidad</label>
-                                <input class="form-control" type="number" placeholder="Cantidad" id="cantidad" min="0" required>
-                            </div>
-                        </div>
-                        <div class="form-row text-center" id="rowBtnAgregar">
-                            <br>
-                            <div class="col">
-                                <button class="btn btn-primary text-center" id="btnAgregarArt" type="submit" >Agregar Articulo</button>
-                            </div>
-                        </div>
-                </div>
-            </div>
-        </form>
-        <form action="javascript:creaSolicitud()">
+ <div class="card" id="tablaCatalogos" style="background-color: rgb(255,255,255);">
+        <form>
+         
+        <input class="form-control" type="hidden" placeholder="departamento" id="departamento"  readonly="readonly">
+              <input class="form-control" type="hidden" placeholder="idusuario" id="idusuario"  readonly="readonly">
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripción</th>
+                <th>Marca</th>
+                <th>Bodega</th>
+                <th>Agregar</th>
+            </tr>
+        </thead>
+        <tbody id="ExistArti">
+         
+   </tbody>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                <th>Descripción</th>
+                <th>Marca</th>
+                <th>Bodega</th>
+                <th>Agregar</th>
+            </tr>
+        </tfoot>
+    </table>
+                 </form>
+</div>
+        
+        <form action="javascript:creaNuevaSolicitud()">
             <div class="card" id="formulario">
                 <div class="card-body">
                     
@@ -87,7 +80,6 @@
                                             <tr>
                                                 <th>Artículo</th>
                                                 <th>Descripción</th>
-                                                <th>Cantidad</th>
                                                 <th>Eliminar</th>
                                             </tr>
                                         </thead>
@@ -115,22 +107,54 @@
 
         </form>
         <script src="assets/js/jquery.min.js"></script>
+         <script src="assets/js/jquery-3.3.1.js"></script>
+        <script src="assets/js/dataTables.bootstrap.min.js"></script>
+        <script src="assets/js/jquery.dataTables.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/departamentos.js" type="text/javascript"></script>
         <script src="assets/js/solicitudArticulo.js" type="text/javascript"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </body>
 
 </html>
 
 <script>
-   document.getElementById("solicitudArtMenu").style.color = "white";
+ 
+    document.getElementById("solicitudArtMenu").style.color = "white";
     function cargarSelectsSolArt() {
         // selectDeptos();
-        mostrardepa();
-        selecArt();
+         mostrardepa();
+        ListaExistencias();
+       
+        //selecArt();
         depurarLocalStorage();
         mostraridUsuario();
+      
     }
+    
+       function listaExistencias(art) {
+        var listado = $("#ExistArti");
+        listado.html("");
+        art.forEach((a) => {
+            filaExistencias(listado, a);
+        });
+    }
+    var array = [];
+    var x; 
+    function filaExistencias(listado, articulo) {
+        var tr = $("<tr />");
+        tr.html(
+      "<td>" + articulo.id + "</td>"
+      + "<td>" + articulo.articulo.sboSicop.sicopDesc  + "</td>"
+      + "<td>" + articulo.articulo.artMarc + "</td>"
+      + "<td>" + articulo.sboTbBodega.bodeDesc + "</td>"
+      + "<td><img src='assets/img/plus.png' onclick='IngresarArticuloLista(\"" + articulo.id +"\",\"" + articulo.articulo.sboSicop.sicopDesc +"\");'></td>");
+        listado.append(tr);
+    $(document).ready(function() {
+    $('#example').DataTable();
+} );
+    }
+    
     function listaArtTemp(art) {
         var listado = $("#listArt");
         listado.html("");
@@ -141,6 +165,7 @@
     }
     var array = [];
     var x;
+    //cambiar la funcion de eliminar en la ultima columna
     function filaArtTemp(listado, articulo) {
         var tr = $("<tr />");
         tr.html(
@@ -163,39 +188,56 @@
         $("#idusuario").val(usu);    
     }
     
-    function IngresarArticuloLista(){
-        if(validar()){
-        insertarLista(generaSolXArti());
-        agregarSolXArtTabla();
-        }else{
-             alert("Cantidad solicitada es mayor a las existencias");
-              $("#cantidad").val("");
-        }
-        
-    }
     
-    function validar(){
-       
-        var cant = document.getElementById("cantidad").value;
-        var existencias =  document.getElementById("cantidadExist").value;
-        if(existencias < cant ){
-            return true;
-        }
-        return true;
-    }
-    
-    function generaSolXArti(){
+      function generaSolXArti(id,desc){
         var soliXarti = {
-            sboSicop: [{sicopId: $("#selectArt").val(), sicopDesc: $( "#selectArt option:selected").text()}],
-            solArtiCant: $("#cantidad").val(),
-            solArtiDeta: $("#descripcion").val()
+            existencia:[{id:id}],
+            solArtiDeta: desc
         };
+         console.log("generaSOl paso 2" );
         return soliXarti;
+       
+    }
+    
+    function IngresarArticuloLista(id,desc){
+        
+   console.log("IngresaArti paso 1");
+   
+        insertarLista(generaSolXArti(id,desc));
+        agregarSolXArtTabla();
+ 
     }
     
     function insertarLista(objeto){
-        window.localStorage.setItem($("#selectArt").val(), JSON.stringify(objeto));
+          console.log("Inserta paso 3");
+       // console.log(comprueba(objeto.existencia));
+       if(comprueba(objeto.existencia[0].id)===false){
+              window.localStorage.setItem(objeto.existencia[0].id, JSON.stringify(objeto)); 
+     swal("Articulo Agregado..!", "Correctamente!!", "success");
+   
+        }
+          else{
+                swal("Error!", "Articulo ya ingresado en la solicitud ", "error");
+            }
+             
+        }
+  
+function comprueba(exist){
+    var bandera=false;
+    var objeto0=JSON.parse(exist);
+   console.log("comprueba paso 4");
+    for(var i = 0; i < localStorage.length; i++){
+   var objeto1 = JSON.parse(localStorage.key(i));
+    console.log(exist);
+    console.log(objeto1);
+    if(objeto0 === objeto1){
+        bandera=true;
+        //return true;
+       // 
     }
+}
+   return bandera;
+}
     
     function agregarSolXArtTabla(){
         $("#listArt").empty();
@@ -205,26 +247,35 @@
     function insertaElemento() {
         for (var i = 0; i < localStorage.length; i++){
             var objeto = JSON.parse(localStorage.getItem(localStorage.key(i)));
-            var tr = $("<tr id=" + objeto.sboSicop[0].sicopId + " />");
+            var tr = $("<tr id=" + objeto.existencia  + " />");
             tr.html(
-                "<td>" + objeto.sboSicop[0].sicopDesc + "</td>"
+                "<td>" + objeto.existencia[0].id + "</td>"
                 + "<td>" + objeto.solArtiDeta + "</td>"
-                + "<td>" + objeto.solArtiCant + "</td>"
-                + "<td><img src='assets/img/trash-delete.png' onclick='eliminarArticulo(\"" + objeto.sboSicop[0].sicopId + "\");'></td>");
+                + "<td><img src='assets/img/trash-delete.png' onclick='eliminarArticulo(\"" + objeto.existencia[0].id + "\");'></td>");
             $("#listArt").append(tr);
         }
-        limpiaEspacios();
+        //limpiaEspacios();
    }
    
    function creaNuevaSolicitud(){
-       creaSolicitud();
+       console.log(localStorage.length);
+       if(localStorage.length>0){
+       creaSolicitud();}
+   else{
+     swal("Error!", "Ingrese Articulos en la Solicitud", "error");
+}
    }
    
    function ingresaIdSoli(id){
         for (var i = 0; i < localStorage.length; i++){
             var objeto = JSON.parse(localStorage.getItem(localStorage.key(i)));
+             console.log("ingresaid");
+             console.log(objeto);
             objeto['sboTbSoliArti'] = [{solArtiIdPk: id}];
-            localStorage.setItem(objeto.sboSicop[0].sicopId, JSON.stringify(objeto));
+            localStorage.setItem(objeto.existencia[0].id, JSON.stringify(objeto));
+            
+              console.log(id);
+            console.log(objeto);
         }
         insertaListaSoliXArti();
    }
@@ -232,10 +283,12 @@
     function insertaListaSoliXArti(){
         for (var i = 0; i < localStorage.length; i++){
             var objeto = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            console.log("insertalista");
+             console.log(objeto);
             funcionAuxiliar(objeto);
         }
         limpiartabla();
-        limpiaEspacios();
+        
         depurarLocalStorage();
     }
    
@@ -252,6 +305,10 @@
     }
     
     function completar(){
+          swal("Solicitud creada..!", "Correctamente!!", "success");
+    setTimeout(function(){
+        window.location = "presentation/general/solicitudes.jsp";
+    },2000);
         
     }
     
@@ -260,8 +317,8 @@
     }
     
     function eliminarArticulo(id){
-        $('#' + id + '').remove();
         window.localStorage.removeItem(id);
+         agregarSolXArtTabla();
     }
     
     function depurarLocalStorage(){

@@ -35,6 +35,7 @@ public class ArituculoXSolicitudTemporal {
     @Context
 //    private UriInfo context;
     
+    //restful para listar los articulos que pertenecen a una solicitud temporal
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<SboTbSolixArti> search(@QueryParam("temporales") String cedula) {
@@ -51,6 +52,7 @@ public class ArituculoXSolicitudTemporal {
         return null;
     }
     
+    //restful para mostrar las articulos de una  solicitud temporal por id
     @GET
     @Path("{filtro}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

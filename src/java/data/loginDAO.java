@@ -29,6 +29,8 @@ public class loginDAO {
         db = new RelDatabase();
     }
 
+    
+    //se ejecuta sisbologin en la base de datos para el inicio de sesion
     public AbaaTbPersona logged(String user, String password) throws SQLException, Exception {
 
 //            String sql = "execute sisboLogin ?,?;";
@@ -52,7 +54,7 @@ public class loginDAO {
         }
         return null;
     }
-
+// se crea el objeto persona
     private AbaaTbPersona persona(ResultSet rs) {
         try {
             AbaaTbPersona ob = new AbaaTbPersona();
@@ -69,7 +71,7 @@ public class loginDAO {
         }
 
     }
-
+// se crea el objeto departamento
     private AbaaTbDepartamento departamento(ResultSet rs) {
         try {
             AbaaTbDepartamento ob = new AbaaTbDepartamento();
@@ -80,7 +82,7 @@ public class loginDAO {
             return null;
         }
     }
-
+// se crea un objeto de tipo RolxPermiso ******
     private AbaaTbRolxPermiso RolxPermiso(ResultSet rs) {
         try {
             AbaaTbRolxPermiso ob = new AbaaTbRolxPermiso();

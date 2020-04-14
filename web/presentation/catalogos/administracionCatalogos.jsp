@@ -59,7 +59,9 @@
                             </form>
                         </div>
                         <div class="col">
-                            <h4>Agregar Registro a un catálogo</h4><br><br><button class="btn btn-primary" type="button" onclick="javascript:agregarACatalogo()">Registrar</button></div>
+                            <h4>Agregar Registro a un catálogo</h4><br><br>
+                            <button class="btn btn-primary" type="button" onclick="javascript:agregarACatalogo()">Registrar</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -338,7 +340,7 @@
         <script src="assets/js/catalogos.js" type="text/javascript"></script>
     </body>
     <script>
- document.getElementById("CatalogosMenu").style.color = "white";
+                        document.getElementById("CatalogosMenu").style.color = "white";
 
                         function listaFam(personas) {
                             var listado = $("#listado");
@@ -457,34 +459,34 @@
 
                             }
                         }
-                        
-                        
-function myFunction() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("filtro");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[1];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
 
-function logged() {
-    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
-    <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("17") && !aux.getDepartamento().getDeptoIdPk().equals("5") &&
-            !aux.getDepartamento().getDeptoIdPk().equals("8") ) { %>
-        location.href = "presentation/notAccess.jsp";
-    <%}%>
-    }
+
+                        function myFunction() {
+                            var input, filter, table, tr, td, i, txtValue;
+                            input = document.getElementById("filtro");
+                            filter = input.value.toUpperCase();
+                            table = document.getElementById("myTable");
+                            tr = table.getElementsByTagName("tr");
+                            for (i = 0; i < tr.length; i++) {
+                                td = tr[i].getElementsByTagName("td")[1];
+                                if (td) {
+                                    txtValue = td.textContent || td.innerText;
+                                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                        tr[i].style.display = "";
+                                    } else {
+                                        tr[i].style.display = "none";
+                                    }
+                                }
+                            }
+                        }
+
+                        function logged() {
+        <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+        <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("17") && !aux.getDepartamento().getDeptoIdPk().equals("5")
+                && !aux.getDepartamento().getDeptoIdPk().equals("8")) { %>
+                            location.href = "presentation/notAccess.jsp";
+        <%}%>
+                        }
 
     </script>
 </html>

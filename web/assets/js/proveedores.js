@@ -1,3 +1,4 @@
+//se listan los datos de los proveedores en el select
 function selectProveedores() {
     $.ajax({type: "GET",
         url: "api/proveedores/orden",
@@ -11,7 +12,7 @@ function selectProveedores() {
         }
     });
 }
-
+//se listan los proveedores 
 function selecProve() {
     var id = document.getElementById("selectProveedores").value;
     $.ajax({type: "GET",
@@ -22,7 +23,7 @@ function selecProve() {
         }
     });
 }
-
+//se muestran los datos de los proveedores
 function mostrarProveedor(prove) {
     $("#codigoProveedor").val(prove.proveCodigo);
     $("#email").val(prove.proveCorreo);
@@ -30,7 +31,7 @@ function mostrarProveedor(prove) {
     $("#Telefono").val(prove.proveTelefono);
     $("#Fax").val(prove.proveFax);
 }
-
+//se limpia la opcion seleccionada en el select
 function resetearSelectProveedores(selectbox)
 {
     var i;
@@ -40,7 +41,7 @@ function resetearSelectProveedores(selectbox)
     }
 }
 
-
+//se buscan proveedor por id
 function buscarProvs() {
     $.ajax({type: "GET",
 //        url:"api/proveedores/api/subfamilias/" + filtro,
@@ -48,7 +49,7 @@ function buscarProvs() {
         success: listaProvs
     });
 }
-
+//se muesta informacion de proveedor
 function infoProveedor(id) {
 
     variableProveedorActual = id;
@@ -63,7 +64,7 @@ function infoProveedor(id) {
 }
 
 
-
+//se muestran los datos de los proveedores
 function mostrarProv(prov) {
 
     //cedAuxiliar = per.cedula;
@@ -78,12 +79,12 @@ function mostrarProv(prov) {
     mostrarModalInfoProv();
 
 }
-
+//se hace visible el modal de proveedores
 function mostrarModalInfoProv() {
     $('#modalProveedor').modal('show');
     // document.getElementById('infopersonal').style.display = 'block';
 }
-
+//se mustra modal con informacion de proveedor
 function mostrarModalInfoProvAgregar() {
     $('#agregarProv').trigger("reset");
     $('#modalProveedorAgreg').modal('show');
@@ -91,7 +92,7 @@ function mostrarModalInfoProvAgregar() {
 
 
 
-
+//se modifican los datos de un proveedor con los ingresados por el usuario
 function actualizarProveedor() {
 
 
@@ -119,7 +120,7 @@ function actualizarProveedor() {
 }
 
 
-
+//se agrega un proveedor nuevo con todos sus datos
 function agregarProveedor() {
 
     if (confirm("Desea agregar el registro actual?")) {
@@ -145,7 +146,7 @@ function agregarProveedor() {
 
 
 
-
+//depues de crear un proveedor se limpian los campos de txto y se esconde el modal
 function afterCreateProv() {
 
     $('#agregarProv').trigger("reset");
@@ -157,7 +158,7 @@ function afterCreateProv() {
 
 
     
-
+//datos de inicio de sesion
 $(document).ready(function () {
     logged();
 });

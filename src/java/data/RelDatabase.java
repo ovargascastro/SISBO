@@ -26,7 +26,7 @@ public class RelDatabase {
     public RelDatabase() {
         cnx = this.getConnection();
     }
-
+// se crea la conexion de la base de datos
     public Connection getConnection() {
         try {
             Properties prop = new Properties();

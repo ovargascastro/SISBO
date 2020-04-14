@@ -1,4 +1,4 @@
-
+//se listan los departamentos existentes en la base de datos
 function selectDeptos() {
     $.ajax({type: "GET",
         url: "api/departamentos",
@@ -12,7 +12,7 @@ function selectDeptos() {
         }
     });
 }
-
+//se limpia la opcion seleccionada en el select
 function resetearSelectDeptos(selectbox)
 {
     var i;

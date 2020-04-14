@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-
+//funcion para realizar el incio de sesion
 function login() {
 
     $.ajax({type: "GET",
@@ -14,7 +14,7 @@ function login() {
     });
 
 }
-
+// error que se muestra al ingresar datos incorrectos
 function noEncontrado(){
     var user=$("#user").val();
     
@@ -23,7 +23,7 @@ function noEncontrado(){
     $('#loginError').modal('show');
     
 }
-
+//se envia a la pagina principal
 function redirigir() {
 
     location.href = "index.jsp"; 

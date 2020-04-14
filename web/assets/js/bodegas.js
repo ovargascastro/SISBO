@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 
-
+// se muestra el modal para agregar una bodega
 function modalAgregaBodega() {
 
     $('#modalAgregarBodega').modal('show');
 
 }
 
+//funcion para ejecutar los metodos necesarios para agregar una bodega en la base de datos
 function agregarBodega() {
 
     if (confirm("Desea agregar el registro actual?")) {
@@ -30,6 +31,8 @@ function agregarBodega() {
     }
 }
 
+// se ejecuta cuando la funcion agregarBodega() es exitosa y se esconde el modal
+// para agregar una bodega y se limpian los campos de texto
 function afterCreateBodega() {
 
     $('#modalAgregarBodega').modal('hide');
@@ -38,7 +41,7 @@ function afterCreateBodega() {
 
 }
 
-
+// funcion necesaria para mostrar las bodegas en la tabla
 function listaBodega(personas) {
     var listado = $("#listado");
     listado.html("");
@@ -46,7 +49,7 @@ function listaBodega(personas) {
         fila(listado, p);
     });
 }
-
+//se ejectura en caso de que la funcion listaBodega se invoque
 function fila(listado, objeto) {
     var tr = $("<tr />");
     tr.html(
@@ -58,24 +61,31 @@ function fila(listado, objeto) {
 
 }
 
+
+// se elimina la bodega seleccionada 
+// en este caso solo se realiza un bloqueo de la bodega y 
+//no se mostrara en la lista de bodegas
 var bodegaActual;
 function eliminarBodega(bodega) {
     $('#modalEliminar').modal('show');
     bodegaActual = bodega;
 }
 
+
+//alerta al "eliminar" una bodega
 function deleteBodega() {
 
     alert(bodegaActual);
 }
 
+//funcion donde se buscaran las bodegas existentes en la base de datos por medio del id 
 function buscarBodegas() {
     $.ajax({type: "GET",
         url: "api/BodegaListaOC?filtro=" + $("#filtro").val(),
         success: listaBodega
     });
 }
-
+// se ejecuta la funcion anterior
 $(document).ready(function () {
     buscarBodegas();
 });
@@ -100,7 +110,8 @@ function myFunction() {
     }
 }
 
-
+// se hara el bloqueo del registro de la bodega 
+// y no se mostrara mas en la lista 
 function deleteBodega() {
 
 
@@ -120,7 +131,7 @@ function deleteBodega() {
     }
 
 }
-
+// se oculta el modal de eliminar
 function ocultarDelete() {
 
     $('#modalEliminar').modal('hide');
@@ -128,6 +139,7 @@ function ocultarDelete() {
 
 }
 
+// se obtiene la informacion de la bodega seleccionada
 var bodegaEdicion;
 function infoBode(id) {
 
@@ -144,13 +156,15 @@ function infoBode(id) {
 
 
 
-
+//se obtiene los datos correspendientes a la bodega seleccionada
 function mostrarBodega(bodega) {
     $("#bodeUbi").val(bodega.bodeUbic);
     $("#bodeDesc").val(bodega.bodeDesc);
     $('#modalEditarBode').modal('show');
 }
 
+// se realiza las modificaciones especificadas por el usuario
+//se actualiza la bodega seleccionada en la base de datos
 function actualizarBodega() {
 
 
@@ -173,6 +187,7 @@ function actualizarBodega() {
 
 }
 
+// se oculta el modal de editar bodega
 function ocultarActualizarBodega() {
 
     $('#modalEditarBode').modal('hide');

@@ -68,6 +68,7 @@
                 </div>
             </div>
         </div>
+        
 
                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="listaArtxSol">
             <div class="modal-dialog modal-lg">
@@ -83,7 +84,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>Artículo<br><br></th>
-                                                    <th>Cantidad<br><br></th>
+                                                    <th>Marca<br><br></th>
+                                                    <th>Descripción<br><br></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="listaArticulosSolicitudPendientes">
@@ -99,7 +101,7 @@
             </div>
         </div>
         
-        
+       
         
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>

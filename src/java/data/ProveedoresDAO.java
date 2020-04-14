@@ -24,6 +24,7 @@ public class ProveedoresDAO {
         db = new RelDatabase();
     }
     
+   // se crea un objeto proveedor 
     private AbaaTbProveedor proveedor(ResultSet rs) {
         try {
             AbaaTbProveedor ob = new AbaaTbProveedor();
@@ -40,6 +41,7 @@ public class ProveedoresDAO {
         }
 
     }
+    // se lista los proveedores existentes 
     public List<AbaaTbProveedor> listaProveedor() {
         List<AbaaTbProveedor> resultado = new ArrayList<AbaaTbProveedor>();
         try {
@@ -69,7 +71,7 @@ public class ProveedoresDAO {
 //    }
         
         
-        
+        // se busca el proveedor por nombre
             public List<AbaaTbProveedor> listaProveedorFiltro(String filtro) {
         List<AbaaTbProveedor> resultado = new ArrayList<AbaaTbProveedor>();
         try {
@@ -83,7 +85,7 @@ public class ProveedoresDAO {
         }
         return resultado;
     }
-            
+            //se actualiza los atributos del proveedor 
            public void actualizarProveedor(AbaaTbProveedor objeto) throws Exception {
         String query = "update ABAA_TB_Prove set Prove_Codi = ?, Prove_Cedu = ?, Prove_Tele = ?, Prove_Corre = ?, "
                 + "Prove_Fax = ?, Prove_Nomb = ? where Prove_Id_Prove_PK = ?";
@@ -99,7 +101,7 @@ public class ProveedoresDAO {
         db.getConnection().close();
     }     
            
-    
+    // se selecciona un proveedor por id
     public AbaaTbProveedor getProveedor(int id) throws Exception {
         String sql = "select * from ABAA_TB_Prove where Prove_Id_Prove_PK='%s'";
         sql = String.format(sql, id);
