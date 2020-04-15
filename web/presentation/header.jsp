@@ -270,8 +270,6 @@
     $(document).ready(function () {
         $(".dropdown-toggle").dropdown();
     });
-<<<<<<< HEAD
+
 </script>
-=======
-</script>
->>>>>>> 05c8306a054258bed22b5579cd8a6e055ad1e814
+

@@ -21,7 +21,7 @@ import logic.SboTbExistencia;
 
 @Path("Existencias")
 public class Existencias {
-
+/*
     @Context
     private UriInfo context;
     private static String bode;
@@ -83,6 +83,6 @@ public class Existencias {
         return lista;
     }
 
-
+*/
 }
 

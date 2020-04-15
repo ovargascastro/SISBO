@@ -64,15 +64,7 @@ function ListaExistencias() {
 }
 
 
-<<<<<<< HEAD
 
-
-
-=======
-
-
-
->>>>>>> 05c8306a054258bed22b5579cd8a6e055ad1e814
 //se listan los datos agregados a la solicitud temporal
 function buscar() {
     $.ajax({type: "GET",
@@ -876,8 +868,7 @@ function mostrarDatosArt(objeto) {
     $("#SicopInfo").val(objeto.sboSicop.sicopDesc);
 
 }
-<<<<<<< HEAD
-=======
+
 
 function actualizarEstadoSoli(id) {
     
@@ -897,4 +888,3 @@ function actualizarEstadoSoli(id) {
 }
 
 
->>>>>>> 05c8306a054258bed22b5579cd8a6e055ad1e814

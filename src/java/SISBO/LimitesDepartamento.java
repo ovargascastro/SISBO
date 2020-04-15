@@ -31,6 +31,13 @@ import logic.SboTbLimiteDpto;
 
 @Path("limiDepa")
 public class LimitesDepartamento {
+    
+    @Context
+    private UriInfo context;
+    private static String arti;
+    private static String dpt;
+    
+    
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void agregarlimites(SboTbLimiteDpto limi) {
@@ -44,10 +51,13 @@ public class LimitesDepartamento {
     @GET
     @Path("{depto}/{arti}")
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    public List<SboTbLimiteDpto> listLimites(@PathParam("depto") String depa, @PathParam("arti") String arti) throws ClassNotFoundException, SQLException {
+    public List<SboTbLimiteDpto> listLimites(@PathParam("depto") String x, @PathParam("arti") String y) throws ClassNotFoundException, SQLException, Exception {
         
-       String depart = depa;
-       String artic = arti;
+       String depart = x;
+       String artic = y;
+       dpt = depart;
+       arti = artic;
+       
        List<SboTbLimiteDpto> lista = Model.instance().listaLimites(depart, artic);
        
        return lista;

@@ -92,7 +92,6 @@
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-<<<<<<< HEAD
                             <a class="nav-link dropdown-toggle" href="#" id="limitesMenu" data-toggle="dropdown">Limites </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/bodega/limitesdepartamento.jsp">Mantenimiento de limtes por departamento</a>
@@ -100,8 +99,6 @@
                         </div>
                         
                         <div class="nav-item dropdown">
-=======
->>>>>>> 05c8306a054258bed22b5579cd8a6e055ad1e814
                             <a class="nav-link dropdown-toggle" href="#" id="bodegasMenu" data-toggle="dropdown">Bodegas </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/bodega/bodegas.jsp">Mantenimiento de Bodegas</a>
@@ -273,8 +270,6 @@
     $(document).ready(function () {
         $(".dropdown-toggle").dropdown();
     });
-<<<<<<< HEAD
+
 </script>
-=======
-</script>
->>>>>>> 05c8306a054258bed22b5579cd8a6e055ad1e814
+
