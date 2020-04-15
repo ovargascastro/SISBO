@@ -29,14 +29,14 @@
                     <div class="row" aling="center">
                         <div class="col text-center">
                             <h4 class="text-center">Buscar</h4>
-                            <form id="buscarSicop" action="javascript:getExistencias()">
+                            <form id="buscarSicop" action="javascript:getLimites()">
                                <div class="form-row">
                                         <div class="col">
                                             <label>Departamento</label>
                                             <select class="form-control" id="SelectDptos">
                                             </select>
                                             <label>Artículo</label>
-                                            <select id="selectSicop" class="form-control" >
+                                            <select class="form-control" id="selectSicop">
                                             </select>
                                         </div>
                                         <div class="col text-center">
@@ -66,7 +66,7 @@
                                             <tr>
                                                 <th>Departamento</th>
                                                 <th>Artículo</th>
-                                                <th>Cantidad</th>
+                                                <th>Límite</th>
                                                 <th>Editar</th>
                                                 <th>Eliminar</th>
                                             </tr>
@@ -133,7 +133,7 @@
 
 
 
-        <form id="agregaBodega" action="javascript:agregarBodega()">
+        <form id="agregaBodega" action="javascript:agregarLimite()">
             <div class="modal fade" role="dialog" tabindex="-1" id="modalAgregarBodega">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -148,13 +148,17 @@
                                     <div class="form-row">
                                         <div class="col">
                                              <label>Departamento</label>
-                                           <select class="form-control" id="SelectDptos">
+                                            <select class="form-control" id="SelectDptosAdd">
                                             </select>
                                         </div>
                                         <div class="col">
                                              <label>Artículo</label>
-                                             <select class="form-control" id="SelectSicop">
+                                             <select class="form-control" id="SelectSicopAdd">
                                             </select>
+                                        </div>
+                                        <div class="col">
+                                             <label>Límite</label>
+                                             <input type="text" class="form-control" id="LimiteAdd">
                                         </div>
                                     </div>
                             </div>
