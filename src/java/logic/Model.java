@@ -695,6 +695,10 @@ public class Model {
     public List<SboTbLimiteDpto> listaLimites (String x, String y) throws Exception{
         return limiDAO.listaLimites(x, y);
     }
+    
+    public SboTbLimiteDpto getLimite (String x, String y) throws Exception{
+        return limiDAO.getLimite(x, y);
+    }
 
 //    public ArrayList<SboTbSolixArti> listaReporte(String arti, String depa, String inicio, String fin) throws Exception {
 //

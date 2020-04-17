@@ -63,6 +63,24 @@ public class LimitesDepartamento {
        return lista;
     }
     
+    /*@GET
+    @Path("{depto}/{arti}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public SboTbLimiteDpto ReadLimite(@PathParam("depto") String x, @PathParam("arti") String y) throws ClassNotFoundException, SQLException, Exception {
+        SboTbLimiteDpto limite = new SboTbLimiteDpto();
+        try {
+            String depart = x;
+            String artic = y;
+            dpt = depart;
+            arti = artic;
+            
+           limite = Model.instance().getLimite(depart, artic);
+           
+        } catch (Exception e) {
+        }
+        return limite;
+    }
+    */
     
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
@@ -73,15 +91,8 @@ public class LimitesDepartamento {
         }
     }
     
-    /*@GET
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void ReadLimites(String limi, String limi2){
-        try {
-            Model.instance().getLimites(limi, limi2);
-        } catch (Exception e) {
-        }
-    }
-    */
+    
+    
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void updateLimites(SboTbLimiteDpto limi){
