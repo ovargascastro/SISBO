@@ -126,7 +126,7 @@ function fila(listado, objeto) {
             + "<td>" + objeto.sboSicop.sicopDesc + "</td>"
             + "<td>" + objeto.limite + "</td>"
             + "<td><img src='assets/img/edit.png' onclick='infoLimi(\"" + objeto.abaaTbDepartamento.deptoIdPk + "\",\"" + objeto.sboSicop.sicopId + "\");'></td>"
-            + "<td><img src='assets/img/trash-delete.png' onclick='eliminarLimite(\"" + objeto.abaaTbDepartamento.deptoIdPk + "\"\"" + objeto.sboSicop.sicopId + "\");'></td>");
+            + "<td><img src='assets/img/trash-delete.png' onclick='eliminarLimite(\"" + objeto.abaaTbDepartamento.deptoIdPk + "\",\"" + objeto.sboSicop.sicopId + "\");'></td>");
     listado.append(tr);
 }
 
@@ -191,20 +191,19 @@ var artActual;
 function eliminarLimite(limite,limite2) {
     $('#modalEliminar').modal('show');
     dptActual = limite;
+    $("#DeleteDepa").val(limite);
     artActual = limite2;
+    $("#DeleteArti").val(limite2);
     
 }
 
 function deleteLimite() {
 
-    $('#modalEliminar').modal('show');
     
     if (confirm("Desea eliminar el registro actual?")) {
         SboTbLimiteDpto = {
-            abaaTbDepartamento: {deptoIdPk: $("#EditDepa").val()},
-            sboSicop: { sicopId: $("#EditArti").val()},
-            limite:$("#EditLimi").val()
-            
+            abaaTbDepartamento: {deptoIdPk: $("#DeleteDepa").val()},
+            sboSicop: { sicopId: $("#DeleteArti").val()}
         };
         $.ajax({type: "DELETE",
             url: "api/limiDepa;charset=UTF-8",

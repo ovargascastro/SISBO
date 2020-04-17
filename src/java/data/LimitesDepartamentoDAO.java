@@ -133,11 +133,10 @@ public class LimitesDepartamentoDAO {
      
      public void deleteLimites(SboTbLimiteDpto s) throws SQLException {
 
-        String query = "delete SIBO_TB_Limi_Depa=? where Limi_Depa_Id_Dpto_PK = ? and Limi_Depa_Id_Sico_PK = ?";
+        String query = "delete SIBO_TB_Limi_Depa where SIBO_TB_Limi_Depa.Limi_Depa_Id_Dpto_PK = ? and SIBO_TB_Limi_Depa.Limi_Depa_Id_Sico_PK= ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
-        preparedStmt.setInt(1, s.getLimite());
-        preparedStmt.setString(2, s.getAbaaTbDepartamento().getDeptoIdPk());
-        preparedStmt.setInt(3,s.getSboSicop().getSicopId());
+        preparedStmt.setString(1, s.getAbaaTbDepartamento().getDeptoIdPk());
+        preparedStmt.setInt(2,s.getSboSicop().getSicopId());
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }

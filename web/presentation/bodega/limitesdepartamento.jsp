@@ -90,10 +90,22 @@
                     </div>
                     <div class="modal-body">
                         <p>Desea eliminar el registro seleccionado?</p>
+                        <div class="form-row">
+                                        <div class="col">    
+                                            <input class="form-control" type="text" id="DeleteDepa" hidden="true"  required>
+                                        </div>
+                                        <div class="col">
+                                            <input class="form-control" type="text" id="DeleteArti" hidden="true" required>
+                                        </div>
+                                        <div class="col">
+                                             <input type="text" class="form-control" id="DeleteLimi" hidden="true" >
+                                        </div>
+                                        
+                                    </div>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button>
-                        <button class="btn btn-primary bg-danger" type="button" onclick="javascript:deleteLimite();">Eliminar</button>
+                        <button class="btn btn-primary bg-danger" type="button" onclick="javascript:deleteLimite()">Eliminar</button>
                     </div>
                 </div>
             </div>
