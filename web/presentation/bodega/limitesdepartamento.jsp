@@ -126,11 +126,13 @@
                                     <div class="form-row">
                                         <div class="col">
                                             <label>Departamento</label>
-                                            <input class="form-control" type="text" id="EditDepa"  required>
+                                            <input class="form-control" type="text" id="EditDepa" hidden="true" required>
+                                            <input class="form-control" type="text" id="EditDepa2" disabled="true"  required>
                                         </div>
                                         <div class="col">
                                             <label>Artículo</label>
-                                            <input class="form-control" type="text" id="EditArti"  required>
+                                            <input class="form-control" type="text" id="EditArti" hidden="true"  required>
+                                            <input class="form-control" type="text" id="EditArti2" disabled="true"  required>
                                         </div>
                                         <div class="col">
                                              <label>Límite</label>

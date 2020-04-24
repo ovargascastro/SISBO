@@ -149,7 +149,9 @@ function infoLimi(id,id2) {
 
 function mostrarLimite(objeto) {
     $("#EditDepa").val(objeto[0].abaaTbDepartamento.deptoIdPk);
+    $("#EditDepa2").val(objeto[0].abaaTbDepartamento.deptoNomb);
     $("#EditArti").val(objeto[0].sboSicop.sicopId);
+    $("#EditArti2").val(objeto[0].sboSicop.sicopDesc);
     $("#EditLimi").val(objeto[0].limite);
     $('#modalEditarLimi').modal('show');
 }

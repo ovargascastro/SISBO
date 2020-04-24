@@ -52,14 +52,17 @@ public class LimitesDepartamento {
     @Path("{depto}/{arti}")
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     public List<SboTbLimiteDpto> listLimites(@PathParam("depto") String x, @PathParam("arti") String y) throws ClassNotFoundException, SQLException, Exception {
-        
+     //  List<SboTbLimiteDpto> lista = (List<SboTbLimiteDpto>) new SboTbLimiteDpto(); 
        String depart = x;
        String artic = y;
        dpt = depart;
        arti = artic;
-       
-       List<SboTbLimiteDpto> lista = Model.instance().listaLimites(depart, artic);
-       
+    //   if(arti== null){
+     // lista = Model.instance().listaLimitesxDepartamento(depart);
+    //   }
+   //    else{
+     List<SboTbLimiteDpto>  lista = Model.instance().listaLimites(depart, artic);
+   //    }
        return lista;
     }
     

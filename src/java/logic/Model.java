@@ -696,6 +696,10 @@ public class Model {
         return limiDAO.listaLimites(x, y);
     }
     
+    public List<SboTbLimiteDpto> listaLimitesxDepartamento (String x) throws Exception{
+        return limiDAO.listaLimitesxDepartamento(x);
+    }
+    
     public SboTbLimiteDpto getLimite (String x, String y) throws Exception{
         return limiDAO.getLimite(x, y);
     }
