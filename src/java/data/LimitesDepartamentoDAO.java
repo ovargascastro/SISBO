@@ -139,6 +139,25 @@ public class LimitesDepartamentoDAO {
         return resultado;
     }
      
+    public List<SboTbLimiteDpto> listaLimitesxArti(String sicop) {
+        List<SboTbLimiteDpto> resultado = new ArrayList<SboTbLimiteDpto>();
+        try {
+            String sql = "select  depa.Cata_Depa_nomb, sicop.Sico_Desc, sicop.Sico_Id_PK, limi.Limi_Depa_limi, \n" +
+                        "limi.Limi_Depa_Id_Dpto_PK, limi.Limi_Depa_Id_Sico_PK "+ 
+                        "from SIBO_Tb_Sicop sicop, ABAA_TB_Catalogo_Departamento depa, SIBO_TB_Limi_Depa limi\n" +
+                        "where sicop.Sico_Id_PK = limi.Limi_Depa_Id_Sico_PK \n" +
+                        " and limi.Limi_Depa_Id_Dpto_PK = depa.Cata_Depa_id_PK\n" +
+                        " and sicop.Sico_Id_PK ="+ sicop +";";
+           sql = String.format(sql,sicop);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(limites3(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    } 
+     
      public void updateLimites(SboTbLimiteDpto depa) throws SQLException {
 
         String query = "update SIBO_TB_Limi_Depa set Limi_Depa_limi=? where Limi_Depa_Id_Dpto_PK = ? and Limi_Depa_Id_Sico_PK = ?";

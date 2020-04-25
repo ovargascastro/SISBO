@@ -34,9 +34,11 @@
                                         <div class="col">
                                             <label>Departamento</label>
                                             <select class="form-control" id="SelectDptos">
+                                                 <option value="0">Sin Departamento</option>
                                             </select>
                                             <label>Artículo</label>
                                             <select class="form-control" id="selectSicop">
+                                                <option value="0">Sin Artículo</option>
                                             </select>
                                         </div>
                                         <div class="col text-center">

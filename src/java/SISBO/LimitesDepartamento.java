@@ -12,6 +12,7 @@ package SISBO;
 
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -52,17 +53,21 @@ public class LimitesDepartamento {
     @Path("{depto}/{arti}")
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     public List<SboTbLimiteDpto> listLimites(@PathParam("depto") String x, @PathParam("arti") String y) throws ClassNotFoundException, SQLException, Exception {
-     //  List<SboTbLimiteDpto> lista = (List<SboTbLimiteDpto>) new SboTbLimiteDpto(); 
+    ArrayList <SboTbLimiteDpto> lista = new ArrayList<>();
+    
        String depart = x;
        String artic = y;
        dpt = depart;
        arti = artic;
-    //   if(arti== null){
-     // lista = Model.instance().listaLimitesxDepartamento(depart);
-    //   }
-   //    else{
-     List<SboTbLimiteDpto>  lista = Model.instance().listaLimites(depart, artic);
-   //    }
+        if(arti.equals("0")){
+            lista = (ArrayList<SboTbLimiteDpto>) Model.instance().listaLimitesxDepartamento(depart);
+       }
+        else if(dpt.equals("0")){
+            lista = (ArrayList<SboTbLimiteDpto>) Model.instance().listaLimitesxArti(arti);
+       }
+        else{
+            lista = (ArrayList<SboTbLimiteDpto>) Model.instance().listaLimites(depart, artic);
+        }
        return lista;
     }
     

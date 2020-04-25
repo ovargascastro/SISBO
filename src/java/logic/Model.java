@@ -700,6 +700,10 @@ public class Model {
         return limiDAO.listaLimitesxDepartamento(x);
     }
     
+    public List<SboTbLimiteDpto> listaLimitesxArti (String x) throws Exception{
+        return limiDAO.listaLimitesxArti(x);
+    }
+    
     public SboTbLimiteDpto getLimite (String x, String y) throws Exception{
         return limiDAO.getLimite(x, y);
     }
