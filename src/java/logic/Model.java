@@ -674,11 +674,27 @@ public class Model {
     public void eliminaExistencia(SboTbExistencia e) throws Exception {
         existdao.actualizarExistencia(e);
     }
-    
-     public void actualizarExistenciaSoliPendiente(SboTbExistencia e) throws Exception {
+
+    public void actualizarExistenciaSoliPendiente(SboTbExistencia e) throws Exception {
         existdao.actualizarExistenciaSoliPendiente(e);
     }
     
+    public void agregarLimite(SboTbLimiteDpto e) throws Exception{
+        limiDAO.insertLimites(e);
+    }
+    
+    public void deleteLimite(SboTbLimiteDpto e) throws Exception{
+        limiDAO.deleteLimites(e);
+    }
+    
+    
+    public void updateLimite(SboTbLimiteDpto e) throws Exception{
+        limiDAO.updateLimites(e);
+    }
+    
+    public List<SboTbLimiteDpto> listaLimites (String x, String y) throws Exception{
+        return limiDAO.listaLimites(x, y);
+    }
 
 //    public ArrayList<SboTbSolixArti> listaReporte(String arti, String depa, String inicio, String fin) throws Exception {
 //

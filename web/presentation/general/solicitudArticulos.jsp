@@ -142,13 +142,21 @@
     var array = [];
     var x; 
     function filaExistencias(listado, articulo) {
+<<<<<<< HEAD
+        var tr = $("<tr />");
+=======
        var tr = $("<tr id=" + articulo.id +"e"  + " />");
+>>>>>>> 05c8306a054258bed22b5579cd8a6e055ad1e814
         tr.html(
       "<td>" + articulo.id + "</td>"
       + "<td>" + articulo.articulo.sboSicop.sicopDesc  + "</td>"
       + "<td>" + articulo.articulo.artMarc + "</td>"
       + "<td>" + articulo.sboTbBodega.bodeDesc + "</td>"
+<<<<<<< HEAD
+      + "<td><img src='assets/img/plus.png' onclick='IngresarArticuloLista(\"" + articulo.id +"\",\"" + articulo.articulo.sboSicop.sicopDesc +"\");'></td>");
+=======
       + "<td><img src='assets/img/plus.png' onclick='IngresarArticuloLista(\"" + articulo.id +"\",\"" + articulo.articulo.sboSicop.sicopDesc +"\",\"" + articulo.sboTbEsta +"\");'></td>");
+>>>>>>> 05c8306a054258bed22b5579cd8a6e055ad1e814
         listado.append(tr);
     $(document).ready(function() {
     $('#example').DataTable();
@@ -189,9 +197,15 @@
     }
     
     
+<<<<<<< HEAD
+      function generaSolXArti(id,desc){
+        var soliXarti = {
+            existencia:[{id:id}],
+=======
       function generaSolXArti(id,desc,est){
         var soliXarti = {
             existencia:[{id:id,SboTbEsta:est}],
+>>>>>>> 05c8306a054258bed22b5579cd8a6e055ad1e814
             solArtiDeta: desc
         };
          console.log("generaSOl paso 2" );
@@ -199,11 +213,19 @@
        
     }
     
+<<<<<<< HEAD
+    function IngresarArticuloLista(id,desc){
+        
+   console.log("IngresaArti paso 1");
+   
+        insertarLista(generaSolXArti(id,desc));
+=======
     function IngresarArticuloLista(id,desc,est){
         
    console.log("IngresaArti paso 1");
    
         insertarLista(generaSolXArti(id,desc,est));
+>>>>>>> 05c8306a054258bed22b5579cd8a6e055ad1e814
         agregarSolXArtTabla();
  
     }
@@ -217,7 +239,11 @@
    
         }
           else{
+<<<<<<< HEAD
+                swal("Error!", "Articulo ya ingresado en la solicitud ", "error");
+=======
                 swal("Error!", "El articulo "+ objeto.existencia[0].id +" ya fue ingresado en la solicitud", "error");
+>>>>>>> 05c8306a054258bed22b5579cd8a6e055ad1e814
             }
              
         }
@@ -247,18 +273,33 @@ function comprueba(exist){
     function insertaElemento() {
         for (var i = 0; i < localStorage.length; i++){
             var objeto = JSON.parse(localStorage.getItem(localStorage.key(i)));
+<<<<<<< HEAD
+            var tr = $("<tr id=" + objeto.existencia  + " />");
+=======
             var tr = $("<tr id=" + objeto.existencia[0].id  + " />");
+>>>>>>> 05c8306a054258bed22b5579cd8a6e055ad1e814
             tr.html(
                 "<td>" + objeto.existencia[0].id + "</td>"
                 + "<td>" + objeto.solArtiDeta + "</td>"
                 + "<td><img src='assets/img/trash-delete.png' onclick='eliminarArticulo(\"" + objeto.existencia[0].id + "\");'></td>");
             $("#listArt").append(tr);
         }
+<<<<<<< HEAD
+=======
         $('#' + objeto.existencia[0].id+"e" + '').remove();
+>>>>>>> 05c8306a054258bed22b5579cd8a6e055ad1e814
         //limpiaEspacios();
    }
    
    function creaNuevaSolicitud(){
+<<<<<<< HEAD
+       console.log(localStorage.length);
+       if(localStorage.length>0){
+       creaSolicitud();}
+   else{
+     swal("Error!", "Ingrese Articulos en la Solicitud", "error");
+}
+=======
    
        if(localStorage.length<=0){
      swal("Error!", "Ingrese Articulos en la Solicitud", "error");
@@ -271,6 +312,7 @@ else {
      console.log(objeto);
      if(soliobj === '1')    {    
     creaSolicitud();
+>>>>>>> 05c8306a054258bed22b5579cd8a6e055ad1e814
    }
 else if(soliobj !== '1'){
      swal("Error!", "El articulo "+ objeto.existencia[0].id +" ya fue solicitado", "error");
@@ -333,12 +375,17 @@ else if(soliobj !== '1'){
     }
     
     function eliminarArticulo(id){
+<<<<<<< HEAD
+        window.localStorage.removeItem(id);
+         agregarSolXArtTabla();
+=======
       $('#' + id + '').remove();
        
         window.localStorage.removeItem(id);
    
        
         // agregarSolXArtTabla();
+>>>>>>> 05c8306a054258bed22b5579cd8a6e055ad1e814
     }
     
     function depurarLocalStorage(){

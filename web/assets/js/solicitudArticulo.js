@@ -65,8 +65,6 @@ function ListaExistencias() {
 
 
 
-
-
 //se listan los datos agregados a la solicitud temporal
 function buscar() {
     $.ajax({type: "GET",
@@ -870,6 +868,7 @@ function mostrarDatosArt(objeto) {
     $("#SicopInfo").val(objeto.sboSicop.sicopDesc);
 
 }
+
 
 function actualizarEstadoSoli(id) {
     
