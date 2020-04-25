@@ -34,9 +34,11 @@
                                         <div class="col">
                                             <label>Departamento</label>
                                             <select class="form-control" id="SelectDptos">
+                                                 <option value="0">Sin Departamento</option>
                                             </select>
                                             <label>Artículo</label>
                                             <select class="form-control" id="selectSicop">
+                                                <option value="0">Sin Artículo</option>
                                             </select>
                                         </div>
                                         <div class="col text-center">
@@ -86,20 +88,33 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Eliminar</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                        <h4 class="modal-title">Eliminar</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
                     <div class="modal-body">
                         <p>Desea eliminar el registro seleccionado?</p>
+                        <div class="form-row">
+                                        <div class="col">    
+                                            <input class="form-control" type="text" id="DeleteDepa" hidden="true"  required>
+                                        </div>
+                                        <div class="col">
+                                            <input class="form-control" type="text" id="DeleteArti" hidden="true" required>
+                                        </div>
+                                        <div class="col">
+                                             <input type="text" class="form-control" id="DeleteLimi" hidden="true" >
+                                        </div>
+                                        
+                                    </div>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button>
-                        <button class="btn btn-primary bg-danger" type="button" onclick="javascript:deleteBodega();">Eliminar</button>
+                        <button class="btn btn-primary bg-danger" type="button" onclick="javascript:deleteLimite()">Eliminar</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <form id="actualizaSicop" action="javascript:actualizarBodega()">
-            <div class="modal fade" role="dialog" tabindex="-1" id="modalEditarBode">
+        <form id="actualizaSicop" action="javascript:actualizarLimite()">
+            <div class="modal fade" role="dialog" tabindex="-1" id="modalEditarLimi">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -113,12 +128,19 @@
                                     <div class="form-row">
                                         <div class="col">
                                             <label>Departamento</label>
-                                            <input class="form-control" type="text" id="bodeUbi" required>
+                                            <input class="form-control" type="text" id="EditDepa" hidden="true" required>
+                                            <input class="form-control" type="text" id="EditDepa2" disabled="true"  required>
                                         </div>
                                         <div class="col">
                                             <label>Artículo</label>
-                                            <input class="form-control" type="text" id="bodeDesc" required>
+                                            <input class="form-control" type="text" id="EditArti" hidden="true"  required>
+                                            <input class="form-control" type="text" id="EditArti2" disabled="true"  required>
                                         </div>
+                                        <div class="col">
+                                             <label>Límite</label>
+                                             <input type="text" class="form-control" id="EditLimi">
+                                        </div>
+                                        
                                     </div>
 
                             </div>

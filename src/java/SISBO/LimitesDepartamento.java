@@ -12,6 +12,7 @@ package SISBO;
 
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -52,17 +53,42 @@ public class LimitesDepartamento {
     @Path("{depto}/{arti}")
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     public List<SboTbLimiteDpto> listLimites(@PathParam("depto") String x, @PathParam("arti") String y) throws ClassNotFoundException, SQLException, Exception {
-        
+    ArrayList <SboTbLimiteDpto> lista = new ArrayList<>();
+    
        String depart = x;
        String artic = y;
        dpt = depart;
        arti = artic;
-       
-       List<SboTbLimiteDpto> lista = Model.instance().listaLimites(depart, artic);
-       
+        if(arti.equals("0")){
+            lista = (ArrayList<SboTbLimiteDpto>) Model.instance().listaLimitesxDepartamento(depart);
+       }
+        else if(dpt.equals("0")){
+            lista = (ArrayList<SboTbLimiteDpto>) Model.instance().listaLimitesxArti(arti);
+       }
+        else{
+            lista = (ArrayList<SboTbLimiteDpto>) Model.instance().listaLimites(depart, artic);
+        }
        return lista;
     }
     
+    /*@GET
+    @Path("{depto}/{arti}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public SboTbLimiteDpto ReadLimite(@PathParam("depto") String x, @PathParam("arti") String y) throws ClassNotFoundException, SQLException, Exception {
+        SboTbLimiteDpto limite = new SboTbLimiteDpto();
+        try {
+            String depart = x;
+            String artic = y;
+            dpt = depart;
+            arti = artic;
+            
+           limite = Model.instance().getLimite(depart, artic);
+           
+        } catch (Exception e) {
+        }
+        return limite;
+    }
+    */
     
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
@@ -73,15 +99,8 @@ public class LimitesDepartamento {
         }
     }
     
-    /*@GET
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void ReadLimites(String limi, String limi2){
-        try {
-            Model.instance().getLimites(limi, limi2);
-        } catch (Exception e) {
-        }
-    }
-    */
+    
+    
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void updateLimites(SboTbLimiteDpto limi){

@@ -38,6 +38,41 @@ public class LimitesDepartamentoDAO {
             return null;
         }
     }
+    
+    private SboTbLimiteDpto limites2(ResultSet rs) {
+        try {
+            SboTbLimiteDpto li = new SboTbLimiteDpto();
+            SboSicop sicop = new SboSicop();
+            AbaaTbDepartamento dpto = new AbaaTbDepartamento();
+            dpto.setDeptoNomb(rs.getString("Cata_Depa_nomb"));
+            sicop.setSicopDesc(rs.getString("Sico_Desc"));
+            li.setLimite(rs.getInt("Limi_Depa_limi"));
+            li.setAbaaTbDepartamento(dpto);
+            li.setSboSicop(sicop);
+            return li;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+    
+    private SboTbLimiteDpto limites3(ResultSet rs) {
+        try {
+            SboTbLimiteDpto li = new SboTbLimiteDpto();
+            SboSicop sicop = new SboSicop();
+            AbaaTbDepartamento dpto = new AbaaTbDepartamento();
+          
+            dpto.setDeptoNomb(rs.getString("Cata_Depa_nomb"));
+            sicop.setSicopDesc(rs.getString("Sico_Desc"));
+            li.setLimite(rs.getInt("Limi_Depa_limi"));
+            dpto.setDeptoIdPk(rs.getString("Limi_Depa_Id_Dpto_PK"));
+            sicop.setSicopId(rs.getInt("Limi_Depa_Id_Sico_PK"));
+            li.setAbaaTbDepartamento(dpto);
+            li.setSboSicop(sicop);
+            return li;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
 
     public SboTbLimiteDpto getLimiteDepaPorExis(int idSicop, int idDpto) throws SQLException, Exception {
         String sql = "select limi.Limi_Depa_Id_Dpto_PK,limi.Limi_Depa_Id_Sico_PK,\n"
@@ -67,20 +102,59 @@ public class LimitesDepartamentoDAO {
      public List<SboTbLimiteDpto> listaLimites(String departamento, String sicop) {
         List<SboTbLimiteDpto> resultado = new ArrayList<SboTbLimiteDpto>();
         try {
-            String sql = "select depa.Cata_Depa_nomb, sicop.Sico_Desc, limi.Limi_Depa_limi \n" +
+            String sql = "select  depa.Cata_Depa_nomb, sicop.Sico_Desc, sicop.Sico_Id_PK, limi.Limi_Depa_limi, \n" +
+                        "limi.Limi_Depa_Id_Dpto_PK, limi.Limi_Depa_Id_Sico_PK "+ 
                         "from SIBO_Tb_Sicop sicop, ABAA_TB_Catalogo_Departamento depa, SIBO_TB_Limi_Depa limi\n" +
-                        "where sicop.Sico_Id_PK = limi.Limi_Depa_Id_Sico_Pk \n" +
-                        "and limi.Limi_Depa_Id_Sico_Pk = depa.Cata_Depa_id_PK\n" +
-                        "and sicop.Sico_Id_PK ="+ departamento +"and depa.Cata_Depa_id_PK = "+sicop+";";
+                        "where sicop.Sico_Id_PK = limi.Limi_Depa_Id_Sico_PK \n" +
+                        " and limi.Limi_Depa_Id_Dpto_PK = depa.Cata_Depa_id_PK\n" +
+                        " and sicop.Sico_Id_PK ="+ sicop +" and depa.Cata_Depa_id_PK = "+departamento+";";
            sql = String.format(sql, departamento, sicop);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
-                resultado.add(limites(rs));
+                resultado.add(limites3(rs));
             }
         } catch (SQLException ex) {
         }
         return resultado;
     }
+     
+     public List<SboTbLimiteDpto> listaLimitesxDepartamento(String departamento) {
+        List<SboTbLimiteDpto> resultado = new ArrayList<SboTbLimiteDpto>();
+        try {
+            String sql = "select  depa.Cata_Depa_nomb, sicop.Sico_Desc, sicop.Sico_Id_PK, limi.Limi_Depa_limi, \n" +
+                        "limi.Limi_Depa_Id_Dpto_PK, limi.Limi_Depa_Id_Sico_PK "+ 
+                        "from SIBO_Tb_Sicop sicop, ABAA_TB_Catalogo_Departamento depa, SIBO_TB_Limi_Depa limi\n" +
+                        "where sicop.Sico_Id_PK = limi.Limi_Depa_Id_Sico_PK \n" +
+                        " and limi.Limi_Depa_Id_Dpto_PK = depa.Cata_Depa_id_PK\n" +
+                        "  and depa.Cata_Depa_id_PK = "+departamento+";";
+           sql = String.format(sql, departamento);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(limites3(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+     
+    public List<SboTbLimiteDpto> listaLimitesxArti(String sicop) {
+        List<SboTbLimiteDpto> resultado = new ArrayList<SboTbLimiteDpto>();
+        try {
+            String sql = "select  depa.Cata_Depa_nomb, sicop.Sico_Desc, sicop.Sico_Id_PK, limi.Limi_Depa_limi, \n" +
+                        "limi.Limi_Depa_Id_Dpto_PK, limi.Limi_Depa_Id_Sico_PK "+ 
+                        "from SIBO_Tb_Sicop sicop, ABAA_TB_Catalogo_Departamento depa, SIBO_TB_Limi_Depa limi\n" +
+                        "where sicop.Sico_Id_PK = limi.Limi_Depa_Id_Sico_PK \n" +
+                        " and limi.Limi_Depa_Id_Dpto_PK = depa.Cata_Depa_id_PK\n" +
+                        " and sicop.Sico_Id_PK ="+ sicop +";";
+           sql = String.format(sql,sicop);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(limites3(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    } 
      
      public void updateLimites(SboTbLimiteDpto depa) throws SQLException {
 
@@ -95,16 +169,15 @@ public class LimitesDepartamentoDAO {
      
      public void deleteLimites(SboTbLimiteDpto s) throws SQLException {
 
-        String query = "delete SIBO_TB_Limi_Depa=? where Limi_Depa_Id_Dpto_PK = ? and Limi_Depa_Id_Sico_PK = ?";
+        String query = "delete SIBO_TB_Limi_Depa where SIBO_TB_Limi_Depa.Limi_Depa_Id_Dpto_PK = ? and SIBO_TB_Limi_Depa.Limi_Depa_Id_Sico_PK= ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
-        preparedStmt.setInt(1, s.getLimite());
-        preparedStmt.setString(2, s.getAbaaTbDepartamento().getDeptoIdPk());
-        preparedStmt.setInt(3,s.getSboSicop().getSicopId());
+        preparedStmt.setString(1, s.getAbaaTbDepartamento().getDeptoIdPk());
+        preparedStmt.setInt(2,s.getSboSicop().getSicopId());
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
      
-     public SboTbLimiteDpto getLimites(String id, String id2) throws Exception {
+     public SboTbLimiteDpto getLimite(String id, String id2) throws Exception {
         String sql = "select * from SIBO_TB_Limi_Depa where Limi_Depa_Id_Dpto_PK = '%s'"
                 + "and Limi_Depa_Id_Sico_PK = '%s'";
         sql = String.format(sql, id,id2);

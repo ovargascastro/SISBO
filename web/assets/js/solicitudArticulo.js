@@ -779,7 +779,8 @@ function eliminaArt(id) {
 
 //imprimir JS trabajar desde aqui
 
-//document.getElementById('export').addEventListener('click',PDF);
+document.getElementById('export').addEventListener('click',
+  PDF);
 
 var specialElementHandlers = {
     // element with id of "bypass" - jQuery style selector
@@ -833,7 +834,6 @@ function exportPDF(imgData) {
 function PDF() {
     getImageFromUrl('assets/img/Escudo.png', exportPDF);
 }
-
 $(document).ready(function () {
 
     logged();
