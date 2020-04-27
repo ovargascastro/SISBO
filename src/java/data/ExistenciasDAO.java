@@ -343,6 +343,17 @@ public class ExistenciasDAO {
         db.getConnection().close();
     }
 
+   
+       public void actualizarExistenciaSoliPendiente(SboTbExistencia objeto) throws Exception {
+        String query = "update SIBO_TB_Exis set Exis_Esta=? where Exis_Id_PK=?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setInt(1, 2);
+        preparedStmt.setInt(2, objeto.getId());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
+
+
 //        public List<SboTbExistencia> listaConsumo(String depa) {
 //        List<SboTbExistencia> resultado = new ArrayList<SboTbExistencia>();
 //        try {

@@ -59,4 +59,6 @@ public class SboTbExistencia implements java.io.Serializable {
     public void setExistFingr(Date existFingr) {
         this.existFingr = existFingr;
     }
+
 }
+

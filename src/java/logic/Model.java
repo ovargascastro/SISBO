@@ -675,6 +675,39 @@ public class Model {
         existdao.actualizarExistencia(e);
     }
 
+    public void actualizarExistenciaSoliPendiente(SboTbExistencia e) throws Exception {
+        existdao.actualizarExistenciaSoliPendiente(e);
+    }
+    
+    public void agregarLimite(SboTbLimiteDpto e) throws Exception{
+        limiDAO.insertLimites(e);
+    }
+    
+    public void deleteLimite(SboTbLimiteDpto e) throws Exception{
+        limiDAO.deleteLimites(e);
+    }
+    
+    
+    public void updateLimite(SboTbLimiteDpto e) throws Exception{
+        limiDAO.updateLimites(e);
+    }
+    
+    public List<SboTbLimiteDpto> listaLimites (String x, String y) throws Exception{
+        return limiDAO.listaLimites(x, y);
+    }
+    
+    public List<SboTbLimiteDpto> listaLimitesxDepartamento (String x) throws Exception{
+        return limiDAO.listaLimitesxDepartamento(x);
+    }
+    
+    public List<SboTbLimiteDpto> listaLimitesxArti (String x) throws Exception{
+        return limiDAO.listaLimitesxArti(x);
+    }
+    
+    public SboTbLimiteDpto getLimite (String x, String y) throws Exception{
+        return limiDAO.getLimite(x, y);
+    }
+
 //    public ArrayList<SboTbSolixArti> listaReporte(String arti, String depa, String inicio, String fin) throws Exception {
 //
 //       
