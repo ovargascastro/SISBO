@@ -9,6 +9,7 @@ import logic.SboSicop;
 import logic.SboTbExistencia;
 import logic.SboTbLimiteDpto;
 
+//Clase DAO de Limite de departamento
 public class LimitesDepartamentoDAO {
 
     RelDatabase db;
