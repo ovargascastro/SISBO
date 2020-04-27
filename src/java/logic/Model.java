@@ -614,6 +614,10 @@ public class Model {
     public void eliminaExistencia(SboTbExistencia e) throws Exception {
         existdao.actualizarExistencia(e);
     }
+    
+    public List<SboTbArticulo> listadoArticulosFaltaContConta() {
+        return articulodao.listadoArticulosFaltaContConta();
+    }
 
 //    public ArrayList<SboTbSolixArti> listaReporte(String arti, String depa, String inicio, String fin) throws Exception {
 //

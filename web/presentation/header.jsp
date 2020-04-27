@@ -35,9 +35,10 @@
                         <!--CONTABILIDAD-->
                         <% if ("8".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 1) {%>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="ordenCompraMenu" data-toggle="dropdown"> Orden de Compra</a>
+                            <a class="nav-link dropdown-toggle" href="#" id="codContableMenu" data-toggle="dropdown"> Asignar Código Contable</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/proveeduria/asignarCodContable.jsp">Asignar Código Contable</a>
+                                <a class="dropdown-item" href="presentation/proveeduria/asignarCodContable.jsp">Órdenes de Compra</a>
+                                <a class="dropdown-item" href="presentation/proveeduria/asignarCodContArtNuevo.jsp">Artículos</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
@@ -59,7 +60,7 @@
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown"> Reporde de Consumo </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="ReportesMenu" data-toggle="dropdown"> Reporde de Consumo </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/general/consumo.jsp">Consumo por Departamento</a>
                             </div>
@@ -207,7 +208,7 @@
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="reportes" data-toggle="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="ReportesMenu" data-toggle="dropdown">
                                 Reportes
                             </a>
                             <div class="dropdown-menu">

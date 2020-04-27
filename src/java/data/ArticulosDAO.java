@@ -547,5 +547,24 @@ public class ArticulosDAO {
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
+    
+    public List<SboTbArticulo> listadoArticulosFaltaContConta() {
+        List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
+        try {
+            String sql = "select * from SIBO_TB_Articulo a "
+                    + "inner join SIBO_TB_Sicop s on a.Arti_Cod_Sico_FK=s.Sico_Id_PK "
+                    + "inner join SIBO_TB_Cata_Arti c on a.Arti_Codi_Cata_Arti_FK =c.Cata_Id_PK "
+                    + "inner join SIBO_TB_Sub_Fami sf on c.Cata_SubF_FK=sf.Sub_Fami_Id_PK "
+                    + "where a.Arti_Orde_Comp_FK is null "
+                    + "and a.Arti_Codi_Cont is null";
+            sql = String.format(sql);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(articulo(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
 
 }

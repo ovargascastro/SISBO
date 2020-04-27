@@ -6,14 +6,20 @@
 package SISBO;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import logic.Model;
 import logic.SboTbArticulo;
+import java.util.List;
+import javax.ws.rs.QueryParam;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  *
@@ -48,4 +54,16 @@ public class articulos {
         }
     }
     
+    @GET
+    @Path("codConta")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<SboTbArticulo> search(@QueryParam("filtro") String filtro) {
+        try {
+          List<SboTbArticulo> lista = Model.instance().listadoArticulosFaltaContConta();
+            return lista;
+        } catch (Exception ex) {
+            Logger.getLogger(SboTbArticulo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
