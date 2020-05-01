@@ -5,18 +5,18 @@ function agregarArt() {
     var sicop = document.getElementById("selectSicop").value;
     var tipo = document.getElementById("selectTipoIng").value;
     var cantRest = 0;
-    
+
     var fechaIngreso = document.getElementById("AddArtFIngreso").value;
     var fechaIngreso2 = fechaIngreso.toDate("yyyy-mm-dd");
-    
+
     var fechaVencimiento = document.getElementById("AddArtFVencimiento").value;
     var fechaVencimiento2;
-    if(fechaVencimiento.length>0){
+    if (fechaVencimiento.length > 0) {
         fechaVencimiento2 = fechaVencimiento.toDate("yyyy-mm-dd");
-    }else{
+    } else {
         fechaVencimiento2 = null;
     }
-    
+
 
     SboTbArticulo = {
         sboTbCatArticulo: {
@@ -31,14 +31,14 @@ function agregarArt() {
         sboSicop: {
             sicopId: sicop
         },
+        artiTipoIngr: tipo,
         artDesc: $("#AddArtDescripcion").val(),
         artMode: $("#AddArtModelo").val(),
         artCant: $("#AddArtCant").val(),
         artFingr: fechaIngreso2,
         artFvenc: fechaVencimiento2,
         artCantRest: cantRest,
-        artUnidadMedida: unidad,
-        artiTipoIngr: tipo
+        artUnidadMedida: unidad
     };
     $.ajax({type: "POST",
         url: "api/articulos/articulo",
@@ -83,7 +83,7 @@ function agregarExistencias() {
         sboTbSicop: {
             sicopId: sicop
         },
-        SboTbBodega:{
+        SboTbBodega: {
             bodeIdPk: bodeg
         },
         exisCant: $("#AddArtCant").val()
@@ -100,11 +100,11 @@ function agregarExistencias() {
 }
 
 function salir() {
-    location.href = "index.jsp"; 
+    location.href = "index.jsp";
 }
 
-function limpiar(){
-    location.href = "presentation/bodega/ingresoArticulos.jsp"; 
+function limpiar() {
+    location.href = "presentation/bodega/ingresoArticulos.jsp";
 }
 
 
