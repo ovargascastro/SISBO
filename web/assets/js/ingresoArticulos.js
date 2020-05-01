@@ -3,6 +3,7 @@ function agregarArt() {
     var art = document.getElementById("selectCatalogoArticulos").value;
     var unidad = document.getElementById("selectUnidadMedida").value;
     var sicop = document.getElementById("selectSicop").value;
+    var tipoIngreso = document.getElementById("selectTipoIngreso").value;
     var cantRest = 0;
     
     var fechaIngreso = document.getElementById("AddArtFIngreso").value;
@@ -36,7 +37,8 @@ function agregarArt() {
         artFingr: fechaIngreso2,
         artFvenc: fechaVencimiento2,
         artCantRest: cantRest,
-        artUnidadMedida: unidad
+        artUnidadMedida: unidad,
+        artiTipoIngr: tipoIngreso
     };
     $.ajax({type: "POST",
         url: "api/articulos/articulo",
@@ -70,14 +72,21 @@ String.prototype.toDate = function (format)
 };
 
 function agregarExistencias() {
-    //SboTbExistenciaId id, SboTbBodega sboTbBodega, int SboTbEsta, SboTbArticulo articulo
-
+    var depto = document.getElementById("selectDeptos").value;
+    var sicop = document.getElementById("selectSicop").value;
     var bodeg = document.getElementById("AddArtBodega").value;
     existencia = {
         sboTbBodega: [{bodeIdPk: $("#AddArtBodega").val()}],
+        abaaTbDepartamento: {
+            deptoIdPk: depto
+        },
+        sboTbSicop: {
+            sicopId: sicop
+        },
         SboTbBodega:{
             bodeIdPk: bodeg
-        }
+        },
+        exisCant: $("#AddArtCant").val()
     };
     $.ajax({type: "PUT",
         url: "api/Existencias",
@@ -97,3 +106,5 @@ function salir() {
 function limpiar(){
     location.href = "presentation/bodega/ingresoArticulos.jsp"; 
 }
+
+

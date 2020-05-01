@@ -70,6 +70,7 @@
                                     <option value="Unidad" >Unidad</option>
                                     <option value="Kilo">Kilo</option>
                                     <option value="Metro">Metro</option>
+                                    <option value="Metro">Litro</option>
                                 </select>
 
                                 <label>Precio</label>
@@ -101,7 +102,7 @@
 
                                 <label>Cantidad a Ingresar</label>
                                 <input id="AddArtCant" class="form-control" 
-                                       type="number" placeholder="Cantidad a Ingresar" min="0" required> 
+                                       type="number" placeholder="Cantidad a Ingresar" required> 
 
                                 <label>Bodega</label>
                                 <select class="form-control" id="AddArtBodega" required> 
@@ -111,6 +112,14 @@
                                 <label>Fecha de Vencimiento</label>
                                 <input id="AddArtFVencimiento" class="form-control" 
                                        type="date" placeholder="Fecha de Vencimiento">
+                                
+                                <label>Tipo de Ingreso</label>
+                                <select class="form-control" id="selectTipoIngreso" required>
+                                    <option values="0" selected disabled = "true">Seleccione una opcion</option>
+                                    <option value="Regular" >Regular</option>
+                                    <option value="Donacion" >Donación</option>
+                                    <option value="Caja Chica">Caja Chica</option>
+                                </select>
                             </div>
 
                         </div>
@@ -373,7 +382,7 @@
 
         function logged() {
     <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
-     <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
+    <% if (aux == null) { %>
             location.href = "presentation/notAccess.jsp";
     <%}%>
         }
@@ -411,8 +420,6 @@
             $('#selectCatalogoArticulos').addClass('selectpicker');
             $('#selectCatalogoArticulos').attr('data-live-search', 'true');
         }
-        
-
 
 
 
