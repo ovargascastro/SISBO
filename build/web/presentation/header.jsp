@@ -164,11 +164,7 @@
                                 <a class="dropdown-item" href="presentation/general/vistoBuenoTI.jsp">Visto bueno de TI</a>
                             </div>
                         </div>
-                        <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown">
-                                Catálogos
-                            </a>
-                        </div>
+
                         <%}%>
                         <!--PROVEDURIA-->
                         <!-- Jefa -->
