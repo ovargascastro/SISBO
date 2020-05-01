@@ -574,7 +574,7 @@ public class Model {
         for (int i = 0; i < listadoSicop.size(); i++) {
             //Se obtiene la cantidad restante en existencias segun sicop y dpto
             int cantidad = existdao.obtenerCantidadExisPorDptoSicop(listadoSicop.get(i).getSicopId(), idDpto);
-            
+
             //se obtiene el limite por dpto asignado segun sicop y dpto
             SboTbLimiteDpto limite = limiDAO.getLimiteDepaPorExis(listadoSicop.get(i).getSicopId(), idDpto);
 
@@ -675,55 +675,52 @@ public class Model {
         existdao.actualizarExistencia(e);
     }
 
-//    public ArrayList<SboTbSolixArti> listaReporte(String arti, String depa, String inicio, String fin) throws Exception {
-//
-//       
-//        Map<String, SboTbSolixArti> aux = new HashMap<>();
-//
-//        if (arti.equals("all")) {
-//             ArrayList<SboTbSolixArti> lista = solixartdao.reporteConsumo(depa, inicio, fin);
-//            for (SboTbSolixArti x : lista) {
-//
-//                String key = Integer.toString(x.getSboSicop().getSicopId());
-//
-//                if (aux.containsKey(key)) {
-//                    SboTbSolixArti obj = aux.get(key);
-//                    int cant = obj.getSolArtiCant();
-//                    int cantAux = cant + x.getSolArtiCant();
-//                    obj.setSolArtiCant(cantAux);
-//
-//                } else {
-//                    aux.put(key, x);
-//
-//                }
-//
-//            }
-//
-//            ArrayList<SboTbSolixArti> beans = new ArrayList<>(aux.values());
-//
-//            return beans;
-//        } else {
-//             ArrayList<SboTbSolixArti> lista = solixartdao.reporteConsumoFilter(arti,depa, inicio, fin);
-//            for (SboTbSolixArti x : lista) {
-//
-//                String key = Integer.toString(x.getSboSicop().getSicopId());
-//
-//                if (aux.containsKey(key)) {
-//                    SboTbSolixArti obj = aux.get(key);
-//                    int cant = obj.getSolArtiCant();
-//                    int cantAux = cant + x.getSolArtiCant();
-//                    obj.setSolArtiCant(cantAux);
-//
-//                } else {
-//                    aux.put(key, x);
-//
-//                }
-//
-//            }
-//
-//        }
-//        ArrayList<SboTbSolixArti> beans = new ArrayList<>(aux.values());
-//        
-//        return beans;
-//    }
+    public void actualizarExistenciaSoliPendiente(SboTbExistencia e) throws Exception {
+        existdao.actualizarExistenciaSoliPendiente(e);
+    }
+
+    public void agregarLimite(SboTbLimiteDpto e) throws Exception {
+        limiDAO.insertLimites(e);
+    }
+
+    public void deleteLimite(SboTbLimiteDpto e) throws Exception {
+        limiDAO.deleteLimites(e);
+    }
+
+    public void updateLimite(SboTbLimiteDpto e) throws Exception {
+        limiDAO.updateLimites(e);
+    }
+
+    public List<SboTbLimiteDpto> listaLimites(String x, String y) throws Exception {
+        return limiDAO.listaLimites(x, y);
+    }
+
+    public List<SboTbLimiteDpto> listaLimitesxDepartamento(String x) throws Exception {
+        return limiDAO.listaLimitesxDepartamento(x);
+    }
+
+    public List<SboTbLimiteDpto> listaLimitesxArti(String x) throws Exception {
+        return limiDAO.listaLimitesxArti(x);
+    }
+
+    public SboTbLimiteDpto getLimite(String x, String y) throws Exception {
+        return limiDAO.getLimite(x, y);
+    }
+
+    public ArrayList<SboTbSolixArti> listaReporte(String arti, String depa, String inicio, String fin) throws Exception {
+
+        ArrayList<SboTbSolixArti> aux = new ArrayList<>();
+
+        if (arti.equals("all")) {
+            
+            aux = solixartdao.reporteConsumoTodos(depa, inicio, fin);
+
+        } else {
+
+            aux = solixartdao.reporteConsumo(depa, inicio, fin, arti);
+        }
+
+        return aux;
+    }
+
 }

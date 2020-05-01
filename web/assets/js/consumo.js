@@ -91,9 +91,9 @@ function lista(personas) {
 function fila(listado, objeto) {
     var tr = $("<tr />");
     tr.html(
-            "<td>" + objeto.sboSicop.sicopDesc + "</td>"
-            + "<td>" + objeto.sboSicop.sicopCodiInden + "</td>"
-            + "<td>" + objeto.sboSicop.sicopCodiClas + "</td>"
+            "<td>" + objeto.existencia.articulo.sboSicop.sicopDesc + "</td>"
+            + "<td>" + objeto.existencia.articulo.sboSicop.sicopCodiInden + "</td>"
+            + "<td>" + objeto.existencia.articulo.sboSicop.sicopCodiClas + "</td>"
             + "<td>" + objeto.solArtiCant + "</td>");
     listado.append(tr);
 }
