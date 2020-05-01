@@ -3,7 +3,7 @@ function agregarArt() {
     var art = document.getElementById("selectCatalogoArticulos").value;
     var unidad = document.getElementById("selectUnidadMedida").value;
     var sicop = document.getElementById("selectSicop").value;
-    var tipoIngreso = document.getElementById("selectTipoIngreso").value;
+    var tipo = document.getElementById("selectTipoIng").value;
     var cantRest = 0;
     
     var fechaIngreso = document.getElementById("AddArtFIngreso").value;
@@ -38,7 +38,7 @@ function agregarArt() {
         artFvenc: fechaVencimiento2,
         artCantRest: cantRest,
         artUnidadMedida: unidad,
-        artiTipoIngr: tipoIngreso
+        artiTipoIngr: tipo
     };
     $.ajax({type: "POST",
         url: "api/articulos/articulo",
