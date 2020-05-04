@@ -80,6 +80,7 @@ function getExistencias() {
     var depto = document.getElementById("SelectDptos").value;
     var arti = document.getElementById("selectSicop").value;
     var bodeg = document.getElementById("SelectBodegas").value;
+    
     $.ajax({type: "GET",
         url: "api/Existencias/" + bodeg + "/" + depto + "/" + arti,
         success: listaExist
@@ -94,6 +95,7 @@ function listaExist(personas) {
     personas.forEach((p) => {
         fila(listado, p);
     });
+     Nregistros();
 }
 //se utliza para mostrar los datos en las filas de la funcion anterior
 function fila(listado, objeto) {
@@ -107,7 +109,7 @@ function fila(listado, objeto) {
             + "<td><img class='small-img' src='assets/img/info(1).png' onclick='abrirArticulo(\"" + objeto.articulo.artIdPk + "\");'></td>"
             + "<td><img class='small-img' src='assets/img/trash-delete.png' onclick='eliminarExistenciaV(\"" + objeto.id + "\");'></td>");
     listado.append(tr);
-    Nregistros();
+   
 }
 
 var existenciaActual=0;
@@ -231,9 +233,16 @@ function mostrarDatosArt(objeto) {
 
 function Nregistros(){
     
+    
     var table = document.getElementById("myTable");
     var tbodyRowCount = table.tBodies[0].rows.length; // 3
     
-    document.getElementById("nReg").innerHTML = "Numero de registros : "+tbodyRowCount;
+    if(tbodyRowCount>0){
+        document.getElementById("nReg").innerHTML = "Número de registros : "+tbodyRowCount;
+    }else{
+        document.getElementById("nReg").innerHTML = "Número de registros : 0";
+    }
+    
+    
     
 }

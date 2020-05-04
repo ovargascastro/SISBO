@@ -59,5 +59,6 @@ public class ApplicationConfig extends Application {
         resources.add(SISBO.solicitudesArticulos.class);
         resources.add(SISBO.solicitudesxAprobar.class);
         resources.add(SISBO.subFamilias.class);
+        resources.add(SISBO.tomaFisica.class);
     }   
 }

@@ -287,6 +287,27 @@ public class ExistenciasDAO {
         }
         return resultado;
     }
+    
+        public List<SboTbExistencia> listaExistenciasTodosArticulos(String bodega, String departamento, String articulo) {
+        List<SboTbExistencia> resultado = new ArrayList<SboTbExistencia>();
+        try {
+
+            String sql = "select * from SIBO_TB_Exis e inner join SIBO_TB_Articulo a on e.Exis_Arti_FK=a.Arti_Id_PK\n"
+                    + "inner join SIBO_TB_Bode b on e.Exis_Id_Bode_PK= Bode_Id_Pk "
+                    + "inner join ABAA_TB_Catalogo_Departamento d on a.Arti_Cata_Depa_FK=d.Cata_Depa_id_PK "
+                    + "inner join SIBO_TB_Sicop s on a.Arti_Cod_Sico_FK=s.Sico_Id_PK "
+                    + "where e.Exis_Id_Bode_Pk=" + bodega + "and\n"
+                    + "a.Arti_Cata_Depa_FK=" + departamento + "and e.Exis_Esta='1';";
+
+            sql = String.format(sql, bodega, departamento, articulo);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(existenciaF(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
 
     public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
         List<SboTbExistencia> resultado = new ArrayList<SboTbExistencia>();

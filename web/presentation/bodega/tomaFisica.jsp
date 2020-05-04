@@ -1,6 +1,11 @@
+<%-- 
+    Document   : tomaFisica
+    Created on : 03/05/2020, 07:15:03 PM
+    Author     : oscar
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
 <html id="body">
 
     <head>
@@ -17,7 +22,7 @@
         <!-- (Optional) Latest compiled and minified JavaScript translation files -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/i18n/defaults-*.min.js"></script>
         
-        <title>Existencias</title>
+        <title>Toma Física</title>
     </head>
 
     <body style="background-color: rgb(255,255,255);">

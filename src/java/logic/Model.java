@@ -482,7 +482,18 @@ public class Model {
     }
 
     public List<SboTbExistencia> listaExistencias(String bodega, String departamento, String articulo) {
-        return existdao.listaExistenciasArticulos(bodega, departamento, articulo);
+        
+        if(articulo.equals("all")){
+            
+            return existdao.listaExistenciasTodosArticulos(bodega, departamento, articulo);
+        
+        }else{
+        
+             return existdao.listaExistenciasArticulos(bodega, departamento, articulo);
+            
+        }
+        
+       
     }
 
     public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
