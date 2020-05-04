@@ -18,6 +18,8 @@ public class AbaaTbPersona {
     private String PersNomb;
     private String PersApe1;
     private String PersApe2;
+    private String passwAux;
+    private int jefe;
     private int PersSfun;
     private int Pers_es_jefe;
     private AbaaTbDepartamento departamento;
@@ -100,6 +102,25 @@ public class AbaaTbPersona {
     public void setPers_es_jefe(int Pers_es_jefe) {
         this.Pers_es_jefe = Pers_es_jefe;
     }
+
+    public String getPasswAux() {
+        return passwAux;
+    }
+
+    public void setPasswAux(String passwAux) {
+        this.passwAux = passwAux;
+    }
+
+    public int getJefe() {
+        return jefe;
+    }
+
+    public void setJefe(int jefe) {
+        this.jefe = jefe;
+    }
+    
+    
+    
 
     
 }

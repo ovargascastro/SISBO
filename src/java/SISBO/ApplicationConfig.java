@@ -30,6 +30,7 @@ public class ApplicationConfig extends Application {
         resources.add(SISBO.ExistenciaSoliPendiente.class);
         resources.add(SISBO.Existencias.class);
         resources.add(SISBO.ExistenciasTemp.class);
+        resources.add(SISBO.GestionUsuarios.class);
         resources.add(SISBO.LimitesDepartamento.class);
         resources.add(SISBO.ListaOCxArt.class);
         resources.add(SISBO.LogIn.class);

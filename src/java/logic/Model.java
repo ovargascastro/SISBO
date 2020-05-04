@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Model {
 
@@ -21,6 +23,7 @@ public class Model {
     private final ArticulosDAO articulodao;
     private final OCxProyectoDAO ordenXdao;
     private final solicitudArtDAO solArtdao;
+    private final usuariosDAO usuariosDao;
     private final sicopDAO sicopDao;
     private final loginDAO logindao;
     private final ExistenciasDAO existdao;
@@ -60,6 +63,7 @@ public class Model {
         existdao = new ExistenciasDAO();
         solixartdao = new SoliXArtDAO();
         limiDAO = new LimitesDepartamentoDAO();
+        usuariosDao = new usuariosDAO();
 
     }
 
@@ -732,6 +736,35 @@ public class Model {
         }
 
         return aux;
+    }
+    
+    
+    public List<AbaaTbPersona> personasLista(){
+        return usuariosDao.personasLista();
+    }
+    
+    public void insertarUsuario(AbaaTbPersona per){
+    
+        try {
+            String clave =per.getPasswAux();
+            usuariosDao.InsertarPersona(per);
+            String id = per.getPersCedu();
+            AbaaTbPersona aux = usuariosDao.getPersona(id);
+            
+            AbaaTbUsuario user = new AbaaTbUsuario();
+            aux.setPersCedu(per.getPersCedu());
+            user.setPersona(aux);
+            user.setUsuaCont(clave);
+            
+            usuariosDao.InsertarUsuario(user);
+            
+            
+            
+        } catch (Exception ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
 
 }

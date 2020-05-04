@@ -14,6 +14,8 @@ public class AbaaTbUsuario  implements java.io.Serializable {
      private AbaaTbFuncionario abaaTbFuncionario;
      private AbaaTbRol abaaTbRol;
      private String usuaCont;
+     private AbaaTbPersona persona;
+     
 
     public AbaaTbUsuario() {
     }
@@ -60,6 +62,14 @@ public class AbaaTbUsuario  implements java.io.Serializable {
     
     public void setUsuaCont(String usuaCont) {
         this.usuaCont = usuaCont;
+    }
+
+    public AbaaTbPersona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(AbaaTbPersona persona) {
+        this.persona = persona;
     }
 
 
