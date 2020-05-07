@@ -722,5 +722,9 @@ public class Model {
 
         return aux;
     }
+    
+    public List<SboTbArticulo> listadoArticulosFaltaContConta() {
+        return articulodao.listadoArticulosFaltaContConta();
+    }
 
 }

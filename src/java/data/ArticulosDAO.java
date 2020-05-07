@@ -242,7 +242,7 @@ public class ArticulosDAO {
                 + "Arti_Desc,Arti_Mode,Arti_Nume_Seri,Arti_Marc,Arti_Codi_Pres,"
                 + "Arti_Codi_Cata_Arti_FK,Arti_Proy_FK,Arti_Cata_Depa_FK,"
                 + "Arti_Unid_Medi,Arti_Orde_Comp_FK)"
-                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setDouble(1, objeto.getArtPrecio());
         preparedStmt.setInt(2, objeto.getArtCant());
@@ -517,8 +517,8 @@ public class ArticulosDAO {
         String query = "insert into SIBO_TB_Articulo(Arti_Prec,Arti_Cant,Arti_Cant_Rest,Arti_Desc,"
                 + "Arti_Mode,Arti_Nume_Seri,Arti_Marc,"
                 + "Arti_Codi_Cata_Arti_FK,Arti_Cata_Depa_FK,Arti_Unid_Medi, "
-                + "Arti_Cod_Sico_FK, Arti_Fech_Ingr, Arti_Fech_Venc) "
-                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "Arti_Cod_Sico_FK, Arti_Fech_Ingr, Arti_Fech_Venc, Arti_tipo_ingr) "
+                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setDouble(1, objeto.getArtPrecio());
         preparedStmt.setInt(2, objeto.getArtCant());
@@ -531,21 +531,41 @@ public class ArticulosDAO {
         preparedStmt.setString(9, objeto.getAbaaTbDepartamento().getDeptoIdPk());
         preparedStmt.setString(10, objeto.getArtUnidadMedida());
         preparedStmt.setInt(11, objeto.getSboSicop().getSicopId());
-
         java.util.Date utilStartDate = objeto.getArtFingr();
         java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
         preparedStmt.setDate(12, sqlStartDate);
-
+        
         if (objeto.getArtFvenc() != null) {
             utilStartDate = objeto.getArtFvenc();
             sqlStartDate = new java.sql.Date(utilStartDate.getTime());
             preparedStmt.setDate(13, sqlStartDate);
-        } else {
+        }
+        else{
             preparedStmt.setDate(13, null);
         }
-
+        preparedStmt.setString(14, objeto.getArtiTipoIngr());
+        
         preparedStmt.executeUpdate();
         db.getConnection().close();
+    }
+    
+    public List<SboTbArticulo> listadoArticulosFaltaContConta() {
+        List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
+        try {
+            String sql = "select * from SIBO_TB_Articulo a "
+                    + "inner join SIBO_TB_Sicop s on a.Arti_Cod_Sico_FK=s.Sico_Id_PK "
+                    + "inner join SIBO_TB_Cata_Arti c on a.Arti_Codi_Cata_Arti_FK =c.Cata_Id_PK "
+                    + "inner join SIBO_TB_Sub_Fami sf on c.Cata_SubF_FK=sf.Sub_Fami_Id_PK "
+                    + "where a.Arti_Orde_Comp_FK is null "
+                    + "and a.Arti_Codi_Cont is null";
+            sql = String.format(sql);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(articulo(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
     }
 
 }
