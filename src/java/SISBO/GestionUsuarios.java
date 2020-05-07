@@ -12,8 +12,11 @@ import javax.ws.rs.Encoded;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import logic.AbaaTbPersona;
 import logic.Model;
 import logic.SboTbBodega;
@@ -37,6 +40,39 @@ public class GestionUsuarios {
     public void agregarUsuario(@Encoded AbaaTbPersona p) {
         try {
             Model.instance().insertarUsuario(p);
+        } catch (Exception ex) {
+            throw new NotFoundException();
+        }
+    }
+
+    @GET
+    @Path("{filtro}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public AbaaTbPersona getUuario(@PathParam("filtro") String filtro) {
+        try {
+            AbaaTbPersona ob = Model.instance().getUsuario(filtro);
+            return ob;
+        } catch (Exception ex) {
+            throw new NotFoundException();
+        }
+    }
+    
+    
+    
+    @PUT
+    @Consumes({"application/json; charset=UTF-8"})
+    public void update(@Encoded AbaaTbPersona p) {
+        System.out.println("");
+        try {
+
+            if(p.getPasswAux().equals("")){
+                Model.instance().updatUsuarioSinContrasenna(p);
+            
+            }else{
+            
+                Model.instance().updateUsuarioConContrasenna(p);
+            }
+           
         } catch (Exception ex) {
             throw new NotFoundException();
         }

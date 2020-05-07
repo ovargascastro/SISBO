@@ -743,6 +743,21 @@ public class Model {
         return usuariosDao.personasLista();
     }
     
+    public AbaaTbPersona getUsuario(String id) throws Exception{
+    
+        return usuariosDao.getUsuario(id);
+    }
+    
+    public void updatUsuarioSinContrasenna(AbaaTbPersona p) throws SQLException{
+        usuariosDao.updatUsuarioSinContrasenna(p);
+    
+    }
+    
+    public void updateUsuarioConContrasenna(AbaaTbPersona p) throws SQLException{
+        
+     usuariosDao.updateUsuarioConContrasenna(p);
+    }
+    
     public void insertarUsuario(AbaaTbPersona per){
     
         try {

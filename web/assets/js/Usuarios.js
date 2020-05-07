@@ -8,12 +8,35 @@
 function selectDeptos() {
     $.ajax({type: "GET",
         url: "api/departamentos",
-        success: cargarDeptos,
+        success: cargarSelectDptos,
         error: function (data) {
             alert('error');
         }
     });
 
+}
+
+
+function cargarSelectDptos(data) {
+
+    cargarDeptos(data);
+    cargarDeptosEdicion(data);
+}
+
+function cargarDeptosEdicion(data) {
+
+    var jsonData = JSON.stringify(data);
+    $.each(JSON.parse(jsonData), function (idx, obj) {
+        $("#selectDptoPickerEd").append('<option value="' + obj.deptoIdPk + '">' + '➤ ' + obj.deptoNomb + '</option>');
+
+    });
+    $('#selectDptoPickerEd').selectpicker('refresh');
+
+}
+
+function pickerEdicion() {
+    $('#selectSicopPicker').addClass('selectpicker');
+    $('#selectSicopPicker').attr('data-live-search', 'true');
 }
 
 function cargarDeptos(data) {
@@ -73,10 +96,50 @@ function fila(listado, objeto) {
             + "<td>" + objeto.persApe1 + "</td>"
             + "<td>" + objeto.persApe2 + "</td>"
             + "<td>" + objeto.departamento.deptoNomb + "</td>"
-            + "<td><img src='assets/img/edit.png' onclick='infoPer(\"" + objeto.PersCedu + "\");'></td>");
+            + "<td><img src='assets/img/edit.png' onclick='editarUsuario(\"" + objeto.persCedu + "\");'></td>");
     listado.append(tr);
 
 }
+
+
+var usuarioActual;
+
+
+function editarUsuario(id) {
+
+    usuarioActual = id;
+    $.ajax({type: "GET",
+        url: "api/gestionUsuarios/" + usuarioActual,
+        success: mostrarUsuario,
+        error: function (jqXHR) {
+            alert("error");
+        }
+    });
+
+}
+
+
+
+function mostrarUsuario(objeto) {
+
+    $("#cedUsuarioEd").val(objeto.persCedu);
+    $("#ap1UsuarioEd").val(objeto.persApe1);
+    $("#selectDptoPickerEd").val(objeto.departamento.deptoIdPk);
+    $('#selectDptoPickerEd').selectpicker('refresh');
+    $("#nombUsuarioEd").val(objeto.persNomb);
+    $("#ap2UsuarioEd").val(objeto.persApe2);
+    $("#textCont").val("Si deja el campo de contraseña en blanco se mantendrá la misma, de lo contrario se actualizará");
+    if (objeto.pers_es_jefe === 1) {
+        $('#customRadioInline12').prop('checked', true);
+    } else {
+        $('#customRadioInline22').prop('checked', true);
+    }
+    $('#editarUsuarioModal').modal('show');
+
+
+}
+
+
 
 function myFunction() {
     var input, filter, table, tr, td, i, txtValue;
@@ -133,5 +196,44 @@ function afterCreateUsuario() {
     $('#myForm').trigger("reset");
     $('#agregarUsuarioModal').modal('hide');
     buscarPersonas();
+}
+
+
+
+function actualizarUsuario() {
+
+
+    if (confirm("Desea guardar el registro actual?")) {
+        var depto = document.getElementById("selectDptoPickerEd").value;
+        var valorJefe = $('input[name=customRadioInline2]:checked', '#myForm2').val();
+        AbaaTbPersona = {
+            persCedu: usuarioActual,
+            persNomb: $("#nombUsuarioEd").val(),
+            persApe1: $("#ap1UsuarioEd").val(),
+            persApe2: $("#ap2UsuarioEd").val(),
+            passwAux: $("#passUsuarioEd").val(),
+            jefe: valorJefe,
+            departamento: {
+                deptoIdPk: depto
+            }
+        };
+        $.ajax({type: "PUT",
+            url: "api/gestionUsuarios;charset=UTF-8",
+            data: JSON.stringify(AbaaTbPersona),
+            contentType: "application/json;charset=UTF-8",
+            success: afterUpdateUsuario,
+            error: function (jqXHR) {
+                alert("Error");
+            }
+        });
+    }
+
+
+}
+
+function afterUpdateUsuario() {
+    $('#editarUsuarioModal').modal('hide');
+    buscarPersonas();
+
 }
 

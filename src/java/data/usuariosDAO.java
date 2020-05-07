@@ -21,13 +21,13 @@ import logic.SboTbSolixArti;
  * @author oscar
  */
 public class usuariosDAO {
-
+    
     RelDatabase db;
-
+    
     public usuariosDAO() {
         db = new RelDatabase();
     }
-
+    
     private AbaaTbPersona persona(ResultSet rs) {
         try {
             AbaaTbPersona ob = new AbaaTbPersona();
@@ -42,21 +42,21 @@ public class usuariosDAO {
         } catch (SQLException ex) {
             return null;
         }
-
+        
     }
     
-        private AbaaTbPersona persona2(ResultSet rs) {
+    private AbaaTbPersona persona2(ResultSet rs) {
         try {
             AbaaTbPersona ob = new AbaaTbPersona();
             ob.setPersIdPK(rs.getInt("Pers_id_PK"));
-
+            
             return ob;
         } catch (SQLException ex) {
             return null;
         }
-
+        
     }
-
+    
     private AbaaTbDepartamento departamento(ResultSet rs) {
         try {
             AbaaTbDepartamento ob = new AbaaTbDepartamento();
@@ -67,7 +67,59 @@ public class usuariosDAO {
             return null;
         }
     }
-
+    
+    public AbaaTbPersona getUsuario(String id) throws Exception {
+        
+        String sql = "select *\n"
+                + "	from ABAA_TB_Persona p inner join ABAA_TB_Catalogo_Departamento d\n"
+                + "	on p.Depa_id_FK=d.Cata_Depa_id_PK where p.Pers_cedu='%s';";
+        sql = String.format(sql, id);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return persona(rs);
+        } else {
+            throw new Exception("Usuario no Existe");
+        }
+        
+    }
+    
+    public void updatUsuarioSinContrasenna(AbaaTbPersona p) throws SQLException {
+        String query = "update ABAA_TB_Persona set Pers_nomb = ?, Pers_ape1 = ?, Pers_ape2= ?,Pers_es_jefe=?,Depa_id_FK=? where Pers_cedu = ?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setString(1, p.getPersNomb());
+        preparedStmt.setString(2, p.getPersApe1());
+        preparedStmt.setString(3, p.getPersApe2());
+        preparedStmt.setInt(4, p.getJefe());
+        preparedStmt.setString(5, p.getDepartamento().getDeptoIdPk());
+        preparedStmt.setString(6, p.getPersCedu());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+        
+    }
+    
+    public void updateUsuarioConContrasenna(AbaaTbPersona p) throws SQLException {
+        String query = "update ABAA_TB_Persona set Pers_nomb = ?, Pers_ape1 = ?, Pers_ape2= ?,Pers_es_jefe=?,Depa_id_FK=? where Pers_cedu = ?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setString(1, p.getPersNomb());
+        preparedStmt.setString(2, p.getPersApe1());
+        preparedStmt.setString(3, p.getPersApe2());
+        preparedStmt.setInt(4, p.getJefe());
+        preparedStmt.setString(5, p.getDepartamento().getDeptoIdPk());
+        preparedStmt.setString(6, p.getPersCedu());
+        preparedStmt.executeUpdate();
+        this.actualizaContrasenna(p.getPersCedu(),p.getPasswAux());
+        db.getConnection().close();
+        
+    }
+    
+    public void actualizaContrasenna(String ced, String clave) throws SQLException { 
+        String query = "execute SBO_ActualizaContrasenna ?,?;";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setString(1, ced);
+        preparedStmt.setString(2, clave);
+        preparedStmt.executeUpdate();
+    }
+    
     public List<AbaaTbPersona> personasLista() {
         List<AbaaTbPersona> resultado = new ArrayList<AbaaTbPersona>();
         try {
@@ -83,7 +135,7 @@ public class usuariosDAO {
         }
         return resultado;
     }
-
+    
     public AbaaTbPersona getPersona(String ced) throws SQLException, Exception {
         String sql = "select Pers_id_PK from ABAA_TB_Persona where Pers_cedu ='%s'";
         sql = String.format(sql, ced);
@@ -95,9 +147,8 @@ public class usuariosDAO {
         }
     }
     
-    
     public void InsertarUsuario(AbaaTbUsuario objeto) throws Exception {
-         
+        
         String query = "execute SBO_InsertarUsuario ?,?,?,?;";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, "1");
@@ -107,10 +158,9 @@ public class usuariosDAO {
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
-
-
-public void InsertarPersona(AbaaTbPersona objeto) throws Exception {
-            //       @Pers_cedu varchar(50), @Pers_nomb varchar(50),@Pers_ape1 varchar(50), @Pers_ape2 varchar(50), @Pers_esJefe int,@Depa_id_FK int
+    
+    public void InsertarPersona(AbaaTbPersona objeto) throws Exception {
+        //       @Pers_cedu varchar(50), @Pers_nomb varchar(50),@Pers_ape1 varchar(50), @Pers_ape2 varchar(50), @Pers_esJefe int,@Depa_id_FK int
         String query = "execute SBO_InsertarPersona ?,?,?,?,?,?;";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getPersCedu());

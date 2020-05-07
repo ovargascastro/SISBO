@@ -133,6 +133,64 @@
                 </div>
             </div>
         </form>
+        
+        
+        <form action="javascript:actualizarUsuario()" id="myForm2">
+            <div class="modal fade" role="dialog" tabindex="-1" id="editarUsuarioModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Editar Usuario</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-row">
+                                <div class="col">
+                                    <label>Cédula</label>
+                                    <input class="form-control" type="text" id="cedUsuarioEd" required placeholder="Cédula" readonly="true">
+                                    <label>Apellido 1</label>
+                                    <input class="form-control" type="text" id="ap1UsuarioEd" required placeholder="Apellido 1">
+                                    <label>Departamento</label>
+                                    <select id="selectDptoPickerEd" class="selectpicker form-control" 
+                                            data-live-search="true" data-size="15" required>
+                                        <option values="0" disabled = "true" >Seleccione una opcion</option>
+                                    </select>
+                                    <style>
+                                        div.dropdown-menu.open { width: 100%; }
+                                        ul.dropdown-menu.inner>li>a { white-space: initial; }
+                                    </style>
+                                    
+                                    <label>Contraseña</label>
+                                    <input class="form-control" type="password" id="passUsuarioEd">
+                                </div>
+                                <div class="col">
+                                    <label>Nombre</label>
+                                    <input class="form-control" type="text" id="nombUsuarioEd" required placeholder="Nombre">
+                                    <label>Apellido 2</label>
+                                    <input class="form-control" type="text" id="ap2UsuarioEd" required placeholder="Apellido 2">
+                                    <label>Es jefe ?</label>
+                                    <br>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="customRadioInline12" id="jefeEd" value="1" name="customRadioInline2" class="custom-control-input">
+                                        <label class="custom-control-label" for="customRadioInline12">Sí</label>
+                                    </div>
+                                    <br>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="customRadioInline22" value="0" id="nojefeEd" name="customRadioInline2" class="custom-control-input">
+                                        <label class="custom-control-label" for="customRadioInline22">No</label>
+                                    </div>
+                                    <textarea class="form-control" id="textCont" readonly="true"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="submit">Actualizar</button></div>
+                    </div>
+                </div>
+            </div>
+        </form>
 
 
         <script src="assets/js/jquery.min.js"></script>
