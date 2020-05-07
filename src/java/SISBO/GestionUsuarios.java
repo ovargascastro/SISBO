@@ -67,10 +67,11 @@ public class GestionUsuarios {
 
             if(p.getPasswAux().equals("")){
                 Model.instance().updatUsuarioSinContrasenna(p);
-            
+            //Se mantiene la misma contrasenna
             }else{
             
                 Model.instance().updateUsuarioConContrasenna(p);
+                //Se actualiza la contrasenna
             }
            
         } catch (Exception ex) {
