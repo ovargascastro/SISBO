@@ -95,7 +95,7 @@
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="limitesMenu" data-toggle="dropdown">Limites </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/bodega/limitesdepartamento.jsp">Mantenimiento de limtes por departamento</a>
+                                <a class="dropdown-item" href="presentation/bodega/limitesdepartamento.jsp">Mantenimiento de límites por departamento</a>
                             </div>
                         </div>
 
@@ -115,7 +115,7 @@
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown"> Reporde de Consumo </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown"> Reporte de Consumo </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/general/consumo.jsp">Consumo por Departamento</a>
                             </div>

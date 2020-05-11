@@ -486,17 +486,11 @@ public class Model {
     }
 
     public List<SboTbExistencia> listaExistencias(String bodega, String departamento, String articulo) {
-
         if (articulo.equals("all")) {
-
             return existdao.listaExistenciasTodosArticulos(bodega, departamento, articulo);
-
         } else {
-
             return existdao.listaExistenciasArticulos(bodega, departamento, articulo);
-
         }
-
     }
 
     public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
@@ -709,5 +703,9 @@ public class Model {
 
     public List<SboTbArticulo> listadoArticulosFaltaContConta() {
         return articulodao.listadoArticulosFaltaContConta();
+    }
+
+    public List<SboTbExistencia> listaExistenciasStocks(String bodega, String departamento) {
+        return existdao.listaExistenciasStocks(bodega, departamento);
     }
 }
