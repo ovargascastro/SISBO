@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Model {
 
@@ -21,6 +23,7 @@ public class Model {
     private final ArticulosDAO articulodao;
     private final OCxProyectoDAO ordenXdao;
     private final solicitudArtDAO solArtdao;
+    private final usuariosDAO usuariosDao;
     private final sicopDAO sicopDao;
     private final loginDAO logindao;
     private final ExistenciasDAO existdao;
@@ -60,6 +63,7 @@ public class Model {
         existdao = new ExistenciasDAO();
         solixartdao = new SoliXArtDAO();
         limiDAO = new LimitesDepartamentoDAO();
+        usuariosDao = new usuariosDAO();
 
     }
 
@@ -482,7 +486,18 @@ public class Model {
     }
 
     public List<SboTbExistencia> listaExistencias(String bodega, String departamento, String articulo) {
-        return existdao.listaExistenciasArticulos(bodega, departamento, articulo);
+        
+        if(articulo.equals("all")){
+            
+            return existdao.listaExistenciasTodosArticulos(bodega, departamento, articulo);
+        
+        }else{
+        
+             return existdao.listaExistenciasArticulos(bodega, departamento, articulo);
+            
+        }
+        
+       
     }
 
     public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
@@ -574,7 +589,7 @@ public class Model {
         for (int i = 0; i < listadoSicop.size(); i++) {
             //Se obtiene la cantidad restante en existencias segun sicop y dpto
             int cantidad = existdao.obtenerCantidadExisPorDptoSicop(listadoSicop.get(i).getSicopId(), idDpto);
-            
+
             //se obtiene el limite por dpto asignado segun sicop y dpto
             SboTbLimiteDpto limite = limiDAO.getLimiteDepaPorExis(listadoSicop.get(i).getSicopId(), idDpto);
 
@@ -678,6 +693,7 @@ public class Model {
     public void actualizarExistenciaSoliPendiente(SboTbExistencia e) throws Exception {
         existdao.actualizarExistenciaSoliPendiente(e);
     }
+
     
     public void agregarLimite(SboTbLimiteDpto e) throws Exception{
         limiDAO.insertLimites(e);
@@ -759,4 +775,67 @@ public class Model {
 //        
 //        return beans;
 //    }
+
+ 
+    public ArrayList<SboTbSolixArti> listaReporte(String arti, String depa, String inicio, String fin) throws Exception {
+
+        ArrayList<SboTbSolixArti> aux = new ArrayList<>();
+
+        if (arti.equals("all")) {
+            
+            aux = solixartdao.reporteConsumoTodos(depa, inicio, fin);
+
+        } else {
+
+            aux = solixartdao.reporteConsumo(depa, inicio, fin, arti);
+        }
+
+        return aux;
+    }
+    
+    
+    public List<AbaaTbPersona> personasLista(){
+        return usuariosDao.personasLista();
+    }
+    
+    public AbaaTbPersona getUsuario(String id) throws Exception{
+    
+        return usuariosDao.getUsuario(id);
+    }
+    
+    public void updatUsuarioSinContrasenna(AbaaTbPersona p) throws SQLException{
+        usuariosDao.updatUsuarioSinContrasenna(p);
+    
+    }
+    
+    public void updateUsuarioConContrasenna(AbaaTbPersona p) throws SQLException{
+        
+     usuariosDao.updateUsuarioConContrasenna(p);
+    }
+    
+    public void insertarUsuario(AbaaTbPersona per){
+    
+        try {
+            String clave =per.getPasswAux();
+            usuariosDao.InsertarPersona(per);
+            String id = per.getPersCedu();
+            AbaaTbPersona aux = usuariosDao.getPersona(id);
+            
+            AbaaTbUsuario user = new AbaaTbUsuario();
+            aux.setPersCedu(per.getPersCedu());
+            user.setPersona(aux);
+            user.setUsuaCont(clave);
+            
+            usuariosDao.InsertarUsuario(user);
+            
+            
+            
+        } catch (Exception ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+
+
 }

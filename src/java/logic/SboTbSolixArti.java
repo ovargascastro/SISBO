@@ -15,7 +15,7 @@ public class SboTbSolixArti  implements java.io.Serializable {
      private SboTbSolixArtiId id;
     // private SboSicop sboSicop;
      private SboTbSoliArti sboTbSoliArti;
-     //private Integer solArtiCant;
+     private Integer solArtiCant; //usado para el reporte de consumo
      private Date solArtiSali;
      private String solArtiDeta;
      private SboTbExistencia existencia;
@@ -70,6 +70,16 @@ public class SboTbSolixArti  implements java.io.Serializable {
     public void setExistencia(SboTbExistencia existencia) {
         this.existencia = existencia;
     }
+
+    public Integer getSolArtiCant() {
+        return solArtiCant;
+    }
+
+    public void setSolArtiCant(Integer solArtiCant) {
+        this.solArtiCant = solArtiCant;
+    }
+    
+    
      
     
     
