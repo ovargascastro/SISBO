@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="95c9db22-a990-4761-ab1d-24577aadf4a7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Heading 1" fontSize="16" isBold="true"/>
+	<subDataset name="dataset1" uuid="564cc12f-8115-46c2-8552-d3dce16bc6d2"/>
+	<queryString language="SQL">
+		<![CDATA[Select bode.Bode_Desc,dpto.Cata_Depa_nomb, sicop.Sico_Desc, count(exis.Exis_Id_PK) existencias
+from SIBO_TB_Exis exis, SIBO_TB_Bode bode, SIBO_TB_Articulo arti, ABAA_TB_Catalogo_Departamento dpto, SIBO_TB_Sicop sicop
+where exis.Exis_Id_Bode_PK=bode.Bode_Id_PK and exis.Exis_Arti_FK=arti.Arti_Id_PK and arti.Arti_Cod_Sico_FK=sicop.Sico_Id_PK
+and exis.Exis_Esta=1  and arti.Arti_Cata_Depa_FK=dpto.Cata_Depa_id_PK
+and bode.Bode_Id_PK=1 and dpto.Cata_Depa_id_PK=5
+group by bode.Bode_Desc,dpto.Cata_Depa_nomb, sicop.Sico_Desc
+order by bode.Bode_Desc,dpto.Cata_Depa_nomb, sicop.Sico_Desc;]]>
+	</queryString>
+	<field name="Bode_Desc" class="java.lang.String"/>
+	<field name="Cata_Depa_nomb" class="java.lang.String"/>
+	<field name="Sico_Desc" class="java.lang.String"/>
+	<group name="Bode_Desc">
+		<groupExpression><![CDATA[$F{Bode_Desc}]]></groupExpression>
+	</group>
+	<group name="Cata_Depa_nomb">
+		<groupExpression><![CDATA[$F{Cata_Depa_nomb}]]></groupExpression>
+	</group>
+	<group name="Sico_Desc">
+		<groupExpression><![CDATA[$F{Sico_Desc}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="78" splitType="Stretch">
+			<staticText>
+				<reportElement x="193" y="21" width="223" height="37" uuid="52766949-b500-4434-a0ec-05bb572d68be"/>
+				<textElement>
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Municipalidad de Santo Domingo]]></text>
+			</staticText>
+			<image>
+				<reportElement x="26" y="1" width="137" height="77" uuid="cc42f95d-adbe-42e9-8145-7bc420aac897"/>
+				<imageExpression><![CDATA["C:\\Users\\Marco\\Downloads\\Carrera\\Ingineer\\ABAA\\web\\assets\\img\\Escudo.png"]]></imageExpression>
+			</image>
+			<textField pattern="MM/dd/yyyy">
+				<reportElement x="451" y="11" width="100" height="20" uuid="c0375b42-3100-4929-8a31-7f0e6938fcb5"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="193" y="0" width="182" height="24" uuid="d73a5c15-1929-4ba2-a7ce-0eb50cbd78f5"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="18"/>
+				</textElement>
+				<text><![CDATA[Reporte de toma física]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61">
+			<staticText>
+				<reportElement x="12" y="24" width="104" height="16" uuid="ea96a307-d9b8-46ae-a270-520a952f4393"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Nombre Bodega]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="163" y="24" width="77" height="16" uuid="299a8feb-1b4b-4eb6-9c0e-076b770b9f56"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Departamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="24" width="67" height="16" uuid="bcb7a67f-e777-4a03-afc1-e2e2953d3836"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Artículo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="24" width="67" height="16" uuid="3c213fe2-9e89-4e31-b697-68c3aab9de20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Existencia]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="12" y="13" width="100" height="20" uuid="c56e96e6-f760-4b25-bdef-8b52b79c6228"/>
+				<textFieldExpression><![CDATA[$F{Bode_Desc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="163" y="13" width="112" height="20" uuid="e956522b-6db3-4e32-bb7a-43eee013e9e9"/>
+				<textFieldExpression><![CDATA[$F{Cata_Depa_nomb}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="316" y="13" width="100" height="20" uuid="6e8c2116-72fb-4b8d-a8f9-b7af2664e562"/>
+				<textFieldExpression><![CDATA[$F{Sico_Desc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="13" width="112" height="20" uuid="07add988-5dd0-40c6-9293-78b1a80ed325"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
