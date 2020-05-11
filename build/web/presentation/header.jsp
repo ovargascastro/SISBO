@@ -103,6 +103,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="bodegasMenu" data-toggle="dropdown">Bodegas </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/bodega/bodegas.jsp">Mantenimiento de Bodegas</a>
+                                 <a class="dropdown-item" href="presentation/bodega/tomaFisica.jsp">Toma Física</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
@@ -270,9 +271,8 @@
 </html>
 
 <script>
-                    $(document).ready(function () {
-                        $(".dropdown-toggle").dropdown();
-                    });
-
+    $(document).ready(function () {
+        $(".dropdown-toggle").dropdown();
+    });
 </script>
 
