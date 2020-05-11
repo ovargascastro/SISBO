@@ -34,22 +34,11 @@
             </form>
         </div>
 
-        <div class="modal fade" role="dialog" tabindex="-1" id="loginError">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="usuario">Error</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                    <div class="modal-body">
-                        <p id="errorUser"> </p>
-                    </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button></div>
-                </div>
-            </div>
-        </div>
-
+ 
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/login.js" type="text/javascript"></script>
+         
     </body>
 
 </html>

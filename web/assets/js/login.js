@@ -17,15 +17,17 @@ function login() {
 // error que se muestra al ingresar datos incorrectos
 function noEncontrado(){
     var user=$("#user").val();
-    
-    document.getElementById("errorUser").innerHTML = "No se ha podido iniciar sesión, por favor verifique su usuario "+user+"\
-    o escriba nuevamente su contraseña";
+
     $('#loginError').modal('show');
+     swal("Error de inicio de sesión  "+ user +" Contraseña incorrecta!!", "Digite nuevamente el usuario y la contraseña!!", "error");
     
 }
 //se envia a la pagina principal
 function redirigir() {
-
-    location.href = "index.jsp"; 
+        swal("Sesion iniciada..!", "Correctamente!!", "success");
+    setTimeout(function(){
+        window.location.assign("//localhost:8084/SISBO/index.jsp");
+    },2000);
+   
 
 }
