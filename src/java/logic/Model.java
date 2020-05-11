@@ -738,7 +738,6 @@ public class Model {
         return aux;
     }
     
-    
     public List<AbaaTbPersona> personasLista(){
         return usuariosDao.personasLista();
     }
@@ -778,8 +777,10 @@ public class Model {
         } catch (Exception ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
         
-        
+    public List<SboTbArticulo> listadoArticulosFaltaContConta() {
+        return articulodao.listadoArticulosFaltaContConta();
     }
 
 }

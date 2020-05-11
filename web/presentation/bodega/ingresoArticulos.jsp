@@ -22,7 +22,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/i18n/defaults-*.min.js"></script>
         <title>Ingreso de Articulos</title>
     </head>
-    <body onload="selectSicop(), logged(), cargarSelects()">
+    <body onload="selectSicop2(), logged(), cargarSelects()">
         <%@ include file="/presentation/header.jsp" %>
         <div id="titulo">
             <div class="jumbotron">
@@ -31,7 +31,7 @@
                 <p></p>
             </div>
         </div>
-        <form action="javascript:agregarArt()">
+        <form action="javascript:agregarArticulos()">
             <div class="card" id="formulario">
                 <div class="card-body">
                     <h4 class="text-center">Ingreso de Artículos</h4>
@@ -77,18 +77,28 @@
                                        id="Precio" required>
 
                                 <label>Unidad Usuaria</label>
-                                <select class="form-control" id="selectDeptos" required>
-                                    <option values="0" selected disabled = "true">Seleccione una opcion</option>
-                                </select>  
+                                <select id="selectDeptos" class="selectpicker form-control" 
+                                        data-live-search="true" data-size="15" required>
+                                    <option values="0" selected disabled = "true" >Seleccione una opcion</option>
+                                </select>
+                                <style>
+                                    div.dropdown-menu.open { width: 100%; }
+                                    ul.dropdown-menu.inner>li>a { white-space: initial; }
+                                </style>
 
                                 <label>Fecha de Ingreso</label>
                                 <input id="AddArtFIngreso" class="form-control" type="date" 
                                        placeholder="Fecha de Ingreso" required>
 
                                 <label>SICOP</label>
-                                <select class="form-control" id="selectSicop" required>
-                                    <option values="0" selected disabled = "true">Seleccione una opcion</option>
+                                <select id="selectSicop" class="selectpicker form-control" 
+                                        data-live-search="true" data-size="15" required>
+                                    <option values="0" selected disabled = "true" >Seleccione una opcion</option>
                                 </select>
+                                <style>
+                                    div.dropdown-menu.open { width: 100%; }
+                                    ul.dropdown-menu.inner>li>a { white-space: initial; }
+                                </style>
 
                             </div>
 
@@ -111,6 +121,14 @@
                                 <label>Fecha de Vencimiento</label>
                                 <input id="AddArtFVencimiento" class="form-control" 
                                        type="date" placeholder="Fecha de Vencimiento">
+
+                                <label>Tipo de Ingreso</label>
+                                <select class="form-control" id="selectTipoIng" required>
+                                    <option values="0" selected disabled = "true">Seleccione una opcion</option>
+                                    <option value="Regular" >Regular</option>
+                                    <option value="Donacion" >Donación</option>
+                                    <option value="Caja Chica">Caja Chica</option>
+                                </select> 
                             </div>
 
                         </div>
@@ -132,146 +150,14 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
         <script src="assets/js/sicop.js" type="text/javascript"></script>
-        <script src="assets/js/proveedores.js" type="text/javascript"></script>
         <script src="assets/js/departamentos.js" type="text/javascript"></script>
-        <script src="assets/js/ingresoArticulos.js" type="text/javascript"></script>
+        <script src="assets/js/ingresoArticulosSinOC.js" type="text/javascript"></script>
     </body>
 
 </html>
 
 <script>
         document.getElementById("ArticulosMenu").style.color = "white";
-
-        var articuloActual;
-
-        function abrirModalListarArticulos(id) {
-            articuloActual = id;
-            buscarArtxOc(id);
-            $('#listaArticulos').modal('show');
-        }
-
-        function abrirModalAgregarArticulos(idArti) {
-            $('#listaArticulos').modal('hide');
-            solicitarDatosArticulo(idArti);
-            selectBodegas();
-            $('#agregarArticulo').modal('show');
-        }
-
-        function abrirModalInfoArticulo(idCat) {
-            $('#agregarArticulo').modal('hide');
-            solicitarDatosCatalogosArticulo(idCat);
-            $('#modalInfoArt').modal('show');
-        }
-
-        function cerrarInfoArt() {
-            $('#agregarArticulo').modal('show');
-            $('#modalInfoArt').modal('hide');
-        }
-
-        function refrescarListaArticulos(id) {
-            $('#agregarArticulo').modal('hide');
-            $('#listaArticulos').modal('show');
-        }
-
-        function buscarOrdenes() {
-            $.ajax({type: "GET",
-                url: "api/listadoOCArtNuevos?numeroOC=" + $("#numeroOC").val(),
-                success: listaOC
-            });
-        }
-
-        function buscarArtxOc(id) {
-            $.ajax({type: "GET",
-                url: "api/ListaOCxArt?numeroOCArt=" + id,
-                success: listaArtxOC
-            });
-        }
-
-        function solicitarDatosArticulo(id) {
-            $.ajax({type: "GET",
-                url: "api/ListaOCxArt/" + id,
-                success: mostrarDatosArt
-            });
-        }
-
-        function mostrarDatosArt(objeto) {
-            $("#AddArtId").val(objeto.artIdPk);
-            $("#OCId").val(objeto.sboTbOrdenCompra.ocIdPk);
-            $("#DptoId").val(objeto.abaaTbDepartamento.deptoIdPk);
-            $("#AddArtArticulo").val(objeto.sboTbCatArticulo.catDesc);
-            $("#AddArtDescripcion").val(objeto.artDesc);
-            $("#AddArtModelo").val(objeto.artMode);
-            $("#AddArtMarca").val(objeto.artMarc);
-            $("#AddArtNSerie").val(objeto.artNumeSeri);
-            $("#AddArtUniUsuaria").val(objeto.abaaTbDepartamento.deptoNomb);
-            cargarBotonInfo(objeto.sboTbCatArticulo.catIdPk);
-        }
-
-        function solicitarDatosCatalogosArticulo(id) {
-            $.ajax({type: "GET",
-                url: "api/descCatsArticulo/" + id,
-                success: mostrarDatosCatsArt
-            });
-        }
-
-        function mostrarDatosCatsArt(objeto) {
-            $("#codArtInfo").val(objeto.sboTbCatArticulo.catIdPk);
-            $("#articuloInfo").val(objeto.sboTbCatArticulo.catDesc);
-            $("#subfamInfo").val(objeto.sboTbCatArticulo.sboTbSubFamilia.subFamiDesc);
-            $("#famInfo").val(objeto.sboTbCatArticulo.sboTbSubFamilia.sboTbFamilia.famiDesc);
-        }
-
-        function cargarBotonInfo(catalogoID) {
-            var linea = "<img src='assets/img/info(1).png' onclick='abrirModalInfoArticulo(\"" + catalogoID + "\")'>";
-            $("#botonArticuloInfo").empty().append(linea);
-        }
-
-        function listaOC(ordenes) {
-            var listado = $("#listadoOC");
-            listado.html("");
-            ordenes.forEach((p) => {
-                filaOC(listado, p);
-            });
-        }
-
-        function listaArtxOC(ordenes) {
-            var listado = $("#listadoOCxArt");
-            listado.html("");
-            ordenes.forEach((p) => {
-                filaOCxArt(listado, p);
-            });
-        }
-
-        function formatDate(fecha) {
-            var dia = fecha.substring(8, 10);
-            var mes = fecha.substring(5, 7);
-            var annio = fecha.substring(0, 4);
-            var newFecha = dia + "/" + mes + "/" + annio;
-            return newFecha;
-        }
-
-        function filaOC(listado, objeto) {
-            var tr = $("<tr />");
-            tr.html(
-                    "<td>" + objeto.ocIdPk + "</td>"
-                    + "<td>" + formatDate(objeto.ocFecha) + "</td>"
-                    + "<td>" + objeto.abaaTbProveedor.proveNomb + "</td>"
-                    + "<td>" + objeto.ocPrecTota + "</td>"
-                    + "<td>" + objeto.ocEsta + "</td>"
-                    + "<td><img src='assets/img/delivery-cart.png' onclick='abrirModalListarArticulos(\"" + objeto.ocIdPk + "\");'></td>");
-            listado.append(tr);
-            $('#buscarOrdArt').trigger("reset");
-        }
-
-        function filaOCxArt(listado, objeto) {
-            var tr = $("<tr />");
-            tr.html(
-                    "<td>" + objeto.artDesc + "</td>"
-                    + "<td>" + objeto.artCant + "</td>"
-                    + "<td>" + objeto.artCantRest + "</td>"
-                    + "<td><img class='small-img' src='assets/img/plus.png' onclick='abrirModalAgregarArticulos(\"" + objeto.artIdPk + "\");'></td>");
-            listado.append(tr);
-        }
 
         function selectBodegas() {
             var vacio = "";
@@ -289,106 +175,43 @@
 
         }
 
-        function parseaFecha(fechaOriginal) {
-            var fecha = fechaOriginal;
-            var fecha2;
-            if (fecha.length > 0) {
-                fecha2 = fecha.toDate("yyyy-mm-dd");
-            } else {
-                fecha2 = null;
-            }
-            return fecha2;
-        }
-
-        function actualizarArticulo() {
-            aumentarExistencias();
-            disminuirRestantes();
-            $("#actualizaArticulo").trigger('reset');
-        }
-
-        function aumentarExistencias() {
-            existencia = {
-                sboTbBodega: [{bodeIdPk: $("#AddArtBodega").val()}],
-                abaaTbDepartamento: [{deptoIdPk: $("#DptoId").val()}],
-                sboTbSicop: [{sicopId: $("#selectSicop").val()}],
-                exisCant: $("#AddArtCant").val()
-            };
-            $.ajax({type: "PUT",
-                url: "api/Existencias",
-                data: JSON.stringify(existencia),
-                contentType: "application/json"});
-        }
-
-        function disminuirRestantes() {
-            articulo = {
-                artIdPk: $("#AddArtId").val(),
-                artDesc: $("#AddArtDescripcion").val(),
-                artMode: $("#AddArtModelo").val(),
-                artMarc: $("#AddArtMarca").val(),
-                artNumeSeri: $("#AddArtNSerie").val(),
-                artFingr: parseaFecha($("#AddArtFIngreso").val()),
-                artFvenc: parseaFecha($("#AddArtFVencimiento").val()),
-                sboSicop: [{sicopId: $("#selectSicop").val()}],
-                sboTbOrdenCompra: [{ocIdPk: $("#OCId").val()}],
-                artCantRest: $("#AddArtCant").val()
-            };
-            $.ajax({type: "PUT",
-                url: "api/ListaOCxArt",
-                data: JSON.stringify(articulo),
-                contentType: "application/json"})
-                    .then(function () {
-                        buscarArtxOc($("#OCId").val());
-                        buscarOrdenes();
-                    });
-            refresca();
-        }
-
-        function refresca() {
-            $('#agregarArticulo').modal('hide');
-            $('#listadoOCxArt').empty();
-            buscarArtxOc(articuloActual);
-
-            $('#listaArticulos').modal('show');
-        }
-
-        String.prototype.toDate = function (format)
-        {
-            var normalized = this.replace(/[^a-zA-Z0-9]/g, '-');
-            var normalizedFormat = format.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-');
-            var formatItems = normalizedFormat.split('-');
-            var dateItems = normalized.split('-');
-
-            var monthIndex = formatItems.indexOf("mm");
-            var dayIndex = formatItems.indexOf("dd");
-            var yearIndex = formatItems.indexOf("yyyy");
-
-            var today = new Date();
-
-            var year = yearIndex > -1 ? dateItems[yearIndex] : today.getFullYear();
-            var month = monthIndex > -1 ? dateItems[monthIndex] - 1 : today.getMonth() - 1;
-            var day = dayIndex > -1 ? dateItems[dayIndex] : today.getDate();
-
-            return new Date(year, month, day);
-        };
-
         function logged() {
     <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
-     <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
+    <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
             location.href = "presentation/notAccess.jsp";
     <%}%>
         }
 
         function cargarSelects() {
             selectBodegas();
-            selectProveedores();
-            selectDeptos();
+            selectDepartamentos();
             selectCatArticulos();
+        }
+
+        function selectDepartamentos() {
+            $.ajax({type: "GET",
+                url: "api/departamentos",
+                success: pb4Depto,
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
+        
+        function pb4Depto(data) {
+
+            var jsonData = JSON.stringify(data);
+            $.each(JSON.parse(jsonData), function (idx, obj) {
+                $("#selectDeptos").append('<option value="' + obj.deptoIdPk + '">' + '➤ ' + obj.deptoNomb + '</option>');
+
+            });
+            $('#selectDeptos').selectpicker('refresh');
         }
 
         function selectCatArticulos() {
             $.ajax({type: "GET",
                 url: "api/catArticulos?filtro=" + " ",
-                success: pb4,
+                success: pb4CatArt,
                 error: function (data) {
                     alert('error');
                 }
@@ -396,7 +219,7 @@
 
         }
 
-        function pb4(data) {
+        function pb4CatArt(data) {
 
             var jsonData = JSON.stringify(data);
             $.each(JSON.parse(jsonData), function (idx, obj) {
@@ -404,16 +227,13 @@
 
             });
             $('#selectCatalogoArticulos').selectpicker('refresh');
-
         }
 
         function picker() {
             $('#selectCatalogoArticulos').addClass('selectpicker');
             $('#selectCatalogoArticulos').attr('data-live-search', 'true');
+            $('#selectDeptos').addClass('selectpicker');
+            $('#selectDeptos').attr('data-live-search', 'true');
         }
-        
-
-
-
 
 </script>

@@ -1,10 +1,11 @@
 
 //funcion necesaria para agregar el registro a la base de datos con la informacion proporcionada por el usuario 
-function agregarArt() {
+function agregarArticulos() {
     var depto = document.getElementById("selectDeptos").value;
     var art = document.getElementById("selectCatalogoArticulos").value;
     var unidad = document.getElementById("selectUnidadMedida").value;
     var sicop = document.getElementById("selectSicop").value;
+    var tipo = document.getElementById("selectTipoIng").value;
     var cantRest = 0;
     
     var fechaIngreso = document.getElementById("AddArtFIngreso").value;
@@ -32,6 +33,7 @@ function agregarArt() {
         sboSicop: {
             sicopId: sicop
         },
+        artiTipoIngr: tipo,
         artDesc: $("#AddArtDescripcion").val(),
         artMode: $("#AddArtModelo").val(),
         artCant: $("#AddArtCant").val(),
