@@ -74,25 +74,15 @@
                                 <div class="form-row">
                                     <div class="col">
                                         <label>Código</label>
-                                        <select class="form-control" id="selectConta" required>
-                                            <option values="0" selected disabled = "true">Seleccione una opcion</option>
-                                        </select>  
+                                        <select id="selectConta" class="selectpicker form-control" 
+                                                data-live-search="true" data-size="15" required>
+                                            <option values="0" selected disabled = "true" >Seleccione una opcion</option>
+                                        </select>
                                         <style>
-                                            div.dropdown-menu.open { width: 100%; }
+                                            div.dropdown-menu.open { width: 150%; }
                                             ul.dropdown-menu.inner>li>a { white-space: initial; }
                                         </style>
-                                        <!--
-                                        <select id="selectConta" 
-                                                class="selectpicker form-control"
-                                                data-live-search="true"  data-size="15"  required>
-                                            <option values="0" selected disabled = "true">
-                                                Seleccione una opcion
-                                            </option>
-                                        </select>
-                                        -->
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
@@ -104,7 +94,7 @@
                 </div>
             </div>
         </form>
-        
+
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
@@ -114,14 +104,39 @@
 
     </body>
     <script>
-        document.getElementById("codContableMenu").style.color = "white";
+                                document.getElementById("codContableMenu").style.color = "white";
 
-        function logged() {
+                                function logged() {
         <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
         <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("8")) { %>
-            location.href = "presentation/notAccess.jsp";
+                                    location.href = "presentation/notAccess.jsp";
         <%}%>
-        }
+                                }
 
+                                function selectConta() {
+                                    $.ajax({type: "GET",
+                                        url: "api/contables?filtro=" + " ",
+                                        success: pb4,
+                                        error: function (data) {
+                                            alert('error');
+                                        }
+                                    });
+                                }
+
+                                function pb4(data) {
+
+                                    var jsonData = JSON.stringify(data);
+                                    $.each(JSON.parse(jsonData), function (idx, obj) {
+                                        $("#selectConta").append('<option value="' + obj.cntIdPk + '">' + '➤ ' + obj.cntCodi + '-' + obj.cntDesc + '</option>');
+
+                                    });
+                                    $('#selectConta').selectpicker('refresh');
+
+                                }
+
+                                function picker() {
+                                    $('#selectConta').addClass('selectpicker');
+                                    $('#selectConta').attr('data-live-search', 'true');
+                                }
     </script>
 </html>

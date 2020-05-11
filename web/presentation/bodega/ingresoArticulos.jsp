@@ -22,7 +22,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/i18n/defaults-*.min.js"></script>
         <title>Ingreso de Articulos</title>
     </head>
-    <body onload="selectSicop(), logged(), cargarSelects()">
+    <body onload="selectSicop2(), logged(), cargarSelects()">
         <%@ include file="/presentation/header.jsp" %>
         <div id="titulo">
             <div class="jumbotron">
@@ -77,18 +77,28 @@
                                        id="Precio" required>
 
                                 <label>Unidad Usuaria</label>
-                                <select class="form-control" id="selectDeptos" required>
-                                    <option values="0" selected disabled = "true">Seleccione una opcion</option>
-                                </select>  
+                                <select id="selectDeptos" class="selectpicker form-control" 
+                                        data-live-search="true" data-size="15" required>
+                                    <option values="0" selected disabled = "true" >Seleccione una opcion</option>
+                                </select>
+                                <style>
+                                    div.dropdown-menu.open { width: 100%; }
+                                    ul.dropdown-menu.inner>li>a { white-space: initial; }
+                                </style>
 
                                 <label>Fecha de Ingreso</label>
                                 <input id="AddArtFIngreso" class="form-control" type="date" 
                                        placeholder="Fecha de Ingreso" required>
 
                                 <label>SICOP</label>
-                                <select class="form-control" id="selectSicop" required>
-                                    <option values="0" selected disabled = "true">Seleccione una opcion</option>
+                                <select id="selectSicop" class="selectpicker form-control" 
+                                        data-live-search="true" data-size="15" required>
+                                    <option values="0" selected disabled = "true" >Seleccione una opcion</option>
                                 </select>
+                                <style>
+                                    div.dropdown-menu.open { width: 100%; }
+                                    ul.dropdown-menu.inner>li>a { white-space: initial; }
+                                </style>
 
                             </div>
 
@@ -111,7 +121,7 @@
                                 <label>Fecha de Vencimiento</label>
                                 <input id="AddArtFVencimiento" class="form-control" 
                                        type="date" placeholder="Fecha de Vencimiento">
-                                
+
                                 <label>Tipo de Ingreso</label>
                                 <select class="form-control" id="selectTipoIng" required>
                                     <option values="0" selected disabled = "true">Seleccione una opcion</option>
@@ -164,24 +174,44 @@
             });
 
         }
-        
+
         function logged() {
     <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
-     <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
+    <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
             location.href = "presentation/notAccess.jsp";
     <%}%>
         }
 
         function cargarSelects() {
             selectBodegas();
-            selectDeptos();
+            selectDepartamentos();
             selectCatArticulos();
+        }
+
+        function selectDepartamentos() {
+            $.ajax({type: "GET",
+                url: "api/departamentos",
+                success: pb4Depto,
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
+        
+        function pb4Depto(data) {
+
+            var jsonData = JSON.stringify(data);
+            $.each(JSON.parse(jsonData), function (idx, obj) {
+                $("#selectDeptos").append('<option value="' + obj.deptoIdPk + '">' + '➤ ' + obj.deptoNomb + '</option>');
+
+            });
+            $('#selectDeptos').selectpicker('refresh');
         }
 
         function selectCatArticulos() {
             $.ajax({type: "GET",
                 url: "api/catArticulos?filtro=" + " ",
-                success: pb4,
+                success: pb4CatArt,
                 error: function (data) {
                     alert('error');
                 }
@@ -189,7 +219,7 @@
 
         }
 
-        function pb4(data) {
+        function pb4CatArt(data) {
 
             var jsonData = JSON.stringify(data);
             $.each(JSON.parse(jsonData), function (idx, obj) {
@@ -197,12 +227,13 @@
 
             });
             $('#selectCatalogoArticulos').selectpicker('refresh');
-
         }
 
         function picker() {
             $('#selectCatalogoArticulos').addClass('selectpicker');
             $('#selectCatalogoArticulos').attr('data-live-search', 'true');
+            $('#selectDeptos').addClass('selectpicker');
+            $('#selectDeptos').attr('data-live-search', 'true');
         }
 
 </script>
