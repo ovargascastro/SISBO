@@ -54,6 +54,7 @@
                                     <select id="selectSicop" class="selectpicker form-control" 
                                             data-live-search="true" data-size="15" required>
                                         <option values="0" selected disabled = "true" >Seleccione una opcion</option>
+                                        <option value="all" >➤ Todos los artículos</option>
                                     </select>
                                     <style>
                                         div.dropdown-menu.open { width: 100%; }

@@ -35,9 +35,10 @@
                         <!--CONTABILIDAD-->
                         <% if ("8".equals(logged.getDepartamento().getDeptoIdPk()) && logged.getPers_es_jefe() == 1) {%>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="ordenCompraMenu" data-toggle="dropdown"> Orden de Compra</a>
+                            <a class="nav-link dropdown-toggle" href="#" id="codContableMenu" data-toggle="dropdown"> Asignar Código Contable</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/proveeduria/asignarCodContable.jsp">Asignar Código Contable</a>
+                                <a class="dropdown-item" href="presentation/proveeduria/asignarCodContable.jsp">Órdenes de Compra</a>
+                                <a class="dropdown-item" href="presentation/proveeduria/asignarCodContArtNuevo.jsp">Artículos</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
@@ -94,14 +95,15 @@
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="limitesMenu" data-toggle="dropdown">Limites </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/bodega/limitesdepartamento.jsp">Mantenimiento de limtes por departamento</a>
+                                <a class="dropdown-item" href="presentation/bodega/limitesdepartamento.jsp">Mantenimiento de límites por departamento</a>
                             </div>
                         </div>
-                        
+
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="bodegasMenu" data-toggle="dropdown">Bodegas </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/bodega/bodegas.jsp">Mantenimiento de Bodegas</a>
+                                 <a class="dropdown-item" href="presentation/bodega/tomaFisica.jsp">Toma Física</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
@@ -113,7 +115,7 @@
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown"> Reporde de Consumo </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown"> Reporte de Consumo </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/general/consumo.jsp">Consumo por Departamento</a>
                             </div>
@@ -165,10 +167,12 @@
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown">
-                                Catálogos
-                            </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown"> Usuarios </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/usuarios.jsp">Administración de usuarios</a>
+                            </div>
                         </div>
+
                         <%}%>
                         <!--PROVEDURIA-->
                         <!-- Jefa -->
@@ -224,8 +228,8 @@
                         <%}%>
                         <!--OTROS FUNCIONARIOS JEFES-->
                         <% if (!logged.getDepartamento().getDeptoIdPk().equals("6") && !logged.getDepartamento().getDeptoIdPk().equals("17")
-                                            && !logged.getDepartamento().getDeptoIdPk().equals("5") && !logged.getDepartamento().getDeptoIdPk().equals("8")
-                                            && logged.getPers_es_jefe() == 1) {%>
+                                    && !logged.getDepartamento().getDeptoIdPk().equals("5") && !logged.getDepartamento().getDeptoIdPk().equals("8")
+                                    && logged.getPers_es_jefe() == 1) {%>
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown">
                                 Solicitud de artículos
@@ -236,7 +240,7 @@
                                 <a class="dropdown-item" href="presentation/general/vistoBuenoJefe.jsp">Visto bueno de Jefe</a>
                             </div>
                         </div>
-                                                <div class="nav-item dropdown">
+                        <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="reportes" data-toggle="dropdown">
                                 Reportes
                             </a>
@@ -270,6 +274,5 @@
     $(document).ready(function () {
         $(".dropdown-toggle").dropdown();
     });
-
 </script>
 

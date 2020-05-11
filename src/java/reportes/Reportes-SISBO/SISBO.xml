@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jdbcDataAdapter class="net.sf.jasperreports.data.jdbc.JdbcDataAdapterImpl"><name>SISBO</name><driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver><username>root</username><password>root</password><savePassword>true</savePassword><url>jdbc:sqlserver://localhost:1433;databaseName=ABAA</url><database></database><serverAddress></serverAddress><classpath>C:\Users\Osvaldo Vargas\Desktop\SISBO\src\java\reportes\Reportes-SISBO\sqljdbc42.jar</classpath></jdbcDataAdapter>
