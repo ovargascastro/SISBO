@@ -24,7 +24,8 @@ function noEncontrado(){
 }
 //se envia a la pagina principal
 function redirigir() {
-        swal("Sesion iniciada..!", "Correctamente!!", "success");
+     var user=$("#user").val();
+        swal("Sesion iniciada Correctamente..!", "Bienvenido!! "+ user, "success");
     setTimeout(function(){
         window.location.assign("//localhost:8084/SISBO/index.jsp");
     },2000);
