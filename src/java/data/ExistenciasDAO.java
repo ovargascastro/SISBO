@@ -4,7 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import logic.AbaaTbDepartamento;
 import logic.SboSicop;
 import logic.SboTbArticulo;
@@ -12,6 +14,15 @@ import logic.SboTbBodega;
 import logic.SboTbCatArticulo;
 import logic.SboTbExistencia;
 import logic.SboTbOrdenCompra;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class ExistenciasDAO {
 
@@ -375,6 +386,24 @@ public class ExistenciasDAO {
         } catch (SQLException ex) {
         }
         return resultado;
+    }
+    
+    public JasperPrint generarReporteTomafisica(String bodega, String departamento) throws JRException{
+    
+            JasperReport report = JasperCompileManager.compileReport("C:\\Users\\Marco\\Downloads\\Carrera\\Ingineer\\ABAA\\src\\java\\Reports\\tomafisica.jrxml");
+            JRDataSource data = new JREmptyDataSource();
+            Map<String, Object> parameters = new  HashMap<String, Object>();
+            
+            parameters.put("bodega",bodega);
+            parameters.put("departamento", departamento);
+            
+            JasperPrint jprint = JasperFillManager.fillReport(report, parameters, data);
+            JasperExportManager.exportReportToPdfFile(jprint, "C:\\Users\\Marco\\Downloads\\tomafisica.pdf");
+               
+            return jprint;
+
+    
+    
     }
 
 }

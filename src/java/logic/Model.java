@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 
 public class Model {
 
@@ -708,4 +711,9 @@ public class Model {
     public List<SboTbExistencia> listaExistenciasStocks(String bodega, String departamento) {
         return existdao.listaExistenciasStocks(bodega, departamento);
     }
+    
+    public JasperPrint generarReporte(String bodega, String departamento) throws JRException{
+        return existdao.generarReporteTomafisica(bodega, departamento);
+    }
+    
 }

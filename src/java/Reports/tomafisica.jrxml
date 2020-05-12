@@ -4,19 +4,67 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Heading 1" fontSize="16" isBold="true"/>
-	<subDataset name="dataset1" uuid="564cc12f-8115-46c2-8552-d3dce16bc6d2"/>
-	<queryString language="SQL">
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#73B0E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CFDBE6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="dataset1" uuid="564cc12f-8115-46c2-8552-d3dce16bc6d2">
+		<parameter name="bodega" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="departamento" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[Select bode.Bode_Desc,dpto.Cata_Depa_nomb, sicop.Sico_Desc, count(exis.Exis_Id_PK) existencias
+from SIBO_TB_Exis exis, SIBO_TB_Bode bode, SIBO_TB_Articulo arti, ABAA_TB_Catalogo_Departamento dpto, SIBO_TB_Sicop sicop
+where exis.Exis_Id_Bode_PK=bode.Bode_Id_PK and exis.Exis_Arti_FK=arti.Arti_Id_PK and arti.Arti_Cod_Sico_FK=sicop.Sico_Id_PK
+and arti.Arti_Cata_Depa_FK=dpto.Cata_Depa_id_PK and exis.Exis_Esta=1   
+and bode.Bode_Id_PK=$P!{bodega} and dpto.Cata_Depa_id_PK=$P!{departamento}
+group by bode.Bode_Desc,dpto.Cata_Depa_nomb, sicop.Sico_Desc
+order by bode.Bode_Desc,dpto.Cata_Depa_nomb, sicop.Sico_Desc;]]>
+		</queryString>
+		<field name="Bode_Desc" class="java.lang.String"/>
+		<field name="Cata_Depa_nomb" class="java.lang.String"/>
+		<field name="Sico_Desc" class="java.lang.String"/>
+		<field name="existencias" class="java.lang.Integer"/>
+	</subDataset>
+	<subDataset name="Table Dataset 1" uuid="a704bd0f-8976-4c67-bc9b-26e2ce3785a1"/>
+	<parameter name="bodega" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="departamento" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
 		<![CDATA[Select bode.Bode_Desc,dpto.Cata_Depa_nomb, sicop.Sico_Desc, count(exis.Exis_Id_PK) existencias
 from SIBO_TB_Exis exis, SIBO_TB_Bode bode, SIBO_TB_Articulo arti, ABAA_TB_Catalogo_Departamento dpto, SIBO_TB_Sicop sicop
 where exis.Exis_Id_Bode_PK=bode.Bode_Id_PK and exis.Exis_Arti_FK=arti.Arti_Id_PK and arti.Arti_Cod_Sico_FK=sicop.Sico_Id_PK
-and exis.Exis_Esta=1  and arti.Arti_Cata_Depa_FK=dpto.Cata_Depa_id_PK
-and bode.Bode_Id_PK=1 and dpto.Cata_Depa_id_PK=5
+and arti.Arti_Cata_Depa_FK=dpto.Cata_Depa_id_PK and exis.Exis_Esta=1   
+and bode.Bode_Id_PK=$P{bodega} and dpto.Cata_Depa_id_PK=$P{departamento}
 group by bode.Bode_Desc,dpto.Cata_Depa_nomb, sicop.Sico_Desc
 order by bode.Bode_Desc,dpto.Cata_Depa_nomb, sicop.Sico_Desc;]]>
 	</queryString>
 	<field name="Bode_Desc" class="java.lang.String"/>
 	<field name="Cata_Depa_nomb" class="java.lang.String"/>
 	<field name="Sico_Desc" class="java.lang.String"/>
+	<field name="existencias" class="java.lang.Integer"/>
 	<group name="Bode_Desc">
 		<groupExpression><![CDATA[$F{Bode_Desc}]]></groupExpression>
 	</group>
@@ -32,82 +80,82 @@ order by bode.Bode_Desc,dpto.Cata_Depa_nomb, sicop.Sico_Desc;]]>
 	<title>
 		<band height="78" splitType="Stretch">
 			<staticText>
-				<reportElement x="193" y="21" width="223" height="37" uuid="52766949-b500-4434-a0ec-05bb572d68be"/>
+				<reportElement x="183" y="0" width="223" height="37" uuid="52766949-b500-4434-a0ec-05bb572d68be"/>
 				<textElement>
 					<font fontName="Times New Roman" size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Municipalidad de Santo Domingo]]></text>
 			</staticText>
 			<image>
-				<reportElement x="26" y="1" width="137" height="77" uuid="cc42f95d-adbe-42e9-8145-7bc420aac897"/>
+				<reportElement x="16" y="0" width="102" height="67" uuid="cc42f95d-adbe-42e9-8145-7bc420aac897"/>
 				<imageExpression><![CDATA["C:\\Users\\Marco\\Downloads\\Carrera\\Ingineer\\ABAA\\web\\assets\\img\\Escudo.png"]]></imageExpression>
 			</image>
 			<textField pattern="MM/dd/yyyy">
-				<reportElement x="451" y="11" width="100" height="20" uuid="c0375b42-3100-4929-8a31-7f0e6938fcb5"/>
+				<reportElement x="455" y="17" width="100" height="20" uuid="c0375b42-3100-4929-8a31-7f0e6938fcb5"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="35" splitType="Stretch">
 			<staticText>
-				<reportElement x="193" y="0" width="182" height="24" uuid="d73a5c15-1929-4ba2-a7ce-0eb50cbd78f5"/>
+				<reportElement x="183" y="54" width="182" height="24" uuid="d73a5c15-1929-4ba2-a7ce-0eb50cbd78f5"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Times New Roman" size="18"/>
 				</textElement>
 				<text><![CDATA[Reporte de toma física]]></text>
 			</staticText>
 		</band>
+	</title>
+	<pageHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="306" y="10" width="100" height="20" uuid="fd1f7548-cc84-42e7-8bbb-ca0b3617fd87"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Nombre Departamento: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="406" y="10" width="112" height="20" uuid="34758676-2f3d-41f0-ba9c-7da414daaf7a"/>
+				<textFieldExpression><![CDATA[$F{Cata_Depa_nomb}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="10" width="69" height="20" uuid="789bf7ef-7d33-4a96-9e4b-547465786ae9"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Nombre bodega: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="83" y="10" width="100" height="20" uuid="11eeff73-9d18-44a5-be61-d9152da14801"/>
+				<textFieldExpression><![CDATA[$F{Bode_Desc}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="61">
 			<staticText>
-				<reportElement x="12" y="24" width="104" height="16" uuid="ea96a307-d9b8-46ae-a270-520a952f4393"/>
-				<textElement>
-					<font fontName="Times New Roman" size="12"/>
-				</textElement>
-				<text><![CDATA[Nombre Bodega]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="163" y="24" width="77" height="16" uuid="299a8feb-1b4b-4eb6-9c0e-076b770b9f56"/>
-				<textElement>
-					<font fontName="Times New Roman" size="12"/>
-				</textElement>
-				<text><![CDATA[Departamento]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="316" y="24" width="67" height="16" uuid="bcb7a67f-e777-4a03-afc1-e2e2953d3836"/>
-				<textElement>
-					<font fontName="Times New Roman" size="12"/>
-				</textElement>
-				<text><![CDATA[Artículo]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="455" y="24" width="67" height="16" uuid="3c213fe2-9e89-4e31-b697-68c3aab9de20"/>
+				<reportElement x="161" y="41" width="67" height="16" uuid="3c213fe2-9e89-4e31-b697-68c3aab9de20"/>
 				<textElement>
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
 				<text><![CDATA[Existencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="41" width="67" height="16" uuid="bcb7a67f-e777-4a03-afc1-e2e2953d3836"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Artículo]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="125" splitType="Stretch">
 			<textField>
-				<reportElement x="12" y="13" width="100" height="20" uuid="c56e96e6-f760-4b25-bdef-8b52b79c6228"/>
-				<textFieldExpression><![CDATA[$F{Bode_Desc}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="163" y="13" width="112" height="20" uuid="e956522b-6db3-4e32-bb7a-43eee013e9e9"/>
-				<textFieldExpression><![CDATA[$F{Cata_Depa_nomb}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="316" y="13" width="100" height="20" uuid="6e8c2116-72fb-4b8d-a8f9-b7af2664e562"/>
+				<reportElement x="14" y="20" width="100" height="20" uuid="6e8c2116-72fb-4b8d-a8f9-b7af2664e562"/>
 				<textFieldExpression><![CDATA[$F{Sico_Desc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="455" y="13" width="112" height="20" uuid="07add988-5dd0-40c6-9293-78b1a80ed325"/>
-				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+				<reportElement x="161" y="20" width="100" height="20" uuid="048f9985-7312-440b-a9e0-d27139c82d09"/>
+				<textFieldExpression><![CDATA[$F{existencias}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -115,7 +163,12 @@ order by bode.Bode_Desc,dpto.Cata_Depa_nomb, sicop.Sico_Desc;]]>
 		<band height="45" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="518" y="34" width="37" height="20" uuid="eeee19e3-df6f-4162-b00b-e8e3cabcbbc2"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>
