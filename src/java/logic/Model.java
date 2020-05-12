@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 
 public class Model {
 
@@ -712,7 +718,7 @@ public class Model {
         ArrayList<SboTbSolixArti> aux = new ArrayList<>();
 
         if (arti.equals("all")) {
-            
+
             aux = solixartdao.reporteConsumoTodos(depa, inicio, fin);
 
         } else {
@@ -722,9 +728,35 @@ public class Model {
 
         return aux;
     }
-    
+
     public List<SboTbArticulo> listadoArticulosFaltaContConta() {
         return articulodao.listadoArticulosFaltaContConta();
+    }
+
+    public void generarReporteConsumo(String arti, String depaId, String depaNomb, String inicio, String fin) throws Exception {
+        String path="";
+        RelDatabase db;
+        db = new RelDatabase();
+        Map<String, Object> parametros;
+        parametros = new HashMap<>();
+        parametros.clear();
+        parametros.put("depaId", depaId);
+        parametros.put("depaNomb", depaNomb);
+        parametros.put("inicio", inicio);
+        parametros.put("fin", fin);
+        if (arti.equals("all")) {
+            path = "./src/java/reportes/ReporteConsumoTotal.jasper";
+        } else {
+            path = "./src/java/reportes/ReporteConsumoPorArticulo.jasper";
+            parametros.put("articulo", arti);
+        }
+        JasperPrint jasperPrint = JasperFillManager.fillReport(path, parametros, db.getConnection());
+        JRPdfExporter exp = new JRPdfExporter();
+        exp.setExporterInput(new SimpleExporterInput(jasperPrint));
+        exp.setExporterOutput(new SimpleOutputStreamExporterOutput("ReporteConsumoPorDepartamento.pdf"));
+        SimplePdfExporterConfiguration conf = new SimplePdfExporterConfiguration();
+        exp.setConfiguration(conf);
+        exp.exportReport();
     }
 
 }

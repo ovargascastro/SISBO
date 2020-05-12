@@ -31,7 +31,7 @@ function pb4(data) {
 
 function selectDeptos() {
     $.ajax({type: "GET",
-       url: "api/departamentos",
+        url: "api/departamentos",
         success: cargarDeptos,
         error: function (data) {
             alert('error');
@@ -99,15 +99,15 @@ function fila(listado, objeto) {
 }
 
 
-function getReporteDepartamento(){
-    
+function getReporteDepartamento() {
+
     var arti = document.getElementById("selectSicopPicker").value;
     var inicio = document.getElementById("fechaInicio").value;
     var fin = document.getElementById("fechaFinal").value;
     var dpto = document.getElementById("selectDptoPicker").value;
 
 
-    
+
     if (inicio < fin) {
         $.ajax({type: "GET",
             url: "api/consumo2/" + arti + "/" + inicio + "/" + fin + "/" + dpto,
@@ -116,7 +116,28 @@ function getReporteDepartamento(){
     } else {
         alert("Fecha de incio debe ser menor a la fecha final")
     }
-    
+
 }
 
 
+function reportePDF() {
+    var arti = document.getElementById("selectSicopPicker").value;
+    var inicio = document.getElementById("fechaInicio").value;
+    var fin = document.getElementById("fechaFinal").value;
+
+    if (inicio < fin) {
+        $.ajax({type: "GET",
+            url: "api/Consumo/reporte/" + arti + "/" + inicio + "/" + fin,
+            success: alert("Reporte Generado"),
+            error: function (data) {
+                alert('error');
+            }
+        });
+    } else {
+        alert("Fecha de incio debe ser menor a la fecha final");
+    }
+}
+
+function prueba() {
+    alert("prueba");
+}
