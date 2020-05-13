@@ -493,21 +493,23 @@ public class Model {
     }
 
     public List<SboTbExistencia> listaExistencias(String bodega, String departamento, String articulo) {
+
         if (articulo.equals("all")) {
+
             return existdao.listaExistenciasTodosArticulos(bodega, departamento, articulo);
+
         } else {
+
             return existdao.listaExistenciasArticulos(bodega, departamento, articulo);
+
         }
+
     }
 
     public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
         return existdao.listaExistenciasfiltro(depa);
     }
-//
-//    public SboTbExistencia getSboTbExistencia(String depa, String Arti) throws Exception {
-//        return existdao.getSboTbExistencia(depa, Arti);
-//    }
-
+    
     public void agregarArticuloSinOrden(SboTbArticulo art) throws Exception {
         articulodao.agregarArticuloSinOrden(art);
 
@@ -663,13 +665,27 @@ public class Model {
         return limiDAO.getLimite(x, y);
     }
 
+    public List<SboTbArticulo> listadoArticulosFaltaContConta() {
+        return articulodao.listadoArticulosFaltaContConta();
+    }
+
+    public List<SboTbExistencia> listaExistenciasStocks(String bodega, String departamento) {
+        return existdao.listaExistenciasStocks(bodega, departamento);
+    }
+    
     public ArrayList<SboTbSolixArti> listaReporte(String arti, String depa, String inicio, String fin) throws Exception {
+
         ArrayList<SboTbSolixArti> aux = new ArrayList<>();
+
         if (arti.equals("all")) {
+
             aux = solixartdao.reporteConsumoTodos(depa, inicio, fin);
+
         } else {
+
             aux = solixartdao.reporteConsumo(depa, inicio, fin, arti);
         }
+
         return aux;
     }
 
@@ -678,49 +694,53 @@ public class Model {
     }
 
     public AbaaTbPersona getUsuario(String id) throws Exception {
+
         return usuariosDao.getUsuario(id);
     }
 
     public void updatUsuarioSinContrasenna(AbaaTbPersona p) throws SQLException {
         usuariosDao.updatUsuarioSinContrasenna(p);
+
     }
 
     public void updateUsuarioConContrasenna(AbaaTbPersona p) throws SQLException {
+
         usuariosDao.updateUsuarioConContrasenna(p);
     }
+    
+    public void insertarUsuario(AbaaTbPersona per) throws Exception {
 
-    public void insertarUsuario(AbaaTbPersona per) {
         try {
             String clave = per.getPasswAux();
             usuariosDao.InsertarPersona(per);
             String id = per.getPersCedu();
             AbaaTbPersona aux = usuariosDao.getPersona(id);
-
+            aux.setRolAux(per.getRolAux());
             AbaaTbUsuario user = new AbaaTbUsuario();
             aux.setPersCedu(per.getPersCedu());
             user.setPersona(aux);
             user.setUsuaCont(clave);
+            
 
             usuariosDao.InsertarUsuario(user);
 
         } catch (Exception ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+              throw new Exception("Bodega no Existe");
         }
+
     }
 
-    public List<SboTbArticulo> listadoArticulosFaltaContConta() {
-        return articulodao.listadoArticulosFaltaContConta();
+    public List<AbaaTbRolxPermiso> rolesLista() throws Exception {
+        return usuariosDao.getRoles();
     }
-    public List<SboTbExistencia> listaExistenciasStocks(String bodega, String departamento) {
-        return existdao.listaExistenciasStocks(bodega, departamento);
-    }
-    
+
     public void generarReporteConsumo(String arti, String depaId, String depaNomb, String inicio, String fin) throws Exception {
-        String path="";
+        String path = "";
         RelDatabase db;
         db = new RelDatabase();
         Connection con = null;
-        con=db.getConnection();
+        con = db.getConnection();
         Map<String, Object> parametros;
         parametros = new HashMap<>();
         parametros.clear();
@@ -742,5 +762,4 @@ public class Model {
         exp.setConfiguration(conf);
         exp.exportReport();
     }
-
 }
