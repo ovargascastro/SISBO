@@ -1,6 +1,7 @@
 package logic;
 
 import data.*;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -718,6 +719,8 @@ public class Model {
         String path="";
         RelDatabase db;
         db = new RelDatabase();
+        Connection con = null;
+        con=db.getConnection();
         Map<String, Object> parametros;
         parametros = new HashMap<>();
         parametros.clear();
@@ -726,12 +729,12 @@ public class Model {
         parametros.put("inicio", inicio);
         parametros.put("fin", fin);
         if (arti.equals("all")) {
-            path = "./src/java/reportes/ReporteConsumoTotal.jasper";
+            path = "SISBO\\src\\java\\reportes\\ReporteConsumoTotal.jasper";
         } else {
-            path = "./src/java/reportes/ReporteConsumoPorArticulo.jasper";
+            path = "SISBO\\src\\java\\reportes\\ReporteConsumoPorArticulo.jasper";
             parametros.put("articulo", arti);
         }
-        JasperPrint jasperPrint = JasperFillManager.fillReport(path, parametros, db.getConnection());
+        JasperPrint jasperPrint = JasperFillManager.fillReport(path, parametros, con);
         JRPdfExporter exp = new JRPdfExporter();
         exp.setExporterInput(new SimpleExporterInput(jasperPrint));
         exp.setExporterOutput(new SimpleOutputStreamExporterOutput("ReporteConsumoPorDepartamento.pdf"));

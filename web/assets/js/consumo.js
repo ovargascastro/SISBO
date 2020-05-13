@@ -126,8 +126,8 @@ function reportePDF() {
     var fin = document.getElementById("fechaFinal").value;
 
     if (inicio < fin) {
-        $.ajax({type: "GET",
-            url: "api/Consumo/reporte/" + arti + "/" + inicio + "/" + fin,
+        $.ajax({type: "POST",
+            url: "api/Reporte/" + arti + "/" + inicio + "/" + fin,
             success: alert("Reporte Generado"),
             error: function (data) {
                 alert('error');

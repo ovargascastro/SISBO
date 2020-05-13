@@ -42,34 +42,38 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author oscar
  */
-@Path("Consumo")
-public class Consumo {
+@Path("Reporte")
+public class Reporte {
 
     @Context
     HttpServletRequest request;
 
-    @GET
+    @POST
     @Path("{arti}/{inicio}/{fin}")
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    public List<SboTbSolixArti> getExistencias(@PathParam("arti") String x, @PathParam("inicio") String y, @PathParam("fin") String z) {
+    public Response generarReporte(@PathParam("arti") String x, @PathParam("inicio") String y, @PathParam("fin") String z) {
 
         AbaaTbPersona logged = (AbaaTbPersona) request.getSession().getAttribute("logged");
+
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date date1;
         java.util.Date date2;
         String articulo = x;
-        String fInicio = y;
-        String fFinal = z;
+        String inicio = y;
+        String fin = z;
 
         try {
-            date1 = dateFormat.parse(fInicio);
-            date2 = dateFormat.parse(fFinal);
-            String depa = logged.getDepartamento().getDeptoIdPk();
-            return Model.instance().listaReporte(articulo, depa, fInicio, fFinal);
+            date1 = dateFormat.parse(inicio);
+            date2 = dateFormat.parse(fin);
+
+            String depaId = logged.getDepartamento().getDeptoIdPk();
+            String depaNomb = logged.getDepartamento().getDeptoNomb();
+
+            Model.instance().generarReporteConsumo(articulo, depaId, depaNomb, inicio, fin);
+
         } catch (Exception ex) {
-            Logger.getLogger(Consumo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return Response.ok().build();
     }
 
 }
