@@ -241,24 +241,4 @@ public class SoliXArtDAO {
         }
         return resultado;
     }
-//    
-//    
-//        public  ArrayList<SboTbSolixArti>  reporteConsumoFilter(String arti, String depa, String inicio, String fin) {
-//         ArrayList<SboTbSolixArti>  resultado = new ArrayList<SboTbSolixArti>();
-//        try {
-//            String sql = "select si.Sico_Desc, si.Sico_Codi_Iden,si.Sico_Codi_Clas,si.Sico_Id_PK, Soli_Arti_X_Cant from SIBO_TB_Soli_X_Arti s inner join\n"
-//                    + "SIBO_TB_Sicop si on s.Soli_Arti_Id_X_Sico_PK=si.Sico_Id_PK inner join\n"
-//                    + "SIBO_TB_Soli_Arti so on s.Soli_Arti_Id_X_Soli_Arti_PK=so.Soli_Arti_Id_PK\n"
-//                    + "where so.Soli_Arti_Id_Depa_FK='%s' and s.Soli_Arti_Id_X_Sico_PK="+arti+" and s.Soli_Arti_Fech_Sali between '"+inicio+"'and '"+fin+"';";
-//            sql = String.format(sql, depa);
-//            ResultSet rs = db.executeQuery(sql);
-//            while (rs.next()) {
-//                resultado.add(objetoReporte(rs));
-//            }
-//        } catch (SQLException ex) {
-//        }
-//        return resultado;
-//    }
-//
-//    }
 }

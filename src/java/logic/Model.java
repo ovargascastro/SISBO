@@ -12,6 +12,8 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Model {
 
@@ -27,6 +29,7 @@ public class Model {
     private final ArticulosDAO articulodao;
     private final OCxProyectoDAO ordenXdao;
     private final solicitudArtDAO solArtdao;
+    private final usuariosDAO usuariosDao;
     private final sicopDAO sicopDao;
     private final loginDAO logindao;
     private final ExistenciasDAO existdao;
@@ -66,6 +69,7 @@ public class Model {
         existdao = new ExistenciasDAO();
         solixartdao = new SoliXArtDAO();
         limiDAO = new LimitesDepartamentoDAO();
+        usuariosDao = new usuariosDAO();
 
     }
 
@@ -488,7 +492,11 @@ public class Model {
     }
 
     public List<SboTbExistencia> listaExistencias(String bodega, String departamento, String articulo) {
-        return existdao.listaExistenciasArticulos(bodega, departamento, articulo);
+        if (articulo.equals("all")) {
+            return existdao.listaExistenciasTodosArticulos(bodega, departamento, articulo);
+        } else {
+            return existdao.listaExistenciasArticulos(bodega, departamento, articulo);
+        }
     }
 
     public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
@@ -592,65 +600,6 @@ public class Model {
         }
         return alertas;
     }
-//    public List<SboTbExistencia> disminuirExistencias(SboTbSolixArti solixArti) throws Exception {
-//        ArrayList<SboTbSolixArti> listaSolicitudes = (ArrayList) solixartdao.filtraSolixArti(Integer.toString(solixArti.getSboTbSoliArti().getSolArtiIdPk()));
-//        ArrayList<SboTbExistencia> existencias = listaExistenciasPorSoli(listaSolicitudes);
-//        if (verificaDatosExisSolixArti(listaSolicitudes, existencias)) {
-//            for (int i = 0; i < existencias.size(); i++) {
-//                existencias.get(i).setExisCant(existencias.get(i).getExisCant() - listaSolicitudes.get(i).getSolArtiCant());
-//                existdao.actualizarExistencia(existencias.get(i));
-//
-//                listaSolicitudes.get(i).getSboTbSoliArti().setSolArtiEsta("Aprobada");
-//                solArtdao.actualizarEstSolicitud(listaSolicitudes.get(i).getSboTbSoliArti());
-//            }
-//            return verificaLimiteExis(existencias);
-//        } else {
-//            throw new Exception("Departamento no Existe");
-//        }
-//    }
-//    private ArrayList<SboTbExistencia> listaExistenciasPorSoli(ArrayList<SboTbSolixArti> solicitudes) throws Exception {
-//        ArrayList<SboTbExistencia> existencias = new ArrayList<>();
-//        for (SboTbSolixArti s : solicitudes) {
-//            existencias.add(buscaRegistroExistencia(s));
-//        }
-//        return existencias;
-//    }
-//    private SboTbExistencia buscaRegistroExistencia(SboTbSolixArti solixArti) throws Exception {
-//        return existdao.registroExistenciasPorSolicitud(solixArti.getSboTbSoliArti().getAbaaTbDepartamento().getDeptoIdPk(), Integer.toString(solixArti.getSboSicop().getSicopId()));
-//    }
-//    private boolean verificaDatosExisSolixArti(ArrayList<SboTbSolixArti> solicitudes, ArrayList<SboTbExistencia> existencias) {
-//        boolean bandera = true;
-//        int cont = 0;
-//        while (cont < solicitudes.size() && bandera == true) {
-//            if (solicitudes.get(cont).getSolArtiCant() > existencias.get(cont).getExisCant()) {
-//                bandera = false;
-//            } else {
-//                cont++;
-//            }
-//        }
-//        return bandera;
-//    }
-//    private ArrayList<SboTbExistencia> verificaLimiteExis(ArrayList<SboTbExistencia> existencias) throws Exception {
-//        ArrayList<SboTbLimiteDpto> limites = verificaLimExisConExistencias(existencias);
-//        ArrayList< SboTbExistencia> alertas = new ArrayList<SboTbExistencia>();
-//        for (int i = 0; i < existencias.size(); i++) {
-//            if (limites.get(i).getLimiteDptoLimite() > existencias.get(i).getExisCant()) {
-//                alertas.add(existencias.get(i));
-//            }
-//        }
-//        return alertas;
-//    }
-//    private ArrayList<SboTbLimiteDpto> verificaLimExisConExistencias(ArrayList<SboTbExistencia> e) throws Exception {
-//        ArrayList<SboTbLimiteDpto> l = new ArrayList<>();
-//        for (int i = 0; i < e.size(); i++) {
-//            l.add(limiDAO.getLimiteDepaPorExis(e.get(i)));
-//        }
-//        return l;
-//    }
-//
-//    public void actualizaCantExist(SboTbExistencia e) throws SQLException {
-//        existdao.updateExist(e);
-//    }
 
     public List<SboTbSoliArti> solicitudesPendientesxFunc(int func) {
         return solArtdao.listadoSolicitudPorFuncionarioPendientes(func);
@@ -714,25 +663,57 @@ public class Model {
     }
 
     public ArrayList<SboTbSolixArti> listaReporte(String arti, String depa, String inicio, String fin) throws Exception {
-
         ArrayList<SboTbSolixArti> aux = new ArrayList<>();
-
         if (arti.equals("all")) {
-
             aux = solixartdao.reporteConsumoTodos(depa, inicio, fin);
-
         } else {
-
             aux = solixartdao.reporteConsumo(depa, inicio, fin, arti);
         }
-
         return aux;
+    }
+
+    public List<AbaaTbPersona> personasLista() {
+        return usuariosDao.personasLista();
+    }
+
+    public AbaaTbPersona getUsuario(String id) throws Exception {
+        return usuariosDao.getUsuario(id);
+    }
+
+    public void updatUsuarioSinContrasenna(AbaaTbPersona p) throws SQLException {
+        usuariosDao.updatUsuarioSinContrasenna(p);
+    }
+
+    public void updateUsuarioConContrasenna(AbaaTbPersona p) throws SQLException {
+        usuariosDao.updateUsuarioConContrasenna(p);
+    }
+
+    public void insertarUsuario(AbaaTbPersona per) {
+        try {
+            String clave = per.getPasswAux();
+            usuariosDao.InsertarPersona(per);
+            String id = per.getPersCedu();
+            AbaaTbPersona aux = usuariosDao.getPersona(id);
+
+            AbaaTbUsuario user = new AbaaTbUsuario();
+            aux.setPersCedu(per.getPersCedu());
+            user.setPersona(aux);
+            user.setUsuaCont(clave);
+
+            usuariosDao.InsertarUsuario(user);
+
+        } catch (Exception ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public List<SboTbArticulo> listadoArticulosFaltaContConta() {
         return articulodao.listadoArticulosFaltaContConta();
     }
-
+    public List<SboTbExistencia> listaExistenciasStocks(String bodega, String departamento) {
+        return existdao.listaExistenciasStocks(bodega, departamento);
+    }
+    
     public void generarReporteConsumo(String arti, String depaId, String depaNomb, String inicio, String fin) throws Exception {
         String path="";
         RelDatabase db;
