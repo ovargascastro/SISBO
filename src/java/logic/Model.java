@@ -486,18 +486,17 @@ public class Model {
     }
 
     public List<SboTbExistencia> listaExistencias(String bodega, String departamento, String articulo) {
-        
-        if(articulo.equals("all")){
-            
+
+        if (articulo.equals("all")) {
+
             return existdao.listaExistenciasTodosArticulos(bodega, departamento, articulo);
-        
-        }else{
-        
-             return existdao.listaExistenciasArticulos(bodega, departamento, articulo);
-            
+
+        } else {
+
+            return existdao.listaExistenciasArticulos(bodega, departamento, articulo);
+
         }
-        
-       
+
     }
 
     public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
@@ -727,7 +726,7 @@ public class Model {
         ArrayList<SboTbSolixArti> aux = new ArrayList<>();
 
         if (arti.equals("all")) {
-            
+
             aux = solixartdao.reporteConsumoTodos(depa, inicio, fin);
 
         } else {
@@ -737,49 +736,51 @@ public class Model {
 
         return aux;
     }
-    
-    
-    public List<AbaaTbPersona> personasLista(){
+
+    public List<AbaaTbPersona> personasLista() {
         return usuariosDao.personasLista();
     }
-    
-    public AbaaTbPersona getUsuario(String id) throws Exception{
-    
+
+    public AbaaTbPersona getUsuario(String id) throws Exception {
+
         return usuariosDao.getUsuario(id);
     }
-    
-    public void updatUsuarioSinContrasenna(AbaaTbPersona p) throws SQLException{
+
+    public void updatUsuarioSinContrasenna(AbaaTbPersona p) throws SQLException {
         usuariosDao.updatUsuarioSinContrasenna(p);
-    
+
     }
-    
-    public void updateUsuarioConContrasenna(AbaaTbPersona p) throws SQLException{
-        
-     usuariosDao.updateUsuarioConContrasenna(p);
+
+    public void updateUsuarioConContrasenna(AbaaTbPersona p) throws SQLException {
+
+        usuariosDao.updateUsuarioConContrasenna(p);
     }
-    
-    public void insertarUsuario(AbaaTbPersona per){
-    
+
+    public void insertarUsuario(AbaaTbPersona per) throws Exception {
+
         try {
-            String clave =per.getPasswAux();
+            String clave = per.getPasswAux();
             usuariosDao.InsertarPersona(per);
             String id = per.getPersCedu();
             AbaaTbPersona aux = usuariosDao.getPersona(id);
-            
+            aux.setRolAux(per.getRolAux());
             AbaaTbUsuario user = new AbaaTbUsuario();
             aux.setPersCedu(per.getPersCedu());
             user.setPersona(aux);
             user.setUsuaCont(clave);
             
+
             usuariosDao.InsertarUsuario(user);
-            
-            
-            
+
         } catch (Exception ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+              throw new Exception("Bodega no Existe");
         }
-        
-        
+
+    }
+
+    public List<AbaaTbRolxPermiso> rolesLista() throws Exception {
+        return usuariosDao.getRoles();
     }
 
 }

@@ -17,10 +17,28 @@ function selectDeptos() {
 }
 
 
+function selectRoles(){
+    
+        $.ajax({type: "GET",
+        url: "api/roles",
+        success: caragrRoles,
+        error: function (data) {
+            alert('error');
+        }
+    });
+    
+}
+
+
 function cargarSelectDptos(data) {
 
     cargarDeptos(data);
     cargarDeptosEdicion(data);
+}
+
+function caragrRoles(data){
+    
+    cargarRoles(data);
 }
 
 function cargarDeptosEdicion(data) {
@@ -31,6 +49,17 @@ function cargarDeptosEdicion(data) {
 
     });
     $('#selectDptoPickerEd').selectpicker('refresh');
+
+}
+
+
+function cargarRoles(data) {
+
+    var jsonData = JSON.stringify(data);
+    $.each(JSON.parse(jsonData), function (idx, obj) {
+        $("#selectRoles").append('<option value="' + obj.rol_x_Perm_id_PK + '">' + '➤ ' + obj.rol_id_FK.permDesc + " - " +obj.perm_id_FK.rolDesc  + '</option>');
+
+    });
 
 }
 
@@ -64,6 +93,7 @@ function abrirModalAgregar() {
 $(document).ready(function () {
     buscarPersonas();
     selectDeptos();
+    selectRoles();
 
 
 });
@@ -166,10 +196,12 @@ function agregarUsuario() {
     if (confirm("Desea agregar el registro actual?")) {
 
         var depto = document.getElementById("selectDptoPicker").value;
+        var rol = document.getElementById("selectRoles").value;
         var valorJefe = $('input[name=customRadioInline1]:checked', '#myForm').val();
         AbaaTbPersona = {
             persCedu: $("#cedUsuario").val(),
             persNomb: $("#nombUsuario").val(),
+            rolAux: rol,
             persApe1: $("#ap1Usuario").val(),
             persApe2: $("#ap2Usuario").val(),
             passwAux: $("#passUsuario").val(),
