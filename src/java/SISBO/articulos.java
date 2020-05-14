@@ -72,9 +72,20 @@ public class articulos {
     @PUT
     @Path("putCodConta")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(SboTbArticulo p) {
+    public void actualizarCodContable(SboTbArticulo p) {
         try {
             Model.instance().actualizarCodigoCont(p);
+        } catch (Exception ex) {
+            throw new NotFoundException();
+        }
+    }
+    
+    @PUT
+    @Path("precioActual")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void actualizarPrecioActual(SboTbArticulo p) {
+        try {
+            Model.instance().actualizarPrecioActual(p);
         } catch (Exception ex) {
             throw new NotFoundException();
         }

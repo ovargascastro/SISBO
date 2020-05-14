@@ -250,6 +250,7 @@ public class Model {
     }
 
     public void agregarArtTemp(SboTbArticulo art) throws Exception {
+        art.setArtPrecioActual(art.getArtPrecio());
         String idDepto = art.getAbaaTbDepartamento().getDeptoIdPk();
         AbaaTbDepartamento depto = dptodao.getDepartamento(idDepto);
         art.setAbaaTbDepartamento(depto);
@@ -511,8 +512,8 @@ public class Model {
     }
     
     public void agregarArticuloSinOrden(SboTbArticulo art) throws Exception {
+        art.setArtPrecioActual(art.getArtPrecio());
         articulodao.agregarArticuloSinOrden(art);
-
     }
 
     public void agregarExistencias(SboTbExistencia exist) throws Exception {
@@ -761,5 +762,9 @@ public class Model {
         SimplePdfExporterConfiguration conf = new SimplePdfExporterConfiguration();
         exp.setConfiguration(conf);
         exp.exportReport();
+    }
+    
+    public void actualizarPrecioActual(SboTbArticulo art) throws Exception {
+        articulodao.actualizarPrecioActual(art);
     }
 }

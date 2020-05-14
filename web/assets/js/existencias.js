@@ -18,11 +18,7 @@ function selectBodegas() {
 function selectDeptos() {
     $.ajax({type: "GET",
         url: "api/departamentos",
-        success: function (data) {
-            $.each(data, function (key, depto) {
-                $("#SelectDptos").append('<option value=' + depto.deptoIdPk + '>' + depto.deptoNomb + '</option>');
-            });
-        },
+        success: selectDeptoPicker,
         error: function (data) {
             alert('error');
         }
@@ -43,11 +39,9 @@ function selectSicop() {
     });
 }
 
-
-
 function selectSicop2() {
     $.ajax({type: "GET",
-         url: "api/Sicop",
+        url: "api/Sicop",
         success: selectSicopPicker,
         error: function (data) {
             alert('error');
@@ -66,7 +60,15 @@ function selectSicopPicker(data) {
     $('#selectSicop').selectpicker('refresh');
 
 }
+function selectDeptoPicker(data) {
 
+    var jsonData = JSON.stringify(data);
+    $.each(JSON.parse(jsonData), function (idx, obj) {
+        $("#SelectDptos").append('<option value="' + obj.deptoIdPk + '">' + '➤ ' + obj.deptoNomb + '</option>');
+
+    });
+    $('#SelectDptos').selectpicker('refresh');
+}
 
 $(document).ready(function () {
     selectSicop2();
@@ -80,12 +82,12 @@ function getExistencias() {
     var depto = document.getElementById("SelectDptos").value;
     var arti = document.getElementById("selectSicop").value;
     var bodeg = document.getElementById("SelectBodegas").value;
-    
+
     $.ajax({type: "GET",
         url: "api/Existencias/" + bodeg + "/" + depto + "/" + arti,
         success: listaExist
     });
-    
+
 }
 
 //se listan las existencias en la tabla
@@ -95,7 +97,7 @@ function listaExist(personas) {
     personas.forEach((p) => {
         fila(listado, p);
     });
-     Nregistros();
+    Nregistros();
 }
 //se utliza para mostrar los datos en las filas de la funcion anterior
 function fila(listado, objeto) {
@@ -109,33 +111,33 @@ function fila(listado, objeto) {
             + "<td><img class='small-img' src='assets/img/info(1).png' onclick='abrirArticulo(\"" + objeto.articulo.artIdPk + "\");'></td>"
             + "<td><img class='small-img' src='assets/img/trash-delete.png' onclick='eliminarExistenciaV(\"" + objeto.id + "\");'></td>");
     listado.append(tr);
-   
+
 }
 
-var existenciaActual=0;
+var existenciaActual = 0;
 
-function eliminarExistenciaV(id){
-    existenciaActual=id;
+function eliminarExistenciaV(id) {
+    existenciaActual = id;
     $('#modalEliminaExist').modal('show');
-    
+
 }
 
 
 
-function eliminarExistencia(){
+function eliminarExistencia() {
     SboTbExistencia = {
-            id: existenciaActual
-        };
-        $.ajax({type: "POST",
-            url: "api/Existencias;charset=UTF-8",
-            data: JSON.stringify(SboTbExistencia),
-            contentType: "application/json;charset=UTF-8",
-            success: ocultarEditarExist,
-            error: function (jqXHR) {
-                alert("Error");
-            }
-        });
-    
+        id: existenciaActual
+    };
+    $.ajax({type: "POST",
+        url: "api/Existencias;charset=UTF-8",
+        data: JSON.stringify(SboTbExistencia),
+        contentType: "application/json;charset=UTF-8",
+        success: ocultarEditarExist,
+        error: function (jqXHR) {
+            alert("Error");
+        }
+    });
+
 }
 
 function formatDate(fecha) {
@@ -221,28 +223,41 @@ function solicitarDatosArticulo(id) {
 
 
 function mostrarDatosArt(objeto) {
-    
+
     $("#ArticuloInfo").val(objeto.sboTbCatArticulo.catDesc);
     $("#DescripcionInfo").val(objeto.artDesc);
     $("#ModeloInfo").val(objeto.artMode);
     $("#MarcaInfo").val(objeto.artMarc);
     $("#OrdenInfo").val(objeto.sboTbOrdenCompra.ocIdPk);
     $("#SicopInfo").val(objeto.sboSicop.sicopDesc);
-
+    $("#PrecioActualInfo").val(objeto.artPrecioActual);
+    $("#ArtIdInfo").val(objeto.artIdPk);
 }
 
-function Nregistros(){
-    
-    
+function Nregistros() {
     var table = document.getElementById("myTable");
     var tbodyRowCount = table.tBodies[0].rows.length; // 3
-    
-    if(tbodyRowCount>0){
-        document.getElementById("nReg").innerHTML = "Número de registros : "+tbodyRowCount;
-    }else{
+
+    if (tbodyRowCount > 0) {
+        document.getElementById("nReg").innerHTML = "Número de registros : " + tbodyRowCount;
+    } else {
         document.getElementById("nReg").innerHTML = "Número de registros : 0";
     }
-    
-    
-    
+}
+
+function actualizarArticulo() {
+    articulo = {
+        artIdPk: $("#ArtIdInfo").val(),
+        artPrecioActual: $("#PrecioActualInfo").val()
+    };
+    $.ajax({type: "PUT",
+        url: "api/articulos/precioActual",
+        data: JSON.stringify(articulo),
+        contentType: "application/json",
+        success: $('#informacionArt').modal('hide'),
+        error: function (jqXHR) {
+            alert(errorMessage(jqXHR.status));
+        }
+    });
+
 }

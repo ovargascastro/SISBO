@@ -218,8 +218,8 @@ public class ArticulosDAO {
     public void agregarArticulo(SboTbArticulo objeto) throws Exception {
         String query = "insert into SIBO_TB_Articulo(Arti_Prec,Arti_Cant,Arti_Cant_Rest,Arti_Desc,"
                 + "Arti_Mode,Arti_Nume_Seri,Arti_Marc,Arti_Codi_Pres,"
-                + "Arti_Codi_Cata_Arti_FK,Arti_Cata_Depa_FK,Arti_Unid_Medi,Arti_Orde_Comp_FK) "
-                + "values(?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "Arti_Codi_Cata_Arti_FK,Arti_Cata_Depa_FK,Arti_Unid_Medi,Arti_Orde_Comp_FK,Arti_Prec_Actu) "
+                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setDouble(1, objeto.getArtPrecio());
         preparedStmt.setInt(2, objeto.getArtCant());
@@ -233,6 +233,7 @@ public class ArticulosDAO {
         preparedStmt.setString(10, objeto.getAbaaTbDepartamento().getDeptoIdPk());
         preparedStmt.setString(11, objeto.getArtUnidadMedida());
         preparedStmt.setInt(12, objeto.getSboTbOrdenCompra().getOcIdPk());
+        preparedStmt.setDouble(13, objeto.getArtPrecioActual());
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
@@ -241,8 +242,8 @@ public class ArticulosDAO {
         String query = "insert into SIBO_TB_Articulo(Arti_Prec,Arti_Cant,Arti_Cant_Rest,"
                 + "Arti_Desc,Arti_Mode,Arti_Nume_Seri,Arti_Marc,Arti_Codi_Pres,"
                 + "Arti_Codi_Cata_Arti_FK,Arti_Proy_FK,Arti_Cata_Depa_FK,"
-                + "Arti_Unid_Medi,Arti_Orde_Comp_FK)"
-                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "Arti_Unid_Medi,Arti_Orde_Comp_FK,Arti_Prec_Actu)"
+                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setDouble(1, objeto.getArtPrecio());
         preparedStmt.setInt(2, objeto.getArtCant());
@@ -257,6 +258,7 @@ public class ArticulosDAO {
         preparedStmt.setString(11, objeto.getAbaaTbDepartamento().getDeptoIdPk());
         preparedStmt.setString(12, objeto.getArtUnidadMedida());
         preparedStmt.setInt(13, objeto.getSboSicop().getSicopId());
+        preparedStmt.setDouble(14, objeto.getArtPrecioActual());
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
@@ -379,6 +381,7 @@ public class ArticulosDAO {
             SboTbArticulo ar = new SboTbArticulo();
             ar.setArtIdPk(rs.getInt("Arti_Id_PK"));
             ar.setArtPrecio(rs.getDouble("Arti_Prec"));
+            ar.setArtPrecioActual(rs.getDouble("Arti_Prec_Actu"));
             ar.setArtCant(rs.getInt("Arti_Cant"));
             ar.setArtCantRest(rs.getInt("Arti_Cant_Rest"));
             ar.setArtFingr(rs.getDate("Arti_Fech_Ingr"));
@@ -415,7 +418,7 @@ public class ArticulosDAO {
 
     public void actualizarLote(SboTbArticulo objeto) throws Exception {
         String query = "update SIBO_TB_Articulo set Arti_Fech_Ingr = ?, Arti_Desc = ?, "
-                + "Arti_Mode = ?, Arti_Marc = ?, Arti_Fech_Venc = ? where Arti_Id_PK = ?";
+                + "Arti_Mode = ?, Arti_Marc = ?, Arti_Fech_Venc = ? , Arti_Prec_Actu = ? where Arti_Id_PK = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
 
         java.util.Date utilStartDate = objeto.getArtFingr();
@@ -434,7 +437,8 @@ public class ArticulosDAO {
         preparedStmt.setDate(5, sqlStartDate2);
         }
         
-        preparedStmt.setInt(6, objeto.getArtIdPk());
+        preparedStmt.setDouble(6, objeto.getArtPrecioActual()); 
+        preparedStmt.setInt(7, objeto.getArtIdPk());
         
         preparedStmt.executeUpdate();
         db.getConnection().close();
@@ -517,8 +521,8 @@ public class ArticulosDAO {
         String query = "insert into SIBO_TB_Articulo(Arti_Prec,Arti_Cant,Arti_Cant_Rest,Arti_Desc,"
                 + "Arti_Mode,Arti_Nume_Seri,Arti_Marc,"
                 + "Arti_Codi_Cata_Arti_FK,Arti_Cata_Depa_FK,Arti_Unid_Medi, "
-                + "Arti_Cod_Sico_FK, Arti_Fech_Ingr, Arti_Fech_Venc, Arti_tipo_ingr) "
-                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "Arti_Cod_Sico_FK, Arti_Fech_Ingr, Arti_Fech_Venc, Arti_tipo_ingr, Arti_Prec_Actu) "
+                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setDouble(1, objeto.getArtPrecio());
         preparedStmt.setInt(2, objeto.getArtCant());
@@ -544,6 +548,7 @@ public class ArticulosDAO {
             preparedStmt.setDate(13, null);
         }
         preparedStmt.setString(14, objeto.getArtiTipoIngr());
+        preparedStmt.setDouble(15, objeto.getArtPrecioActual());
         
         preparedStmt.executeUpdate();
         db.getConnection().close();
@@ -566,6 +571,15 @@ public class ArticulosDAO {
         } catch (SQLException ex) {
         }
         return resultado;
+    }
+    
+    public void actualizarPrecioActual(SboTbArticulo objeto) throws Exception {
+        String query = "update SIBO_TB_Articulo set Arti_Prec_Actu = ? where Arti_Id_PK = ?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setDouble(1, objeto.getArtPrecioActual());
+        preparedStmt.setInt(2, objeto.getArtIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
     }
 
 }

@@ -8,7 +8,7 @@
         <%@ include file="/presentation/base.jsp" %>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
-        
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
 
         <!-- Latest compiled and minified JavaScript -->
@@ -16,7 +16,7 @@
 
         <!-- (Optional) Latest compiled and minified JavaScript translation files -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/i18n/defaults-*.min.js"></script>
-        
+
         <title>Existencias</title>
     </head>
 
@@ -47,19 +47,21 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="col">
-                                            <label>Departamento</label>
-                                            <select class="form-control" id="SelectDptos">
+                                            <label>Unidad Usuaria</label>
+                                            <select id="SelectDptos" class="selectpicker form-control" 
+                                                    data-live-search="true" data-size="15" required>
+                                                <option values="0" selected disabled = "true" >Seleccione una opcion</option>
                                             </select>
                                             <label>Artículo</label>
-                                    <select id="selectSicop" class="selectpicker form-control" 
-                                            data-live-search="true" data-size="15" required>
-                                        <option values="0" selected disabled = "true" >Seleccione una opcion</option>
-                                        <option value="all" >➤ Todos los artículos</option>
-                                    </select>
-                                    <style>
-                                        div.dropdown-menu.open { width: 100%; }
-                                        ul.dropdown-menu.inner>li>a { white-space: initial; }
-                                    </style>
+                                            <select id="selectSicop" class="selectpicker form-control" 
+                                                    data-live-search="true" data-size="15" required>
+                                                <option values="0" selected disabled = "true" >Seleccione una opcion</option>
+                                                <option value="all" >➤ Todos los artículos</option>
+                                            </select>
+                                            <style>
+                                                div.dropdown-menu.open { width: 100%; }
+                                                ul.dropdown-menu.inner>li>a { white-space: initial; }
+                                            </style>
                                         </div>
                                         <div class="col text-center">
                                             <button class="btn btn-primary" id="btnBuscarExist" type="submit">Buscar</button>
@@ -114,7 +116,7 @@
                             <div class="container">
                                 <div class="form-row">
                                     <div class="col">
-
+                                        <input id="ArtIdInfo" class="form-control" type="hidden">
                                         <label>Artículo</label>
                                         <input id="ArticuloInfo" class="form-control" type="text" readonly placeholder="Artículo">
                                         <label>Descripción</label>
@@ -129,21 +131,24 @@
                                         <input id="OrdenInfo" class="form-control" type="text" readonly placeholder="N° Orden de Compra">
                                         <label>SICOP</label>
                                         <input id="SicopInfo" class="form-control" type="text" readonly placeholder="SICOP">
+                                        <label>Precio Actual</label>
+                                        <input id="PrecioActualInfo" class="form-control" type="text" required placeholder="Precio Actual">
                                         <br>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>
+                            <button class="btn btn-primary" type="submit">Actualizar</button>
                         </div>
                 </form>
 
             </div>
         </div>
-        </div>
-        
-                <div class="modal fade" role="dialog" tabindex="-1" id="modalEliminaExist">
-             <form action="javascript:eliminarExistencia();">
+    </div>
+
+    <div class="modal fade" role="dialog" tabindex="-1" id="modalEliminaExist">
+        <form action="javascript:eliminarExistencia();">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -155,19 +160,19 @@
                         <button class="btn btn-primary bg-danger" type="submit">Eliminar</button></div>
                 </div>
             </div>
-                 </form>
-        </div>
+        </form>
+    </div>
 
 
 
 
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-        
-        <script src="assets/js/existencias.js" type="text/javascript"></script>
-    </body>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+    <script src="assets/js/existencias.js" type="text/javascript"></script>
+</body>
 
 </html>
 <script>
@@ -178,12 +183,12 @@
         location.href = "presentation/notAccess.jsp";
     <%}%>
     }
-    
+
     $(document).ready(function () {
-  $('#dtBasicExample').DataTable({
-    "paging": false // false to disable pagination (or any other option)
-  });
-  $('.dataTables_length').addClass('bs-select');
-});
+        $('#dtBasicExample').DataTable({
+            "paging": false // false to disable pagination (or any other option)
+        });
+        $('.dataTables_length').addClass('bs-select');
+    });
 
 </script>

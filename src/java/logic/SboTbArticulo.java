@@ -34,7 +34,7 @@ public class SboTbArticulo implements java.io.Serializable {
     private Set<SboTbExistencia> sboTbExistencias = new HashSet<SboTbExistencia>(0);
     private Integer cantSolArt;
     private String artiTipoIngr;
-
+    private Double artPrecioActual;
     public SboTbArticulo() {
     }
 
@@ -42,7 +42,7 @@ public class SboTbArticulo implements java.io.Serializable {
         this.artIdPk = artIdPk;
     }
 
-    public SboTbArticulo(int artIdPk, AbaaProyectos abaaProyectos, AbaaTbDepartamento abaaTbDepartamento, SboTbCatArticulo sboTbCatArticulo, SboTbOrdenCompra sboTbOrdenCompra, Double artPrecio, Integer artCant, Integer artCantRest, Date artFingr, Date artFvenc, String artDesc, String artMode, String artNumeSeri, String artMarc, String artNumeFact, String artCodiPresup, String artCodiCont, String artCodContGast, String artCodContExis, String artCodContSal, Boolean artEsAc, String artUnidadMedida, SboSicop sboSicop, Integer cantSolArt, String artiTipoIngr) {
+    public SboTbArticulo(int artIdPk, AbaaProyectos abaaProyectos, AbaaTbDepartamento abaaTbDepartamento, SboTbCatArticulo sboTbCatArticulo, SboTbOrdenCompra sboTbOrdenCompra, Double artPrecio, Integer artCant, Integer artCantRest, Date artFingr, Date artFvenc, String artDesc, String artMode, String artNumeSeri, String artMarc, String artNumeFact, String artCodiPresup, String artCodiCont, String artCodContGast, String artCodContExis, String artCodContSal, Boolean artEsAc, String artUnidadMedida, SboSicop sboSicop, Integer cantSolArt, String artiTipoIngr,Double artPrecioActual) {
         this.artIdPk = artIdPk;
         this.abaaProyectos = abaaProyectos;
         this.abaaTbDepartamento = abaaTbDepartamento;
@@ -68,6 +68,7 @@ public class SboTbArticulo implements java.io.Serializable {
         this.sboSicop = sboSicop;
         this.cantSolArt = cantSolArt;
         this.artiTipoIngr=artiTipoIngr;
+        this.artPrecioActual=artPrecioActual;
     }
 
     public int getArtIdPk() {
@@ -294,6 +295,14 @@ public class SboTbArticulo implements java.io.Serializable {
 
     public void setArtiTipoIngr(String artiTipoIngr) {
         this.artiTipoIngr = artiTipoIngr;
+    }
+
+    public Double getArtPrecioActual() {
+        return artPrecioActual;
+    }
+
+    public void setArtPrecioActual(Double artPrecioActual) {
+        this.artPrecioActual = artPrecioActual;
     }
     
 }
