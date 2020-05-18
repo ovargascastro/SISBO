@@ -8,7 +8,7 @@
         <%@ include file="/presentation/base.jsp" %>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
-
+        <link rel="stylesheet" type="text/css" href="assets/css/Imprimir.css" media="print" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
 
         <!-- Latest compiled and minified JavaScript -->
@@ -40,10 +40,15 @@
                                     <label>Bodega</label>
                                     <div class="form-row">
                                         <div class="col">
-                                            <select class="form-control" id="SelectBodegas">
+                                            <select class="form-control" id="SelectBodegas" required>
+                                                <option values="0" selected disabled = "true" >Seleccione una opcion</option>
                                             </select>
                                         </div>
-                                        <div class="col"></div>
+                                        <div class="col">
+                                            <div class="col text-center">
+                                                <button class="btn btn-primary" id="btnBuscarExist" type="submit">Buscar</button>
+                                            </div> 
+                                        </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col">
@@ -63,8 +68,18 @@
                                                 ul.dropdown-menu.inner>li>a { white-space: initial; }
                                             </style>
                                         </div>
+                                        <!--
                                         <div class="col text-center">
                                             <button class="btn btn-primary" id="btnBuscarExist" type="submit">Buscar</button>
+                                        </div>
+                                        -->
+                                        <div class="col text-center">
+                                            <br>
+                                            <br>
+                                            <div><p>Imprimir Reporte  <img id="pdf" src="assets/img/printer_1.png" onclick="javascript:imprimirExistencias()"> </p> </div>
+                                            <!--
+                                            <div><p>Imprimir Reporte  <img id="pdf" src="assets/img/printer_1.png" onclick="javascript:reportePDF()"> </p> </div>
+                                            -->
                                         </div>
                                     </div>
                                 </div>
@@ -163,9 +178,52 @@
         </form>
     </div>
 
+    <div role="dialog" tabindex="-1" class="modal fade" id="ImprimirReporteExistencias" align="center">
+        <div class="modal-dialog" role="document" align="center">
+            <div class="row">
+                <div class="modal-content"> 
+                    <div id="content">
+                        <br>
+                        <p>_______________________________________________________________________________<br></p>
+                        <h3 class="text-center"><br><br>Municipalidad de Santo Domingo  <br></h3>
+                        <h4 class="text-center"><br><br>Reporte de artículos en existencia en bodega  <br></h4>
+                        <!--
+                        <div>
+                            <button class="btn btn-success" id="export">Imprimir</button>
+                        </div>
+                        <br>  <br>-->
+                        <div class="col text-center" id="tablaArticulosReporteExistencia">
+                            <div class="table-responsive" align="center">
+                                <p>_______________________________________________________________________________ <br><br><br><br><p>
+                                    <br>
+                                <h5 id="nRegImp">Numero de registros : </h5><br>
+                                <table id="demo" class="table table-bordered" align="center">
+                                    <thead >
+                                        <tr>
+                                            <th class="text-center">Fecha <br>Ingreso<br><br></th>
+                                            <th class="text-center">Bodega<br><br></th>
+                                            <th class="text-center">Departamento<br><br></th>
+                                            <th class="text-center">Descripcion<br><br></th>
+                                            <th class="text-center">Precio<br><br></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="listaArticulosExistencia">
+                                    </tbody>
+                                </table>
+                                <br>
+                                <footer class="footer">
+                                    <button class="btn btn-success" id="export">Imprimir</button>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-
+    <script src="assets/js/jspdf.min.js"></script>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
@@ -176,19 +234,19 @@
 
 </html>
 <script>
-    document.getElementById("ArticulosMenu").style.color = "white";
-    function logged() {
+                                                document.getElementById("ArticulosMenu").style.color = "white";
+                                                function logged() {
     <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
     <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
-        location.href = "presentation/notAccess.jsp";
+                                                    location.href = "presentation/notAccess.jsp";
     <%}%>
-    }
+                                                }
 
-    $(document).ready(function () {
-        $('#dtBasicExample').DataTable({
-            "paging": false // false to disable pagination (or any other option)
-        });
-        $('.dataTables_length').addClass('bs-select');
-    });
+                                                $(document).ready(function () {
+                                                    $('#dtBasicExample').DataTable({
+                                                        "paging": false // false to disable pagination (or any other option)
+                                                    });
+                                                    $('.dataTables_length').addClass('bs-select');
+                                                });
 
 </script>

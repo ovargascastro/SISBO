@@ -261,3 +261,100 @@ function actualizarArticulo() {
     });
 
 }
+
+function imprimirExistencias() {
+    var depto = document.getElementById("SelectDptos").value;
+    var arti = document.getElementById("selectSicop").value;
+    var bodeg = document.getElementById("SelectBodegas").value;
+
+    $.ajax({type: "GET",
+        url: "api/Existencias/" + bodeg + "/" + depto + "/" + arti,
+        success: listaExist2
+    });
+    $('#ImprimirReporteExistencias').modal('show');
+    alert("NADAAAAAAA");
+}
+var nRegistros;
+//se listan las existencias en la tabla
+function listaExist2(personas) {
+    var listado = $("#listaArticulosExistencia");
+    listado.html("");
+    personas.forEach((p) => {
+        fila2(listado, p);
+    });
+    Nregistros2();
+}
+//se utliza para mostrar los datos en las filas de la funcion anterior
+function fila2(listado, objeto) {
+    var tr = $("<tr />");
+    tr.html(
+            "<td>" + formatDate(objeto.existFingr) + "</td>"
+            + "<td>" + objeto.sboTbBodega.bodeDesc + "</td>"
+            + "<td>" + objeto.articulo.abaaTbDepartamento.deptoNomb + "</td>"
+            + "<td>" + objeto.articulo.sboSicop.sicopDesc + "</td>"
+            + "<td>" + objeto.articulo.artPrecio + "</td>");
+    listado.append(tr);
+}
+
+function Nregistros2() {
+    var table = document.getElementById("myTable");
+    var tbodyRowCount = table.tBodies[0].rows.length;
+    if (tbodyRowCount > 0) {
+        document.getElementById("nRegImp").innerHTML = "Número de registros : " + tbodyRowCount;
+        nRegistros = tbodyRowCount;
+    } else {
+        document.getElementById("nRegImp").innerHTML = "Número de registros : 0";
+        nRegistros = 0;
+    }
+}
+
+//imprimir JS trabajar desde aqui
+
+document.getElementById('export').addEventListener('click',
+        PDF);
+
+var specialElementHandlers = {
+    // element with id of "bypass" - jQuery style selector
+    '.no-export': function (element, renderer) {
+        // true = "handled elsewhere, bypass text extraction"
+        return true;
+    }
+};
+
+var getImageFromUrl = function (url, callback) {
+    var img = new Image();
+    img.onError = function () {
+        alert('Cannot load image: "' + url + '"');
+    };
+    img.onload = function () {
+        callback(img);
+    };
+    img.src = url;
+}
+
+function exportPDF(imgData) {
+    var doc = new jsPDF('p', 'pt', 'a4');
+    doc.addImage(imgData, 'JPEG', 0, 0, 100, 90);
+    var source = document.getElementById('content').innerHTML;
+    var margins = {
+        top: 80,
+        bottom: 10,
+        left: 10,
+        width: 595
+    };
+
+    doc.fromHTML(
+            source, // HTML string or DOM elem ref.
+            margins.left,
+            margins.top, {
+                'width': margins.width,
+                'elementHandlers': specialElementHandlers
+            },
+            function (dispose) {
+                doc.save('Reporte de artículos existentes en bodega.pdf');
+            }, margins);
+}
+
+function PDF() {
+    getImageFromUrl('assets/img/Escudo2.jpg', exportPDF);
+}

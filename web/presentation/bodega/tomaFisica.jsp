@@ -44,15 +44,18 @@
                                     <label>Bodega</label>
                                     <div class="form-row">
                                         <div class="col">
-                                            <select class="form-control" id="SelectBodegas">
+                                            <select class="form-control" id="SelectBodegas" required>
+                                                <option values="0" selected disabled = "true" >Seleccione una opcion</option>
                                             </select>
                                         </div>
                                         <div class="col"></div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col">
-                                            <label>Departamento</label>
-                                            <select class="form-control" id="SelectDptos">
+                                            <label>Unidad Usuaria</label>
+                                            <select id="SelectDptos" class="selectpicker form-control" 
+                                                    data-live-search="true" data-size="15" required>
+                                                <option values="0" selected disabled = "true" >Seleccione una opcion</option>
                                             </select>
                                         </div>
                                         <div class="col text-center">
@@ -96,7 +99,7 @@
 </html>
 
 <script>
-    document.getElementById("ArticulosMenu").style.color = "white";
+    document.getElementById("bodegasMenu").style.color = "white";
     function logged() {
     <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
     <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>

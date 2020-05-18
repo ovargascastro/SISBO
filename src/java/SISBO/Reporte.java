@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.ws.rs.POST;
 import javax.ws.rs.core.Response;
+import logic.AbaaTbDepartamento;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.util.FileResolver;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -67,7 +68,8 @@ public class Reporte {
             date2 = dateFormat.parse(fin);
 
             String depaId = logged.getDepartamento().getDeptoIdPk();
-            String depaNomb = logged.getDepartamento().getDeptoNomb();
+            AbaaTbDepartamento depto = Model.instance().getDepartamentoPorId(depaId);
+            String depaNomb = depto.getDeptoNomb();
 
             Model.instance().generarReporteConsumo(articulo, depaId, depaNomb, inicio, fin);
 

@@ -832,7 +832,7 @@ function exportPDF(imgData) {
 }
 
 function PDF() {
-    getImageFromUrl('assets/img/Escudo.png', exportPDF);
+    getImageFromUrl('assets/img/Escudo2.jpg', exportPDF);
 }
 $(document).ready(function () {
 
