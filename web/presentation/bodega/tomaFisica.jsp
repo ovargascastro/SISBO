@@ -57,13 +57,17 @@
                                         </div>
                                         <div class="col text-center">
                                             <button class="btn btn-primary" id="btnBuscarExist" type="submit">Buscar</button>
+&nbsp;                                      <button class="btn btn-primary" id="btnGenerateReport" type="submit">Generar Reporte</button>
                                         </div>
+                                        
+                                        
                                     </div>
                                 </div>
+                                
                             </form>
                         </div>
                     </div>
-
+                    
                     <div class="row">
                         <div class="col text-center" id="tablaOrdenes">
                             <div class="table-responsive " style="max-height: 350px; overflow: auto">
@@ -85,6 +89,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 

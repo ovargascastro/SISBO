@@ -19,6 +19,8 @@ import logic.SboSicop;
 import logic.SboTbBodega;
 import logic.SboTbExistencia;
 import javax.ws.rs.Path;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperPrint;
 
 @Path("tomaFisica")
 public class tomaFisica {
@@ -33,5 +35,11 @@ public class tomaFisica {
             throws ClassNotFoundException, SQLException {
         return Model.instance().listaExistenciasStocks(bodega, departamento);
     }
-
+    
+    /*@GET
+    @Path("{bodega}/{depto}")
+    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+    public JasperPrint generarReporte(@PathParam("bodeg") String bodega, @PathParam("depto") String departamento) throws JRException{
+        return Model.instance().generarReporte(bodega, departamento);
+    }*/
 }
