@@ -1,15 +1,38 @@
 package logic;
 
 import data.*;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
+import javax.inject.Inject;
+import java.io.File;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.Exporter;
+import net.sf.jasperreports.export.ExporterOutput;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRRuntimeException;
+import java.io.ByteArrayOutputStream;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 
 public class Model {
+
+    @Inject
+    private ServletContext context;
 
     private static Model uniqueInstance;
     private final catalogosDAO catdao;
@@ -243,6 +266,7 @@ public class Model {
     }
 
     public void agregarArtTemp(SboTbArticulo art) throws Exception {
+        art.setArtPrecioActual(art.getArtPrecio());
         String idDepto = art.getAbaaTbDepartamento().getDeptoIdPk();
         AbaaTbDepartamento depto = dptodao.getDepartamento(idDepto);
         art.setAbaaTbDepartamento(depto);
@@ -486,24 +510,26 @@ public class Model {
     }
 
     public List<SboTbExistencia> listaExistencias(String bodega, String departamento, String articulo) {
+
         if (articulo.equals("all")) {
+
             return existdao.listaExistenciasTodosArticulos(bodega, departamento, articulo);
+
         } else {
+
             return existdao.listaExistenciasArticulos(bodega, departamento, articulo);
+
         }
+
     }
 
     public List<SboTbExistencia> listaExistenciasfiltro(String depa) {
         return existdao.listaExistenciasfiltro(depa);
     }
-//
-//    public SboTbExistencia getSboTbExistencia(String depa, String Arti) throws Exception {
-//        return existdao.getSboTbExistencia(depa, Arti);
-//    }
 
     public void agregarArticuloSinOrden(SboTbArticulo art) throws Exception {
+        art.setArtPrecioActual(art.getArtPrecio());
         articulodao.agregarArticuloSinOrden(art);
-
     }
 
     public void agregarExistencias(SboTbExistencia exist) throws Exception {
@@ -656,13 +682,27 @@ public class Model {
         return limiDAO.getLimite(x, y);
     }
 
+    public List<SboTbArticulo> listadoArticulosFaltaContConta() {
+        return articulodao.listadoArticulosFaltaContConta();
+    }
+
+    public List<SboTbExistencia> listaExistenciasStocks(String bodega, String departamento) {
+        return existdao.listaExistenciasStocks(bodega, departamento);
+    }
+
     public ArrayList<SboTbSolixArti> listaReporte(String arti, String depa, String inicio, String fin) throws Exception {
+
         ArrayList<SboTbSolixArti> aux = new ArrayList<>();
+
         if (arti.equals("all")) {
+
             aux = solixartdao.reporteConsumoTodos(depa, inicio, fin);
+
         } else {
+
             aux = solixartdao.reporteConsumo(depa, inicio, fin, arti);
         }
+
         return aux;
     }
 
@@ -671,24 +711,28 @@ public class Model {
     }
 
     public AbaaTbPersona getUsuario(String id) throws Exception {
+
         return usuariosDao.getUsuario(id);
     }
 
     public void updatUsuarioSinContrasenna(AbaaTbPersona p) throws SQLException {
         usuariosDao.updatUsuarioSinContrasenna(p);
+
     }
 
     public void updateUsuarioConContrasenna(AbaaTbPersona p) throws SQLException {
+
         usuariosDao.updateUsuarioConContrasenna(p);
     }
 
-    public void insertarUsuario(AbaaTbPersona per) {
+    public void insertarUsuario(AbaaTbPersona per) throws Exception {
+
         try {
             String clave = per.getPasswAux();
             usuariosDao.InsertarPersona(per);
             String id = per.getPersCedu();
             AbaaTbPersona aux = usuariosDao.getPersona(id);
-
+            aux.setRolAux(per.getRolAux());
             AbaaTbUsuario user = new AbaaTbUsuario();
             aux.setPersCedu(per.getPersCedu());
             user.setPersona(aux);
@@ -698,14 +742,73 @@ public class Model {
 
         } catch (Exception ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+            throw new Exception("Bodega no Existe");
         }
+
     }
 
-    public List<SboTbArticulo> listadoArticulosFaltaContConta() {
-        return articulodao.listadoArticulosFaltaContConta();
+    public List<AbaaTbRolxPermiso> rolesLista() throws Exception {
+        return usuariosDao.getRoles();
     }
 
-    public List<SboTbExistencia> listaExistenciasStocks(String bodega, String departamento) {
-        return existdao.listaExistenciasStocks(bodega, departamento);
+    public void actualizarPrecioActual(SboTbArticulo art) throws Exception {
+        articulodao.actualizarPrecioActual(art);
+    }
+
+    public void generarReporteConsumo(String arti, String depaId, String depaNomb, String inicio, String fin) throws Exception {
+        String path = "";
+        RelDatabase db;
+        db = new RelDatabase();
+        Connection con = db.getConnection();
+        Map<String, Object> parametros;
+        parametros = new HashMap<>();
+        parametros.clear();
+        parametros.put("depaId", depaId);
+        parametros.put("depaNomb", depaNomb);
+        parametros.put("inicio", inicio);
+        parametros.put("fin", fin);
+        if (arti.equals("all")) {
+            path = "/ReporteConsumoTotal.jasper";
+            //path = "SISBO\\src\\java\\reportes\\ReporteConsumoTotal.jasper";
+        } else {
+            path = "/ReporteConsumoPorArticulo.jasper";
+            //path = "SISBO\\src\\java\\reportes\\ReporteConsumoPorArticulo.jasper";
+            parametros.put("articulo", arti);
+        }
+        String realPath = "/src/java/reportes";
+        //String realPath = context.getRealPath("/src/java/reportes") + File.separator;
+
+        parametros.put("RUTA_REPORTES", realPath);
+        JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(realPath + path);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, con);
+        JRPdfExporter exp = new JRPdfExporter();
+        exp.setExporterInput(new SimpleExporterInput(jasperPrint));
+        exp.setExporterOutput(new SimpleOutputStreamExporterOutput("ReporteConsumoPorDepartamento.pdf"));
+        SimplePdfExporterConfiguration conf = new SimplePdfExporterConfiguration();
+        exp.setConfiguration(conf);
+        exp.exportReport();
+    }
+
+    private byte[] exportar(JasperPrint jp, String formato) throws JRException {
+        String form = "application/pdf";
+        Exporter exporter = crearExporter();
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        exporter.setExporterInput(new SimpleExporterInput(jp));
+        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(os));
+        exporter.exportReport();
+        return os.toByteArray();
+    }
+
+    private Exporter crearExporter() {
+        Exporter exporter = null;
+        exporter = new JRPdfExporter();
+        SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+        exporter.setConfiguration(configuration);
+        return exporter;
+    }
+
+    public AbaaTbDepartamento getDepartamentoPorId(String id) throws Exception{
+        AbaaTbDepartamento depto = dptodao.getDepartamento(id);
+        return depto;
     }
 }

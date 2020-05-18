@@ -5,8 +5,6 @@
  */
 package logic;
 
-
-
 /**
  *
  * @author oscar
@@ -19,12 +17,12 @@ public class AbaaTbPersona {
     private String PersApe1;
     private String PersApe2;
     private String passwAux;
+    private int rolAux;
     private int jefe;
     private int PersSfun;
     private int Pers_es_jefe;
     private AbaaTbDepartamento departamento;
-    
-    
+
     public AbaaTbPersona() {
     }
 
@@ -118,9 +116,13 @@ public class AbaaTbPersona {
     public void setJefe(int jefe) {
         this.jefe = jefe;
     }
-    
-    
-    
 
-    
+    public int getRolAux() {
+        return rolAux;
+    }
+
+    public void setRolAux(int rolAux) {
+        this.rolAux = rolAux;
+    }
+
 }

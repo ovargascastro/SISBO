@@ -46,10 +46,6 @@
                                         data-live-search="true" data-size="15" required>
                                     <option values="0" selected disabled = "true" >Seleccione una opcion</option>
                                 </select>
-                                <style>
-                                    div.dropdown-menu.open { width: 100%; }
-                                    ul.dropdown-menu.inner>li>a { white-space: initial; }
-                                </style>
                             </div>
                             <div class="col">
                                 <label>Descripción</label>
@@ -81,11 +77,6 @@
                                         data-live-search="true" data-size="15" required>
                                     <option values="0" selected disabled = "true" >Seleccione una opcion</option>
                                 </select>
-                                <style>
-                                    div.dropdown-menu.open { width: 100%; }
-                                    ul.dropdown-menu.inner>li>a { white-space: initial; }
-                                </style>
-
                                 <label>Fecha de Ingreso</label>
                                 <input id="AddArtFIngreso" class="form-control" type="date" 
                                        placeholder="Fecha de Ingreso" required>
@@ -95,10 +86,6 @@
                                         data-live-search="true" data-size="15" required>
                                     <option values="0" selected disabled = "true" >Seleccione una opcion</option>
                                 </select>
-                                <style>
-                                    div.dropdown-menu.open { width: 100%; }
-                                    ul.dropdown-menu.inner>li>a { white-space: initial; }
-                                </style>
 
                             </div>
 

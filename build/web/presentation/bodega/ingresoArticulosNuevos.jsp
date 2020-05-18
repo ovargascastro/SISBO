@@ -111,11 +111,15 @@
         </div>
     </div>
     <div class="modal fade" role="dialog" tabindex="-1" id="agregarArticulo">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <form id="actualizaArticulo" action="javascript:actualizarArticulo()">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Agregar Artículo</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                        <h4 class="modal-title">Agregar Artículo</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
                     <div class="modal-body">
 
                         <div class="container">
@@ -128,10 +132,8 @@
                                     <input id="AddArtArticulo" class="form-control" type="text" readonly placeholder="Artículo">
                                     <label>Descripción</label>
                                     <input id="AddArtDescripcion" class="form-control" type="text" placeholder="Descripcion">
-                                    <label>Modelo</label>
-                                    <input id="AddArtModelo" class="form-control" type="text" placeholder="Modelo">
-                                    <label>Marca</label>
-                                    <input id="AddArtMarca" class="form-control" type="text" placeholder="Marca">
+                                    <label>Precio</label>
+                                    <input class="form-control" type="text" placeholder="Precio" readonly id="AddPrecio">
                                     <label>N° Serie</label>
                                     <input id="AddArtNSerie" class="form-control" type="text" placeholder="N° Serie">
                                     <label>SICOP</label>
@@ -147,22 +149,32 @@
                                 <div class="col">
                                     <label>Unidad Usuaria</label>
                                     <input id="AddArtUniUsuaria" class="form-control" type="text" readonly placeholder="Unidad Usuaria">    
-                                    <label>Bodega</label>
-                                    <select class="form-control" id="AddArtBodega" required> 
-                                    <option values="0" selected disabled = "true" >Seleccione una opcion</option>
-                                    </select>
+                                    <label>Modelo</label>
+                                    <input id="AddArtModelo" class="form-control" type="text" placeholder="Modelo">
+                                    <label>Precio Actual</label>
+                                    <input class="form-control" type="number" placeholder="Precio" id="AddPrecioActual" required>
                                     <label>Fecha de Ingreso</label>
                                     <input id="AddArtFIngreso" class="form-control" type="date" placeholder="Fecha de Ingreso" required>
-                                    <label>Fecha de Vencimiento</label>
-                                    <input id="AddArtFVencimiento" class="form-control" type="date" placeholder="Fecha de Vencimiento">
-                                    <label>Cantidad a Ingresar</label>
-                                    <input id="AddArtCant" class="form-control" type="number" placeholder="Cantidad a Ingresar" min="0" required>    
                                     <br>
                                     <div class="col">
                                         <label>Información del Artículo</label>
                                         <div class="text-center" id="botonArticuloInfo"></div>
                                     </div>
                                 </div>
+                                <div class="col">
+                                    <label>Bodega</label>
+                                    <select class="form-control" id="AddArtBodega" required> 
+                                    <option values="0" selected disabled = "true" >Seleccione una opcion</option>
+                                    </select>
+                                    <label>Marca</label>
+                                    <input id="AddArtMarca" class="form-control" type="text" placeholder="Marca">
+                                    <label>Cantidad a Ingresar</label>
+                                    <input id="AddArtCant" class="form-control" type="number" placeholder="Cantidad a Ingresar" min="0" required>  
+                                    <label>Fecha de Vencimiento</label>
+                                    <input id="AddArtFVencimiento" class="form-control" type="date" placeholder="Fecha de Vencimiento">
+                                    
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -286,6 +298,8 @@
                         $("#AddArtMarca").val(objeto.artMarc);
                         $("#AddArtNSerie").val(objeto.artNumeSeri);
                         $("#AddArtUniUsuaria").val(objeto.abaaTbDepartamento.deptoNomb);
+                        $("#AddPrecio").val(objeto.artPrecio);
+                        $("#AddPrecioActual").val(objeto.artPrecioActual);
                         cargarBotonInfo(objeto.sboTbCatArticulo.catIdPk);
                     }
                     function solicitarDatosCatalogosArticulo(id) {
@@ -389,6 +403,7 @@
                             artMode: $("#AddArtModelo").val(),
                             artMarc: $("#AddArtMarca").val(),
                             artNumeSeri: $("#AddArtNSerie").val(),
+                            artPrecioActual:$("#AddPrecioActual").val(),
                             artFingr: parseaFecha($("#AddArtFIngreso").val()),
                             artFvenc: parseaFecha($("#AddArtFVencimiento").val()),
                             sboSicop: {

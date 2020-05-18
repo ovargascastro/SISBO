@@ -34,6 +34,7 @@ public class ApplicationConfig extends Application {
         resources.add(SISBO.LimitesDepartamento.class);
         resources.add(SISBO.ListaOCxArt.class);
         resources.add(SISBO.LogIn.class);
+        resources.add(SISBO.Reporte.class);
         resources.add(SISBO.SolicitudFuncionario.class);
         resources.add(SISBO.SolicitudJf.class);
         resources.add(SISBO.SolicitudTI.class);
@@ -55,6 +56,7 @@ public class ApplicationConfig extends Application {
         resources.add(SISBO.ordenesCompra.class);
         resources.add(SISBO.proveedores.class);
         resources.add(SISBO.proyectos.class);
+        resources.add(SISBO.roles.class);
         resources.add(SISBO.sicop.class);
         resources.add(SISBO.solicitudXarticulo.class);
         resources.add(SISBO.solicitudesArticulos.class);

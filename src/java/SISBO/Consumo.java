@@ -5,6 +5,7 @@
  */
 package SISBO;
 
+import data.RelDatabase;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,22 @@ import javax.ws.rs.core.Context;
 import logic.AbaaTbPersona;
 import logic.Model;
 import logic.SboTbSolixArti;
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+import javax.ws.rs.POST;
+import javax.ws.rs.core.Response;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.util.FileResolver;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -54,8 +71,5 @@ public class Consumo {
         }
         return null;
     }
-    
-    
-
 
 }
