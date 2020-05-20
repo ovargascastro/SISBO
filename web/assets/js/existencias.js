@@ -272,7 +272,6 @@ function imprimirExistencias() {
         success: listaExist2
     });
     $('#ImprimirReporteExistencias').modal('show');
-    alert("NADAAAAAAA");
 }
 var nRegistros;
 //se listan las existencias en la tabla
