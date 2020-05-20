@@ -111,7 +111,7 @@
 
 </html>
 <script>
-    document.getElementById("ArticulosMenu").style.color = "white";
+    document.getElementById("reportes").style.color = "white";
     function logged() {
     <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
     <% if (aux == null) { %>

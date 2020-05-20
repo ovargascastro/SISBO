@@ -97,15 +97,15 @@
                                     <label>Apellido 1</label>
                                     <input class="form-control" type="text" id="ap1Usuario" required placeholder="Apellido 1">
                                     <label>Departamento</label>
-                                    <select id="selectDptoPicker" class="selectpicker form-control" 
-                                            data-live-search="true" data-size="15" required>
+                                    <select id="selectDptoPicker" class="selectpicker form-control " 
+                                            data-live-search="true" data-size="15" required="true">
                                         <option values="0" selected disabled = "true" >Seleccione una opcion</option>
                                     </select>
+
                                     <style>
                                         div.dropdown-menu.open { width: 100%; }
                                         ul.dropdown-menu.inner>li>a { white-space: initial; }
                                     </style>
-                                    
                                     <label>Contraseña</label>
                                     <input class="form-control" type="password" id="passUsuario" required>
                                 </div>
@@ -120,11 +120,15 @@
                                         <input type="radio" id="customRadioInline1" id="jefe" value="1" name="customRadioInline1" class="custom-control-input">
                                         <label class="custom-control-label" for="customRadioInline1">Sí</label>
                                     </div>
-                                    <br>
                                     <div class="custom-control custom-radio custom-control-inline">
                                         <input type="radio" id="customRadioInline2" value="0" id="nojefe" name="customRadioInline1" class="custom-control-input">
                                         <label class="custom-control-label" for="customRadioInline2">No</label>
                                     </div>
+                                    <label>Rol por Permiso</label>
+                                    <select id="selectRoles" class="form-control" required="true">
+                                            
+                                        <option values="0" selected disabled = "true" >Seleccione una opcion</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -133,8 +137,8 @@
                 </div>
             </div>
         </form>
-        
-        
+
+
         <form action="javascript:actualizarUsuario()" id="myForm2">
             <div class="modal fade" role="dialog" tabindex="-1" id="editarUsuarioModal">
                 <div class="modal-dialog" role="document">
@@ -162,7 +166,7 @@
                                         div.dropdown-menu.open { width: 100%; }
                                         ul.dropdown-menu.inner>li>a { white-space: initial; }
                                     </style>
-                                    
+
                                     <label>Contraseña</label>
                                     <input class="form-control" type="password" id="passUsuarioEd">
                                 </div>

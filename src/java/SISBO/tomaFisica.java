@@ -19,14 +19,17 @@ import logic.SboSicop;
 import logic.SboTbBodega;
 import logic.SboTbExistencia;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
+import javax.servlet.http.HttpServletRequest;
+import logic.AbaaTbPersona;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperPrint;
 
 @Path("tomaFisica")
 public class tomaFisica {
 
     @Context
     private UriInfo context;
+    HttpServletRequest request;
 
     @GET
     @Path("{bodeg}/{depto}")
@@ -36,10 +39,20 @@ public class tomaFisica {
         return Model.instance().listaExistenciasStocks(bodega, departamento);
     }
     
-    /*@GET
+    @POST
     @Path("{bodega}/{depto}")
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    public JasperPrint generarReporte(@PathParam("bodeg") String bodega, @PathParam("depto") String departamento) throws JRException{
-        return Model.instance().generarReporte(bodega, departamento);
-    }*/
+    public Response generarReporte(@PathParam("bodeg") String bodega, @PathParam("depto") String departamento) throws JRException{
+               
+        
+        String bode = bodega;
+        String depa = departamento;
+        
+        try {
+            Model.instance().generarReporte(bodega, departamento);
+            
+        } catch (Exception e) {
+        }
+        return Response.ok().build();
+    }
 }

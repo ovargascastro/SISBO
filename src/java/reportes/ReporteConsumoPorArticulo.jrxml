@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteConsumoPorArticulo" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3b82db46-b7e7-479f-9ca4-b84caf0f3751">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="depaId" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="inicio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="depaNomb" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="articulo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select  si.Sico_Codi_Clas, Sico_Codi_Iden, 
+Sico_Desc,Sico_Id_PK, count(si.Sico_Id_PK) as Cantidad
+ from SIBO_TB_Soli_X_Arti s
+ inner join SIBO_TB_Exis e on s.Soli_Arti_Id_X_Exis_FK=e.Exis_Id_PK
+ inner join SIBO_TB_Articulo a on e.Exis_Arti_FK=a.Arti_Id_PK
+ inner join SIBO_TB_Sicop si on a.Arti_Cod_Sico_FK=si.Sico_Id_PK
+ inner join SIBO_TB_Soli_Arti so on s.Soli_Arti_Id_X_Soli_Arti_PK=so.Soli_Arti_Id_PK 
+where so.Soli_Arti_Id_Depa_FK=$P{depaId} 
+and s.Soli_Arti_Fech_Sali between $P{inicio} and $P{fin} 
+and si.Sico_Id_PK=$P{articulo} 
+group by si.Sico_Id_PK, si.Sico_Desc, si.Sico_Codi_Iden, si.Sico_Codi_Clas]]>
+	</queryString>
+	<field name="Sico_Codi_Clas" class="java.lang.String"/>
+	<field name="Sico_Codi_Iden" class="java.lang.String"/>
+	<field name="Sico_Desc" class="java.lang.String"/>
+	<field name="Sico_Id_PK" class="java.lang.Integer"/>
+	<field name="Cantidad" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="100" y="0" width="355" height="23" uuid="06411b1f-bd86-43b5-99ed-07abd38b78ff"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Municipalidad de Santo Domingo de Heredia]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="467" y="3" width="88" height="20" uuid="d86c9ec8-5dd4-4194-a192-bb5cb152d11d"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="50" height="50" uuid="6c09b33d-19fe-46db-b6ae-612248851430"/>
+				<imageExpression><![CDATA["C:\\Users\\Osvaldo Vargas\\Desktop\\SISBO\\web\\assets\\img\\Escudo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="84358870-dc11-485e-af4d-b9d5103aafcd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Reporte de consumo por departamento]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="200" y="20" width="154" height="20" uuid="ae03d7a7-ed2b-41eb-9def-41089483e8f6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{depaNomb}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="30" uuid="fb225639-dc56-41ab-9b31-a9e609cc82ac">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="310a592f-bc34-4ca5-af3e-a8abce7ca9fb"/>
+				</reportElement>
+				<box padding="3">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Artículo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="100" height="30" uuid="716f9833-ab99-4a18-bcae-4047d1a17a04">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3fe21c7b-f058-4d31-845c-659d81e82252"/>
+				</reportElement>
+				<box padding="3">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Codigo Identificación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="100" height="30" uuid="0e87eddc-24f9-4e51-ba98-73c929305dc0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e273508a-93f3-4655-b8be-377254672337"/>
+				</reportElement>
+				<box padding="3">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Código Clasificación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="100" height="30" uuid="be31a16c-b4db-4670-b1ee-26c9b0933dd9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4b486d9a-c824-47db-ac74-4ec1f651177b"/>
+				</reportElement>
+				<box padding="3">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="100" height="30" uuid="5d361cb1-f1e9-45f0-accf-d631ea1d9152">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2096f194-4ccf-415a-91e9-9270bdc71ac6"/>
+				</reportElement>
+				<box padding="3">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Sico_Desc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="100" y="0" width="100" height="30" uuid="f82a3c9b-32a8-4091-a60c-9367e00d7b1b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="030ebdee-e1a0-4031-a8b0-84cff46c8e8f"/>
+				</reportElement>
+				<box padding="3">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Sico_Codi_Iden}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="200" y="0" width="100" height="30" uuid="686da316-c39e-44a8-8010-84795498fef2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4d769f53-cf27-47a8-b5cb-9307ea716c57"/>
+				</reportElement>
+				<box padding="3">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Sico_Codi_Clas}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="300" y="0" width="100" height="30" uuid="686da316-c39e-44a8-8010-84795498fef2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4d769f53-cf27-47a8-b5cb-9307ea716c57"/>
+				</reportElement>
+				<box padding="3">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

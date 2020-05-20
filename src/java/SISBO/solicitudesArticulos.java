@@ -30,9 +30,10 @@ import logic.SboTbSoliArti;
  */
 @Path("solicitudArticulo")
 public class solicitudesArticulos {
+
     @Context
     private UriInfo context;
-    
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void agregarSolicitud(SboTbSoliArti solicitud) {
@@ -42,21 +43,20 @@ public class solicitudesArticulos {
             throw new NotFoundException();
         }
     }
-    
+
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<SboTbSoliArti> search(@QueryParam("filtro") String filtro) {
         try {
-          List<SboTbSoliArti> lista = Model.instance().listaSolicitudesArticulos(filtro);
+            List<SboTbSoliArti> lista = Model.instance().listaSolicitudesArticulos(filtro);
             return lista;
         } catch (Exception ex) {
             Logger.getLogger(SboTbOrdenCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-    
-    
-        @GET
+
+    @GET
     @Path("{filtro}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public SboTbSoliArti get(@PathParam("filtro") int filtro) {
@@ -67,9 +67,7 @@ public class solicitudesArticulos {
             throw new NotFoundException();
         }
     }
-      
-   
-    
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(SboTbSoliArti cont) {

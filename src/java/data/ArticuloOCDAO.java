@@ -31,6 +31,8 @@ public class ArticuloOCDAO {
             SboTbCatArticulo cat = new SboTbCatArticulo();
             SboTbOrdenCompra oc = new SboTbOrdenCompra();
             arti.setArtIdPk(rs.getInt("Arti_Id_PK"));
+            arti.setArtPrecioActual(rs.getDouble("Arti_Prec_Actu"));
+            arti.setArtPrecio(rs.getDouble("Arti_Prec"));
             arti.setArtDesc(rs.getString("Arti_Desc"));
             arti.setArtMode(rs.getString("Arti_Mode"));
             arti.setArtMarc(rs.getString("Arti_Marc"));
@@ -72,11 +74,11 @@ public class ArticuloOCDAO {
     }
 
     public SboTbArticulo datosArticulo(String filtro) throws Exception {
-        String sql = "select art.Arti_Id_PK, art.Arti_Desc,art.Arti_Mode,art.Arti_Marc,art.Arti_Nume_Seri,\n"
-    + "carArt.Cata_Id_PK,carArt.Cata_Desc,dpto.Cata_Depa_id_PK,dpto.Cata_Depa_nomb,oc.OC_Id_PK\n"
-    + "from SIBO_TB_Cata_Arti carArt, ABAA_TB_Catalogo_Departamento dpto, SIBO_TB_Articulo art, SIBO_TB_Orde_Comp oc\n"
-    + "where art.Arti_Codi_Cata_Arti_FK=carArt.Cata_Id_PK and art.Arti_Cata_Depa_FK=dpto.Cata_Depa_id_PK\n"
-    + "and art.Arti_Orde_Comp_FK = oc.OC_Id_PK and Arti_Id_PK = " + filtro + ";";
+        String sql = "select art.Arti_Id_PK,art.Arti_Prec,art.Arti_Prec_Actu, art.Arti_Desc,art.Arti_Mode,art.Arti_Marc,art.Arti_Nume_Seri,\n"
+                + "carArt.Cata_Id_PK,carArt.Cata_Desc,dpto.Cata_Depa_id_PK,dpto.Cata_Depa_nomb,oc.OC_Id_PK\n"
+                + "from SIBO_TB_Cata_Arti carArt, ABAA_TB_Catalogo_Departamento dpto, SIBO_TB_Articulo art, SIBO_TB_Orde_Comp oc\n"
+                + "where art.Arti_Codi_Cata_Arti_FK=carArt.Cata_Id_PK and art.Arti_Cata_Depa_FK=dpto.Cata_Depa_id_PK\n"
+                + "and art.Arti_Orde_Comp_FK = oc.OC_Id_PK and Arti_Id_PK = " + filtro + ";";
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
             return Articulo2(rs);
@@ -86,10 +88,10 @@ public class ArticuloOCDAO {
     }
 
     public SboTbArticulo DescripcionCatsPorArticulo(String filtro) throws Exception {
-        String sql = "select cat.Cata_Id_PK,cat.Cata_Desc,sub.Sub_Fami_Desc,fam.Fami_Desc\n" +
-                    "from SIBO_TB_Cata_Arti cat, SIBO_TB_Sub_Fami sub,SIBO_TB_Familia fam\n" +
-                    "where cat.Cata_SubF_FK=sub.Sub_Fami_Id_PK and sub.Sub_Fami_CodF_FK=fam.Fami_Id_PK\n" +
-                    "and cat.Cata_Id_PK = " + filtro + ";";
+        String sql = "select cat.Cata_Id_PK,cat.Cata_Desc,sub.Sub_Fami_Desc,fam.Fami_Desc\n"
+                + "from SIBO_TB_Cata_Arti cat, SIBO_TB_Sub_Fami sub,SIBO_TB_Familia fam\n"
+                + "where cat.Cata_SubF_FK=sub.Sub_Fami_Id_PK and sub.Sub_Fami_CodF_FK=fam.Fami_Id_PK\n"
+                + "and cat.Cata_Id_PK = " + filtro + ";";
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
             return Articulo3(rs);
@@ -97,31 +99,30 @@ public class ArticuloOCDAO {
             throw new Exception();
         }
     }
-    
-    public void actualizaRestante(SboTbArticulo articulo) throws SQLException{
-    String query = "update SIBO_TB_Articulo set Arti_Cant_Rest=? where Arti_Id_PK=?";
-    PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
-    preparedStmt.setInt(1, articulo.getArtCantRest());
-    preparedStmt.setInt(2, articulo.getArtIdPk());
-    preparedStmt.executeUpdate();
-    db.getConnection().close();
+
+    public void actualizaRestante(SboTbArticulo articulo) throws SQLException {
+        String query = "update SIBO_TB_Articulo set Arti_Cant_Rest=? where Arti_Id_PK=?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setInt(1, articulo.getArtCantRest());
+        preparedStmt.setInt(2, articulo.getArtIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
     }
-    
-    
-    public void actualizaSicop(SboTbArticulo articulo) throws SQLException{
-    String query = "update SIBO_TB_Articulo set Arti_Cod_Sico_FK=? where Arti_Id_PK=?";
-    PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
-    preparedStmt.setInt(1, articulo.getSboSicop().getSicopId());
-    preparedStmt.setInt(2, articulo.getArtIdPk());
-    preparedStmt.executeUpdate();
-    db.getConnection().close();
+
+    public void actualizaSicop(SboTbArticulo articulo) throws SQLException {
+        String query = "update SIBO_TB_Articulo set Arti_Cod_Sico_FK=? where Arti_Id_PK=?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setInt(1, articulo.getSboSicop().getSicopId());
+        preparedStmt.setInt(2, articulo.getArtIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
     }
 
     public void disminuirCantPendienteArticulo(SboTbArticulo articulo) throws Exception {
-        String query = "update SIBO_TB_Articulo set Arti_Desc=?, Arti_Mode= ?, Arti_Marc=?,\n" +
-                       "Arti_Nume_Seri=?, Arti_Fech_Ingr=?, Arti_Fech_Venc=?, Arti_Cant_Rest=Arti_Cant_Rest-?,"
-                        +"Arti_Cod_Sico_FK= ? \n" +
-                       "where Arti_Id_PK=?;";
+        String query = "update SIBO_TB_Articulo set Arti_Desc=?, Arti_Mode= ?, Arti_Marc=?,\n"
+                + "Arti_Nume_Seri=?, Arti_Fech_Ingr=?, Arti_Fech_Venc=?, Arti_Cant_Rest=Arti_Cant_Rest-?,"
+                + "Arti_Cod_Sico_FK= ? \n"
+                + "where Arti_Id_PK=?;";
 
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, articulo.getArtDesc());
@@ -135,8 +136,7 @@ public class ArticuloOCDAO {
             utilStartDate = articulo.getArtFvenc();
             sqlStartDate = new java.sql.Date(utilStartDate.getTime());
             preparedStmt.setDate(6, sqlStartDate);
-        }
-        else{
+        } else {
             preparedStmt.setDate(6, null);
         }
 
@@ -158,7 +158,6 @@ public class ArticuloOCDAO {
 //        preparedStmt.executeUpdate();
 //        db.getConnection().close();
 //    }
-
     public void verificarEstadoOCs(SboTbArticulo articulo) throws Exception {
         String query = "execute actualizarEstadoOC ?;";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -166,5 +165,7 @@ public class ArticuloOCDAO {
         preparedStmt.executeUpdate();
         db.getConnection().close();
     }
+    
+    
 
 }

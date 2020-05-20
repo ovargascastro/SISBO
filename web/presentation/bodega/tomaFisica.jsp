@@ -44,21 +44,21 @@
                                     <label>Bodega</label>
                                     <div class="form-row">
                                         <div class="col">
-                                            <select class="form-control" id="SelectBodegas">
+                                            <select class="form-control" id="SelectBodegas" required>
+                                                <option values="0" selected disabled = "true" >Seleccione una opcion</option>
                                             </select>
                                         </div>
                                         <div class="col"></div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col">
-                                            <label>Departamento</label>
-                                            <select class="form-control" id="SelectDptos">
+                                            <label>Unidad Usuaria</label>
+                                            <select id="SelectDptos" class="selectpicker form-control" 
+                                                    data-live-search="true" data-size="15" required>
+                                                <option values="0" selected disabled = "true" >Seleccione una opcion</option>
                                             </select>
                                         </div>
-                                        <div class="col text-center">
-                                            <button class="btn btn-primary" id="btnBuscarExist" type="submit">Buscar</button>
-&nbsp;                                      <button class="btn btn-primary" id="btnGenerateReport" type="submit">Generar Reporte</button>
-                                        </div>
+                                       
                                         
                                         
                                     </div>
@@ -67,7 +67,7 @@
                             </form>
                         </div>
                     </div>
-                    
+                     
                     <div class="row">
                         <div class="col text-center" id="tablaOrdenes">
                             <div class="table-responsive " style="max-height: 350px; overflow: auto">
@@ -92,7 +92,10 @@
 
             </div>
         </div>
-
+        <div class="col text-center">
+                       <button class="btn btn-primary" id="btnBuscarExist" type="submit">Buscar</button>
+&nbsp;                 <button class="btn btn-primary" id="btnGenerateReport" foraction="ReportePDF()" type="submit">Generar Reporte</button>
+                     </div>
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
@@ -101,7 +104,7 @@
 </html>
 
 <script>
-    document.getElementById("ArticulosMenu").style.color = "white";
+    document.getElementById("bodegasMenu").style.color = "white";
     function logged() {
     <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
     <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>

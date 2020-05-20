@@ -1,5 +1,6 @@
 package data;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,7 +23,7 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.view.JasperViewer;
+
 
 public class ExistenciasDAO {
 
@@ -388,8 +389,11 @@ public class ExistenciasDAO {
         return resultado;
     }
     
-    public JasperPrint generarReporteTomafisica(String bodega, String departamento) throws JRException{
-    
+ public JasperPrint generarReporte(String bodega, String departamento) throws JRException{
+            RelDatabase db;
+            String path = "";
+            db = new RelDatabase();
+            Connection con = db.getConnection();
             JasperReport report = JasperCompileManager.compileReport("C:\\Users\\Marco\\Downloads\\Carrera\\Ingineer\\ABAA\\src\\java\\Reports\\tomafisica.jrxml");
             JRDataSource data = new JREmptyDataSource();
             Map<String, Object> parameters = new  HashMap<String, Object>();
@@ -401,9 +405,6 @@ public class ExistenciasDAO {
             JasperExportManager.exportReportToPdfFile(jprint, "C:\\Users\\Marco\\Downloads\\tomafisica.pdf");
                
             return jprint;
-
-    
-    
     }
 
 }
