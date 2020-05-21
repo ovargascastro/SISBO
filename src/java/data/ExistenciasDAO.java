@@ -15,14 +15,14 @@ import logic.SboTbBodega;
 import logic.SboTbCatArticulo;
 import logic.SboTbExistencia;
 import logic.SboTbOrdenCompra;
-import net.sf.jasperreports.engine.JRDataSource;
+/*import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperReport;*/
 
 
 public class ExistenciasDAO {
@@ -389,7 +389,7 @@ public class ExistenciasDAO {
         return resultado;
     }
     
- public JasperPrint generarReporte(String bodega, String departamento) throws JRException{
+ /*public JasperPrint generarReporte(String bodega, String departamento) throws JRException{
             RelDatabase db;
             String path = "";
             db = new RelDatabase();
@@ -405,6 +405,6 @@ public class ExistenciasDAO {
             JasperExportManager.exportReportToPdfFile(jprint, "C:\\Users\\Marco\\Downloads\\tomafisica.pdf");
                
             return jprint;
-    }
+    }*/
 
 }

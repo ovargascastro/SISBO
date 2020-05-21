@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.inject.Inject;
 import java.io.File;
-
+/*
 import java.io.ByteArrayOutputStream;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JREmptyDataSource;
@@ -27,7 +27,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.export.Exporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;*/
 
 
 public class Model {
@@ -755,7 +755,7 @@ public class Model {
     public void actualizarPrecioActual(SboTbArticulo art) throws Exception {
         articulodao.actualizarPrecioActual(art);
     }
-
+/*
     public void generarReporteConsumo(String arti, String depaId, String depaNomb, String inicio, String fin) throws Exception {
         String path = "";
         RelDatabase db;
@@ -816,10 +816,10 @@ public class Model {
     }
     
     
-    public JasperPrint generarReporte(String depa, String bode) throws JRException{
+   public JasperPrint generarReporte(String depa, String bode) throws JRException{
     
         return existdao.generarReporte(bode, depa);
         
-    }
+    }*/
     
 }

@@ -22,7 +22,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import javax.servlet.http.HttpServletRequest;
 import logic.AbaaTbPersona;
-import net.sf.jasperreports.engine.JRException;
+//import net.sf.jasperreports.engine.JRException;
 
 @Path("tomaFisica")
 public class tomaFisica {
@@ -39,7 +39,7 @@ public class tomaFisica {
         return Model.instance().listaExistenciasStocks(bodega, departamento);
     }
     
-    @POST
+  /*  @POST
     @Path("{bodega}/{depto}")
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     public Response generarReporte(@PathParam("bodeg") String bodega, @PathParam("depto") String departamento) throws JRException{
@@ -54,5 +54,5 @@ public class tomaFisica {
         } catch (Exception e) {
         }
         return Response.ok().build();
-    }
+    }*/
 }

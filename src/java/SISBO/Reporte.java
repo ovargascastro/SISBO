@@ -35,7 +35,7 @@ import logic.AbaaTbDepartamento;
  */
 @Path("Reporte")
 public class Reporte {
-
+/*
     @Context
     HttpServletRequest request;
 
@@ -58,14 +58,14 @@ public class Reporte {
             date2 = dateFormat.parse(fin);
 
             String depaId = logged.getDepartamento().getDeptoIdPk();
-            AbaaTbDepartamento depto = Model.instance().getDepartamentoPorId(depaId);
-            String depaNomb = depto.getDeptoNomb();
+     //       AbaaTbDepartamento depto = Model.instance().getDepartamentoPorId(depaId);
+       //     String depaNomb = depto.getDeptoNomb();
 
-            Model.instance().generarReporteConsumo(articulo, depaId, depaNomb, inicio, fin);
+         //   Model.instance().generarReporteConsumo(articulo, depaId, depaNomb, inicio, fin);
 
         } catch (Exception ex) {
         }
         return Response.ok().build();
-    }
+    }*/
 
 }
