@@ -272,7 +272,6 @@ function imprimirExistencias() {
         success: listaExist2
     });
     $('#ImprimirReporteExistencias').modal('show');
-    alert("NADAAAAAAA");
 }
 var nRegistros;
 //se listan las existencias en la tabla
@@ -310,6 +309,38 @@ function Nregistros2() {
 
 //imprimir JS trabajar desde aqui
 
+
+function imprimir() {
+    var depa = document.getElementById("SelectDptos").value;
+    var bode = document.getElementById("SelectBodegas").value;
+         {
+            $.ajax({type: "GET",
+                url: "api/tomaFisica/" + depa + "/" + bode,
+                success: lista2
+            });
+            $('#ImprimirReporte').modal('show');
+        } 
+    } 
+
+function lista2(personas) {
+    var listado = $("#listaArticulosReporte");
+    listado.html("");
+    personas.forEach((p) => {
+        fila4(listado, p);
+    });
+}
+
+function fila4(listado, objeto) {
+    var tr = $("<tr />");
+    tr.html(
+                "<td>" + objeto.sboTbBodega.bodeDesc + "</td>"
+                + "<td>" + objeto.articulo.abaaTbDepartamento.deptoNomb + "</td>"
+                + "<td>" + objeto.articulo.sboSicop.sicopDesc + "</td>"
+                + "<td>" + objeto.sboTbEsta + "</td>");
+        listado.append(tr);
+
+}
+
 document.getElementById('export').addEventListener('click',
         PDF);
 
@@ -320,73 +351,6 @@ var specialElementHandlers = {
         return true;
     }
 };
-
-
-function exportPDF(imgData) {
-    var doc = new jsPDF('p', 'pt', 'a4');
-    doc.addImage(imgData, 'JPEG', 0, 0, 100, 90);
-    var source = document.getElementById('content').innerHTML;
-    var margins = {
-        top: 80,
-        bottom: 10,
-        left: 10,
-        width: 595
-    };
-
-    doc.fromHTML(
-            source, // HTML string or DOM elem ref.
-            margins.left,
-            margins.top, {
-                'width': margins.width,
-                'elementHandlers': specialElementHandlers
-            },
-            function (dispose) {
-                doc.save('Reporte de artículos existentes en bodega.pdf');
-            }, margins);
-}
-
-function PDF() {
-    getImageFromUrl('assets/img/Escudo2.jpg', exportPDF);
-}
-
-
-function ReportePDF() {
-    var bode = document.getElementById("SelectBodegas").value;
-    var depa = document.getElementById("SelectDptos").value;
-    
-    {
-        $.ajax({type: "POST",
-            url: "api/tomaFisica/" + bode + "/" + depa,
-            success: alert("Reporte Generado"),
-            error: function(data){
-                alert("Error al generar el reporte");
-            }
-        });
-    } 
-
-}
-
-
-function imprimir() {
-    var arti = document.getElementById("selectSicopPicker").value;
-    var inicio = document.getElementById("fechaInicio").value;
-    var fin = document.getElementById("fechaFinal").value;
-    var dpto = document.getElementById("selectDptoPicker").value;
-
-    if ((arti !== "0") && (inicio !== "") && (fin !== "") && (dpto !== "0")) {
-        if (inicio < fin) {
-            $.ajax({type: "GET",
-                url: "api/consumo2/" + arti + "/" + inicio + "/" + fin + "/" + dpto,
-                success: lista2
-            });
-            $('#ImprimirReporte').modal('show');
-        } else {
-            alert("Fecha de incio debe ser menor a la fecha final");
-        }
-    } else {
-        alert("Debe generar el reporte para poder imprimirlo");
-    }
-}
 
 var getImageFromUrl = function (url, callback) {
     var img = new Image();
@@ -418,6 +382,59 @@ function exportPDF(imgData) {
                 'elementHandlers': specialElementHandlers
             },
             function (dispose) {
-                doc.save('Reporte de Consumo por Departamento.pdf');
+                doc.save('Reporte de artículos existentes en bodega.pdf');
             }, margins);
+}
+
+
+
+
+function ReportePDF() {
+    var bode = document.getElementById("SelectBodegas").value;
+    var depa = document.getElementById("SelectDptos").value;
+    
+    {
+        $.ajax({type: "POST",
+            url: "api/tomaFisica/" + bode + "/" + depa,
+            success: alert("Reporte Generado"),
+            error: function(data){
+                alert("Error al generar el reporte");
+            }
+        });
+    } 
+
+}
+
+
+document.getElementById('export').addEventListener('click', PDF);
+
+
+
+
+
+function exportPDF(imgData) {
+    var doc = new jsPDF('p', 'pt', 'a4');
+    doc.addImage(imgData, 'JPEG', 0, 0, 100, 90);
+    var source = document.getElementById('content').innerHTML;
+    var margins = {
+        top: 80,
+        bottom: 10,
+        left: 10,
+        width: 595
+    };
+
+    doc.fromHTML(
+            source, // HTML string or DOM elem ref.
+            margins.left,
+            margins.top, {
+                'width': margins.width,
+                'elementHandlers': specialElementHandlers
+            },
+            function (dispose) {
+                doc.save('Reporte toma fisica.pdf');
+            }, margins);
+}
+
+function PDF() {
+    getImageFromUrl('assets/img/Escudo2.jpg', exportPDF);
 }

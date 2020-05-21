@@ -182,7 +182,6 @@ function fila2(listado, objeto) {
 }
 
 //imprimir JS trabajar desde aqui
-
 document.getElementById('export').addEventListener('click',
         PDF);
 

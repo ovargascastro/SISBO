@@ -58,8 +58,11 @@
                                                 <option values="0" selected disabled = "true" >Seleccione una opcion</option>
                                             </select>
                                         </div>
-                                       
-                                        
+                                       <div class="col text-center">
+                                        <button class="btn btn-primary" id="btnBuscarExist" type="submit">Buscar</button>
+&nbsp;                                  <button class="btn btn-primary" id="btnGenerateReport" onclick="imprimir()" type="submit">Generar Reporte</button>
+                                      </div>
+
                                         
                                     </div>
                                 </div>
@@ -92,10 +95,43 @@
 
             </div>
         </div>
-        <div class="col text-center">
-                       <button class="btn btn-primary" id="btnBuscarExist" type="submit">Buscar</button>
-&nbsp;                 <button class="btn btn-primary" id="btnGenerateReport" foraction="ReportePDF()" type="submit">Generar Reporte</button>
-                     </div>
+        
+        <div role="dialog" tabindex="-1" class="modal fade" id="ImprimirReporte" align="center">
+            <div class="modal-dialog" role="document" align="center">
+                <div class="row">
+                    <div class="modal-content"> 
+                        <div id="content">
+                            <p>_______________________________________________________________________________<br></p>
+                            <h3 class="text-top"><br><br>Municipalidad de Santo Domingo  <br></h3>
+                            <h4 class="text-center"><br><br>Reporte toma física  <br></h4>
+                          
+                            <div class="col text-center" id="tablaArticulosReporte">
+                                <div class="table-responsive" align="center">
+                                    <p>_______________________________________________________________________________ <br><br><br><br><p>
+                                    <table id="demo" class="table table-bordered" align="center">
+                                        <thead >
+                                            <tr>
+                                                <th class="text-center">Bodega</th>
+                                                <th class="text-center">Departamento</th>
+                                                <th class="text-center">Descripcion</th>
+                                                <th class="text-center">Cantidad Total en Existencia</th> 
+                                            </tr>
+                                        </thead>
+                                        <tbody id="listaArticulosReporte">
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                    <footer class="footer">
+                                        <button class="btn btn-success" id="export">Imprimir</button>
+                                    </footer>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
