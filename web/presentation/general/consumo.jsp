@@ -73,9 +73,7 @@
                                         <br>
                                         <br>
                                         <div><p>Imprimir Reporte  <img id="pdf" src="assets/img/printer_1.png" onclick="javascript:imprimir()"> </p> </div>
-                                        <!--
-                                        <div><p>Imprimir Reporte  <img id="pdf" src="assets/img/printer_1.png" onclick="javascript:reportePDF()"> </p> </div>
-                                        -->
+                                       
                                     </div>
                                 </div>
                                 <div>
