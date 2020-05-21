@@ -32,10 +32,10 @@ import logic.AbaaTbDepartamento;
 /**
  *
  * @author oscar
- */
+ 
 @Path("Reporte")
 public class Reporte {
-/*
+
     @Context
     HttpServletRequest request;
 
@@ -66,6 +66,7 @@ public class Reporte {
         } catch (Exception ex) {
         }
         return Response.ok().build();
-    }*/
+    }
 
 }
+*/
