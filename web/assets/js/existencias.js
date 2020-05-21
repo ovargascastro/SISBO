@@ -315,7 +315,7 @@ function imprimir() {
     var bode = document.getElementById("SelectBodegas").value;
          {
             $.ajax({type: "GET",
-                url: "api/tomaFisica/" + depa + "/" + bode,
+                url: "api/tomaFisica/" + bode + "/" + depa,
                 success: lista2
             });
             $('#ImprimirReporte').modal('show');
@@ -338,11 +338,10 @@ function fila4(listado, objeto) {
                 + "<td>" + objeto.articulo.sboSicop.sicopDesc + "</td>"
                 + "<td>" + objeto.sboTbEsta + "</td>");
         listado.append(tr);
-
+        
 }
 
-document.getElementById('export').addEventListener('click',
-        PDF);
+
 
 var specialElementHandlers = {
     // element with id of "bypass" - jQuery style selector
@@ -407,7 +406,6 @@ function ReportePDF() {
 
 
 document.getElementById('export').addEventListener('click', PDF);
-
 
 
 

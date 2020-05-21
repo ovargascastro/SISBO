@@ -114,7 +114,7 @@
                                                 <th class="text-center">Bodega</th>
                                                 <th class="text-center">Departamento</th>
                                                 <th class="text-center">Descripcion</th>
-                                                <th class="text-center">Cantidad Total en Existencia</th> 
+                                                <th class="text-center">Total </th> 
                                             </tr>
                                         </thead>
                                         <tbody id="listaArticulosReporte">
@@ -136,6 +136,7 @@
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
         <script src="assets/js/existencias.js" type="text/javascript"></script>
+        <script src="assets/js/jspdf.min.js"></script>
     </body>
 </html>
 
