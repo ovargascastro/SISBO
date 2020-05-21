@@ -18,7 +18,7 @@
         <%@ include file="/presentation/header.jsp" %>
         <div id="titulo">
             <div class="jumbotron">
-                <h1>Mantenimiento de Limites por departamento</h1>
+                <h1>Mantenimiento de Límites por departamento</h1>
                 <p></p>
                 <p></p>
             </div>

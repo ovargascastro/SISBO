@@ -29,7 +29,7 @@
         </div>
         <div class="card" id="cuerpoListaOrdenes">
             <div class="card-body">
-                <h4 class="text-center card-title">Listado de Ordenes de Compra</h4>
+                <h4 class="text-center card-title">Listado de Órdenes de Compra</h4>
                 <div class="container">
                     <div class="row">
                         <div class="col">

@@ -20,7 +20,7 @@ function agregarLimite() {
             contentType: "application/json",
             success: afterCreateLimite,
             error: function (jqXHR) {
-                alert("No se pudo realizar la operación");
+                alert("El límite ya existe");
             }
         });
     }

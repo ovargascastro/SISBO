@@ -297,11 +297,8 @@ function actualizarSubFamilia() {
 //se utiliza en caso de que la funcion actualizarsubFamilia haya sido exitosa
 // esconde el modal  de editar subfamilia
 function afterUpdateSubFm() {
-    alert("ex");
-    $('#busqueda').trigger("reset");
+    buscarSubFamilias();
     $('#modalSubFam').modal('hide');
-    $('#buscCat').click();
-    
 }
 
 

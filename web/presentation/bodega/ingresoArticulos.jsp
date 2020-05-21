@@ -44,13 +44,13 @@
                                 <label>Artículo</label>
                                 <select id="selectCatalogoArticulos" class="selectpicker form-control" 
                                         data-live-search="true" data-size="15" required>
-                                    <option values="0" selected disabled = "true" >Seleccione una opcion</option>
+                                    <option values="0" selected disabled = "true" >Seleccione una opción</option>
                                 </select>
                             </div>
                             <div class="col">
                                 <label>Descripción</label>
                                 <input id="AddArtDescripcion" class="form-control" 
-                                       type="text" placeholder="Descripcion" required>
+                                       type="text" placeholder="Descripción" required>
                             </div>
                         </div>
 
@@ -62,7 +62,7 @@
 
                                 <label>Unidad de Medida</label>
                                 <select class="form-control" id="selectUnidadMedida" required>
-                                    <option values="0" selected disabled = "true">Seleccione una opcion</option>
+                                    <option values="0" selected disabled = "true">Seleccione una opción</option>
                                     <option value="Unidad" >Unidad</option>
                                     <option value="Kilo">Kilo</option>
                                     <option value="Metro">Metro</option>
@@ -75,7 +75,7 @@
                                 <label>Unidad Usuaria</label>
                                 <select id="selectDeptos" class="selectpicker form-control" 
                                         data-live-search="true" data-size="15" required>
-                                    <option values="0" selected disabled = "true" >Seleccione una opcion</option>
+                                    <option values="0" selected disabled = "true" >Seleccione una opción</option>
                                 </select>
                                 <label>Fecha de Ingreso</label>
                                 <input id="AddArtFIngreso" class="form-control" type="date" 
@@ -84,7 +84,7 @@
                                 <label>SICOP</label>
                                 <select id="selectSicop" class="selectpicker form-control" 
                                         data-live-search="true" data-size="15" required>
-                                    <option values="0" selected disabled = "true" >Seleccione una opcion</option>
+                                    <option values="0" selected disabled = "true" >Seleccione una opción</option>
                                 </select>
 
                             </div>
@@ -102,7 +102,7 @@
 
                                 <label>Bodega</label>
                                 <select class="form-control" id="AddArtBodega" required> 
-                                    <option values="0" selected disabled = "true">Seleccione una opcion</option>
+                                    <option values="0" selected disabled = "true">Seleccione una opción</option>
                                 </select>
 
                                 <label>Fecha de Vencimiento</label>
@@ -111,7 +111,7 @@
 
                                 <label>Tipo de Ingreso</label>
                                 <select class="form-control" id="selectTipoIng" required>
-                                    <option values="0" selected disabled = "true">Seleccione una opcion</option>
+                                    <option values="0" selected disabled = "true">Seleccione una opción</option>
                                     <option value="Regular" >Regular</option>
                                     <option value="Donacion" >Donación</option>
                                     <option value="Caja Chica">Caja Chica</option>
