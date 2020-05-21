@@ -6,10 +6,6 @@
 
 <%@page import="logic.AbaaTbPersona"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="data.RelDatabase"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.util.HashMap"%>
-<%@page import="java.util.Map"%>
 <!DOCTYPE html>
 <html id="body">
 
@@ -49,7 +45,7 @@
                                         <div class="col">
                                             <select id="selectSicopPicker" class="selectpicker form-control" 
                                                     data-live-search="true" data-size="15" required>
-                                                <option values="0" selected disabled = "true" >Seleccione una opcion</option>
+                                                <option value="0" selected disabled = "true" >Seleccione una opcion</option>
                                                 <option value="all" >➤ Todos los artículos</option>
                                             </select>
                                             <style>
@@ -77,9 +73,7 @@
                                         <br>
                                         <br>
                                         <div><p>Imprimir Reporte  <img id="pdf" src="assets/img/printer_1.png" onclick="javascript:imprimir()"> </p> </div>
-                                        <!--
-                                        <div><p>Imprimir Reporte  <img id="pdf" src="assets/img/printer_1.png" onclick="javascript:reportePDF()"> </p> </div>
-                                        -->
+                                       
                                     </div>
                                 </div>
                                 <div>
@@ -88,7 +82,7 @@
                                         <div class="col">
                                             <select id="selectDptoPicker" class="selectpicker form-control" 
                                                     data-live-search="true" data-size="15" required>
-                                                <option values="0" selected disabled = "true" >Seleccione una opcion</option>
+                                                <option value="0" selected disabled = "true" >Seleccione una opcion</option>
                                             </select>
                                         </div>
                                         <div class="col">
@@ -132,11 +126,7 @@
                             <p>_______________________________________________________________________________<br></p>
                             <h3 class="text-center"><br><br>Municipalidad de Santo Domingo  <br></h3>
                             <h4 class="text-center"><br><br>Reporte de consumo por departamento  <br></h4>
-                            <!--
-                            <div>
-                                <button class="btn btn-success" id="export">Imprimir</button>
-                            </div>
-                            <br>  <br>-->
+                            
                             <div class="col text-center" id="tablaArticulosReporte">
                                 <div class="table-responsive" align="center">
                                     <p>_______________________________________________________________________________ <br><br><br><br><p>
@@ -181,19 +171,4 @@ function logged() {
         location.href = "presentation/notAccess.jsp";
     <%}%>
 }
-function generarPDF(){
-    var arti = document.getElementById("selectSicopPicker").value;
-    var inicio = document.getElementById("fechaInicio").value;
-    var fin = document.getElementById("fechaFinal").value;
-    var dpto = document.getElementById("selectDptoPicker").value;
-<%
-    RelDatabase db;
-    db = new RelDatabase();
-    Connection con = db.getConnection();
-    Map<String, Object> parametros;
-    parametros = new HashMap<>();
-    parametros.clear();
-    
-%>
-    }
 </script>

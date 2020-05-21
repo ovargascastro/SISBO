@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown"> Reporte de Consumo </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown"> Reportes </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/general/consumo.jsp">Consumo por Departamento</a>
                             </div>
@@ -77,8 +77,8 @@
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="ArticulosMenu" data-toggle="dropdown"> Artículos </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/bodega/ingresoArticulosNuevos.jsp">Ingreso de Artículos por OC</a>
-                                <a class="dropdown-item" href="presentation/bodega/ingresoArticulos.jsp">Ingreso de Artículos</a>
+                                <a class="dropdown-item" href="presentation/bodega/ingresoArticulosNuevos.jsp">Ingreso de Artículos por Orden de Compra</a>
+                                <a class="dropdown-item" href="presentation/bodega/ingresoArticulos.jsp">Ingreso de Artículos por otros medios</a>
                                 <a class="dropdown-item" href="presentation/bodega/existencias.jsp">Existencias</a>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="limitesMenu" data-toggle="dropdown">Limites </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="limitesMenu" data-toggle="dropdown">Límites </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/bodega/limitesdepartamento.jsp">Mantenimiento de límites por departamento</a>
                             </div>
@@ -115,7 +115,7 @@
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown"> Reporte de Consumo </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown"> Reportes </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/general/consumo.jsp">Consumo por Departamento</a>
                             </div>
@@ -149,7 +149,7 @@
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown"> Reporte de Consumo </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="CatalogosMenu" data-toggle="dropdown"> Reportes </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/general/consumo.jsp">Consumo por Departamento</a>
                             </div>
@@ -222,7 +222,7 @@
                                 Reportes
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/general/reporteConsumo.jsp">Reporte de Consumo</a>
+                                <a class="dropdown-item" href="presentation/general/reporteConsumo.jsp">Reportes</a>
                             </div>
                         </div>
                         <%}%>
@@ -245,7 +245,7 @@
                                 Reportes
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/general/reporteConsumo.jsp">Reporte de Consumo</a>
+                                <a class="dropdown-item" href="presentation/general/reporteConsumo.jsp">Reportes</a>
                             </div>
                         </div>
                         <%}%>

@@ -243,7 +243,7 @@ public class ArticulosDAO {
                 + "Arti_Desc,Arti_Mode,Arti_Nume_Seri,Arti_Marc,Arti_Codi_Pres,"
                 + "Arti_Codi_Cata_Arti_FK,Arti_Proy_FK,Arti_Cata_Depa_FK,"
                 + "Arti_Unid_Medi,Arti_Orde_Comp_FK,Arti_Prec_Actu)"
-                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setDouble(1, objeto.getArtPrecio());
         preparedStmt.setInt(2, objeto.getArtCant());
@@ -257,7 +257,7 @@ public class ArticulosDAO {
         preparedStmt.setInt(10, objeto.getAbaaProyectos().getProyIdPk());
         preparedStmt.setString(11, objeto.getAbaaTbDepartamento().getDeptoIdPk());
         preparedStmt.setString(12, objeto.getArtUnidadMedida());
-        preparedStmt.setInt(13, objeto.getSboSicop().getSicopId());
+        preparedStmt.setInt(13, objeto.getSboTbOrdenCompra().getOcIdPk());
         preparedStmt.setDouble(14, objeto.getArtPrecioActual());
         preparedStmt.executeUpdate();
         db.getConnection().close();

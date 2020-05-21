@@ -81,33 +81,30 @@
 
 
         <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="listaArticulos">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
+            <div class="modal-dialog modal-xl"style="height: 500px;">
+                <div class="modal-content" >
                     <form action="javascript:asignaCodContable()">
                         <div class="modal-header">
-                            <h4 class="modal-title">Listado de Artículos</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                            <h4 class="modal-title">Listado de Artículos</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
                         <div class="modal-body">
                             <div class="container text-center">
-
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Artículo<br><br></th>
-                                                        <th>Sub-Familia<br><br></th>
-                                                        <th>Sub-Familia<br>Descripción<br></th>
-                                                        <th>Código Contable<br><br></th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody id="listaArticulosOrdenC">
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                <div class="table-responsive" style="height: 400px;">
+                                    <table class="table" >
+                                        <thead>
+                                            <tr>
+                                                <th>Artículo<br><br></th>
+                                                <th>Sub-Familia<br><br></th>
+                                                <th>Sub-Familia<br>Descripción<br></th>
+                                                <th>Código Contable<br><br></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="listaArticulosOrdenC">
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

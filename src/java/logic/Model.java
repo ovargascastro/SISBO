@@ -7,28 +7,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.inject.Inject;
-import java.io.File;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.export.Exporter;
-import net.sf.jasperreports.export.ExporterOutput;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRRuntimeException;
-import java.io.ByteArrayOutputStream;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
-
 public class Model {
 
     @Inject
@@ -757,54 +739,36 @@ public class Model {
 
     public void generarReporteConsumo(String arti, String depaId, String depaNomb, String inicio, String fin) throws Exception {
         String path = "";
-        RelDatabase db;
-        db = new RelDatabase();
-        Connection con = db.getConnection();
-        Map<String, Object> parametros;
-        parametros = new HashMap<>();
-        parametros.clear();
-        parametros.put("depaId", depaId);
-        parametros.put("depaNomb", depaNomb);
-        parametros.put("inicio", inicio);
-        parametros.put("fin", fin);
-        if (arti.equals("all")) {
-            path = "/ReporteConsumoTotal.jasper";
-            //path = "SISBO\\src\\java\\reportes\\ReporteConsumoTotal.jasper";
-        } else {
-            path = "/ReporteConsumoPorArticulo.jasper";
-            //path = "SISBO\\src\\java\\reportes\\ReporteConsumoPorArticulo.jasper";
-            parametros.put("articulo", arti);
-        }
-        String realPath = "/src/java/reportes";
-        //String realPath = context.getRealPath("/src/java/reportes") + File.separator;
-
-        parametros.put("RUTA_REPORTES", realPath);
-        JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(realPath + path);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, con);
-        JRPdfExporter exp = new JRPdfExporter();
-        exp.setExporterInput(new SimpleExporterInput(jasperPrint));
-        exp.setExporterOutput(new SimpleOutputStreamExporterOutput("ReporteConsumoPorDepartamento.pdf"));
-        SimplePdfExporterConfiguration conf = new SimplePdfExporterConfiguration();
-        exp.setConfiguration(conf);
-        exp.exportReport();
-    }
-
-    private byte[] exportar(JasperPrint jp, String formato) throws JRException {
-        String form = "application/pdf";
-        Exporter exporter = crearExporter();
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        exporter.setExporterInput(new SimpleExporterInput(jp));
-        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(os));
-        exporter.exportReport();
-        return os.toByteArray();
-    }
-
-    private Exporter crearExporter() {
-        Exporter exporter = null;
-        exporter = new JRPdfExporter();
-        SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
-        exporter.setConfiguration(configuration);
-        return exporter;
+//        RelDatabase db;
+//        db = new RelDatabase();
+//        Connection con = db.getConnection();
+//        Map<String, Object> parametros;
+//        parametros = new HashMap<>();
+//        parametros.clear();
+//        parametros.put("depaId", depaId);
+//        parametros.put("depaNomb", depaNomb);
+//        parametros.put("inicio", inicio);
+//        parametros.put("fin", fin);
+//        if (arti.equals("all")) {
+//            path = "/ReporteConsumoTotal.jasper";
+//            //path = "SISBO\\src\\java\\reportes\\ReporteConsumoTotal.jasper";
+//        } else {
+//            path = "/ReporteConsumoPorArticulo.jasper";
+//            //path = "SISBO\\src\\java\\reportes\\ReporteConsumoPorArticulo.jasper";
+//            parametros.put("articulo", arti);
+//        }
+//        String realPath = "/src/java/reportes";
+//        //String realPath = context.getRealPath("/src/java/reportes") + File.separator;
+//
+//        parametros.put("RUTA_REPORTES", realPath);
+//        JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(realPath + path);
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, con);
+//        JRPdfExporter exp = new JRPdfExporter();
+//        exp.setExporterInput(new SimpleExporterInput(jasperPrint));
+//        exp.setExporterOutput(new SimpleOutputStreamExporterOutput("ReporteConsumoPorDepartamento.pdf"));
+//        SimplePdfExporterConfiguration conf = new SimplePdfExporterConfiguration();
+//        exp.setConfiguration(conf);
+//        exp.exportReport();
     }
 
     public AbaaTbDepartamento getDepartamentoPorId(String id) throws Exception{

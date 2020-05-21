@@ -42,7 +42,7 @@
                                 <div><label>Buscar Orden de Compra</label>
                                     <div class="form-row">
                                         <div class="col">
-                                            <input class="form-control" type="text" placeholder="Codigo Orden de Compra" onkeyup="myFunction()" id="numeroOC" name="numeroOC"></div>
+                                            <input class="form-control" type="text" placeholder="Código Orden de Compra" onkeyup="myFunction()" id="numeroOC" name="numeroOC"></div>
                                         <div class="col"><button class="btn btn-primary" type="submit">Buscar</button></div>
                                     </div>
                                     <div class="form-row">
