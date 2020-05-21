@@ -159,7 +159,7 @@ function imprimir() {
             alert("Fecha de incio debe ser menor a la fecha final");
         }
     } else {
-        alert("Debe generar el reporte para poder imprimirlo");
+        alert("Debe seleccionar los parámetros para poder imprimir el reporte");
     }
 }
 

@@ -45,7 +45,7 @@
                                         <div class="col">
                                             <select id="selectSicopPicker" class="selectpicker form-control" 
                                                     data-live-search="true" data-size="15" required>
-                                                <option values="0" selected disabled = "true" >Seleccione una opcion</option>
+                                                <option value="0" selected disabled = "true" >Seleccione una opcion</option>
                                                 <option value="all" >➤ Todos los artículos</option>
                                             </select>
                                             <style>
@@ -82,7 +82,7 @@
                                         <div class="col">
                                             <select id="selectDptoPicker" class="selectpicker form-control" 
                                                     data-live-search="true" data-size="15" required>
-                                                <option values="0" selected disabled = "true" >Seleccione una opcion</option>
+                                                <option value="0" selected disabled = "true" >Seleccione una opcion</option>
                                             </select>
                                         </div>
                                         <div class="col">
@@ -126,11 +126,7 @@
                             <p>_______________________________________________________________________________<br></p>
                             <h3 class="text-center"><br><br>Municipalidad de Santo Domingo  <br></h3>
                             <h4 class="text-center"><br><br>Reporte de consumo por departamento  <br></h4>
-                            <!--
-                            <div>
-                                <button class="btn btn-success" id="export">Imprimir</button>
-                            </div>
-                            <br>  <br>-->
+                            
                             <div class="col text-center" id="tablaArticulosReporte">
                                 <div class="table-responsive" align="center">
                                     <p>_______________________________________________________________________________ <br><br><br><br><p>
