@@ -32,6 +32,10 @@
                 <library dirs="200">
                     <file>${&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD (69c2c85) - report jsp}</file>
                 </library>
+                <library dirs="200">
+                    <file>${file.reference.web-data}</file>
+                    <path-in-war>WEB-INF/classes</path-in-war>
+                </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>
