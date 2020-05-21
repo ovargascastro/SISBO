@@ -6,10 +6,6 @@
 
 <%@page import="logic.AbaaTbPersona"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="data.RelDatabase"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.util.HashMap"%>
-<%@page import="java.util.Map"%>
 <!DOCTYPE html>
 <html id="body">
 
@@ -181,19 +177,4 @@ function logged() {
         location.href = "presentation/notAccess.jsp";
     <%}%>
 }
-function generarPDF(){
-    var arti = document.getElementById("selectSicopPicker").value;
-    var inicio = document.getElementById("fechaInicio").value;
-    var fin = document.getElementById("fechaFinal").value;
-    var dpto = document.getElementById("selectDptoPicker").value;
-<%
-    RelDatabase db;
-    db = new RelDatabase();
-    Connection con = db.getConnection();
-    Map<String, Object> parametros;
-    parametros = new HashMap<>();
-    parametros.clear();
-    
-%>
-    }
 </script>
