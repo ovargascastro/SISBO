@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-sep-2019 1:11:20 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="logic.SboTbSubFamilia" table="Sbo_TB_SubFamilia" schema="dbo" catalog="ABAA" optimistic-lock="version">
+        <id name="subFamiIdPk" type="string">
+            <column name="SubFami_Id_PK" length="30" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="sboTbFamilia" class="logic.SboTbFamilia" fetch="select">
+            <column name="SubFami_CodF_Fk" length="30" />
+        </many-to-one>
+        <property name="subFamiDesc" type="string">
+            <column name="SubFami_Desc" length="100" />
+        </property>
+        <set name="sboTbCatArticulos" table="Sbo_TB_CatArticulo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Cat_SubF_FK" length="30" />
+            </key>
+            <one-to-many class="logic.SboTbCatArticulo" />
+        </set>
+    </class>
+</hibernate-mapping>
