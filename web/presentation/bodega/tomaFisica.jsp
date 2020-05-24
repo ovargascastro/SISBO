@@ -146,47 +146,10 @@
 </html>
 
 <script>
-                                            document.getElementById("bodegasMenu").style.color = "white";
-                                            function logged() {
-    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
-    <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
-                                                location.href = "presentation/notAccess.jsp";
-    <%}%>
-                                            }
-                                            $(document).ready(function () {
-                                                $('#dtBasicExample').DataTable({
-                                                    "paging": false // false to disable pagination (or any other option)
-                                                });
-                                                $('.dataTables_length').addClass('bs-select');
-                                            });
-
-                                            function getStocks() {
-                                                var depto = document.getElementById("SelectDptos").value;
-                                                var bodeg = document.getElementById("SelectBodegas").value;
-                                                $.ajax({type: "GET",
-                                                    url: "api/tomaFisica/" + bodeg + "/" + depto,
-                                                    success: listaExistencias
-                                                });
-                                            }
-
-                                            //se listan las existencias en la tabla
-                                            function listaExistencias(personas) {
-                                                var listado = $("#listadoExistencias");
-                                                listado.html("");
-                                                personas.forEach((p) => {
-                                                    fila(listado, p);
-                                                });
-                                            }
-
-                                            //se utliza para mostrar los datos en las filas de la funcion anterior
-                                            function fila(listado, objeto) {
-                                                var tr = $("<tr />");
-                                                tr.html(
-                                                        "<td>" + objeto.sboTbBodega.bodeDesc + "</td>"
-                                                        + "<td>" + objeto.articulo.abaaTbDepartamento.deptoNomb + "</td>"
-                                                        + "<td>" + objeto.articulo.sboSicop.sicopDesc + "</td>"
-                                                        + "<td>" + objeto.sboTbEsta + "</td>");
-                                                listado.append(tr);
-                                            }
-
+    function logged() {
+        <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+        <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
+            location.href = "presentation/notAccess.jsp";
+        <%}%>
+    }
 </script>

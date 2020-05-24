@@ -17,12 +17,12 @@ function agregarArticuloTemporal() {
         proyect = document.getElementById("selectProyectos").value;
     }
     SboTbArticulo = {
+        sboTbCatArticulo: {
+            catIdPk: art
+        },
         abaaProyectos: {
             proyIdPk: proyect,
             proyDesc: descProy
-        },
-        sboTbCatArticulo: {
-            catIdPk: art
         },
         artMarc: $("#Marca").val(),
         artNumeSeri: $("#Serie").val(),

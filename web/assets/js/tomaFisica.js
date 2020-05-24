@@ -10,7 +10,7 @@ function imprimir() {
     } else {
         alert("Debe seleccionar los parámetros para poder imprimir el reporte");
     }
-    
+
 }
 
 //se listan las existencias en la tabla
@@ -84,5 +84,44 @@ function PDF() {
     getImageFromUrl('assets/img/Escudo2.jpg', exportPDF);
 }
 
+//-----------------------------------------------------------------
+document.getElementById("bodegasMenu").style.color = "white";
+
+$(document).ready(function () {
+    $('#dtBasicExample').DataTable({
+        "paging": false // false to disable pagination (or any other option)
+    });
+    $('.dataTables_length').addClass('bs-select');
+});
+
+
+function getStocks() {
+    var depto = document.getElementById("SelectDptos").value;
+    var bodeg = document.getElementById("SelectBodegas").value;
+    $.ajax({type: "GET",
+        url: "api/tomaFisica/" + bodeg + "/" + depto,
+        success: listaExistencias
+    });
+}
+
+//se listan las existencias en la tabla
+function listaExistencias(personas) {
+    var listado = $("#listadoExistencias");
+    listado.html("");
+    personas.forEach((p) => {
+        filaTabla(listado, p);
+    });
+}
+
+//se utliza para mostrar los datos en las filas de la funcion anterior
+function filaTabla(listado, objeto) {
+    var tr = $("<tr />");
+    tr.html(
+            "<td>" + objeto.sboTbBodega.bodeDesc + "</td>"
+            + "<td>" + objeto.articulo.abaaTbDepartamento.deptoNomb + "</td>"
+            + "<td>" + objeto.articulo.sboSicop.sicopDesc + "</td>"
+            + "<td>" + objeto.sboTbEsta + "</td>");
+    listado.append(tr);
+}
 
 

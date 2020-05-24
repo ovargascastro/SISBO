@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package SISBO;
 
 import java.util.List;
@@ -19,13 +14,10 @@ import logic.Model;
 import logic.SboTbCatContable;
 import logic.SboTbSoliArti;
 
-/**
- *
- * @author boris
- */
 @Path("soliAprobacion")
 public class solicitudesxAprobar {
-     @GET
+
+    @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<SboTbSoliArti> search(@QueryParam("filtro") String filtro) {
         try {
@@ -36,8 +28,8 @@ public class solicitudesxAprobar {
         }
         return null;
     }
-    
-       @GET
+
+    @GET
     @Path("{filtro}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public SboTbSoliArti get(@PathParam("filtro") int filtro) {

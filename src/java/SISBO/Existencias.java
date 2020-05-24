@@ -38,9 +38,6 @@ public class Existencias {
         SboSicop s = new SboSicop();
         s.setSicopId(Integer.parseInt(arti));
         
-       // e.setAbaaTbDepartamento(d);
-      //  e.setSboTbBodega(b);
-       // e.setSboTbSicop(s);
         return e;
     }
 
@@ -49,7 +46,6 @@ public class Existencias {
     public void agrega(SboTbExistencia existencia) {
         try {
             Model.instance().agregarExistencias(existencia);
-           // Model.instance().aumentarExistenciasArticulo(existencia);
         } catch (Exception ex) {
             throw new NotFoundException();
         }

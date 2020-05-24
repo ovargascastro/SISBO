@@ -1073,5 +1073,3 @@ function ocultarModalActivarCatArt() {
 $(document).ready(function () {
     logged();
 });
-
-

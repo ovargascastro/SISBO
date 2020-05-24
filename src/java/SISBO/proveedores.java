@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package SISBO;
 
 import java.sql.SQLException;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Encoded;
 import javax.ws.rs.GET;
@@ -20,19 +16,25 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import logic.AbaaTbPersona;
 import logic.Model;
 import logic.AbaaTbProveedor;
 import logic.SboTbSubFamilia;
 
-/**
- *
- * @author Osvaldo Vargas
- */
 @Path("proveedores")
 public class proveedores {
 
     @Context
     private UriInfo context;
+    @Context
+    HttpServletRequest request;
+
+    private static final String[] accionBitacora = {"Insert Proveedor", "Update Proveedor"};
+
+    private String obtenerNombre() {
+        AbaaTbPersona logged = (AbaaTbPersona) request.getSession(true).getAttribute("logged");
+        return String.format("%s %s %s", logged.getPersNomb(), logged.getPersApe1(), logged.getPersApe2());
+    }
 
     @GET
     @Path("orden")
@@ -66,26 +68,25 @@ public class proveedores {
         }
     }
 
-    @PUT
-    @Consumes({"application/json; charset=UTF-8"})
-    public void update(@Encoded AbaaTbProveedor p) {
-        try {
-            Model.instance().actualizaProveedor(p);
-        } catch (Exception ex) {
-            throw new NotFoundException();
-        }
-    }
-
     @POST
     @Consumes({"application/json; charset=UTF-8"})
     public void agregarProveedor(@Encoded AbaaTbProveedor p) {
         try {
             Model.instance().agregarProveedor(p);
-
+            Model.instance().insertarEnBitacora(obtenerNombre(), accionBitacora[0], p.getProveNomb());
         } catch (Exception ex) {
             throw new NotFoundException();
         }
     }
-    
-    //-
+
+    @PUT
+    @Consumes({"application/json; charset=UTF-8"})
+    public void update(@Encoded AbaaTbProveedor p) {
+        try {
+            Model.instance().actualizaProveedor(p);
+            Model.instance().insertarEnBitacora(obtenerNombre(), accionBitacora[1], p.getProveNomb());
+        } catch (Exception ex) {
+            throw new NotFoundException();
+        }
+    }
 }
