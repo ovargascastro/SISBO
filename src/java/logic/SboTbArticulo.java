@@ -29,7 +29,7 @@ public class SboTbArticulo implements java.io.Serializable {
     private Boolean artEsAc;
     private String artUnidadMedida;
     private SboSicop sboSicop;
-    private Set<AbaaTbOcproyecto> abaaTbOcproyectos = new HashSet<AbaaTbOcproyecto>(0);
+    //private Set<AbaaTbOcproyecto> abaaTbOcproyectos = new HashSet<AbaaTbOcproyecto>(0);
     private Set<SboTbSolixArti> sboTbSolixArtis = new HashSet<SboTbSolixArti>(0);
     private Set<SboTbExistencia> sboTbExistencias = new HashSet<SboTbExistencia>(0);
     private Integer cantSolArt;
@@ -241,13 +241,13 @@ public class SboTbArticulo implements java.io.Serializable {
         this.artEsAc = artEsAc;
     }
 
-    public Set<AbaaTbOcproyecto> getAbaaTbOcproyectos() {
-        return this.abaaTbOcproyectos;
-    }
+  //  public Set<AbaaTbOcproyecto> getAbaaTbOcproyectos() {
+    //    return this.abaaTbOcproyectos;
+   // }
 
-    public void setAbaaTbOcproyectos(Set<AbaaTbOcproyecto> abaaTbOcproyectos) {
-        this.abaaTbOcproyectos = abaaTbOcproyectos;
-    }
+  //  public void setAbaaTbOcproyectos(Set<AbaaTbOcproyecto> abaaTbOcproyectos) {
+  //      this.abaaTbOcproyectos = abaaTbOcproyectos;
+   // }
 
     public Set<SboTbSolixArti> getSboTbSolixArtis() {
         return this.sboTbSolixArtis;

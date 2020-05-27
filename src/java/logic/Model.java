@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.inject.Inject;
+
 public class Model {
 
     @Inject
@@ -105,6 +106,11 @@ public class Model {
 
     public List<SboTbArticulo> ListaArtxOrden(String filtro) throws ClassNotFoundException, SQLException {
         List oc = ocdao.listaOCxArt(filtro);
+        return oc;
+    }
+
+    public List<SboTbArticulo> ListaArtxOrdenSinProy(String filtro) throws ClassNotFoundException, SQLException {
+        List oc = ocdao.listaOCxArtSinProy(filtro);
         return oc;
     }
 
@@ -309,6 +315,11 @@ public class Model {
                 articulodao.agregarArticulo(art);
             } else {
                 articulodao.agregarArticuloConProyecto(art);
+                int lastInsert = articulodao.getLastInsertArticulo();
+                int proyId = art.getAbaaProyectos().getProyIdPk();
+                int ordenCmpId = orden.getOcIdPk();
+
+                proyecdao.insertarOCProyecto(ordenCmpId, proyId, lastInsert);
             }
         }
     }
@@ -337,6 +348,34 @@ public class Model {
 
     public void actualizaEstadoOrdenCom(SboTbOrdenCompra objeto) throws SQLException {
         ordendao.actualizaEstadoOC(objeto);
+    }
+
+    public void actualizaEstadoOrdenConProyectos(String orden) throws Exception {
+
+        SboTbOrdenCompra ordenC = ordendao.getOrdenPorID(Integer.parseInt(orden));
+
+        // List<SboTbOrdenCompra> lista = ordendao.listadoOrdenesPorID(orden);
+        List<SboTbArticulo> articulos = ocdao.listaOCxArtSinProy(Integer.toString(ordenC.getOcIdPk()));
+        
+        boolean bandera = false;//no tiene proyecto
+        
+        for (SboTbArticulo x : articulos) {
+
+            if (x.getAbaaProyectos().getProyIdPk() == 0) {
+                bandera = true;//tiene proyecto
+
+            }
+
+        }
+
+        //los articulos de esa orden no tienen proyecto
+        if (bandera == false) {
+
+            ordenC.setOcEsta("Procesada");
+            actualizaEstadoOrdenCom(ordenC);
+
+        }
+
     }
 
     public List<SboTbCatContable> listaCatContables(String filtro) throws ClassNotFoundException, SQLException {
@@ -771,7 +810,7 @@ public class Model {
 //        exp.exportReport();
     }
 
-    public AbaaTbDepartamento getDepartamentoPorId(String id) throws Exception{
+    public AbaaTbDepartamento getDepartamentoPorId(String id) throws Exception {
         AbaaTbDepartamento depto = dptodao.getDepartamento(id);
         return depto;
     }

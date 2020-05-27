@@ -275,7 +275,7 @@
                     }
                     function buscarArtxOc(id) {
                         $.ajax({type: "GET",
-                            url: "api/ListaOCxArt?numeroOCArt=" + id,
+                            url: "api/artSinProy?numeroOCArt=" + id,
                             success: listaArtxOC
                         });
                     }

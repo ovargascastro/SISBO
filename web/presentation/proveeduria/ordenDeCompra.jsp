@@ -166,8 +166,10 @@
 
                                 <div class="form-row">
                                     <div class="col">
-                                        <div class="form-check"><input class="form-check-input" type="checkbox" id="proyectoCheck">
-                                            <label class="form-check-label" for="formCheck-1">Seleccione si pertene a un proyecto</label></div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="proyectoCheck">
+                                            <label class="form-check-label" for="formCheck-1">Seleccione si pertene a un proyecto</label>
+                                        </div>
                                         <div class="form-check" id="comboProy">
                                             <label>Proyecto</label>
                                             <select class="form-control" id="selectProyectos">
@@ -219,6 +221,7 @@
                                             <option value="Metro">Metro</option>
                                         </select>
 
+                                        
                                         <label>Código Presupuestario</label>
                                         <input class="form-control" type="text" placeholder="Código Presupuestario" id="codPresupuestario" required>
                                     </div>
@@ -285,6 +288,9 @@
 
                                 function abrirModalArt() {
                                     $('#modalArticulo').modal('show');
+                                     $( "#proyectoCheck").prop('checked', false);
+                                      $('#comboProy').hide();
+                                  //  document.getElementById("proyectoCheck").checked = false;
 
                                 }
 
