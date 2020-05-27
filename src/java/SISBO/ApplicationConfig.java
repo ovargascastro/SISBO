@@ -42,6 +42,7 @@ public class ApplicationConfig extends Application {
         resources.add(SISBO.SolxArt.class);
         resources.add(SISBO.artOrdenInner.class);
         resources.add(SISBO.articulos.class);
+        resources.add(SISBO.articulosSinProy.class);
         resources.add(SISBO.articulosXorden.class);
         resources.add(SISBO.canExistPorArti.class);
         resources.add(SISBO.catArticulos.class);

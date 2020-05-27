@@ -5,11 +5,13 @@
  */
 package data;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import logic.AbaaProyectos;
+import logic.SboTbExistencia;
 
 /**
  *
@@ -46,5 +48,19 @@ public class ProyectoDAO {
         } catch (SQLException ex) {
         }
         return resultado;
+    }
+    
+    
+        public void insertarOCProyecto(int orden, int proy, int arti) throws SQLException {
+        String query = "insert into ABAA_TB_OCProyecto(OCProy_OC_ID, OCProy_Proy_ID, OCProy_Arti_ID)"
+                + "values(?,?,?)";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setInt(1, orden);
+        preparedStmt.setInt(2, proy);
+        preparedStmt.setInt(3, arti);
+
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+
     }
 }

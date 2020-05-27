@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import logic.AbaaProyectos;
 import logic.AbaaTbProveedor;
 import logic.SboTbOrdenCompra;
 
@@ -46,7 +47,19 @@ public class OrdenCompraDAO {
             return null;
         }
     }
+
+    public SboTbOrdenCompra getOrdenPorID(int id) throws Exception {
+        String sql = "select * from SIBO_TB_Orde_Comp o where o.OC_Id_PK='%s'";
+        sql = String.format(sql, id);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return OrdenCompra(rs);
+        } else {
+            throw new Exception("Solicitud no Existe");
+        }
+    }
 //se crea objeto de tipo proveedor
+
     private AbaaTbProveedor Proveedor(ResultSet rs) {
         try {
             AbaaTbProveedor ob = new AbaaTbProveedor();
@@ -76,7 +89,35 @@ public class OrdenCompraDAO {
             return null;
         }
     }
+
+    // se crea objeto de tipo articulo sin proyecto
+    private SboTbArticulo ObtenerArticuloSinProy(ResultSet rs) {
+        try {
+            SboTbArticulo art = new SboTbArticulo();
+            art.setArtIdPk(rs.getInt("Arti_Id_PK"));
+            art.setArtDesc(rs.getString("Arti_Desc"));
+            art.setArtCant(rs.getInt("Arti_Cant"));
+            art.setArtCantRest(rs.getInt("Arti_Cant_Rest"));
+            art.setAbaaProyectos(ObtenerProyecto(rs));
+            return art;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+
+    // se crea objeto de tipo proyecto
+    private AbaaProyectos ObtenerProyecto(ResultSet rs) {
+
+        try {
+            AbaaProyectos art = new AbaaProyectos();
+            art.setProyIdPk(rs.getInt("Arti_Proy_FK"));
+            return art;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
 //se selecciona los articulos por orden de compra
+
     public List<SboTbArticulo> listaOCxArt(String filtro) {
         List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
         try {
@@ -93,7 +134,25 @@ public class OrdenCompraDAO {
         }
         return resultado;
     }
- 
+
+    //se selecciona los articulos sin proyecto por orden de compra 
+    public List<SboTbArticulo> listaOCxArtSinProy(String filtro) {
+        List<SboTbArticulo> resultado = new ArrayList<SboTbArticulo>();
+        try {
+            String sql = "select SIBO_TB_Articulo.Arti_Id_PK,SIBO_TB_Articulo.Arti_Desc,\n"
+                    + "SIBO_TB_Articulo.Arti_Cant,SIBO_TB_Articulo.Arti_Cant_Rest,SIBO_TB_Articulo.Arti_Proy_FK\n"
+                    + "FROM SIBO_TB_Articulo,SIBO_TB_Orde_Comp\n"
+                    + "where SIBO_TB_Articulo.Arti_Orde_Comp_FK=SIBO_TB_Orde_Comp.OC_Id_PK\n"
+                    + "AND SIBO_TB_Articulo.Arti_Orde_Comp_FK=" + filtro + ";";
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(ObtenerArticuloSinProy(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+
     //se seleccionan las ordenes de compra que no han sido procesadas o estan parcialmente procesada
     public List<SboTbOrdenCompra> listaOrdenesCompra(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
@@ -114,7 +173,6 @@ public class OrdenCompraDAO {
     }
 
     // ------------------ A partir de aquí, está todo lo de Oscar/Orlando ------------------
-    
     //se selecciona el ultimo id de la tabla de orden de compra
     public int getLastInsertOrdenesCompra() throws Exception {
         String sql = "select IDENT_CURRENT( 'SIBO_TB_Orde_Comp' ) as seq;";
@@ -127,6 +185,7 @@ public class OrdenCompraDAO {
         }
     }
 //se envia un int el dato recuperado del metodo anterior
+
     private int lastInsertOrdenCompra(ResultSet rs) {
         try {
             int x;
@@ -193,7 +252,6 @@ public class OrdenCompraDAO {
         return resultado;
     }
 
-    
     //se listan las ordenes de compra pendients por recibir un codigo contable
     public List<SboTbOrdenCompra> listadoOrdenesCompraConta(String filtro) {
         List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
@@ -212,6 +270,7 @@ public class OrdenCompraDAO {
         return resultado;
     }
 //se actualiza  el estado de la orden de compra
+
     public void actualizaEstadoOC(SboTbOrdenCompra objeto) throws SQLException {
         String query = "update SIBO_TB_Orde_Comp set OC_Esta = ? where OC_Id_PK = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -219,6 +278,21 @@ public class OrdenCompraDAO {
         preparedStmt.setInt(2, objeto.getOcIdPk());
         preparedStmt.executeUpdate();
         db.getConnection().close();
+    }
+
+    //se listan las ordenes de comprapor id
+    public List<SboTbOrdenCompra> listadoOrdenesPorID(String filtro) {
+        List<SboTbOrdenCompra> resultado = new ArrayList<SboTbOrdenCompra>();
+        try {
+            String sql = "select * from SIBO_TB_Orde_Comp o where o.OC_Id_PK=" + filtro + ";";
+            sql = String.format(sql, filtro);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(OrdenCompra(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
     }
     //..
 

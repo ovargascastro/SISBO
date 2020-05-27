@@ -47,6 +47,7 @@ public class articulosXorden {
             SboTbOrdenCompra obj = p.getSboTbOrdenCompra();
             obj.setOcEsta("No Procesada");
             Model.instance().actualizaEstadoOrdenCom(obj);
+            Model.instance().actualizaEstadoOrdenConProyectos(Integer.toString(obj.getOcIdPk()));
         } catch (Exception ex) {
             throw new NotFoundException();
         }

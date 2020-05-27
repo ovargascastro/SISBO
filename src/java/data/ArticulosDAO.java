@@ -247,7 +247,7 @@ public class ArticulosDAO {
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setDouble(1, objeto.getArtPrecio());
         preparedStmt.setInt(2, objeto.getArtCant());
-        preparedStmt.setInt(3, objeto.getArtCant());
+        preparedStmt.setInt(3, 0);
         preparedStmt.setString(4, objeto.getArtDesc());
         preparedStmt.setString(5, objeto.getArtMode());
         preparedStmt.setString(6, objeto.getArtNumeSeri());
