@@ -57,12 +57,13 @@
                     </div>
                     <div class="row">
                         <div class="col text-center" id="tablaOrdenes">
+                            <div class="table-responsive " style="max-height: 350px; overflow: auto">
                             <div class="table-responsive">
                                 <table id="myTable" class="table">
                                     <thead>
                                         <tr>
                                             <th class="text-center">Número<br>de Orden</th>
-                                            <th class="text-center">Fecha<br>de Solicitud</th>
+                                            <th class="text-center">Fecha<br>de Orden</th>
                                             <th class="text-center">Proveedor</th>
                                             <th class="text-center">Precio<br>Total</th>
                                             <th class="text-center">Estado</th>
@@ -74,6 +75,7 @@
                                 </table>
                             </div>
                         </div>
+                            </div>
                     </div>
                 </div>
             </div>
