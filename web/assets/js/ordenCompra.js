@@ -2,7 +2,7 @@
 // se agrega el articulo a la tabla provisional de la orden de compra
 //con todos sus atributos, importante aun no se ha agregado a la base de datos
 function agregarArticuloTemporal() {
-    var depto = document.getElementById("selectDeptos").value;
+    var depto = document.getElementById("selectDptoPicker").value;
     var art = document.getElementById("selectCatalogoArticulos").value;
     var unidad = document.getElementById("selectUnidadMedida").value;
     var proyect = 0;
@@ -56,6 +56,7 @@ function exito() {
 }
 //se resetea los articulos de la orden
 function limpiar() {
+    selectCatArticulos();
     $('#articulosOrden').trigger("reset");
 }
 // se listan los datos de los articulos temporales
@@ -263,3 +264,25 @@ function filaProyectos(listado, objeto) {
 $(document).ready(function () {
     logged();
 });
+
+function selectDeptosPicker() {
+    $.ajax({type: "GET",
+        url: "api/departamentos",
+        success: cargarDeptos,
+        error: function (data) {
+            alert('error');
+        }
+    });
+
+}
+
+function cargarDeptos(data) {
+
+    var jsonData = JSON.stringify(data);
+    $.each(JSON.parse(jsonData), function (idx, obj) {
+        $("#selectDptoPicker").append('<option value="' + obj.deptoIdPk + '">' + '➤ ' + obj.deptoNomb + '</option>');
+
+    });
+    $('#selectDptoPicker').selectpicker('refresh');
+
+}

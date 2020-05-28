@@ -71,7 +71,7 @@
                                     <div class="col text-center">
                                         <br>
                                         <br>
-                                        <div><p>Imprimir Reporte  <img id="pdf" src="assets/img/printer_1.png"> </p> </div>
+                                        <div><p>Imprimir Reporte  <img id="pdf" src="assets/img/printer_1.png" onclick="javascript:imprimirRepo()"> </p> </div>
                                     </div>
                                 </div>
                             </form>
@@ -101,8 +101,46 @@
                 </div>
             </div>
         </div>
+        
+        <div role="dialog" tabindex="-1" class="modal fade" id="ImprimirReporteDepa" align="center">
+            <div class="modal-dialog" role="document" align="center">
+                <div class="row">
+                    <div class="modal-content"> 
+                        <div id="content">
+                            <br>
+                            <p>_______________________________________________________________________________<br></p>
+                            <h3 class="text-center"><br><br>Municipalidad de Santo Domingo  <br></h3>
+                            <h4 id="nombDepa" class="text-center"><br><br>Reporte de consumo de:  <br></h4>
+                            <h4 id="fecha" class="text-center"><br><br>Desde  <br></h4>
+                            
+                            <div class="col text-center" id="tablaArticulosReporte">
+                                <div class="table-responsive" align="center">
+                                    <p>_______________________________________________________________________________ <br><br><br><br><p>
+                                    <table id="demo" class="table table-bordered" align="center">
+                                        <thead >
+                                            <tr>
+                                                <th class="text-center">Artículo       <br><br></th>
+                                                <th class="text-center">Cod. <br>Identificación<br><br></th>
+                                                <th class="text-center">Cod. <br>Clasificación<br><br></th>
+                                                <th class="text-center">Cantidad<br><br></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="listaArticulosReporte">
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                    <footer class="footer">
+                                        <button class="btn btn-success" id="export">Imprimir</button>
+                                    </footer>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-
+        <script src="assets/js/jspdf.min.js"></script>
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
@@ -117,6 +155,12 @@
     <% if (aux == null) { %>
         location.href = "presentation/notAccess.jsp";
     <%}%>
+    }
+    function imprimirRepo() {
+    <% AbaaTbPersona aux2 = (AbaaTbPersona) session.getAttribute("logged");%>
+    <% String str=aux2.getDepartamento().getDeptoIdPk(); %>
+    var s="<%=str%>";
+    getDepa(s);
     }
 
 </script>

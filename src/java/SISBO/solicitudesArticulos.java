@@ -81,4 +81,5 @@ public class solicitudesArticulos {
             throw new NotFoundException();
         }
     }
+    
 }

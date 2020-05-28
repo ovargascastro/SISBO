@@ -26,7 +26,7 @@
                     <ul class="nav navbar-nav ml-auto">
                         <% if (logged == null) {%>
                         <li class="nav-item">
-                            <a class="nav-link" href="presentation/login.jsp" id="loginP">LogIn</a>
+                            <a class="nav-link" href="presentation/login.jsp" id="loginP">Iniciar Sesión</a>
                         </li>
                         <% } else {%>
                         <li class="nav-item">
@@ -172,6 +172,15 @@
                                 <a class="dropdown-item" href="presentation/general/usuarios.jsp">Administración de usuarios</a>
                             </div>
                         </div>
+                        
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="reportes" data-toggle="dropdown">
+                                Reportes
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/reporteConsumo.jsp">Consumo por Departamento</a>
+                            </div>
+                        </div>
 
                         <%}%>
                         <!--PROVEDURIA-->
@@ -203,6 +212,14 @@
                                 <a class="dropdown-item" href="presentation/catalogos/codSicop.jsp">Catálogo de SICOP</a>
                             </div>
                         </div>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="reportes" data-toggle="dropdown">
+                                Reportes
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/reporteConsumo.jsp">Consumo por Departamento</a>
+                            </div>
+                        </div>
                         <%}%>
                         <!--OTROS FUNCIONARIOS-->
                         <% if (logged.getDepartamento().getDeptoIdPk() != "6" && logged.getDepartamento().getDeptoIdPk() != "17"
@@ -222,7 +239,7 @@
                                 Reportes
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/general/reporteConsumo.jsp">Reportes</a>
+                                <a class="dropdown-item" href="presentation/general/reporteConsumo.jsp">Consumo por Departamento</a>
                             </div>
                         </div>
                         <%}%>

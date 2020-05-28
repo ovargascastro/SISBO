@@ -251,25 +251,28 @@ public class solicitudArtDAO {
         }
     }
 
-    // se agregra los datos a la tabla de solixarti
-//    public void agregarSolicitudXArticulo(SboTbSolixArti objeto) throws Exception {
-//        String query = "insert into SIBO_TB_Soli_X_Arti(Soli_Arti_Id_X_Soli_Arti_PK,Soli_Arti_Id_X_Arti_PK,"
-//                + "Soli_Arti_X_Cant)"
-//                + "values(?,?,?)";
-//
-//        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
-//        preparedStmt.setInt(1, objeto.getSboTbSoliArti().getSolArtiIdPk());
-//        preparedStmt.setInt(2, objeto.getSboSicop().getSicopId());
-//        preparedStmt.setInt(3, objeto.getSolArtiCant());
-//        preparedStmt.executeUpdate();
-//        db.getConnection().close();
-//    }
-    // se muestran la solicitud que tiene el correspondiente id  
     public List<SboTbSoliArti> listadoSolicitudesArticulos(String filtro) {
         List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
         try {
             String sql = "select * from SIBO_TB_Soli_Arti sa, ABAA_TB_Catalogo_Departamento dep, ABAA_TB_Persona per "
                     + "where sa.Soli_Arti_Id_PK like '%%%s%%'"
+                    + "and sa.Soli_Arti_Id_Func_FK=per.Pers_id_PK "
+                    + "and sa.Soli_Arti_Id_Depa_FK=dep.Cata_Depa_id_PK";
+            sql = String.format(sql, filtro);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(soliArti(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+    
+    public List<SboTbSoliArti> listadoSolicitudesArticulosParaPDF(String filtro) {
+        List<SboTbSoliArti> resultado = new ArrayList<SboTbSoliArti>();
+        try {
+            String sql = "select * from SIBO_TB_Soli_Arti sa, ABAA_TB_Catalogo_Departamento dep, ABAA_TB_Persona per "
+                    + "where sa.Soli_Arti_Id_PK ='%s'"
                     + "and sa.Soli_Arti_Id_Func_FK=per.Pers_id_PK "
                     + "and sa.Soli_Arti_Id_Depa_FK=dep.Cata_Depa_id_PK";
             sql = String.format(sql, filtro);
@@ -519,17 +522,6 @@ public class solicitudArtDAO {
         db.getConnection().close();
     }
 
-// se ejecuta el procedimiento para disminuir las existencias
-//    public void disminuyeExistencias(SboTbSolixArti objeto) throws Exception {
-//        String query = "execute DisminuyeExistencias ?,?,?;";
-//        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
-//        preparedStmt.setInt(1, objeto.getSboSicop().getSicopId());
-//        preparedStmt.setInt(2, objeto.getSolArtiCant());
-//        preparedStmt.setInt(3, objeto.getSboTbSoliArti().getSolArtiIdPk());
-//        preparedStmt.executeUpdate();
-//        db.getConnection().close();
-//    }
-    // se selecciona el ultimo id de la tabla soli_arti
     public int getLastInsertSolicitudArticulo() throws Exception {
         String sql = " select IDENT_CURRENT( 'SIBO_TB_Soli_Arti' ) as seq ";
         sql = String.format(sql);
@@ -594,17 +586,4 @@ public class solicitudArtDAO {
             throw new Exception("Departamento no Existe");
         }
     }
-
 }
-
-// se agrega en la tabla solixarti por medio de un procedimiento
-//    public void insertarSolxArt(SboTbSolixArti objeto) throws Exception {
-//        String sql = "Execute agregarSoliXarti ?,?,?,?;";
-//        PreparedStatement preparedStmt = db.getConnection().prepareStatement(sql);
-//        preparedStmt.setInt(1, objeto.getId().getSolixArtiIdSoliArtiPk());
-//        preparedStmt.setInt(2, objeto.getSboSicop().getSicopId());
-//        preparedStmt.setInt(3, objeto.getSolArtiCant());
-//        preparedStmt.setString(4, objeto.getSolArtiDeta());
-//        preparedStmt.executeUpdate();
-//        db.getConnection().close();
-//    }

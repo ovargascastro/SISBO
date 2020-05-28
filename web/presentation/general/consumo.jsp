@@ -125,8 +125,8 @@
                             <br>
                             <p>_______________________________________________________________________________<br></p>
                             <h3 class="text-center"><br><br>Municipalidad de Santo Domingo  <br></h3>
-                            <h4 class="text-center"><br><br>Reporte de consumo por departamento  <br></h4>
-                            
+                            <h4 id="nombDepaModal" class="text-center"><br><br>Reporte de consumo de:  <br></h4>
+                            <h4 id="fechaModal" class="text-center"><br><br>Desde  <br></h4>
                             <div class="col text-center" id="tablaArticulosReporte">
                                 <div class="table-responsive" align="center">
                                     <p>_______________________________________________________________________________ <br><br><br><br><p>

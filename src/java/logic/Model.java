@@ -447,6 +447,10 @@ public class Model {
     public List<SboTbSoliArti> listaSolicitudesArticulos(String filtro) {
         return solArtdao.listadoSolicitudesArticulos(filtro);
     }
+    
+    public List<SboTbSoliArti> listaSolicitudesArticulosParaPDF(String filtro) {
+        return solArtdao.listadoSolicitudesArticulosParaPDF(filtro);
+    }
 
     public List<SboTbSolixArti> listaArticulosXSolicitud(String filtro) {
         int valor = Integer.parseInt(filtro);

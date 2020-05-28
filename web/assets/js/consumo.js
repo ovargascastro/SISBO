@@ -27,8 +27,6 @@ function pb4(data) {
 
 }
 
-
-
 function selectDeptos() {
     $.ajax({type: "GET",
         url: "api/departamentos",
@@ -106,19 +104,15 @@ function getReporteDepartamento() {
     var fin = document.getElementById("fechaFinal").value;
     var dpto = document.getElementById("selectDptoPicker").value;
 
-
-
     if (inicio < fin) {
         $.ajax({type: "GET",
             url: "api/consumo2/" + arti + "/" + inicio + "/" + fin + "/" + dpto,
             success: lista
         });
     } else {
-        alert("Fecha de incio debe ser menor a la fecha final")
+        alert("Fecha de incio debe ser menor a la fecha final");
     }
-
 }
-
 
 function reportePDF() {
     var arti = document.getElementById("selectSicopPicker").value;
@@ -141,19 +135,21 @@ function reportePDF() {
 function prueba() {
     alert("prueba");
 }
-
+var strDepartamento;
 function imprimir() {
     var arti = document.getElementById("selectSicopPicker").value;
     var inicio = document.getElementById("fechaInicio").value;
     var fin = document.getElementById("fechaFinal").value;
     var dpto = document.getElementById("selectDptoPicker").value;
-
+//    var nombreDepartamento = document.getElementById("selectDptoPicker");
+    strDepartamento = $("#selectDptoPicker :selected").text();
     if ((arti !== "0") && (inicio !== "") && (fin !== "") && (dpto !== "0")) {
         if (inicio < fin) {
             $.ajax({type: "GET",
                 url: "api/consumo2/" + arti + "/" + inicio + "/" + fin + "/" + dpto,
                 success: lista2
             });
+            document.getElementById("fechaModal").innerHTML = "Desde: " + inicio + " Hasta: " + fin;
             $('#ImprimirReporte').modal('show');
         } else {
             alert("Fecha de incio debe ser menor a la fecha final");
@@ -161,6 +157,16 @@ function imprimir() {
     } else {
         alert("Debe seleccionar los parámetros para poder imprimir el reporte");
     }
+    setDepa();
+
+//    alert(nombreDepartamento);
+//    getDepa(dpto);
+}
+
+function setDepa() {
+    var str = strDepartamento.substring(1);
+    console.log(str);
+    document.getElementById("nombDepaModal").innerHTML = "Reporte de consumo de: " + str;
 }
 
 function lista2(personas) {
@@ -231,3 +237,34 @@ function exportPDF(imgData) {
 function PDF() {
     getImageFromUrl('assets/img/Escudo2.jpg', exportPDF);
 }
+
+
+function getDepa(depaId) {
+    $.ajax({type: "GET",
+        url: "api/consumo2/" + depaId,
+        success: imprimirReporte
+    });
+}
+function imprimirReporte(departamento) {
+    var arti = document.getElementById("selectSicopPicker").value;
+    var inicio = document.getElementById("fechaInicio").value;
+    var fin = document.getElementById("fechaFinal").value;
+    document.getElementById("nombDepa").innerHTML = "Reporte de consumo de: " + departamento.deptoNomb;
+    document.getElementById("fecha").innerHTML = "Desde: " + inicio + " Hasta: " + fin;
+    if ((arti !== "0") && (inicio !== "") && (fin !== "")) {
+
+        if (inicio < fin) {
+            $.ajax({type: "GET",
+                url: "api/Consumo/" + arti + "/" + inicio + "/" + fin,
+                success: lista2
+            });
+            $('#ImprimirReporteDepa').modal('show');
+        } else {
+            alert("Fecha de incio debe ser menor a la fecha final");
+        }
+    } else {
+        alert("Debe seleccionar los parámetros para poder imprimir el reporte");
+    }
+}
+
+

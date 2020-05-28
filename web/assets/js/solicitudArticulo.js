@@ -607,10 +607,8 @@ function afterUpdateApEs() {
 }
 //funcion para crear el pdf de la solicitud
 function imprimir(filtro) {
-
-
     $.ajax({type: "GET",
-        url: "api/solicitudArticulo?filtro=" + filtro,
+        url: "api/solicitudArticuloPDF?filtro=" + filtro,
         success: listaInformacionSol,
         error: function (jqXHR) {
             alert(errorMessage(jqXHR.status));

@@ -57,7 +57,7 @@
                     </div>
                     <div class="row">
                         <div class="col text-center" id="tablaOrdenes">
-                            <div class="table-responsive">
+                            <div class="table-responsive" style="max-height: 350px; overflow: auto">
                                 <table class="table">
                                     <thead>
                                         <tr>

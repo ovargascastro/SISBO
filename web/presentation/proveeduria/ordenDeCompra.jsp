@@ -197,9 +197,9 @@
                                         <input class="form-control" type="number" placeholder="Cantidad" id="Cantidad" min="0"required>
 
                                         <label>Unidad Usuaria</label>
-                                        <select class="form-control" id="selectDeptos" required>
-                                            <option values="0" selected disabled = "true">Seleccione una opcion</option>
-
+                                        <select id="selectDptoPicker" class="selectpicker form-control" 
+                                                data-live-search="true" data-size="15" required>
+                                            <option value="0" selected disabled = "true" >Seleccione una opcion</option>
                                         </select>
                                     </div>
 
@@ -221,7 +221,7 @@
                                             <option value="Metro">Metro</option>
                                         </select>
 
-                                        
+
                                         <label>Código Presupuestario</label>
                                         <input class="form-control" type="text" placeholder="Código Presupuestario" id="codPresupuestario" required>
                                     </div>
@@ -288,15 +288,15 @@
 
                                 function abrirModalArt() {
                                     $('#modalArticulo').modal('show');
-                                     $( "#proyectoCheck").prop('checked', false);
-                                      $('#comboProy').hide();
-                                  //  document.getElementById("proyectoCheck").checked = false;
+                                    $("#proyectoCheck").prop('checked', false);
+                                    $('#comboProy').hide();
+                                    //  document.getElementById("proyectoCheck").checked = false;
 
                                 }
 
                                 function cargarSelectsOrden() {
                                     selectProveedores();
-                                    selectDeptos();
+                                    selectDeptosPicker();
                                     selectProyectos();
                                     selectCatArticulos2();
 
@@ -358,7 +358,8 @@
 
                                     $('#selectCatalogoArticulos').addClass('selectpicker');
                                     $('#selectCatalogoArticulos').attr('data-live-search', 'true');
-
+                                    $('#selectDptoPicker').addClass('selectpicker');
+                                    $('#selectDptoPicker').attr('data-live-search', 'true');
 
                                 }
 
