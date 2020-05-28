@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package SISBO;
 
 import java.util.List;
@@ -21,16 +16,10 @@ import logic.Model;
 import logic.SboTbCatContable;
 import logic.SboTbSoliArti;
 
-/**
- *
- * @author ESCINF
- */
-
- @Path("soliAprobacionJF")
+@Path("soliAprobacionJF")
 public class SolicitudJf {
 
-
-     @GET
+    @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<SboTbSoliArti> search(@QueryParam("filtro") String filtro) {
         try {
@@ -40,35 +29,8 @@ public class SolicitudJf {
             Logger.getLogger(SboTbSoliArti.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    }   
-    
-    
-//     @GET
-//
-//    @Path("{bodeg}/{depto}/{arti}")
-//
-//    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-//
-//    public List<SboTbExistencia> getExistencias(@PathParam("bodeg") String x, @PathParam("depto") String y, @PathParam("arti") String z)
-//
-//            throws ClassNotFoundException, SQLException {
-//
-//        String bodega = x;
-//
-//        String departamento = y;
-//
-//        String articulo = z;
-//
-//
-//
-//        List<SboTbExistencia> lista = Model.instance().listaExistencias(bodega, departamento, articulo);
-//
-//        return lista;
-//
-//    }
+    }
 
-    
-    
     @GET
     @Path("{filtro}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -80,8 +42,8 @@ public class SolicitudJf {
             throw new NotFoundException();
         }
     }
-    
-        @PUT
+
+    @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(SboTbSoliArti cont) {
         try {
@@ -90,5 +52,5 @@ public class SolicitudJf {
             throw new NotFoundException();
         }
     }
-    
+
 }

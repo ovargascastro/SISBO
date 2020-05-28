@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package SISBO;
 
 import javax.ws.rs.Consumes;
@@ -21,12 +16,7 @@ import javax.ws.rs.QueryParam;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import javax.ws.rs.PUT;
-import logic.SboTbOrdenCompra;
 
-/**
- *
- * @author Osvaldo Vargas
- */
 @Path("articulos")
 public class articulos {
 

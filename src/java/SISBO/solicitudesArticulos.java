@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package SISBO;
 
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
@@ -20,28 +16,24 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import logic.AbaaTbPersona;
 import logic.Model;
 import logic.SboTbOrdenCompra;
 import logic.SboTbSoliArti;
 
-/**
- *
- * @author Boris Mendez
- */
 @Path("solicitudArticulo")
 public class solicitudesArticulos {
 
     @Context
     private UriInfo context;
+    @Context
+    HttpServletRequest request;
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void agregarSolicitud(SboTbSoliArti solicitud) {
-        try {
-            Model.instance().InsertarSoli(solicitud);
-        } catch (Exception ex) {
-            throw new NotFoundException();
-        }
+    private static final String[] accionBitacora = {"Insert Solicitud Articulo", "Update Solicitud Articulo", "Pendiente"};
+
+    private String obtenerNombre() {
+        AbaaTbPersona logged = (AbaaTbPersona) request.getSession(true).getAttribute("logged");
+        return String.format("%s %s %s", logged.getPersNomb(), logged.getPersApe1(), logged.getPersApe2());
     }
 
     @GET
@@ -68,11 +60,23 @@ public class solicitudesArticulos {
         }
     }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void agregarSolicitud(SboTbSoliArti solicitud) {
+        try {
+            Model.instance().InsertarSoli(solicitud);
+            Model.instance().insertarEnBitacora(obtenerNombre(), accionBitacora[0], accionBitacora[2]);
+        } catch (Exception ex) {
+            throw new NotFoundException();
+        }
+    }
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(SboTbSoliArti cont) {
         try {
             Model.instance().actualizarEstSolicitud(cont);
+            Model.instance().insertarEnBitacora(obtenerNombre(), accionBitacora[1], cont.getSolArtiEsta());
         } catch (Exception ex) {
             throw new NotFoundException();
         }

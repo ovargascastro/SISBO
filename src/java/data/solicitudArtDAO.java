@@ -420,7 +420,6 @@ public class solicitudArtDAO {
         preparedStmt.setInt(2, objeto.getSolArtiIdPk());
         preparedStmt.executeUpdate();
         db.getConnection().close();
-
     }
 
     // se selecciona la solicitud por id

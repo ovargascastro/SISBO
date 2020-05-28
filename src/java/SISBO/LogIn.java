@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package SISBO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,10 +15,6 @@ import javax.ws.rs.core.UriInfo;
 import logic.AbaaTbPersona;
 import logic.Model;
 
-/**
- *
- * @author oscar
- */
 @Path("login")
 public class LogIn {
 

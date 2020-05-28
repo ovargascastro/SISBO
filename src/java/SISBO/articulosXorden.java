@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package SISBO;
 
 import java.util.List;
@@ -20,10 +15,6 @@ import logic.Model;
 import logic.SboTbArticulo;
 import logic.SboTbOrdenCompra;
 
-/**
- *
- * @author oscar
- */
 @Path("artxordenc")
 public class articulosXorden {
 

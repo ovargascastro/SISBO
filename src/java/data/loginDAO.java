@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
 import java.sql.CallableStatement;
@@ -17,10 +12,6 @@ import java.util.List;
 import logic.AbaaTbDepartamento;
 import logic.AbaaTbRolxPermiso;
 
-/**
- *
- * @author oscar
- */
 public class loginDAO {
 
     RelDatabase db;
@@ -32,22 +23,11 @@ public class loginDAO {
     
     //se ejecuta sisbologin en la base de datos para el inicio de sesion
     public AbaaTbPersona logged(String user, String password) throws SQLException, Exception {
-
-//            String sql = "execute sisboLogin ?,?;";
-//            sql = String.format(sql,user,password);
-//            ResultSet rs = db.executeQuery(sql);
-//            if (rs.next()) {
-//                return persona(rs);
-//            } else {
-//                throw new Exception("Persona no Existe");
-//            }
         String query = "execute sisboLogin ?,?;";
         CallableStatement callableStatement = db.getConnection().prepareCall(query);
         callableStatement.setString(1, user);
         callableStatement.setString(2, password);//use OracleTypes.CURSOR
         callableStatement.execute();
-        //executeUpdate();//execute USER_OUT store procedure
-
         ResultSet rs = (ResultSet) callableStatement.executeQuery();
         while (rs.next()) {
             return persona(rs);
@@ -76,12 +56,12 @@ public class loginDAO {
         try {
             AbaaTbDepartamento ob = new AbaaTbDepartamento();
             ob.setDeptoIdPk(rs.getString("Depa_id_FK"));
-            //ob.setDeptoNomb(rs.getString("Cata_Depa_nomb"));
             return ob;
         } catch (SQLException ex) {
             return null;
         }
     }
+    
 // se crea un objeto de tipo RolxPermiso ******
     private AbaaTbRolxPermiso RolxPermiso(ResultSet rs) {
         try {
@@ -92,18 +72,4 @@ public class loginDAO {
             return null;
         }
     }
-
-//        public List<AbaaTbDepartamento> listaDepartamento() {
-//        List<AbaaTbDepartamento> resultado = new ArrayList<AbaaTbDepartamento>();
-//        try {
-//            String sql = "select * from ABAA_TB_Catalogo_Departamento";
-//            sql = String.format(sql);
-//            ResultSet rs = db.executeQuery(sql);
-//            while (rs.next()) {
-//                resultado.add(departamento(rs));
-//            }
-//        } catch (SQLException ex) {
-//        }
-//        return resultado;
-//    }
 }
