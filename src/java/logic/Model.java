@@ -35,6 +35,7 @@ public class Model {
     private final ExistenciasDAO existdao;
     private final SoliXArtDAO solixartdao;
     private final LimitesDepartamentoDAO limiDAO;
+    private final BitacoraDAO bitacoraDAO;
 
     public int numOrden;
     public int numSoliArti;
@@ -70,7 +71,7 @@ public class Model {
         solixartdao = new SoliXArtDAO();
         limiDAO = new LimitesDepartamentoDAO();
         usuariosDao = new usuariosDAO();
-
+        bitacoraDAO = new BitacoraDAO();
     }
 
     public List<SboTbFamilia> listaFamilias(String filtro) throws ClassNotFoundException, SQLException {
@@ -344,6 +345,19 @@ public class Model {
 
     public void actualizarCodigoCont(SboTbArticulo art) throws Exception {
         articulodao.actualizarCodigCont(art);
+        this.marcarBitActivo(art);
+    }
+    
+    public void marcarBitActivo(SboTbArticulo art) throws Exception {
+        
+        String cod = art.getArtCodiCont();
+        String aux = cod.substring(0,1) ;
+        if(aux.equals("1") || aux.equals("2") || aux.equals("5")){
+        
+             //articulodao.actualizarBitActivo(art);
+            
+        }
+        
     }
 
     public void actualizaEstadoOrdenCom(SboTbOrdenCompra objeto) throws SQLException {
@@ -356,9 +370,9 @@ public class Model {
 
         // List<SboTbOrdenCompra> lista = ordendao.listadoOrdenesPorID(orden);
         List<SboTbArticulo> articulos = ocdao.listaOCxArtSinProy(Integer.toString(ordenC.getOcIdPk()));
-        
+
         boolean bandera = false;//no tiene proyecto
-        
+
         for (SboTbArticulo x : articulos) {
 
             if (x.getAbaaProyectos().getProyIdPk() == 0) {
@@ -443,30 +457,12 @@ public class Model {
         artXsolTemp = new HashMap<>();
     }
 
-//    public int sumaExistencias(String idDepto, int idCatArt) throws Exception {
-//        int sum = 0;
-//        List<SboTbExistencia> existencias = solArtdao.existenciasXarticuloxdepto(idDepto, idCatArt);
-//        for (SboTbExistencia exist : existencias) {
-//
-//            sum += exist.getExisCant();
-//        }
-//        return sum;
-//    }
-//    public int sumaExistencias2(int id) throws Exception {
-//        SboTbArticulo art = articulodao.getArticulo2(id);
-//        String idDep = art.getAbaaTbDepartamento().getDeptoIdPk();
-//        int idCatArt = art.getSboTbCatArticulo().getCatIdPk();
-//        int sum = 0;
-//        List<SboTbExistencia> existencias = solArtdao.existenciasXarticuloxdepto(idDep, idCatArt);
-//
-//        for (SboTbExistencia exist : existencias) {
-//
-//            sum += exist.getExisCant();
-//        }
-//        return sum;
-//    }
     public List<SboTbSoliArti> listaSolicitudesArticulos(String filtro) {
         return solArtdao.listadoSolicitudesArticulos(filtro);
+    }
+    
+    public List<SboTbSoliArti> listaSolicitudesArticulosParaPDF(String filtro) {
+        return solArtdao.listadoSolicitudesArticulosParaPDF(filtro);
     }
 
     public List<SboTbSolixArti> listaArticulosXSolicitud(String filtro) {
@@ -501,11 +497,6 @@ public class Model {
         solArtdao.actualizarEstSolicitudTI(cont);
     }
 
-//    public void disminuyeExistencias(SboTbSolixArti objeto) throws Exception {
-//
-//        solArtdao.disminuyeExistencias(objeto);
-//
-//    }
     public AbaaTbPersona login(String user, String password) throws Exception {
         return logindao.logged(user, password);
     }
@@ -747,7 +738,6 @@ public class Model {
     }
 
     public void insertarUsuario(AbaaTbPersona per) throws Exception {
-
         try {
             String clave = per.getPasswAux();
             usuariosDao.InsertarPersona(per);
@@ -758,14 +748,11 @@ public class Model {
             aux.setPersCedu(per.getPersCedu());
             user.setPersona(aux);
             user.setUsuaCont(clave);
-
             usuariosDao.InsertarUsuario(user);
-
         } catch (Exception ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
             throw new Exception("Bodega no Existe");
         }
-
     }
 
     public List<AbaaTbRolxPermiso> rolesLista() throws Exception {
@@ -813,5 +800,10 @@ public class Model {
     public AbaaTbDepartamento getDepartamentoPorId(String id) throws Exception {
         AbaaTbDepartamento depto = dptodao.getDepartamento(id);
         return depto;
+    }
+
+    //Inserta una determinada accion en la bitacora del sistema
+    public void insertarEnBitacora(String responsable, String accion, String descRegistro) throws Exception {
+        this.bitacoraDAO.insertarEnBitacora(responsable, accion,descRegistro);
     }
 }

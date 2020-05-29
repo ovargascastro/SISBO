@@ -408,6 +408,15 @@ public class ArticulosDAO {
     }
 
     public void actualizarCodigCont(SboTbArticulo objeto) throws Exception {
+        String query = "update SIBO_TB_Articulo set Arti_EsAc = ? where Arti_Id_PK = ?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setInt(1, 1);
+        preparedStmt.setInt(2, objeto.getArtIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
+    
+        public void actualizarBitActivo(SboTbArticulo objeto) throws Exception {
         String query = "update SIBO_TB_Articulo set Arti_Codi_Cont = ? where Arti_Id_PK = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getArtCodiCont());

@@ -7,7 +7,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import logic.Model;
-import logic.SboSicop;
 import logic.SboTbArticulo;
 import logic.SboTbOrdenCompra;
 
@@ -20,10 +19,10 @@ public class infoArticulo {
     public SboTbArticulo get(@PathParam("filtro") String filtro) {
         try {
             SboTbArticulo ob = Model.instance().getArticuloSimple(filtro);
-            if(ob.getSboTbOrdenCompra()==null){
+            if (ob.getSboTbOrdenCompra() == null) {
                 SboTbOrdenCompra orden = new SboTbOrdenCompra();
                 orden.setOcIdPk(0);
-            ob.setSboTbOrdenCompra(orden);
+                ob.setSboTbOrdenCompra(orden);
             }
             return ob;
         } catch (Exception ex) {

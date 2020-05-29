@@ -43,7 +43,7 @@
                                 <form>
                                     <div><label>Buscar Número de Solicitud</label>
                                         <div class="form-row">
-                                            <div class="col"><input class="form-control" type="text" id="filtro"></div>
+                                            <div class="col"><input class="form-control" type="text" id="filtro" onkeyup="myFunction2()"></div>
                                             <div class="col"><button class="btn btn-primary" type="button" onclick="javascript:buscarSolicitudVbJf()">Buscar</button></div>
                                         </div>
                                         <div class="form-row">
@@ -61,7 +61,7 @@
                             <div class="col text-center">
                                 <div class="table-responsive " style="max-height: 350px; overflow: auto">
                                 <div class="table-responsive">
-                                    <table class="table">
+                                    <table class="table" id="myTable">
                                         <thead>
                                             <tr>
                                                 <th>ID<br><br></th>
@@ -92,7 +92,7 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="table-responsive">
-                                                        <table class="table">
+                                                        <table class="table" id="myTable">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Artículo<br><br></th>
@@ -314,6 +314,26 @@ function logged() {
         location.href = "presentation/notAccess.jsp";
     <%}%>
     }
+    
+        function myFunction2() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("filtro");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+
     
     
     </script>

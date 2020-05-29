@@ -84,9 +84,6 @@ public class SoliXArtDAO {
             ob.setSboTbBodega(Bodega(rs));
             ob.setArticulo(Articulo2(rs));
             ob.setSboTbEsta(rs.getInt("Exis_Esta"));
-            //ob.setExisCant(rs.getDouble("Exis_Cant"));
-            //ob.setAbaaTbDepartamento(departamento(rs));
-            // ob.setSboTbSicop(sicop(rs));
             return ob;
         } catch (SQLException ex) {
             return null;
@@ -200,11 +197,7 @@ public class SoliXArtDAO {
     private SboTbExistencia existencia2(ResultSet rs) {
         SboTbExistencia ob = new SboTbExistencia();
         ob.setArticulo(Articulo3(rs));
-        //ob.setExisCant(rs.getDouble("Exis_Cant"));
-        //ob.setAbaaTbDepartamento(departamento(rs));
-        // ob.setSboTbSicop(sicop(rs));
         return ob;
-
     }
 
     private SboTbSolixArti objetoReporte(ResultSet rs) {
