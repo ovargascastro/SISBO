@@ -218,7 +218,12 @@
                                             <option values="0" selected disabled = "true">Seleccione una opcion</option>
                                             <option value="Unidad" >Unidad</option>
                                             <option value="Kilo">Kilo</option>
+                                            <option value="Gramo">Gramo</option>
+                                            <option value="Miligramo">Miligramo</option>
+                                            <option value="Litro">Litro</option>
+                                            <option value="Mililitro">Mililitro</option>
                                             <option value="Metro">Metro</option>
+                                            <option value="Centimetro">Centimetro</option>
                                         </select>
 
 

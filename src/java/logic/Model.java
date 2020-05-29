@@ -344,20 +344,30 @@ public class Model {
     }
 
     public void actualizarCodigoCont(SboTbArticulo art) throws Exception {
-        articulodao.actualizarCodigCont(art);
-        this.marcarBitActivo(art);
+     articulodao.actualizarCodigCont(art);
+       this.marcarBitActivo(art);
     }
     
     public void marcarBitActivo(SboTbArticulo art) throws Exception {
+
+        //es activo si su codigo contable empieza con 1.2.5
+        // en la tabla SIBO_TB_Cata_Cont los registros que inicial con 1.2.5
+        //estan en el rango de 582-2544 segun su Pk
+        //Por lo tanto si la Pk del codigo cont esta en ese rango, se marca el bit en 1
         
         String cod = art.getArtCodiCont();
-        String aux = cod.substring(0,1) ;
-        if(aux.equals("1") || aux.equals("2") || aux.equals("5")){
+        int valor = Integer.parseInt(cod);
         
-             //articulodao.actualizarBitActivo(art);
+        if(valor>= 582 && valor<=2544){
             
-        }
+        articulodao.actualizarBitActivo(art);
+         
+        }else{
+            
+          articulodao.actualizarBitActivoFalse(art);
         
+        }
+ 
     }
 
     public void actualizaEstadoOrdenCom(SboTbOrdenCompra objeto) throws SQLException {
