@@ -99,6 +99,9 @@ public class ArticuloOCDAO {
             throw new Exception();
         }
     }
+    
+    
+
 
     public void actualizaRestante(SboTbArticulo articulo) throws SQLException {
         String query = "update SIBO_TB_Articulo set Arti_Cant_Rest=? where Arti_Id_PK=?";

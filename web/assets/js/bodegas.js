@@ -56,7 +56,7 @@ function fila(listado, objeto) {
             "<td>" + objeto.bodeUbic + "</td>"
             + "<td>" + objeto.bodeDesc + "</td>"
             + "<td><img src='assets/img/edit.png' onclick='infoBode(\"" + objeto.bodeIdPk + "\");'></td>"
-            + "<td><img src='assets/img/trash-delete.png' onclick='eliminarBodega(\"" + objeto.bodeIdPk + "\");'></td>");
+            + "<td><img src='assets/img/trash-delete.png' onclick='eliminarBodega(\"" + objeto.bodeIdPk + "\",\"" + objeto.bodeDesc + "\");'></td>");
     listado.append(tr);
 
 }
@@ -66,9 +66,14 @@ function fila(listado, objeto) {
 // en este caso solo se realiza un bloqueo de la bodega y 
 //no se mostrara en la lista de bodegas
 var bodegaActual;
-function eliminarBodega(bodega) {
+var bodegaDescrip;
+function eliminarBodega(bodega, descrip) {
     $('#modalEliminar').modal('show');
+    
     bodegaActual = bodega;
+    bodegaDescrip = descrip;
+    
+    
 }
 
 
@@ -114,10 +119,11 @@ function myFunction() {
 // y no se mostrara mas en la lista 
 function deleteBodega() {
 
-
+    
     if (confirm("Desea eliminar el registro actual?")) {
         SboTbBodega = {
-            bodeIdPk: bodegaActual
+            bodeIdPk: bodegaActual,
+            bodeDesc: bodegaDescrip
         };
         $.ajax({type: "PUT",
             url: "api/ListaBodega;charset=UTF-8",

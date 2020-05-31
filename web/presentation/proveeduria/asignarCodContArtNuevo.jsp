@@ -39,7 +39,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col text-center" id="tablaArticulos">
-                            <div class="table-responsive">
+                            <div class="table-responsive" style="max-height: 350px; overflow: auto">
                                 <table class="table">
                                     <thead>
                                         <tr>

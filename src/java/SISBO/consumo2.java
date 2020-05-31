@@ -9,6 +9,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import logic.AbaaTbDepartamento;
 import logic.Model;
 import logic.SboTbSolixArti;
 
@@ -35,4 +36,18 @@ public class consumo2 {
         }
         return null;
     }
+    
+    @GET
+    @Path("{dep}")
+    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+    public AbaaTbDepartamento getDpto( @PathParam("dep") String d) {
+        try {
+            AbaaTbDepartamento depa = Model.instance().getDepartamentoPorId(d);
+            return depa; 
+        } catch (Exception ex) {
+            Logger.getLogger(Consumo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
 }

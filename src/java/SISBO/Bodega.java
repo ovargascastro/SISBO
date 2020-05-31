@@ -44,9 +44,13 @@ public class Bodega {
     @Consumes({"application/json; charset=UTF-8"})
     public void update(@Encoded SboTbBodega b) {
         try {
+          
+            System.out.println(b);
             b.setBodeEsta(0);
             Model.instance().deleteBodega(b);
-            Model.instance().insertarEnBitacora(obtenerNombre(), accionBitacora[0],b.getBodeDesc());
+            Model.instance().insertarEnBitacora(obtenerNombre(), accionBitacora[0], b.getBodeDesc());
+
+          
         } catch (Exception ex) {
             throw new NotFoundException();
         }

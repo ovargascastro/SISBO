@@ -44,7 +44,7 @@
                                     <div class="form-row">
                                         <div class="col">
                                             <br>
-                                             <img src="assets/img/information.png" onclick="$('#information').modal('show');"> 
+                                            <img src="assets/img/information.png" onclick="$('#information').modal('show');"> 
                                         </div>
                                     </div>
                                 </div>
@@ -55,22 +55,22 @@
                     <div class="row">
                         <div class="col text-center" id="tablaSolicitudes">
                             <div class="table-responsive " style="max-height: 350px; overflow: auto">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">Número<br>de solicitud</th>
-                                            <th class="text-center">Fecha</th>
-                                            <th class="text-center">Unidad usuaria</th>
-                                            <th class="text-center">Estado</th>
-                                            <th class="text-center">Artículos</th>
-                                            <th class="text-center">Imprimir</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="listSolArt">
-                                    </tbody>
-                                </table>
-                            </div>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Número<br>de solicitud</th>
+                                                <th class="text-center">Fecha</th>
+                                                <th class="text-center">Unidad usuaria</th>
+                                                <th class="text-center">Estado</th>
+                                                <th class="text-center">Artículos</th>
+                                                <th class="text-center">Imprimir</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="listSolArt">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -118,66 +118,44 @@
                         <div id="content">
                             <br>
                             <br>
-                            <br>
-                            <br>
                             <p>_________________________________________________________________________________<br></p>
                             <br>
                             <p>Municipalidad de Santo Domingo</p>
                             <h4 class="text-center"><br><br>Solicitud de Requisición de Articulo  <br></h4>
-                             <p>Persona que solicita</p>
-                       
                             <p>_________________________________________________________________________________<br><br><br><br></p>
-
                             <div>
                                 <button class="btn btn-success" id="export">Imprimir</button>
                             </div>
-                            <br>  <br>
-
-
-                            <div class="table-responsive" align="center">
-
+                            <br>
+                            <div class="table table-bordered" align="center">
                                 <table class="print">
                                     <thead >
                                         <tr>
-                                            <th>No. Solicitud     <br><br></th>
-                                            <th>Fecha de Solicitud        <br><br></th>
-                                            <th>Departamento       <br><br></th>
-                                            <th>Persona que Solicita   <br><br></th>
-                                            
+                                            <th>No. Solicitud<br><br></th>
+                                            <th>Fecha de Solicitud<br><br></th>
+                                            <th>Departamento<br><br></th>
+                                            <th>Solicitante<br><br></th>
                                         </tr>
                                     </thead>
                                     <tbody id="listaInformacion">
-
-
                                     </tbody>
                                 </table>
-                                <p>______________________________________________________________________________________ <br><br><br><br><p>
-
-
-
-
+                                <p>_________________________________________________________________________________ <br><br><p>
                                 <table id="demo" class="table table-bordered" align="center">
                                     <thead >
                                         <tr>
-                                            <th >Artículo       <br><br></th>
-                                            <th>Marca        <br><br></th>
-                                            <th>Descripción        <br><br></th>
+                                            <th >Artículo<br><br></th>
+                                            <th>Marca<br><br></th>
+                                            <th>Descripción<br><br></th>
                                         </tr>
                                     </thead>
                                     <tbody id="listaArticulosSolicitudIMP">
-
-
                                     </tbody>
                                 </table>
-
-
-
                                 <br>
                                 <footer class="footer">Firma de Solicitante
                                     <p>  __________________________ </p>  </footer>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -185,34 +163,33 @@
         </div>
         <br>
 
+        <div class="modal fade" role="dialog" tabindex="-1" id="information">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Información/Ayuda</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="container">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <p class="font-italic">
+                                            Digite un número de solicitud y haga clic en el botón Buscar.<br>
+                                            De no digitar un número se listarán todas las solicitudes.
+                                        </p>
+                                    </div>
 
-    <div class="modal fade" role="dialog" tabindex="-1" id="information">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Información/Ayuda</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                <div class="modal-body">
-                    <form>
-                        <div class="container">
-                            <div class="form-row">
-                                <div class="col">
-                                           <p class="font-italic">
-                                               Digite un número de solicitud y haga clic en el botón Buscar.<br>
-                                               De no digitar un número se listarán todas las solicitudes.
-                                           </p>
                                 </div>
-                               
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button></div>
                 </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Cerrar</button></div>
             </div>
         </div>
-    </div>
 
-                    
-             <div class="modal fade" role="dialog" tabindex="-1" id="informacionArt">
+
+        <div class="modal fade" role="dialog" tabindex="-1" id="informacionArt">
             <div class="modal-dialog" role="document">
                 <form id="actualizaArticulo" action="javascript:actualizarArticulo()">
                     <div class="modal-content">
@@ -249,113 +226,107 @@
 
             </div>
         </div>
-        </div>
-        
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jspdf.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/solicitudArticulo.js" type="text/javascript"></script>
+</body>
+
+<script>
+                                             document.getElementById("solicitudArtMenu").style.color = "white";
+                                             function listSoliArt(personas) {
+                                                 var listado = $("#listSolArt");
+                                                 listado.html("");
+                                                 personas.forEach((p) => {
+                                                     filaSolArt(listado, p);
+                                                 });
+                                             }
+
+                                             function filaSolArt(listado, objeto) {
+                                                 var tr = $("<tr />");
+                                                 tr.html(
+                                                         "<td>" + objeto.solArtiIdPk + "</td>"
+                                                         + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
+                                                         + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
+                                                         + "<td>" + objeto.solArtiEsta + "</td>"
+                                                         + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'></td>"
+                                                         + "<td><img src='assets/img/printer.png' onclick='imprimir(\"" + objeto.solArtiIdPk + "\");'></td>"
+                                                         );
+                                                 listado.append(tr);
+
+                                             }
+
+                                             //onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'
 
 
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/jspdf.min.js"></script>
-        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/js/solicitudArticulo.js" type="text/javascript"></script>
-
-    </body>
-
-
-
-    <script>
-                                            document.getElementById("solicitudArtMenu").style.color = "white";
-                                            function listSoliArt(personas) {
-                                                var listado = $("#listSolArt");
-                                                listado.html("");
-                                                personas.forEach((p) => {
-                                                    filaSolArt(listado, p);
-                                                });
-                                            }
-
-                                            function filaSolArt(listado, objeto) {
-                                                var tr = $("<tr />");
-                                                tr.html(
-                                                        "<td>" + objeto.solArtiIdPk + "</td>"
-                                                        + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
-                                                        + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
-                                                        + "<td>" + objeto.solArtiEsta + "</td>"
-                                                        + "<td><img src='assets/img/delivery-cart.png' onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'></td>"
-                                                        + "<td><img src='assets/img/printer.png' onclick='imprimir(\"" + objeto.solArtiIdPk + "\");'></td>"
-                                                        );
-                                                listado.append(tr);
-
-                                            }
-
-                                            //onclick='articulosXSolicitud(\"" + objeto.solArtiIdPk + "\");'
-
-
-                                            function listaArticulosxSol(personas) {
-                                                var listado = $("#listaArticulosSolicitud");
-                                                listado.html("");
-                                                personas.forEach((p) => {
-                                                    filaArticulos(listado, p);
-                                                });
-                                            }
+                                             function listaArticulosxSol(personas) {
+                                                 var listado = $("#listaArticulosSolicitud");
+                                                 listado.html("");
+                                                 personas.forEach((p) => {
+                                                     filaArticulos(listado, p);
+                                                 });
+                                             }
 
 
 
-                                        function filaArticulos(listado, objeto) {
-                                        var tr = $("<tr />");
-                                        tr.html(
-                                        "<td>" + objeto.solArtiDeta + "</td>"
-                                        +"<td>" + objeto.existencia.articulo.artMarc + "</td>"
-                                        +"<td>" + objeto.existencia.articulo.artDesc + "</td>"
-                                        + "<td><img class='small-img' src='assets/img/info(1).png' onclick='abrirArticulo(\"" + objeto.existencia.articulo.artIdPk + "\");'></td>");
-                                        listado.append(tr);
-                                        }
-                                        
-                                            function listaArticulosxSolImp(personas) {
-                                                var listado = $("#listaArticulosSolicitudIMP");
-                                                listado.html("");
-                                                personas.forEach((p) => {
-                                                    filaArticulosImp(listado, p);
-                                                });
-                                            }
+                                             function filaArticulos(listado, objeto) {
+                                                 var tr = $("<tr />");
+                                                 tr.html(
+                                                         "<td>" + objeto.solArtiDeta + "</td>"
+                                                         + "<td>" + objeto.existencia.articulo.artMarc + "</td>"
+                                                         + "<td>" + objeto.existencia.articulo.artDesc + "</td>"
+                                                         + "<td><img class='small-img' src='assets/img/info(1).png' onclick='abrirArticulo(\"" + objeto.existencia.articulo.artIdPk + "\");'></td>");
+                                                 listado.append(tr);
+                                             }
+
+                                             function listaArticulosxSolImp(personas) {
+                                                 var listado = $("#listaArticulosSolicitudIMP");
+                                                 listado.html("");
+                                                 personas.forEach((p) => {
+                                                     filaArticulosImp(listado, p);
+                                                 });
+                                             }
 
 
 
-                                            function filaArticulosImp(listado, objeto) {
-                                        var tr = $("<tr />");
-                                        tr.html(
-                                        "<td>" + objeto.solArtiDeta + "</td>"
-                                        +"<td>" + objeto.existencia.articulo.artMarc + "</td>"
-                                        +"<td>" + objeto.existencia.articulo.artDesc + "</td>");
-                                        listado.append(tr);
-                                        }
+                                             function filaArticulosImp(listado, objeto) {
+                                                 var tr = $("<tr />");
+                                                 tr.html(
+                                                         "<td>" + objeto.solArtiDeta + "</td>"
+                                                         + "<td>" + objeto.existencia.articulo.artMarc + "</td>"
+                                                         + "<td>" + objeto.existencia.articulo.artDesc + "</td>");
+                                                 listado.append(tr);
+                                             }
 
-                                            function listaInformacionSol(personas) {
-                                                var listado = $("#listaInformacion");
-                                                listado.html("");
-                                                personas.forEach((p) => {
-                                                    filaInformaSol(listado, p);
-                                                });
-                                            }
+                                             function listaInformacionSol(personas) {
+                                                 var listado = $("#listaInformacion");
+                                                 listado.html("");
+                                                 personas.forEach((p) => {
+                                                     filaInformaSol(listado, p);
+                                                 });
+                                             }
 
 
 
-                                            function filaInformaSol(listado, objeto) {
-                                                var tr = $("<tr />");
-                                                tr.html(
-                                                        "<td>" + objeto.solArtiIdPk + "</td>"
-                                                        + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
-                                                        + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
-                                                        + "<td>" + objeto.abaaTbPersona.persNomb +" "+ objeto.abaaTbPersona.persApe1 +" "+ objeto.abaaTbPersona.persApe2+ "</td>");
-                                                
+                                             function filaInformaSol(listado, objeto) {
+                                                 var tr = $("<tr />");
+                                                 tr.html(
+                                                         "<td>" + objeto.solArtiIdPk + "</td>"
+                                                         + "<td>" + formatDate(objeto.solArtiFechSoli) + "</td>"
+                                                         + "<td>" + objeto.abaaTbDepartamento.deptoNomb + "</td>"
+                                                         + "<td>" + objeto.abaaTbPersona.persNomb + " " + objeto.abaaTbPersona.persApe1 + " " + objeto.abaaTbPersona.persApe2 + "</td>");
 
-                                                listado.append(tr);
 
-                                            }
-                                            
-    function logged() {
+                                                 listado.append(tr);
+
+                                             }
+
+                                             function logged() {
     <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
-    <% if (aux == null ) { %>
-        location.href = "presentation/notAccess.jsp";
+    <% if (aux == null) { %>
+                                                 location.href = "presentation/notAccess.jsp";
     <%}%>
-    }
-    </script>
+                                             }
+</script>
 </html>

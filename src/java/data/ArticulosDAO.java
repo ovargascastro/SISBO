@@ -406,11 +406,64 @@ public class ArticulosDAO {
             return null;
         }
     }
+    
+        private SboTbArticulo articuloComp2(ResultSet rs) {
+        try {
+            SboTbArticulo ar = new SboTbArticulo();
+            ar.setArtIdPk(rs.getInt("Arti_Id_PK"));
+            ar.setArtPrecio(rs.getDouble("Arti_Prec"));
+            ar.setArtPrecioActual(rs.getDouble("Arti_Prec_Actu"));
+            ar.setArtCant(rs.getInt("Arti_Cant"));
+            ar.setArtCantRest(rs.getInt("Arti_Cant_Rest"));
+            ar.setArtFingr(rs.getDate("Arti_Fech_Ingr"));
+            ar.setArtFvenc(rs.getDate("Arti_Fech_Venc"));
+            ar.setArtDesc(rs.getString("Arti_Desc"));
+            ar.setArtMode(rs.getString("Arti_Mode"));
+            ar.setArtCodiPresup(rs.getString("Arti_Codi_Pres"));
+            ar.setArtNumeSeri(rs.getString("Arti_Nume_Seri"));
+            ar.setArtMarc(rs.getString("Arti_Marc"));
+            ar.setArtNumeFact(rs.getString("Arti_Nume_Fact"));
+            ar.setArtEsAc(rs.getBoolean("Arti_EsAc"));
+            ar.setArtCodiCont(rs.getString("Arti_Codi_Cont"));
+            ar.setSboTbCatArticulo(catArticulo(rs));
+            ar.setAbaaProyectos(proyecto(rs));
+            ar.setAbaaTbDepartamento(departamento(rs));
+            ar.setArtUnidadMedida(rs.getString("Arti_Unid_Medi"));
+            ar.setSboTbOrdenCompra(OrdenCompra(rs));
+            ar.setSboTbCatArticulo(catArticuloSimple(rs));
+            return ar;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
 
+        
+         
+         
+         
     public void actualizarCodigCont(SboTbArticulo objeto) throws Exception {
         String query = "update SIBO_TB_Articulo set Arti_Codi_Cont = ? where Arti_Id_PK = ?";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getArtCodiCont());
+        preparedStmt.setInt(2, objeto.getArtIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
+    
+        public void actualizarBitActivo(SboTbArticulo objeto) throws Exception {
+        String query = "update SIBO_TB_Articulo set Arti_EsAc = ? where Arti_Id_PK = ?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setInt(1, 1);
+        preparedStmt.setInt(2, objeto.getArtIdPk());
+        preparedStmt.executeUpdate();
+        db.getConnection().close();
+    }
+        
+        
+    public void actualizarBitActivoFalse(SboTbArticulo objeto) throws Exception {
+        String query = "update SIBO_TB_Articulo set Arti_EsAc = ? where Arti_Id_PK = ?";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setInt(1, 0);
         preparedStmt.setInt(2, objeto.getArtIdPk());
         preparedStmt.executeUpdate();
         db.getConnection().close();
@@ -480,6 +533,8 @@ public class ArticulosDAO {
             throw new Exception("Solicitud no Existe");
         }
     }
+    
+
 
     public SboTbArticulo getArticuloSimple(int id) throws Exception {
         String sql = "select * from SIBO_TB_Articulo a where a.Arti_Id_PK='%s'";

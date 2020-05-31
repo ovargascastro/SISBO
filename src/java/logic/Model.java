@@ -344,7 +344,30 @@ public class Model {
     }
 
     public void actualizarCodigoCont(SboTbArticulo art) throws Exception {
-        articulodao.actualizarCodigCont(art);
+     articulodao.actualizarCodigCont(art);
+       this.marcarBitActivo(art);
+    }
+    
+    public void marcarBitActivo(SboTbArticulo art) throws Exception {
+
+        //es activo si su codigo contable empieza con 1.2.5
+        // en la tabla SIBO_TB_Cata_Cont los registros que inicial con 1.2.5
+        //estan en el rango de 582-2544 segun su Pk
+        //Por lo tanto si la Pk del codigo cont esta en ese rango, se marca el bit en 1
+        
+        String cod = art.getArtCodiCont();
+        int valor = Integer.parseInt(cod);
+        
+        if(valor>= 582 && valor<=2544){
+            
+        articulodao.actualizarBitActivo(art);
+         
+        }else{
+            
+          articulodao.actualizarBitActivoFalse(art);
+        
+        }
+ 
     }
 
     public void actualizaEstadoOrdenCom(SboTbOrdenCompra objeto) throws SQLException {
@@ -446,6 +469,10 @@ public class Model {
 
     public List<SboTbSoliArti> listaSolicitudesArticulos(String filtro) {
         return solArtdao.listadoSolicitudesArticulos(filtro);
+    }
+    
+    public List<SboTbSoliArti> listaSolicitudesArticulosParaPDF(String filtro) {
+        return solArtdao.listadoSolicitudesArticulosParaPDF(filtro);
     }
 
     public List<SboTbSolixArti> listaArticulosXSolicitud(String filtro) {
