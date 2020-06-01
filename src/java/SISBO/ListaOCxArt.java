@@ -52,7 +52,7 @@ public class ListaOCxArt {
     }
 
     @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({"application/json; charset=UTF-8"})
     public void update(SboTbArticulo articulo) {
         try {
             Model.instance().disminuirCantPendienteArticulo(articulo);

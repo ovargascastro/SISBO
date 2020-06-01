@@ -262,7 +262,7 @@
                                 Reportes
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/general/reporteConsumo.jsp">Reportes</a>
+                                <a class="dropdown-item" href="presentation/general/reporteConsumo.jsp">Consumo por Departamento</a>
                             </div>
                         </div>
                         <%}%>

@@ -49,7 +49,7 @@ public class ordenesCompra {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({"application/json; charset=UTF-8"})
     public void agregarOrden(SboTbOrdenCompra orden) {
         try {
             Model.instance().agregarOrden(orden);

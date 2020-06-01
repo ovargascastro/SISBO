@@ -24,7 +24,7 @@ public class articulos {
     private UriInfo context;
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({"application/json; charset=UTF-8"})
     public void agregarArticulos() {
         try {
             Model.instance().agregarArticulos();
@@ -37,7 +37,7 @@ public class articulos {
     
     @POST
     @Path("articulo")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({"application/json; charset=UTF-8"})
     public void agregarArticulo(SboTbArticulo articulo) {
         try {
             Model.instance().agregarArticuloSinOrden(articulo);
@@ -61,7 +61,7 @@ public class articulos {
     
     @PUT
     @Path("putCodConta")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({"application/json; charset=UTF-8"})
     public void actualizarCodContable(SboTbArticulo p) {
         try {
             Model.instance().actualizarCodigoCont(p);
@@ -72,7 +72,7 @@ public class articulos {
     
     @PUT
     @Path("precioActual")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({"application/json; charset=UTF-8"})
     public void actualizarPrecioActual(SboTbArticulo p) {
         try {
             Model.instance().actualizarPrecioActual(p);
