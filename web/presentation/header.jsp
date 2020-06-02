@@ -167,9 +167,18 @@
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown"> Usuarios </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="usuariosMenu" data-toggle="dropdown"> Usuarios </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/general/usuarios.jsp">Administración de usuarios</a>
+                            </div>
+                        </div>
+                        
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="reportes" data-toggle="dropdown">
+                                Administración
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="presentation/general/administracion.jsp">Módulos SISBO</a>
                             </div>
                         </div>
                         
@@ -262,7 +271,7 @@
                                 Reportes
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="presentation/general/reporteConsumo.jsp">Reportes</a>
+                                <a class="dropdown-item" href="presentation/general/reporteConsumo.jsp">Consumo por Departamento</a>
                             </div>
                         </div>
                         <%}%>

@@ -37,9 +37,9 @@ function agregarArticuloTemporal() {
         artCodiPresup: $("#codPresupuestario").val()
     };
     $.ajax({type: "POST",
-        url: "api/articulostemporales",
+        url: "api/articulostemporales;charset=UTF-8",
         data: JSON.stringify(SboTbArticulo),
-        contentType: "application/json",
+        contentType: "application/json;charset=UTF-8",
         success: exito,
         error: function (jqXHR) {
             alert(errorMessage(jqXHR.status));
@@ -118,9 +118,9 @@ function agregarOrdenCompra() {
         ocEntregarA: $("#entregarA").val()
     };
     $.ajax({type: "POST",
-        url: "api/ordenes",
+        url: "api/ordenes;charset=UTF-8",
         data: JSON.stringify(SboTbOrdenCompra),
-        contentType: "application/json",
+        contentType: "application/json;charset=UTF-8",
 //        success: alert(p),
         success: agregarArticulos,
         error: function (jqXHR) {
@@ -132,8 +132,8 @@ function agregarOrdenCompra() {
 //se agrega los articulos en la base
 function agregarArticulos() {
     $.ajax({type: "POST",
-        url: "api/articulos",
-        contentType: "application/json",
+        url: "api/articulos;charset=UTF-8",
+        contentType: "application/json;charset=UTF-8",
         success: salirOrden,
         error: function (jqXHR) {
             alert(errorMessage(jqXHR.status));

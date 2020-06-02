@@ -413,9 +413,9 @@
 
                         };
                         $.ajax({type: "PUT",
-                            url: "api/ListaOCxArt",
+                            url: "api/ListaOCxArt;charset=UTF-8",
                             data: JSON.stringify(articulo),
-                            contentType: "application/json"})
+                            contentType: "application/json;charset=UTF-8"})
                                 .then(function () {
                                     buscarArtxOc($("#OCId").val());
                                     buscarOrdenes();
@@ -432,9 +432,9 @@
                             exisCant: $("#AddArtCant").val()
                         };
                         $.ajax({type: "PUT",
-                            url: "api/Existencias",
+                            url: "api/Existencias;charset=UTF-8",
                             data: JSON.stringify(existencia),
-                            contentType: "application/json"});
+                            contentType: "application/json;charset=UTF-8"});
                     }
                     function disminuirRestantes() {
                         articulo = {
@@ -450,9 +450,9 @@
                             artCantRest: $("#AddArtCant").val()
                         };
                         $.ajax({type: "PUT",
-                            url: "api/ListaOCxArt",
+                            url: "api/ListaOCxArt;charset=UTF-8",
                             data: JSON.stringify(articulo),
-                            contentType: "application/json"})
+                            contentType: "application/json;charset=UTF-8"})
                                 .then(function () {
                                     buscarArtxOc($("#OCId").val());
                                     buscarOrdenes();
@@ -483,7 +483,7 @@
 
                     function logged() {
     <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
-    <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
+    <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5") && !aux.getDepartamento().getDeptoIdPk().equals("6")) { %>
                         location.href = "presentation/notAccess.jsp";
     <%}%>
                     }

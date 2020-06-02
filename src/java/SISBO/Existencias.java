@@ -42,7 +42,7 @@ public class Existencias {
     }
 
     @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({"application/json; charset=UTF-8"})
     public void agrega(SboTbExistencia existencia) {
         try {
             Model.instance().agregarExistencias(existencia);
@@ -52,7 +52,7 @@ public class Existencias {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({"application/json; charset=UTF-8"})
     public List<SboTbExistencia> updateEstado(SboTbExistencia existencia) {
         try {
             Model.instance().eliminaExistencia(existencia);

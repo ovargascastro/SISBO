@@ -108,27 +108,29 @@
                                     </style>
                                     <label>Contraseña</label>
                                     <input class="form-control" type="password" id="passUsuario" required>
+
                                 </div>
                                 <div class="col">
                                     <label>Nombre</label>
                                     <input class="form-control" type="text" id="nombUsuario" required placeholder="Nombre">
                                     <label>Apellido 2</label>
                                     <input class="form-control" type="text" id="ap2Usuario" required placeholder="Apellido 2">
-                                    <label>Es jefe ?</label>
-                                    <br>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline1" id="jefe" value="1" name="customRadioInline1" class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline1">Sí</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline2" value="0" id="nojefe" name="customRadioInline1" class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline2">No</label>
-                                    </div>
                                     <label>Rol por Permiso</label>
                                     <select id="selectRoles" class="form-control" required="true">
                                             
                                         <option values="0" selected disabled = "true" >Seleccione una opcion</option>
                                     </select>
+                                    <label>Es jefe ?</label>
+                                     <br>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="customRadioInline1" id="jefe" value="1" name="customRadioInline1" class="custom-control-input">
+                                        <label class="custom-control-label" for="customRadioInline1">Sí</label>
+                                    </div>  
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="customRadioInline2" value="0" id="nojefe" name="customRadioInline1" class="custom-control-input">
+                                        <label class="custom-control-label" for="customRadioInline2">No</label>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -206,3 +208,14 @@
 
     </body>
 </html>
+<script>
+    function logged() {
+    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+    <% if (aux == null ) { %>
+        location.href = "presentation/notAccess.jsp";
+    <%}%>
+    }
+    document.getElementById("usuariosMenu").style.color = "white";
+    
+
+</script>

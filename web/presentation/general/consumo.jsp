@@ -171,4 +171,8 @@ function logged() {
         location.href = "presentation/notAccess.jsp";
     <%}%>
 }
+
+$(document).ready(function () {
+    logged();
+});
 </script>

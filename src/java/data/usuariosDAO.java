@@ -205,6 +205,8 @@ public class usuariosDAO {
     }
 
     public void InsertarUsuario(AbaaTbUsuario objeto) throws Exception {
+        
+        try{
 
         String query = "execute SBO_InsertarUsuario ?,?,?,?,?;";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
@@ -215,10 +217,17 @@ public class usuariosDAO {
         preparedStmt.setInt(5, objeto.getPersona().getPersIdPK());
         preparedStmt.executeUpdate();
         db.getConnection().close();
+        }catch(SQLException ex){
+            
+        throw new Exception("Error... Usuario ya existe!");
+        
+        }
     }
 
     public void InsertarPersona(AbaaTbPersona objeto) throws Exception {
         //       @Pers_cedu varchar(50), @Pers_nomb varchar(50),@Pers_ape1 varchar(50), @Pers_ape2 varchar(50), @Pers_esJefe int,@Depa_id_FK int
+        
+          try{
         String query = "execute SBO_InsertarPersona ?,?,?,?,?,?,?;";
         PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
         preparedStmt.setString(1, objeto.getPersCedu());
@@ -230,5 +239,10 @@ public class usuariosDAO {
         preparedStmt.setInt(7, objeto.getRolAux());
         preparedStmt.executeUpdate();
         db.getConnection().close();
+           }catch(SQLException ex){
+            
+        throw new Exception("Error... Usuario ya existe!");
+        
+        }
     }
 }

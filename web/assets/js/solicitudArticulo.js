@@ -832,8 +832,9 @@ function exportPDF(imgData) {
 function PDF() {
     getImageFromUrl('assets/img/Escudo2.jpg', exportPDF);
 }
-$(document).ready(function () {
 
+
+$(document).ready(function () {
     logged();
 });
 

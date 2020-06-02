@@ -58,6 +58,7 @@ function picker() {
 $(document).ready(function () {
     selectCatSicop();
     selectDeptos();
+    logged();
 });
 
 //se muestrann los datos solicitados en el reporte

@@ -24,7 +24,7 @@
         <title>Toma Física</title>
     </head>
 
-    <body style="background-color: rgb(255,255,255);">
+    <body style="background-color: rgb(255,255,255);" onload="logged();">
         <%@ include file="/presentation/header.jsp" %>
         <div id="titulo">
             <div class="jumbotron">
@@ -148,8 +148,9 @@
 <script>
     function logged() {
         <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
-        <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
+        <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("5") && !aux.getDepartamento().getDeptoIdPk().equals("6")) { %>
             location.href = "presentation/notAccess.jsp";
         <%}%>
     }
+
 </script>

@@ -23,7 +23,7 @@
 
     </head>
 
-    <body style="background-color: rgb(255,255,255);">
+    <body style="background-color: rgb(255,255,255);" onload="logged();">
 
         <%@ include file="/presentation/header.jsp" %>
 
@@ -313,9 +313,6 @@
     }
     
     
-$(document).ready(function () {
-    logged();
-});
     </script>
 
 </html>
