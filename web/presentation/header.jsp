@@ -164,6 +164,7 @@
                                 <a class="dropdown-item" href="presentation/general/solicitudArticulos.jsp">Solicitud Nueva</a>
                                 <a class="dropdown-item" href="presentation/general/solicitudes.jsp">Mis Solicitudes</a>
                                 <a class="dropdown-item" href="presentation/general/vistoBuenoTI.jsp">Visto bueno de TI</a>
+                                <a class="dropdown-item" href="presentation/general/vistoBuenoJefe.jsp">Visto bueno de Jefe</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
