@@ -265,6 +265,7 @@ function actualizarFamilia() {
 // esconde el modal  de editar familia
 function afterUpdateFm() {
     buscarFamilias();
+    selectFamilias();
     $('#modalEditarFam').modal('hide');
 
 }
@@ -297,6 +298,7 @@ function actualizarSubFamilia() {
 //se utiliza en caso de que la funcion actualizarsubFamilia haya sido exitosa
 // esconde el modal  de editar subfamilia
 function afterUpdateSubFm() {
+    selectSubFamilias();
     buscarSubFamilias();
     $('#modalSubFam').modal('hide');
 }
@@ -512,6 +514,7 @@ function crearFamilia() {
 
 //se oculta el modal para agregar una familia despues de haber sido creada
 function afterCreateFm() {
+    selectFamilias();
     buscarFamilias();
     $('#modalAgregarFamilia').modal('hide');
 }
@@ -575,6 +578,7 @@ function crearSubFamilia() {
 //se listan las subfamilias
 function afterCreateSubFm() {
     buscarSubFamilias();
+    selectAgregaFamilias();
     $('#modalAgregarSubFamilia').modal('hide');
 }
 //creamos un articulo en el catalogo
@@ -608,6 +612,7 @@ function CrearCatArticulo() {
 //se listan los articulos existentes
 function afterCreateCatArt() {
     buscarCatArticulos();
+    selectAgregaSubFamilias();
     $('#modalAgregarCatArticulo').modal('hide');
 }
 
