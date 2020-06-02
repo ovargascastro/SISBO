@@ -152,9 +152,13 @@
 <script>
 function logged() {
     <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
-    <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("17") && !aux.getDepartamento().getDeptoIdPk().equals("5")) { %>
+    <% if (aux == null || !aux.getDepartamento().getDeptoIdPk().equals("17") && !aux.getDepartamento().getDeptoIdPk().equals("5") && !aux.getDepartamento().getDeptoIdPk().equals("6")) { %>
         location.href = "presentation/notAccess.jsp";
     <%}%>
     }
      document.getElementById("CatalogosMenu").style.color = "white";
+     
+     $(document).ready(function () {
+    logged();
+});
 </script>

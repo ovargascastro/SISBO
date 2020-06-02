@@ -32,16 +32,9 @@ import logic.Model;
 import logic.SboTbArticulo;
 import logic.SboTbFamilia;
 
-/**
- *
- * @author Osvaldo Vargas
- */
+
 @Path("articulostemporales")
 public class ArticulosTemporales {
-    
-    @Context
-//    private UriInfo context;
-    
     
     //restful para listar los articulos que pertenecen a una orden de compra temporal
     @GET
@@ -75,7 +68,7 @@ public class ArticulosTemporales {
     }
     //restful para agregar un articulo a la tabla de orden de compra temporal
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({"application/json; charset=UTF-8"})
     @Produces({MediaType.APPLICATION_JSON})
     public void agregarArticulo(SboTbArticulo articulo) {
         try {
@@ -98,7 +91,7 @@ public class ArticulosTemporales {
     }
     
     @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({"application/json; charset=UTF-8"})
     public void update(SboTbArticulo articulo) {
         try {
             Model.instance().actualizarArticuloTemporal(articulo);

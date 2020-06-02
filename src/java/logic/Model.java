@@ -761,7 +761,7 @@ public class Model {
             usuariosDao.InsertarUsuario(user);
         } catch (Exception ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-            throw new Exception("Bodega no Existe");
+            throw new Exception("Error... Usuario ya existe!");
         }
     }
 

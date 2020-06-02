@@ -91,11 +91,10 @@ function abrirModalAgregar() {
 
 
 $(document).ready(function () {
+    logged();
     buscarPersonas();
     selectDeptos();
     selectRoles();
-
-
 });
 
 
@@ -215,13 +214,17 @@ function agregarUsuario() {
             data: JSON.stringify(AbaaTbPersona),
             contentType: "application/json;charset=UTF-8",
             success: afterCreateUsuario,
-            error: function (jqXHR) {
-                alert("Error");
-            }
+            error: ErrorUsuario
         });
     }
 }
 
+
+function ErrorUsuario(){
+    
+     alert("Error... Usuario ya existe!");
+    
+}
 
 function afterCreateUsuario() {
 

@@ -43,9 +43,9 @@ function agregarArticulos() {
         artUnidadMedida: unidad
     };
     $.ajax({type: "POST",
-        url: "api/articulos/articulo",
+        url: "api/articulos/articulo;charset=UTF-8",
         data: JSON.stringify(SboTbArticulo),
-        contentType: "application/json",
+       contentType: "application/json;charset=UTF-8",
         success: agregarExistencias,
         error: function (jqXHR) {
             alert(errorMessage(jqXHR.status));
@@ -86,9 +86,9 @@ function agregarExistencias() {
         }
     };
     $.ajax({type: "PUT",
-        url: "api/Existencias",
+        url: "api/Existencias;charset=utf-8",
         data: JSON.stringify(existencia),
-        contentType: "application/json",
+        contentType: "application/json;charset=utf-8",
         success: limpiar,
         error: function (jqXHR) {
             alert(errorMessage(jqXHR.status));
