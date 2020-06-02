@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="assets/css/styles.css">
 
     </head>
-<body style="background-color: rgb(255,255,255);">
+<body style="background-color: rgb(255,255,255);" onload="logged();">
 
     <%@ include file="/presentation/header.jsp" %>
     
@@ -83,7 +83,7 @@
                             <div class="col"><button class="btn btn-primary" type="button" onclick="location.href='presentation/bodega/limitesdepartamento.jsp';">Límites</button>
                                 <hr><button class="btn btn-primary" type="button" onclick="location.href='presentation/bodega/tomaFisica.jsp';">Toma Física</button></div>
                             <div class="col"><button class="btn btn-primary" type="button" onclick="location.href='presentation/bodega/bodegas.jsp';">Bodegas</button>
-                                <hr>
+                                <hr><button class="btn btn-primary" type="button" onclick="location.href='presentation/bodega/existencias.jsp';">Existencias</button>
                             </div>
                         </div>
                     </div>
@@ -111,3 +111,14 @@
 </body>
 
 </html>
+
+<script>
+    function logged() {
+    <% AbaaTbPersona aux = (AbaaTbPersona) session.getAttribute("logged");%>
+    <% if (aux == null ) { %>
+        location.href = "presentation/notAccess.jsp";
+    <%}%>
+    }
+   
+
+</script>
