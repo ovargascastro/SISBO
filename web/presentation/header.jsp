@@ -167,7 +167,7 @@
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="solicitudArtMenu" data-toggle="dropdown"> Usuarios </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="usuariosMenu" data-toggle="dropdown"> Usuarios </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="presentation/general/usuarios.jsp">Administración de usuarios</a>
                             </div>
