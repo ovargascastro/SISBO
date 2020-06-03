@@ -243,7 +243,7 @@
 </html>
 
 <script>
-                    document.getElementById("ArticulosMenu").style.color = "white";
+                    
                     var articuloActual;
                     function abrirModalListarArticulos(id) {
                         articuloActual = id;
@@ -508,7 +508,7 @@
 
 
 
-
+document.getElementById("ArticulosMenu").style.color = "white";
 
 
 </script>

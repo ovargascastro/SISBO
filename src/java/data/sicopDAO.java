@@ -130,5 +130,35 @@ public class sicopDAO {
             return null;
         }
     }
+    
+    
+     //se selecciona el ultimo id de la tabla de cat sicop
+    public int getLastInsertCatSicop() throws Exception {
+        String sql = "select IDENT_CURRENT( 'SIBO_TB_Sicop' ) as seq;";
+        sql = String.format(sql);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return lastInsertSicop(rs);
+        } else {
+            throw new Exception("error");
+        }
+    }
+    
+     private int lastInsertSicop(ResultSet rs) {
+        try {
+            int x;
+            x = rs.getInt("seq");
+            return x;
+        } catch (SQLException ex) {
+            return 0;
+        }
+    }
+     
+      public void agregarNuevoLimite(int id) throws SQLException {
+        String query = "execute defineMinimoDptoSicop ?;";
+        PreparedStatement preparedStmt = db.getConnection().prepareStatement(query);
+        preparedStmt.setInt(1, id);
+        preparedStmt.executeUpdate();
+    }
 
 }

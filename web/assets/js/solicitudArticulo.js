@@ -353,6 +353,7 @@ function mostraraprobarTI(soli) {
     solFecha2 = soli.solArtiFechSoli;
     solDeparta2 = soli.abaaTbDepartamento;
 
+    
     console.log("estoy en el aprobarIT");
 
     // solEstado= soli.c;
@@ -501,12 +502,17 @@ function afterUpdateApE() {
     buscarSolicitudxAprobar();
 
     if (VBJF === true && VBTI === false) {
+        alert("Soliciud Actualizada!");
         $('#modalAprobarJEFE').modal('hide');
     } else if (VBJF === false && VBTI === true) {
+        alert("Soliciud Actualizada!");
         $('#modalAprobarTI').modal('hide');
     } else if (VBJF === true && VBTI === true) {
+        alert("Soliciud Actualizada!");
         $('#modalAprobarAmbas').modal('hide');
-    } else
+    } else{
+        
+    }
         $('#modalAprobar').modal('hide');
 
 }
@@ -540,7 +546,9 @@ function afterUpdateApEsJf() {
         $('#modalAprobarTI').modal('hide');
     } else if (VBJF === true && VBTI === true) {
         $('#modalAprobarAmbas').modal('hide');
-    } else
+    } else{
+        alert("Soliciud Actualizada!");
+    }
         $('#modalAprobar').modal('hide');
 
 }
@@ -575,7 +583,9 @@ function afterUpdateApEsTI() {
         $('#modalAprobarTI').modal('hide');
     } else if (VBJF === true && VBTI === true) {
         $('#modalAprobarAmbas').modal('hide');
-    } else
+    } else{
+        alert("Soliciud Actualizada!");
+    }
         $('#modalAprobar').modal('hide');
 
 }

@@ -527,8 +527,11 @@ public class Model {
         sicopDao.actualizarSicop(s);
     }
 
-    public void agregarSicop(SboSicop s) throws SQLException {
+    public void agregarSicop(SboSicop s) throws SQLException, Exception {
         sicopDao.agregarSicop(s);
+        int aux = sicopDao.getLastInsertCatSicop();
+        sicopDao.agregarNuevoLimite(aux);
+
     }
 
     public List<SboTbExistencia> listaExistencias(String bodega, String departamento, String articulo) {

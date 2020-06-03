@@ -227,7 +227,8 @@ function ErrorUsuario(){
 }
 
 function afterCreateUsuario() {
-
+    
+    alert("Usuario Agregado!");
     $('#myForm').trigger("reset");
     $('#agregarUsuarioModal').modal('hide');
     buscarPersonas();
@@ -267,6 +268,7 @@ function actualizarUsuario() {
 }
 
 function afterUpdateUsuario() {
+    alert("Usuario Actualizado!");
     $('#editarUsuarioModal').modal('hide');
     buscarPersonas();
 

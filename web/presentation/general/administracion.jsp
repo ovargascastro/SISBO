@@ -25,7 +25,7 @@
     
     <div id="titulo">
         <div class="jumbotron">
-            <h1>Admistración</h1>
+            <h1>Administración</h1>
             <p></p>
             <p></p>
         </div>

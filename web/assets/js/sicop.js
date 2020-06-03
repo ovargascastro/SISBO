@@ -145,6 +145,7 @@ function agregarSicop() {
 // despues de crear el articulo se resetean los campos de texto y se esconde el modal
 function afterCreateSicop() {
 
+    alert("Registro Agregado!");
     $('#agregaSicop').trigger("reset");
     $('#modalAgregarSicop').modal('hide');
     cargar();
@@ -152,6 +153,7 @@ function afterCreateSicop() {
 }
 // se oculta el modal de editar sicop y se limpian los campos de texto de dicho modal
 function ocultarSicop() {
+    alert("Registro Editado!");
     $('#actualizaSicop').trigger("reset");
     $('#modalEditarSicop').modal('hide');
     cargar();

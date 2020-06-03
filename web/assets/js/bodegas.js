@@ -34,7 +34,8 @@ function agregarBodega() {
 // se ejecuta cuando la funcion agregarBodega() es exitosa y se esconde el modal
 // para agregar una bodega y se limpian los campos de texto
 function afterCreateBodega() {
-
+    
+    alert("Bodega Agregada!");
     $('#modalAgregarBodega').modal('hide');
     $('#agregaBodega').trigger("reset");
     buscarBodegas();
@@ -141,6 +142,7 @@ function deleteBodega() {
 // se oculta el modal de eliminar
 function ocultarDelete() {
 
+    alert("Bodega Eliminada!");
     $('#modalEliminar').modal('hide');
     buscarBodegas();
 
@@ -197,6 +199,7 @@ function actualizarBodega() {
 // se oculta el modal de editar bodega
 function ocultarActualizarBodega() {
 
+    alert("Bodega Actualizada!");
     $('#modalEditarBode').modal('hide');
     buscarBodegas();
 

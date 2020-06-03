@@ -156,7 +156,6 @@
 
     </body>
     <script>
-                                                document.getElementById("codContableMenu").style.color = "white";
                                                 function listaOrdenes(personas) {
                                                     var listado = $("#listaordenesc");
                                                     listado.html("");

@@ -101,5 +101,6 @@ function salir() {
 }
 //se limpian los campos del ingreso de articulos
 function limpiar(){
+    alert("Articulos Ingresados!");
     location.href = "presentation/bodega/ingresoArticulos.jsp"; 
 }

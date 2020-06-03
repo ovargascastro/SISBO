@@ -264,7 +264,9 @@ function actualizarFamilia() {
 //se utiliza en caso de que la funcion actualizarFamilia haya sido exitosa
 // esconde el modal  de editar familia
 function afterUpdateFm() {
+    alert("Registro Editado!");
     buscarFamilias();
+    selectFamilias();
     $('#modalEditarFam').modal('hide');
 
 }
@@ -297,6 +299,8 @@ function actualizarSubFamilia() {
 //se utiliza en caso de que la funcion actualizarsubFamilia haya sido exitosa
 // esconde el modal  de editar subfamilia
 function afterUpdateSubFm() {
+    alert("Registro Editado!");
+    selectSubFamilias();
     buscarSubFamilias();
     $('#modalSubFam').modal('hide');
 }
@@ -327,6 +331,7 @@ function actualizarCatContable() {
 //se utiliza en caso de que la funcion actualizarCatContable haya sido exitosa
 // esconde modal de codigos contables
 function afterUpdateCt() {
+    alert("Registro Editado!");
     buscarCatContables();
     $('#modalEditarCatContable').modal('hide');
 
@@ -368,6 +373,7 @@ function actualizarCatArticulo() {
 //se utiliza en caso de que la funcion actualizarCatArt haya sido exitosa
 // esconde modal de catalogo de articulos
 function afterUpdateCatArt() {
+    alert("Registro Editado!");
     buscarCatArticulos();
     $('#modalArticulo').modal('hide');
 
@@ -512,6 +518,8 @@ function crearFamilia() {
 
 //se oculta el modal para agregar una familia despues de haber sido creada
 function afterCreateFm() {
+    alert("Registro Agregado!");
+    selectFamilias();
     buscarFamilias();
     $('#modalAgregarFamilia').modal('hide');
 }
@@ -543,6 +551,7 @@ function crearCatContable() {
 //se oculta el modal para agregar un codigo contable despues de haber sido creada
 //se listan de nuevo todos los codigos
 function afterCreateCont() {
+    alert("Registro Agregado!");
     buscarCatContables();
     $('#modalAgregarCatContable').modal('hide');
 }
@@ -574,7 +583,9 @@ function crearSubFamilia() {
 //se oculta el modal para agregar una subfamilia despues de haber sido creada
 //se listan las subfamilias
 function afterCreateSubFm() {
+    alert("Registro Agregado!");
     buscarSubFamilias();
+    selectAgregaFamilias();
     $('#modalAgregarSubFamilia').modal('hide');
 }
 //creamos un articulo en el catalogo
@@ -607,7 +618,9 @@ function CrearCatArticulo() {
 //se oculta el modal para agregar una articulo despues de haber sido creada
 //se listan los articulos existentes
 function afterCreateCatArt() {
+    alert("Registro Agregado!");
     buscarCatArticulos();
+    selectAgregaSubFamilias();
     $('#modalAgregarCatArticulo').modal('hide');
 }
 
