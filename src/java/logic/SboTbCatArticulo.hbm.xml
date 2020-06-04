@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-sep-2019 1:11:20 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="logic.SboTbCatArticulo" table="Sbo_TB_CatArticulo" schema="dbo" catalog="ABAA" optimistic-lock="version">
+        <id name="catIdPk" type="int">
+            <column name="Cat_Id_PK" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="sboTbSubFamilia" class="logic.SboTbSubFamilia" fetch="select">
+            <column name="Cat_SubF_FK" length="30" />
+        </many-to-one>
+        <property name="catCodSicop" type="string">
+            <column name="Cat_Cod_Sicop" length="30" />
+        </property>
+        <property name="catDesc" type="string">
+            <column name="Cat_Desc" length="300" />
+        </property>
+        <property name="catMaxi" type="java.lang.Integer">
+            <column name="Cat_Maxi" />
+        </property>
+        <property name="catMini" type="java.lang.Integer">
+            <column name="Cat_Mini" />
+        </property>
+        <set name="sboTbArticulos" table="Sbo_TB_Articulo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Art_Codi_Cat_Arti_FK" />
+            </key>
+            <one-to-many class="logic.SboTbArticulo" />
+        </set>
+        <set name="sboTbLimiteDptos" table="Sbo_TB_LimiteDpto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="LimiteDpto_Id_Cat_Arti_PK" not-null="true" />
+            </key>
+            <one-to-many class="logic.SboTbLimiteDpto" />
+        </set>
+    </class>
+</hibernate-mapping>
